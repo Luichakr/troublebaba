@@ -26,7 +26,7 @@ export const meta = {
   },
 };
 
-export const SITE_URL = 'https://bentocake.troublebaba.com';
+export const SITE_URL = 'https://luichakr.github.io/troublebaba';
 
 export const t = {
   uk: {
