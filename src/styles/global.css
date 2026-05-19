@@ -1,0 +1,112 @@
+@import "tailwindcss";
+@import '@fontsource/outfit/400.css';
+@import '@fontsource/outfit/500.css';
+@import '@fontsource/outfit/600.css';
+
+@theme {
+  --color-cream: #F5EFE8;
+  --color-warm-white: #FDFAF6;
+  --color-taupe: #C8B8A2;
+  --color-mocha: #8B7355;
+  --color-mocha-dark: #6E5C43;
+  --color-espresso: #1A1A1A;
+  --color-surface: #EFE6DA;
+
+  --font-cabinet: "Cabinet Grotesk", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: #F5EFE8;
+  color: #1A1A1A;
+  font-family: 'Manrope', 'Outfit', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse-soft {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.015); }
+}
+@keyframes float-cake {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+.animate-fade-up { animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) both; }
+.animate-fade-up-d1 { animation-delay: 0.08s; }
+.animate-fade-up-d2 { animation-delay: 0.16s; }
+.animate-fade-up-d3 { animation-delay: 0.24s; }
+.animate-fade-up-d4 { animation-delay: 0.32s; }
+
+.btn-pulse { animation: pulse-soft 3s ease-in-out infinite; }
+.img-float { animation: float-cake 6s ease-in-out infinite; }
+
+.card-hover {
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 48px rgba(139,115,85,0.20) !important;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.10s; }
+.reveal-d2 { transition-delay: 0.20s; }
+.reveal-d3 { transition-delay: 0.30s; }
+.reveal-d4 { transition-delay: 0.40s; }
+.reveal-d5 { transition-delay: 0.50s; }
+
+.lang-btn { transition: color 0.2s, border-color 0.2s; }
+.lang-btn.active { color: #8B7355; border-color: #8B7355; }
+
+.faq-content { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.22,1,0.36,1); }
+.faq-item.open .faq-content { max-height: 360px; }
+.faq-icon {
+  position: relative;
+  font-size: 0;
+  transition: background 0.3s, border-color 0.3s;
+}
+.faq-icon::before,
+.faq-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 12px; height: 1.5px;
+  background: #8B7355;
+  transform: translate(-50%, -50%);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s;
+  border-radius: 1px;
+}
+.faq-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+.faq-item.open .faq-icon { background: #EFE6DA; border-color: transparent; }
+.faq-item.open .faq-icon::after { transform: translate(-50%, -50%) rotate(0deg); opacity: 0; }
+
+.font-cabinet  { font-family: 'Playfair Display', 'Cormorant Garamond', serif; letter-spacing: -0.005em; font-weight: 600 !important; }
+.font-outfit   { font-family: 'Manrope', 'Outfit', sans-serif; }
+.font-fraunces { font-family: 'Playfair Display', serif; letter-spacing: -0.005em; }
+.font-cormorant{ font-family: 'Cormorant Garamond', serif; }
+
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.img-skeleton {
+  background-color: #EFE6DA;
+  position: relative;
+  overflow: hidden;
+}
