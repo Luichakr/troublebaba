@@ -90,10 +90,11 @@ const testimonials = [
   </header>
 
   <!-- ── HERO ── -->
-  <section class="min-h-[100dvh] lg:min-h-[85vh] pt-[68px] flex flex-col-reverse lg:flex-row max-w-[1440px] mx-auto">
+  <section class="min-h-[100dvh] lg:min-h-[85vh] pt-[68px]">
+    <div class="max-w-[1440px] mx-auto lg:px-16 flex flex-col-reverse lg:flex-row min-h-[calc(100dvh-68px)] lg:min-h-[calc(85vh-68px)]">
 
     <!-- Left: text -->
-    <div class="flex-1 flex flex-col justify-center px-6 lg:pl-16 xl:pl-20 lg:pr-10 py-8 lg:py-0 w-full lg:max-w-[680px]">
+    <div class="flex-1 flex flex-col justify-center px-6 lg:px-0 lg:pr-10 py-8 lg:py-0 w-full lg:max-w-[680px]">
 
       <!-- Eyebrow + heart (desktop only — on mobile shown over photo) -->
       <div class="animate-fade-up mb-7 hidden lg:block">
@@ -128,7 +129,7 @@ const testimonials = [
             <rect x="2" y="1" width="10" height="13" rx="2" stroke="#8B7355" stroke-width="1.4"/>
             <path d="M5 5h5M5 8h5M5 11h3" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round"/>
           </svg>
-          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 text-left leading-tight">10 рецептів</span>
+          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 text-left leading-tight" data-i18n="hero_chip1">10 рецептів</span>
         </div>
         <!-- PDF + фото -->
         <div class="flex items-center justify-start gap-2 bg-warm-white border border-taupe/30 rounded-xl px-2.5 lg:px-4 py-2 lg:py-2.5 shadow-sm">
@@ -137,7 +138,7 @@ const testimonials = [
             <circle cx="5.5" cy="5.5" r="1.5" stroke="#8B7355" stroke-width="1.2"/>
             <path d="M1 11l4-3 3 2.5 2.5-2 4.5 3.5" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 text-left leading-tight">PDF +<br class="lg:hidden"/> фото</span>
+          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 text-left leading-tight" data-i18n="hero_chip2">PDF + фото</span>
         </div>
         <!-- Таблиця перерахунку -->
         <div class="flex items-center justify-start gap-2 bg-warm-white border border-taupe/30 rounded-xl px-2.5 lg:px-4 py-2 lg:py-2.5 shadow-sm">
@@ -145,7 +146,7 @@ const testimonials = [
             <rect x="1" y="1" width="14" height="14" rx="2.5" stroke="#8B7355" stroke-width="1.4"/>
             <path d="M1 5.5h14M1 10h14M5.5 1v14" stroke="#8B7355" stroke-width="1.2"/>
           </svg>
-          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 text-left leading-tight">Таблиця перерахунку</span>
+          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 text-left leading-tight" data-i18n="hero_chip3">Таблиця перерахунку</span>
         </div>
       </div>
 
@@ -302,6 +303,7 @@ BY TROUBLEBABA
       </div>
 
     </div>
+    </div>
   </section>
 
   <!-- ── RECIPES ── -->
@@ -363,15 +365,15 @@ BY TROUBLEBABA
           </div>
           <!-- Gradient + name overlay -->
           <div class="absolute inset-0 bg-gradient-to-t from-espresso/88 via-espresso/15 to-transparent pointer-events-none"></div>
-          <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
-            <div class="font-cabinet font-black text-warm-white text-3xl leading-tight">{recipes[0].name}</div>
-            <div class="font-outfit text-warm-white/65 text-sm mt-1">{recipes[0].desc}</div>
+          <div class="absolute bottom-0 left-0 right-0 p-6 z-10" data-recipe-idx="0">
+            <div class="font-cabinet font-black text-warm-white text-3xl leading-tight" data-recipe-name>{recipes[0].name}</div>
+            <div class="font-outfit text-warm-white/65 text-sm mt-1" data-recipe-desc>{recipes[0].desc}</div>
           </div>
         </div>
 
         <!-- Right column: 2 stacked medium cards -->
         <div class="grid grid-rows-2 gap-4" style="min-height:460px;">
-          {[recipes[1], recipes[2]].map((r, i) => (
+          {([{ r: recipes[1], idx: 1 }, { r: recipes[2], idx: 2 }]).map(({ r, idx }, i) => (
             <div class={`reveal reveal-d${i+1} card-hover rounded-3xl overflow-hidden relative`} style="box-shadow:0 4px 20px rgba(139,115,85,0.09);">
               <!-- Skeleton -->
               <div class="img-skeleton absolute inset-0 w-full h-full">
@@ -382,9 +384,9 @@ BY TROUBLEBABA
                 <img src={r.img} alt={r.name} class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
               </div>
               <div class="absolute inset-0 bg-gradient-to-t from-espresso/82 via-espresso/10 to-transparent pointer-events-none"></div>
-              <div class="absolute bottom-0 left-0 right-0 p-5 z-10">
-                <div class="font-cabinet font-bold text-warm-white text-xl">{r.name}</div>
-                <div class="font-outfit text-warm-white/60 text-xs mt-0.5">{r.desc}</div>
+              <div class="absolute bottom-0 left-0 right-0 p-5 z-10" data-recipe-idx={idx}>
+                <div class="font-cabinet font-bold text-warm-white text-xl" data-recipe-name>{r.name}</div>
+                <div class="font-outfit text-warm-white/60 text-xs mt-0.5" data-recipe-desc>{r.desc}</div>
               </div>
             </div>
           ))}
@@ -393,7 +395,7 @@ BY TROUBLEBABA
 
       <!-- ── Zone 2: 4 equal cards: Snickers, Raffaello, Фісташка, Pina Colada ── -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        {[recipes[3], recipes[4], recipes[7], recipes[8]].map((r, i) => (
+        {([{ r: recipes[3], idx: 3 }, { r: recipes[4], idx: 4 }, { r: recipes[7], idx: 7 }, { r: recipes[8], idx: 8 }]).map(({ r, idx }, i) => (
           <div class={`reveal reveal-d${i+1} card-hover rounded-3xl overflow-hidden relative`} style="min-height:300px;box-shadow:0 4px 20px rgba(139,115,85,0.09);">
             <!-- Skeleton -->
             <div class="img-skeleton absolute inset-0 w-full h-full">
@@ -404,9 +406,9 @@ BY TROUBLEBABA
               <img src={r.img} alt={r.name} class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
             </div>
             <div class="absolute inset-0 bg-gradient-to-t from-espresso/82 via-espresso/10 to-transparent pointer-events-none"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-5 z-10">
-              <div class="font-cabinet font-bold text-warm-white text-xl">{r.name}</div>
-              <div class="font-outfit text-warm-white/55 text-xs mt-0.5">{r.desc}</div>
+            <div class="absolute bottom-0 left-0 right-0 p-5 z-10" data-recipe-idx={idx}>
+              <div class="font-cabinet font-bold text-warm-white text-xl" data-recipe-name>{r.name}</div>
+              <div class="font-outfit text-warm-white/55 text-xs mt-0.5" data-recipe-desc>{r.desc}</div>
             </div>
           </div>
         ))}
@@ -414,7 +416,7 @@ BY TROUBLEBABA
 
       <!-- ── Zone 3: Ferrero, Cinnabon, Вишня (wide col-span-2) ── -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {[recipes[5], recipes[6]].map((r, i) => (
+        {([{ r: recipes[5], idx: 5 }, { r: recipes[6], idx: 6 }]).map(({ r, idx }, i) => (
           <div class={`reveal reveal-d${i+1} card-hover rounded-3xl overflow-hidden relative`} style="min-height:300px;box-shadow:0 4px 20px rgba(139,115,85,0.09);">
             <!-- Skeleton -->
             <div class="img-skeleton absolute inset-0 w-full h-full">
@@ -425,9 +427,9 @@ BY TROUBLEBABA
               <img src={r.img} alt={r.name} class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
             </div>
             <div class="absolute inset-0 bg-gradient-to-t from-espresso/82 via-espresso/10 to-transparent pointer-events-none"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-5 z-10">
-              <div class="font-cabinet font-bold text-warm-white text-xl">{r.name}</div>
-              <div class="font-outfit text-warm-white/55 text-xs mt-0.5">{r.desc}</div>
+            <div class="absolute bottom-0 left-0 right-0 p-5 z-10" data-recipe-idx={idx}>
+              <div class="font-cabinet font-bold text-warm-white text-xl" data-recipe-name>{r.name}</div>
+              <div class="font-outfit text-warm-white/55 text-xs mt-0.5" data-recipe-desc>{r.desc}</div>
             </div>
           </div>
         ))}
@@ -442,9 +444,9 @@ BY TROUBLEBABA
             <img src={recipes[9].img} alt={recipes[9].name} class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-espresso/82 via-espresso/10 to-transparent pointer-events-none"></div>
-          <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
-            <div class="font-cabinet font-bold text-warm-white text-xl">{recipes[9].name}</div>
-            <div class="font-outfit text-warm-white/55 text-xs mt-0.5">{recipes[9].desc}</div>
+          <div class="absolute bottom-0 left-0 right-0 p-6 z-10" data-recipe-idx="9">
+            <div class="font-cabinet font-bold text-warm-white text-xl" data-recipe-name>{recipes[9].name}</div>
+            <div class="font-outfit text-warm-white/55 text-xs mt-0.5" data-recipe-desc>{recipes[9].desc}</div>
           </div>
         </div>
       </div>
@@ -1863,6 +1865,20 @@ function applyLang(lang: Lang) {
       const descEl = el.querySelector('[data-inside-desc]');
       if (titleEl) titleEl.textContent = item[0];
       if (descEl) descEl.textContent = item[1];
+    });
+  }
+
+  // Rebuild recipes (name + desc) per language
+  const recipesData = (tr as Record<string, unknown>).recipes_data as { name: string; desc: string }[] | undefined;
+  if (recipesData) {
+    document.querySelectorAll('[data-recipe-idx]').forEach(el => {
+      const idx = parseInt((el as HTMLElement).dataset.recipeIdx || '-1', 10);
+      const item = recipesData[idx];
+      if (!item) return;
+      const nameEl = el.querySelector('[data-recipe-name]');
+      const descEl = el.querySelector('[data-recipe-desc]');
+      if (nameEl) nameEl.textContent = item.name;
+      if (descEl) descEl.textContent = item.desc;
     });
   }
 
