@@ -311,15 +311,15 @@ BY TROUBLEBABA
 
         <!-- ── Left: Text + 2×3 feature grid ── -->
         <div class="reveal flex flex-col">
-          <!-- Eyebrow + line + heart -->
-          <div class="mb-7">
-            <div class="flex items-center gap-3 mb-2">
-              <span class="font-outfit text-[11px] font-semibold tracking-[0.22em] uppercase text-mocha" data-i18n="inside_label">Що всередині</span>
-              <div class="h-px flex-1 max-w-[60px] bg-mocha/30"></div>
+          <!-- Eyebrow + line + heart (inline) -->
+          <div class="flex items-center gap-3 mb-7">
+            <span class="font-outfit text-xs font-semibold tracking-[0.14em] uppercase text-mocha" data-i18n="inside_label">Що всередині</span>
+            <div class="flex items-center gap-2">
+              <div class="h-px w-10 bg-mocha/40"></div>
+              <svg width="11" height="10" viewBox="0 0 13 12" fill="none">
+                <path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round" fill="none"/>
+              </svg>
             </div>
-            <svg width="11" height="10" viewBox="0 0 13 12" fill="none" class="ml-1">
-              <path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round" fill="none"/>
-            </svg>
           </div>
 
           <!-- Heading -->
@@ -906,10 +906,15 @@ BY TROUBLEBABA
 
         <!-- ── Right: Text + social stats ── -->
         <div class="reveal reveal-d2 order-1 lg:order-2 lg:pl-4">
-          <!-- Eyebrow -->
-          <div class="mb-5">
-            <span class="font-outfit text-xs font-semibold tracking-[0.16em] uppercase text-mocha" data-i18n="author_label">Про автора</span>
-            <div class="h-px w-12 bg-mocha/40 mt-2"></div>
+          <!-- Eyebrow + line + heart -->
+          <div class="flex items-center gap-3 mb-5">
+            <span class="font-outfit text-xs font-semibold tracking-[0.14em] uppercase text-mocha" data-i18n="author_label">Про автора</span>
+            <div class="flex items-center gap-2">
+              <div class="h-px w-10 bg-mocha/40"></div>
+              <svg width="11" height="10" viewBox="0 0 13 12" fill="none">
+                <path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round" fill="none"/>
+              </svg>
+            </div>
           </div>
           <!-- Heading -->
           <h2 class="font-cabinet font-black text-warm-white mb-7" style="font-size:clamp(2.2rem,4vw,3.6rem);line-height:1.02;" data-i18n="author_title">
@@ -1009,7 +1014,15 @@ BY TROUBLEBABA
 
       <!-- Heading -->
       <div class="reveal mb-14 text-center">
-        <span class="font-outfit text-xs font-semibold tracking-[0.14em] uppercase text-mocha mb-4 block" data-i18n="price_label">Ціна</span>
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <span class="font-outfit text-xs font-semibold tracking-[0.14em] uppercase text-mocha" data-i18n="price_label">Ціна</span>
+          <div class="flex items-center gap-2">
+            <div class="h-px w-10 bg-mocha/40"></div>
+            <svg width="11" height="10" viewBox="0 0 13 12" fill="none">
+              <path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
         <h2 class="font-cabinet font-black text-espresso mb-5" style="font-size:clamp(2.4rem,5vw,4.2rem);line-height:1.0;" data-i18n="price_title">Одна ціна. Все включено.</h2>
         <p class="font-outfit text-espresso/50 text-base leading-relaxed max-w-2xl mx-auto" data-i18n="price_sub">Отримайте повний збірник рецептів бенто-тортів і все необхідне, щоб готувати із задоволенням та впевненістю.</p>
       </div>
@@ -1194,7 +1207,15 @@ BY TROUBLEBABA
 
       <!-- Top: heading -->
       <div class="reveal mb-10 max-w-2xl">
-        <span class="font-outfit text-xs font-semibold tracking-[0.18em] uppercase text-mocha mb-5 block" data-i18n="faq_label">Питання</span>
+        <div class="flex items-center gap-3 mb-5">
+          <span class="font-outfit text-xs font-semibold tracking-[0.14em] uppercase text-mocha" data-i18n="faq_label">Питання</span>
+          <div class="flex items-center gap-2">
+            <div class="h-px w-10 bg-mocha/40"></div>
+            <svg width="11" height="10" viewBox="0 0 13 12" fill="none">
+              <path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
         <h2 class="font-cabinet font-black text-espresso mb-4" style="font-size:clamp(2.4rem,5vw,4.2rem);line-height:1.0;" data-i18n="faq_title">Часті запитання</h2>
         <p class="font-outfit text-espresso/50 text-base leading-relaxed" data-i18n="faq_sub">Все, що важливо знати перед покупкою збірника.</p>
       </div>
