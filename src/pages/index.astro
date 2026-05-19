@@ -1766,6 +1766,14 @@ BY TROUBLEBABA
     </div>
   </footer>
 
+  <!-- ── Mobile sticky CTA (appears on scroll, mobile only) ── -->
+  <a id="sticky-cta" href="https://gumroad.com/l/bentocake" target="_blank"
+     class="md:hidden fixed bottom-4 left-4 right-4 z-40 bg-mocha text-warm-white font-outfit font-bold text-[15px] flex items-center justify-center gap-2 py-4 rounded-2xl shadow-2xl opacity-0 pointer-events-none translate-y-4 transition-all duration-300"
+     style="box-shadow:0 8px 28px rgba(139,115,85,0.45);"
+     data-i18n="nav_buy">
+    Купити PDF — $20
+  </a>
+
   <!-- ── LANG POPUP ── -->
   <div id="lang-popup" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] hidden">
     <div class="bg-espresso border border-mocha/30 rounded-2xl px-6 py-4 shadow-2xl flex flex-col sm:flex-row items-center gap-4 max-w-sm sm:max-w-lg text-center sm:text-left">
@@ -2025,6 +2033,21 @@ if (form && successMsg) {
     (form as HTMLFormElement).style.display = 'none';
     successMsg.classList.remove('hidden');
   });
+}
+
+// Sticky CTA — show after scroll past hero on mobile
+const stickyCta = document.getElementById('sticky-cta');
+if (stickyCta) {
+  const showAfter = window.innerHeight * 0.8;
+  const onScroll = () => {
+    if (window.scrollY > showAfter) {
+      stickyCta.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+    } else {
+      stickyCta.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 }
 
 // Mobile menu toggle

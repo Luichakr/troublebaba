@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://luichakr.github.io/troublebaba/</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://luichakr.github.io/troublebaba/?lang=uk"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://luichakr.github.io/troublebaba/?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://luichakr.github.io/troublebaba/?lang=pl"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://luichakr.github.io/troublebaba/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://luichakr.github.io/troublebaba/"/>
+  </url>
+  <url>
+    <loc>https://luichakr.github.io/troublebaba/privacy</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://luichakr.github.io/troublebaba/terms</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+</urlset>
