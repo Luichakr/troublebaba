@@ -100,6 +100,14 @@ body {
 .font-outfit   { font-family: 'Manrope', 'Outfit', sans-serif; }
 .font-fraunces { font-family: 'Playfair Display', serif; letter-spacing: -0.005em; }
 .font-cormorant{ font-family: 'Cormorant Garamond', serif; }
+/* Unified numeric font with tabular-lining figures — for stats, prices, counters */
+.font-stat {
+  font-family: 'Manrope', 'Outfit', sans-serif;
+  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
 
 @keyframes shimmer {
   0%   { transform: translateX(-100%); }
