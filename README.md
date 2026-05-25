@@ -1,43 +1,126 @@
-# Astro Starter Kit: Minimal
+# Bento Cake by TROUBLEBABA — landing page
+
+Premium static landing page for a $20 PDF recipe collection ("Bento Cake by TROUBLEBABA — 10 bento cake recipes"). Audience: pastry chefs in Ukraine, Poland, EU.
+
+**Live:** https://luichakr.github.io/troublebaba/
+
+## Stack
+
+- **Astro 6** (static output)
+- **Tailwind CSS v4** (`@theme { --color-* }` tokens in `src/styles/global.css`)
+- **i18n** — client-side, 4 languages (uk / ru / pl / en) via `src/i18n/translations.js`
+- **Deployment** — GitHub Pages via Actions (`.github/workflows/deploy.yml`)
+
+## Commands
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install           # install dependencies
+npm run dev           # local dev server at http://localhost:4321
+npm run build         # production build → ./dist/
+npm run preview       # preview the production build
+npm run og:rebuild    # regenerate public/images/og-cover.webp (1200×630)
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Project structure
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
+```
+bentocake-landing/
+├── public/                       Static assets served as-is
+│   ├── images/                   Product / hero / recipe photos
+│   ├── favicon.svg / .ico
+│   ├── apple-touch-icon.png      (generated, 180×180)
+│   ├── site.webmanifest
+│   ├── robots.txt
+│   └── sitemap.xml
+├── scripts/
+│   └── build-og-cover.mjs        Generates 1200×630 OG image via sharp
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── config/
+│   │   └── site.js               ⭐ Single source of truth for all constants
+│   ├── i18n/
+│   │   └── translations.js       Per-language text (uk/ru/pl/en) + recipes_data + faq_items
+│   ├── layouts/
+│   │   └── Layout.astro          <head>: meta, OG, canonical, hreflang, JSON-LD
+│   ├── pages/
+│   │   ├── index.astro           Main landing (single file, ~2000 lines)
+│   │   ├── 404.astro             Localized, noindex
+│   │   ├── privacy.astro         Localized via JS
+│   │   └── terms.astro           Localized via JS
+│   ├── scripts/
+│   │   └── legal-i18n.ts         Shared i18n bootstrap for 404/privacy/terms
+│   └── styles/
+│       └── global.css            Tailwind + custom utilities + animations
+└── .github/workflows/deploy.yml  GitHub Pages CI
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Where to change things
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+| Want to change… | Edit | Notes |
+|---|---|---|
+| Price ($20) | `src/config/site.js` → `SITE.price` | Also reflected in JSON-LD Product offer |
+| Currency | `src/config/site.js` → `SITE.currency` | |
+| Gumroad / payment URL | `src/config/site.js` → `SITE.paymentUrl` | TODO marker until final link |
+| Contact email | `src/config/site.js` → `SITE.contactEmail` | Used on /privacy and /terms |
+| Bonus counter ("осталось 15 мест") | `src/config/site.js` → `BONUS_REMAINING` | Set 0 to grey out the bonus block |
+| Total bonus spots | `src/config/site.js` → `BONUS_TOTAL` | |
+| OG image | regenerate via `npm run og:rebuild` | Source: `public/images/hero-cake.webp` |
+| Meta title / description per language | `src/i18n/translations.js` → `meta.uk` / `.ru` / `.pl` / `.en` | |
+| Recipe names | `src/i18n/translations.js` → `recipes_data` per language | Array of `{ name, desc }` |
+| FAQ Q&A | `src/i18n/translations.js` → `faq_items` per language | Also feeds FAQPage JSON-LD |
+| Privacy / Terms text | `src/i18n/translations.js` → `privacy_sections` / `terms_sections` | Array of `{ h, p }`, supports `{EMAIL}` placeholder |
+| Section text on the landing | `src/i18n/translations.js` → keys with `data-i18n="..."` in `index.astro` | |
+| Theme color / favicon color | `src/config/site.js` → `SITE.themeColor`; `public/favicon.svg` | |
+| Hero / recipe photos | `public/images/` | Reference relatively in HTML: `images/foo.webp` |
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Adding a new language
 
-## 🧞 Commands
+1. Add a new block in `src/i18n/translations.js` under `t.xx = { ... }` mirroring an existing one.
+2. Add `xx` to `SITE.supportedLangs` in `src/config/site.js`.
+3. Add `xx: { html: 'xx', og: 'xx_XX' }` to `LOCALES` in `src/config/site.js`.
+4. Add the new code to the language dropdown markup in `src/pages/index.astro` (`#lang-menu`, mobile menu).
 
-All commands are run from the root of the project, from a terminal:
+## Bonus counter
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+The bonus section animates a counter from `BONUS_TOTAL` (20) down to `BONUS_REMAINING` (currently 15) when scrolled into view. To update sales status:
 
-## 👀 Want to learn more?
+1. Edit `BONUS_REMAINING` in `src/config/site.js`
+2. Commit, push — GitHub Actions deploys in ~1 min
+3. When `BONUS_REMAINING <= 0`, the block automatically greys out, badge shows "Бонус закончился", CTA becomes inactive
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## SEO checklist
+
+- ✅ Per-page `<link rel="canonical">` (Layout.astro picks up `path` prop)
+- ✅ `hreflang` alternates on home (uk = root, ru/pl/en via `?lang=xx`)
+- ✅ JSON-LD: Organization + WebSite always; Product + FAQPage on home; BreadcrumbList on legal pages
+- ✅ Open Graph image 1200×630 in WebP
+- ✅ Twitter `summary_large_image` card
+- ✅ Favicon + apple-touch-icon + webmanifest + `theme-color`
+- ✅ `sitemap.xml` with hreflang alternates
+- ✅ `robots.txt` — allows all, links sitemap
+
+## Deployment
+
+Push to `main` triggers `.github/workflows/deploy.yml`:
+
+1. Node 22 → `npm ci` → `npm run build` with `GITHUB_PAGES=true`
+2. The env var flips `astro.config.mjs` `base` to `/troublebaba/`
+3. `./dist/` uploaded to GitHub Pages
+4. Live at https://luichakr.github.io/troublebaba/
+
+For a custom domain (e.g. `troublebaba.com`): update `SITE.url` in `src/config/site.js`, update `Sitemap:` URL in `public/robots.txt`, update the GitHub Pages custom-domain setting and remove the `base` override in `astro.config.mjs`.
+
+## Outstanding TODOs
+
+Search the codebase for `TODO:` to see all. The big ones:
+
+- `SITE.contactEmail` — verify real address before launch
+- `SITE.paymentUrl` — replace placeholder Gumroad link with the real one
+- Real testimonials (the section was removed; if reinstated, must use real data)
+- Analytics (no GA / Pixel currently wired; add via env when ready)
+
+## Don't break
+
+- Do not change the design tokens in `src/styles/global.css` without checking the whole page
+- Do not edit hero-cake.webp — it's the source for `og-cover.webp`
+- Do not delete `<base href={BASE} />` in Layout.astro — all relative image paths depend on it for GitHub Pages
+- Do not refactor `index.astro` into components without testing the i18n loop (`data-i18n` selector queries the whole document)

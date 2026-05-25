@@ -36,15 +36,15 @@ const testimonials = [
       <div class="flex items-center gap-3 flex-shrink-0">
         <!-- Language dropdown -->
         <div class="relative hidden sm:block" id="lang-dropdown-wrap">
-          <button id="lang-dropdown-btn" class="flex items-center gap-1.5 font-outfit font-semibold text-[12px] tracking-[0.12em] uppercase text-espresso/70 hover:text-espresso transition-colors px-4 py-2.5 rounded-full border border-taupe/40 hover:border-taupe/60">
+          <button id="lang-dropdown-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Choose language" class="flex items-center gap-1.5 font-outfit font-semibold text-[12px] tracking-[0.12em] uppercase text-espresso/70 hover:text-espresso transition-colors px-4 py-2.5 rounded-full border border-taupe/40 hover:border-taupe/60">
             <span id="lang-label">UKR</span>
             <svg width="11" height="7" viewBox="0 0 12 8" fill="none" class="transition-transform duration-200" id="lang-chevron">
               <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
-          <div id="lang-menu" class="hidden absolute right-0 top-full mt-2 bg-warm-white border border-taupe/25 rounded-2xl shadow-xl overflow-hidden min-w-[150px] z-50" style="box-shadow:0 12px 40px rgba(139,115,85,0.18);">
+          <div id="lang-menu" role="listbox" aria-label="Languages" class="hidden absolute right-0 top-full mt-2 bg-warm-white border border-taupe/25 rounded-2xl shadow-xl overflow-hidden min-w-[150px] z-50" style="box-shadow:0 12px 40px rgba(139,115,85,0.18);">
             {[{c:'uk',l:'UKR',full:'Українська'},{c:'ru',l:'RUS',full:'Русский'},{c:'pl',l:'POL',full:'Polski'},{c:'en',l:'ENG',full:'English'}].map(x => (
-              <button class="lang-btn w-full flex items-center justify-between px-4 py-3 font-outfit text-sm text-espresso/70 hover:bg-surface hover:text-espresso transition-colors" data-lang={x.c} data-label={x.l}>
+              <button type="button" role="option" aria-label={x.full} class="lang-btn w-full flex items-center justify-between px-4 py-3 font-outfit text-sm text-espresso/70 hover:bg-surface hover:text-espresso transition-colors" data-lang={x.c} data-label={x.l}>
                 <span class="font-medium">{x.full}</span>
                 <span class="text-xs text-espresso/35 font-mono">{x.l}</span>
               </button>
@@ -58,7 +58,7 @@ const testimonials = [
           Купити PDF — $20
         </a>
         <!-- Mobile burger menu -->
-        <button id="mobile-menu-btn" class="md:hidden w-9 h-9 rounded-full flex items-center justify-center text-espresso hover:bg-taupe/15 transition-colors flex-shrink-0" aria-label="Меню">
+        <button id="mobile-menu-btn" type="button" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden w-9 h-9 rounded-full flex items-center justify-center text-espresso hover:bg-taupe/15 transition-colors flex-shrink-0" aria-label="Menu">
           <svg width="18" height="13" viewBox="0 0 20 14" fill="none">
             <path d="M1 1h18M1 7h18M1 13h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
           </svg>
@@ -67,7 +67,7 @@ const testimonials = [
     </div>
 
     <!-- Mobile menu dropdown -->
-    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-warm-white border-b border-taupe/20" style="box-shadow:0 12px 32px rgba(139,115,85,0.15);">
+    <div id="mobile-menu" role="menu" aria-label="Main menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-warm-white border-b border-taupe/20" style="box-shadow:0 12px 32px rgba(139,115,85,0.15);">
       <div class="px-6 py-4 flex flex-col gap-1">
         {[
           { href: '#recipes', label: 'Рецепти', key: 'nav_recipes' },
@@ -1195,7 +1195,7 @@ BY TROUBLEBABA
               { q: 'Яку валюту і як можна оплатити?', a: 'Оплата через Gumroad: Visa, Mastercard, Apple Pay, Google Pay. Сума $20 — конвертується автоматично в UAH, PLN або EUR за курсом вашого банку.' },
               { q: 'Чи є повернення коштів?', a: 'Оскільки це цифровий товар, після завантаження повернення не передбачено. Якщо є технічні проблеми — пишіть в Instagram @troublebaba.' },
             ].map((faq, i) => (
-              <div class={`faq-item ${i === 0 ? 'open' : ''} cursor-pointer ${i > 0 ? 'border-t border-taupe/15' : ''}`} data-index={i}>
+              <div class={`faq-item ${i === 0 ? 'open' : ''} cursor-pointer ${i > 0 ? 'border-t border-taupe/15' : ''}`} data-index={i} role="button" tabindex="0" aria-expanded={i === 0 ? 'true' : 'false'}>
                 <div class="flex items-center gap-6 px-8 py-7">
                   <span class="font-outfit text-[11px] font-bold text-mocha/45 tracking-[0.2em] flex-shrink-0 w-7">
                     {String(i + 1).padStart(2, '0')}
@@ -1662,7 +1662,7 @@ function applyLang(lang: Lang) {
     });
     if (openSet.size === 0) openSet.add('0');
     faqList.innerHTML = faqItems.map((faq, i) => `
-      <div class="faq-item ${openSet.has(String(i)) ? 'open' : ''} cursor-pointer ${i > 0 ? 'border-t border-taupe/15' : ''}" data-index="${i}">
+      <div class="faq-item ${openSet.has(String(i)) ? 'open' : ''} cursor-pointer ${i > 0 ? 'border-t border-taupe/15' : ''}" data-index="${i}" role="button" tabindex="0" aria-expanded="${openSet.has(String(i)) ? 'true' : 'false'}">
         <div class="flex items-center gap-6 px-8 py-7">
           <span class="font-outfit text-[11px] font-bold text-mocha/45 tracking-[0.2em] flex-shrink-0 w-7">${String(i + 1).padStart(2, '0')}</span>
           <h3 class="font-outfit font-bold text-espresso text-[1rem] flex-1 leading-snug">${faq.q}</h3>
@@ -1691,11 +1691,25 @@ function applyLang(lang: Lang) {
 }
 
 function attachFaqListeners() {
+  const toggle = (item: Element) => {
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.setAttribute('aria-expanded', 'false');
+    });
+    if (!wasOpen) {
+      item.classList.add('open');
+      item.setAttribute('aria-expanded', 'true');
+    }
+  };
   document.querySelectorAll('.faq-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-      if (!isOpen) item.classList.add('open');
+    item.addEventListener('click', () => toggle(item));
+    item.addEventListener('keydown', (e) => {
+      const key = (e as KeyboardEvent).key;
+      if (key === 'Enter' || key === ' ') {
+        e.preventDefault();
+        toggle(item);
+      }
     });
   });
 }
@@ -1883,17 +1897,21 @@ if (stickyCta) {
 // Mobile menu toggle
 const mobMenuBtn = document.getElementById('mobile-menu-btn');
 const mobMenu = document.getElementById('mobile-menu');
+const setMobOpen = (open: boolean) => {
+  mobMenu?.classList.toggle('hidden', !open);
+  mobMenuBtn?.setAttribute('aria-expanded', String(open));
+};
 if (mobMenuBtn && mobMenu) {
   mobMenuBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    mobMenu.classList.toggle('hidden');
+    setMobOpen(mobMenu.classList.contains('hidden'));
   });
   document.querySelectorAll('.mobile-menu-link').forEach(link => {
-    link.addEventListener('click', () => mobMenu.classList.add('hidden'));
+    link.addEventListener('click', () => setMobOpen(false));
   });
   document.addEventListener('click', (e) => {
     if (!mobMenu.contains(e.target as Node) && !mobMenuBtn.contains(e.target as Node)) {
-      mobMenu.classList.add('hidden');
+      setMobOpen(false);
     }
   });
 }
@@ -1902,18 +1920,27 @@ if (mobMenuBtn && mobMenu) {
 const dropBtn = document.getElementById('lang-dropdown-btn');
 const dropMenu = document.getElementById('lang-menu');
 const dropChevron = document.getElementById('lang-chevron');
+const setDropOpen = (open: boolean) => {
+  dropMenu?.classList.toggle('hidden', !open);
+  dropBtn?.setAttribute('aria-expanded', String(open));
+  dropChevron?.style.setProperty('transform', open ? 'rotate(180deg)' : '');
+};
 if (dropBtn && dropMenu) {
   dropBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    const open = !dropMenu.classList.contains('hidden');
-    dropMenu.classList.toggle('hidden', open);
-    dropChevron?.style.setProperty('transform', open ? '' : 'rotate(180deg)');
+    setDropOpen(dropMenu.classList.contains('hidden'));
   });
-  document.addEventListener('click', () => {
-    dropMenu.classList.add('hidden');
-    dropChevron?.style.setProperty('transform', '');
-  });
+  document.addEventListener('click', () => setDropOpen(false));
 }
+
+// ESC closes mobile menu, lang dropdown, language popup
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  setMobOpen(false);
+  setDropOpen(false);
+  const popup = document.getElementById('lang-popup');
+  popup?.classList.add('hidden');
+});
 
 // Lang switcher buttons
 document.querySelectorAll('.lang-btn').forEach(btn => {

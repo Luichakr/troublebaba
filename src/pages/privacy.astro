@@ -2,61 +2,35 @@
 import Layout from '../layouts/Layout.astro';
 const BASE = import.meta.env.BASE_URL;
 ---
-<Layout title="Політика конфіденційності | TROUBLEBABA" description="Політика конфіденційності та обробки персональних даних">
+<Layout
+  title="Політика конфіденційності | TROUBLEBABA"
+  description="Політика конфіденційності та обробки персональних даних."
+  path="privacy"
+  pageType="legal"
+>
   <main class="min-h-[100dvh] py-16 lg:py-24" style="background:#F5EFE8;">
     <div class="max-w-3xl mx-auto px-6 lg:px-10">
 
-      <!-- Back link -->
-      <a href={BASE} class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10">
-        <svg width="14" height="12" viewBox="0 0 16 14" fill="none"><path d="M14 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        TROUBLEBABA
+      <a href={BASE} class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10" aria-label="TROUBLEBABA — на головну">
+        <svg width="14" height="12" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M14 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span data-i18n="legal_back">← TROUBLEBABA</span>
       </a>
 
-      <h1 class="font-cabinet text-espresso mb-4" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;">Політика конфіденційності</h1>
-      <p class="font-outfit text-espresso/45 text-sm mb-12">Остання редакція: травень 2026</p>
+      <h1 class="font-cabinet text-espresso mb-4" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;" data-i18n="privacy_heading">Політика конфіденційності</h1>
+      <p class="font-outfit text-espresso/45 text-sm mb-12" data-i18n="privacy_updated">Остання редакція: травень 2026</p>
 
-      <div class="prose space-y-6 font-outfit text-espresso/75 text-[15px] leading-relaxed">
-
+      <div id="legal-sections" class="space-y-6 font-outfit text-espresso/75 text-[15px] leading-relaxed">
+        <!-- Server-rendered fallback (uk) for SEO + no-JS users -->
         <section>
           <h2 class="font-cabinet text-espresso text-xl mb-3">1. Загальні положення</h2>
-          <p>Ця Політика конфіденційності пояснює, які персональні дані ми збираємо, як використовуємо, зберігаємо та захищаємо. Користуючись сайтом troublebaba.com, ви погоджуєтесь з цією Політикою.</p>
+          <p>Ця Політика конфіденційності пояснює, які персональні дані ми збираємо, як використовуємо, зберігаємо та захищаємо. Користуючись сайтом ви погоджуєтесь з цією Політикою.</p>
         </section>
-
-        <section>
-          <h2 class="font-cabinet text-espresso text-xl mb-3">2. Які дані ми збираємо</h2>
-          <ul class="list-disc list-inside space-y-1">
-            <li>Email — при оформленні замовлення через Gumroad</li>
-            <li>Анонімну аналітику (Google Analytics): IP, браузер, поведінка на сайті</li>
-            <li>Cookies — для запам'ятовування мови</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2 class="font-cabinet text-espresso text-xl mb-3">3. Мета обробки даних</h2>
-          <p>Дані використовуються виключно для: доставки купленого PDF на email, технічної підтримки, покращення сайту.</p>
-        </section>
-
-        <section>
-          <h2 class="font-cabinet text-espresso text-xl mb-3">4. Передача третім особам</h2>
-          <p>Дані не передаються третім особам, окрім платіжного процесора Gumroad (PCI DSS compliant), який обробляє оплати.</p>
-        </section>
-
-        <section>
-          <h2 class="font-cabinet text-espresso text-xl mb-3">5. Ваші права</h2>
-          <p>Ви маєте право: отримати копію своїх даних, виправити їх, видалити, відкликати згоду на обробку. Для запитів пишіть на <a href="mailto:hello@troublebaba.com" class="text-mocha underline">hello@troublebaba.com</a>.</p>
-        </section>
-
-        <section>
-          <h2 class="font-cabinet text-espresso text-xl mb-3">6. Cookies</h2>
-          <p>Ми використовуємо cookies лише для функціональності сайту (мова інтерфейсу). Маркетингові cookies не використовуються.</p>
-        </section>
-
-        <section>
-          <h2 class="font-cabinet text-espresso text-xl mb-3">7. Контакти</h2>
-          <p>З питань конфіденційності: <a href="mailto:hello@troublebaba.com" class="text-mocha underline">hello@troublebaba.com</a></p>
-        </section>
-
       </div>
     </div>
   </main>
+
+  <script>
+    import { initLegalI18n } from '../scripts/legal-i18n.ts';
+    initLegalI18n({ titleKey: 'privacy_meta_title', descKey: 'privacy_meta_desc', sectionsKey: 'privacy_sections' });
+  </script>
 </Layout>

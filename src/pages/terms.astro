@@ -2,58 +2,35 @@
 import Layout from '../layouts/Layout.astro';
 const BASE = import.meta.env.BASE_URL;
 ---
-<Layout title="Публічна оферта | TROUBLEBABA" description="Публічна оферта на продаж цифрового товару — PDF збірника рецептів">
+<Layout
+  title="Публічна оферта | TROUBLEBABA"
+  description="Публічна оферта на продаж цифрового товару — PDF збірника рецептів."
+  path="terms"
+  pageType="legal"
+>
   <main class="min-h-[100dvh] py-16 lg:py-24" style="background:#F5EFE8;">
     <div class="max-w-3xl mx-auto px-6 lg:px-10">
 
-      <a href={BASE} class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10">
-        <svg width="14" height="12" viewBox="0 0 16 14" fill="none"><path d="M14 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        TROUBLEBABA
+      <a href={BASE} class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10" aria-label="TROUBLEBABA — на головну">
+        <svg width="14" height="12" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M14 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span data-i18n="legal_back">← TROUBLEBABA</span>
       </a>
 
-      <h1 class="font-cabinet text-espresso mb-4" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;">Публічна оферта</h1>
-      <p class="font-outfit text-espresso/45 text-sm mb-12">Остання редакція: травень 2026</p>
+      <h1 class="font-cabinet text-espresso mb-4" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;" data-i18n="terms_heading">Публічна оферта</h1>
+      <p class="font-outfit text-espresso/45 text-sm mb-12" data-i18n="terms_updated">Остання редакція: травень 2026</p>
 
-      <div class="space-y-6 font-outfit text-espresso/75 text-[15px] leading-relaxed">
-
+      <div id="legal-sections" class="space-y-6 font-outfit text-espresso/75 text-[15px] leading-relaxed">
+        <!-- Server-rendered fallback (uk) for SEO + no-JS users -->
         <section>
           <h2 class="font-cabinet text-espresso text-xl mb-3">1. Предмет договору</h2>
-          <p>Цей документ є офіційною пропозицією (публічною офертою) автора Євгенії (далі — «Продавець») щодо продажу цифрового товару — PDF-збірника «Bento Cake — 10 авторських рецептів».</p>
+          <p>Цей документ є офіційною пропозицією (публічною офертою) автора щодо продажу цифрового товару — PDF-збірника «Bento Cake — 10 авторських рецептів».</p>
         </section>
-
-        <section>
-          <h2 class="font-cabinet text-espresso text-xl mb-3">2. Ціна та оплата</h2>
-          <p>Вартість збірника: <strong>$20 USD</strong>. Оплата здійснюється через платіжного процесора Gumroad (картки Visa, Mastercard, Apple Pay, Google Pay). Сума автоматично конвертується у валюту вашого банку за поточним курсом.</p>
-        </section>
-
-        <section>
-          <h2 class="font-cabinet text-espresso text-xl mb-3">3. Доставка</h2>
-          <p>Після успішної оплати посилання на завантаження PDF приходить на вказаний email протягом 1-2 хвилин. Файл доступний для завантаження необмежено.</p>
-        </section>
-
-        <section>
-          <h2 class="font-cabinet text-espresso text-xl mb-3">4. Повернення коштів</h2>
-          <p>Оскільки товар є цифровим (PDF-файл), <strong>після завантаження повернення не передбачено</strong>. Якщо у вас виникли технічні проблеми з отриманням файлу, зв'яжіться з нами протягом 14 днів — допоможемо.</p>
-        </section>
-
-        <section>
-          <h2 class="font-cabinet text-espresso text-xl mb-3">5. Інтелектуальна власність</h2>
-          <p>Усі рецепти, фото та оформлення є інтелектуальною власністю автора. Заборонено: перепродаж, публікація на інших ресурсах, передача файлу третім особам.</p>
-          <p class="mt-2"><strong>Дозволено:</strong> використовувати рецепти у власній кондитерській діяльності для приготування та продажу тортів.</p>
-        </section>
-
-        <section>
-          <h2 class="font-cabinet text-espresso text-xl mb-3">6. Гарантії</h2>
-          <p>Автор гарантує: рецепти перевірені на власній практиці у кондитерському бізнесі, містять точні грами та температури. Однак результат залежить від якості інгредієнтів, обладнання та дотримання технології.</p>
-        </section>
-
-        <section>
-          <h2 class="font-cabinet text-espresso text-xl mb-3">7. Контакти</h2>
-          <p>Email: <a href="mailto:hello@troublebaba.com" class="text-mocha underline">hello@troublebaba.com</a><br/>
-          Instagram: <a href="https://instagram.com/troublebaba" target="_blank" rel="noopener" class="text-mocha underline">@troublebaba</a></p>
-        </section>
-
       </div>
     </div>
   </main>
+
+  <script>
+    import { initLegalI18n } from '../scripts/legal-i18n.ts';
+    initLegalI18n({ titleKey: 'terms_meta_title', descKey: 'terms_meta_desc', sectionsKey: 'terms_sections' });
+  </script>
 </Layout>

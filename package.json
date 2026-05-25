@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "og:rebuild": "node scripts/build-og-cover.mjs"
   },
   "dependencies": {
     "@fontsource/outfit": "^5.2.8",

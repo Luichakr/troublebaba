@@ -1,0 +1,25 @@
+{
+  "name": "Bento Cake by TROUBLEBABA",
+  "short_name": "TROUBLEBABA",
+  "description": "PDF collection of 10 bento cake recipes by @troublebaba",
+  "start_url": "/troublebaba/",
+  "scope": "/troublebaba/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5EFE8",
+  "theme_color": "#F5EFE8",
+  "icons": [
+    {
+      "src": "/troublebaba/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/troublebaba/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

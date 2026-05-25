@@ -26,14 +26,11 @@ export const meta = {
   },
 };
 
-export const SITE_URL = 'https://luichakr.github.io/troublebaba';
-
-// === Bonus counter ===
-// Меняй это число вручную когда продаются места.
-// Стартует с 20, на странице анимацией откручивается до этого значения.
-// Когда станет 0 — блок становится серым, кнопка → "Бонус закончился".
-export const BONUS_TOTAL = 20;
-export const BONUS_REMAINING = 15;
+// Re-export site config so existing imports keep working.
+// Single source of truth is src/config/site.js — edit constants there.
+export { SITE, BONUS_TOTAL, BONUS_REMAINING, LOCALES, canonicalFor } from '../config/site.js';
+import { SITE } from '../config/site.js';
+export const SITE_URL = SITE.url;
 
 export const t = {
   uk: {
@@ -247,6 +244,42 @@ export const t = {
     popup_msg:    'Схоже, ваш браузер налаштований на %lang%. Відкрити сайт цією мовою?',
     popup_switch: 'Так, переключити',
     popup_stay:   'Залишитись',
+
+    // === Legal / system pages ===
+    legal_back:         '← TROUBLEBABA',
+    p404_meta_title:    '404 — Сторінку не знайдено | TROUBLEBABA',
+    p404_meta_desc:     'Запитувана сторінка не існує.',
+    p404_heading:       'Сторінку не знайдено',
+    p404_text:          'Схоже, цієї сторінки не існує. Можливо, її перемістили або видалили. Повернутись на головну?',
+    p404_back:          'На головну',
+
+    privacy_meta_title: 'Політика конфіденційності | TROUBLEBABA',
+    privacy_meta_desc:  'Політика конфіденційності та обробки персональних даних.',
+    privacy_heading:    'Політика конфіденційності',
+    privacy_updated:    'Останнє оновлення: травень 2026',
+    privacy_sections: [
+      { h: '1. Загальні положення', p: 'Ця Політика конфіденційності пояснює, які персональні дані ми збираємо, як використовуємо, зберігаємо та захищаємо. Користуючись сайтом, ви погоджуєтесь з цією Політикою.' },
+      { h: '2. Які дані ми збираємо', p: 'Email — при оформленні замовлення через Gumroad.\nАнонімна аналітика (Google Analytics): IP, браузер, поведінка на сайті.\nCookies — для запам\'ятовування мовних налаштувань.' },
+      { h: '3. Мета обробки', p: 'Дані використовуються виключно для: доставки придбаного PDF на email, технічної підтримки, покращення сайту.' },
+      { h: '4. Передача третім особам', p: 'Дані не передаються третім особам, окрім платіжного процесора Gumroad (PCI DSS compliant), що обробляє платежі.' },
+      { h: '5. Ваші права', p: 'Ви маєте право: отримати копію своїх даних, виправити їх, видалити, відкликати згоду. Для запитів пишіть на {EMAIL}.' },
+      { h: '6. Cookies', p: 'Ми використовуємо cookies лише для функціональності сайту (мова інтерфейсу). Маркетингових cookies немає.' },
+      { h: '7. Контакти', p: 'З питань конфіденційності: {EMAIL}' },
+    ],
+
+    terms_meta_title:   'Публічна оферта | TROUBLEBABA',
+    terms_meta_desc:    'Публічна оферта на продаж цифрового продукту — PDF-збірника рецептів.',
+    terms_heading:      'Публічна оферта',
+    terms_updated:      'Останнє оновлення: травень 2026',
+    terms_sections: [
+      { h: '1. Предмет', p: 'Цей документ є офіційною пропозицією (публічною офертою) автора Євгенії («Продавець») на продаж цифрового продукту — PDF-збірника «Bento Cake — 10 авторських рецептів».' },
+      { h: '2. Ціна та оплата', p: 'Ціна збірника: $20 USD. Оплата проходить через Gumroad (Visa, Mastercard, Apple Pay, Google Pay). Сума автоматично конвертується у валюту вашого банку за поточним курсом.' },
+      { h: '3. Доставка', p: 'Після успішної оплати посилання на завантаження PDF надсилається на вказаний email протягом 1–2 хвилин. Файл доступний для необмеженого завантаження.' },
+      { h: '4. Повернення', p: 'Оскільки продукт цифровий (PDF-файл), після завантаження повернення коштів не передбачено. У разі технічних проблем з отриманням файлу зверніться протягом 14 днів — допоможемо.' },
+      { h: '5. Інтелектуальна власність', p: 'Усі рецепти, фото та дизайн є інтелектуальною власністю автора. Заборонено: перепродаж, публікацію на інших ресурсах, передачу файлу третім особам.\nДозволено: використовувати рецепти у власній кондитерській діяльності для приготування та продажу тортів.' },
+      { h: '6. Гарантії', p: 'Автор гарантує: рецепти перевірені у власному кондитерському бізнесі, містять точні грамажі та температури. Однак результат залежить від якості інгредієнтів, обладнання та дотримання технології.' },
+      { h: '7. Контакти', p: 'Email: {EMAIL}\nInstagram: @troublebaba' },
+    ],
   },
 
   ru: {
@@ -435,6 +468,42 @@ export const t = {
     popup_msg:    'Похоже, ваш браузер настроен на %lang%. Открыть сайт на этом языке?',
     popup_switch: 'Да, переключить',
     popup_stay:   'Остаться',
+
+    // === Legal / system pages ===
+    legal_back:         '← TROUBLEBABA',
+    p404_meta_title:    '404 — Страница не найдена | TROUBLEBABA',
+    p404_meta_desc:     'Запрошенная страница не существует.',
+    p404_heading:       'Страница не найдена',
+    p404_text:          'Похоже, этой страницы не существует. Возможно, её переместили или удалили. Вернуться на главную?',
+    p404_back:          'На главную',
+
+    privacy_meta_title: 'Политика конфиденциальности | TROUBLEBABA',
+    privacy_meta_desc:  'Политика конфиденциальности и обработки персональных данных.',
+    privacy_heading:    'Политика конфиденциальности',
+    privacy_updated:    'Последнее обновление: май 2026',
+    privacy_sections: [
+      { h: '1. Общие положения', p: 'Эта Политика конфиденциальности объясняет, какие персональные данные мы собираем, как используем, храним и защищаем. Используя сайт, вы соглашаетесь с этой Политикой.' },
+      { h: '2. Какие данные мы собираем', p: 'Email — при оформлении заказа через Gumroad.\nАнонимная аналитика (Google Analytics): IP, браузер, поведение на сайте.\nCookies — для запоминания языковых настроек.' },
+      { h: '3. Цель обработки', p: 'Данные используются исключительно для: доставки купленного PDF на email, технической поддержки, улучшения сайта.' },
+      { h: '4. Передача третьим лицам', p: 'Данные не передаются третьим лицам, кроме платёжного процессора Gumroad (PCI DSS compliant), который обрабатывает платежи.' },
+      { h: '5. Ваши права', p: 'Вы имеете право: получить копию своих данных, исправить их, удалить, отозвать согласие. По запросам пишите на {EMAIL}.' },
+      { h: '6. Cookies', p: 'Мы используем cookies только для функциональности сайта (язык интерфейса). Маркетинговых cookies нет.' },
+      { h: '7. Контакты', p: 'По вопросам конфиденциальности: {EMAIL}' },
+    ],
+
+    terms_meta_title:   'Публичная оферта | TROUBLEBABA',
+    terms_meta_desc:    'Публичная оферта на продажу цифрового продукта — PDF-сборника рецептов.',
+    terms_heading:      'Публичная оферта',
+    terms_updated:      'Последнее обновление: май 2026',
+    terms_sections: [
+      { h: '1. Предмет', p: 'Этот документ является официальным предложением (публичной офертой) автора Евгении («Продавец») на продажу цифрового продукта — PDF-сборника «Bento Cake — 10 авторских рецептов».' },
+      { h: '2. Цена и оплата', p: 'Цена сборника: $20 USD. Оплата проходит через Gumroad (Visa, Mastercard, Apple Pay, Google Pay). Сумма автоматически конвертируется в валюту вашего банка по текущему курсу.' },
+      { h: '3. Доставка', p: 'После успешной оплаты ссылка на скачивание PDF отправляется на указанный email в течение 1–2 минут. Файл доступен для неограниченного скачивания.' },
+      { h: '4. Возврат', p: 'Поскольку продукт цифровой (PDF-файл), после скачивания возврат средств не предусмотрен. При технических проблемах с получением файла обратитесь в течение 14 дней — поможем.' },
+      { h: '5. Интеллектуальная собственность', p: 'Все рецепты, фото и дизайн являются интеллектуальной собственностью автора. Запрещено: перепродажа, публикация на других ресурсах, передача файла третьим лицам.\nРазрешено: использовать рецепты в собственной кондитерской деятельности для приготовления и продажи тортов.' },
+      { h: '6. Гарантии', p: 'Автор гарантирует: рецепты проверены в собственном кондитерском бизнесе, содержат точные граммовки и температуры. Однако результат зависит от качества ингредиентов, оборудования и соблюдения технологии.' },
+      { h: '7. Контакты', p: 'Email: {EMAIL}\nInstagram: @troublebaba' },
+    ],
   },
 
   pl: {
@@ -623,6 +692,42 @@ export const t = {
     popup_msg:    'Twoja przeglądarka jest ustawiona na %lang%. Otworzyć stronę w tym języku?',
     popup_switch: 'Tak, przełącz',
     popup_stay:   'Zostań',
+
+    // === Legal / system pages ===
+    legal_back:         '← TROUBLEBABA',
+    p404_meta_title:    '404 — Nie znaleziono strony | TROUBLEBABA',
+    p404_meta_desc:     'Żądana strona nie istnieje.',
+    p404_heading:       'Nie znaleziono strony',
+    p404_text:          'Wygląda na to, że ta strona nie istnieje. Mogła zostać przeniesiona lub usunięta. Wrócić na stronę główną?',
+    p404_back:          'Powrót na stronę główną',
+
+    privacy_meta_title: 'Polityka prywatności | TROUBLEBABA',
+    privacy_meta_desc:  'Polityka prywatności i przetwarzania danych osobowych.',
+    privacy_heading:    'Polityka prywatności',
+    privacy_updated:    'Ostatnia aktualizacja: maj 2026',
+    privacy_sections: [
+      { h: '1. Postanowienia ogólne', p: 'Niniejsza Polityka prywatności wyjaśnia, jakie dane osobowe zbieramy, jak je wykorzystujemy, przechowujemy i chronimy. Korzystając ze strony, wyrażasz zgodę na tę Politykę.' },
+      { h: '2. Jakie dane zbieramy', p: 'Email — przy składaniu zamówienia przez Gumroad.\nAnonimowa analityka (Google Analytics): IP, przeglądarka, zachowanie na stronie.\nCookies — do zapamiętywania preferencji językowych.' },
+      { h: '3. Cel przetwarzania', p: 'Dane są wykorzystywane wyłącznie do: dostarczenia zakupionego PDF na email, wsparcia technicznego, ulepszania strony.' },
+      { h: '4. Udostępnianie podmiotom trzecim', p: 'Dane nie są udostępniane podmiotom trzecim, z wyjątkiem procesora płatności Gumroad (zgodnego z PCI DSS), który obsługuje płatności.' },
+      { h: '5. Twoje prawa', p: 'Masz prawo: otrzymać kopię swoich danych, je poprawić, usunąć, wycofać zgodę. W sprawie wniosków pisz na {EMAIL}.' },
+      { h: '6. Cookies', p: 'Używamy cookies wyłącznie do funkcjonalności strony (język interfejsu). Brak cookies marketingowych.' },
+      { h: '7. Kontakt', p: 'W sprawach prywatności: {EMAIL}' },
+    ],
+
+    terms_meta_title:   'Regulamin | TROUBLEBABA',
+    terms_meta_desc:    'Oferta publiczna na sprzedaż produktu cyfrowego — zbioru przepisów PDF.',
+    terms_heading:      'Regulamin (oferta publiczna)',
+    terms_updated:      'Ostatnia aktualizacja: maj 2026',
+    terms_sections: [
+      { h: '1. Przedmiot', p: 'Niniejszy dokument jest oficjalną ofertą (ofertą publiczną) autorki Eugenii («Sprzedawca») na sprzedaż produktu cyfrowego — zbioru PDF «Bento Cake — 10 autorskich przepisów».' },
+      { h: '2. Cena i płatność', p: 'Cena zbioru: $20 USD. Płatność realizowana przez Gumroad (Visa, Mastercard, Apple Pay, Google Pay, BLIK). Kwota jest automatycznie przeliczana na walutę Twojego banku po aktualnym kursie.' },
+      { h: '3. Dostawa', p: 'Po pomyślnej płatności link do pobrania PDF jest wysyłany na podany email w ciągu 1–2 minut. Plik dostępny do nieograniczonej liczby pobrań.' },
+      { h: '4. Zwroty', p: 'Ponieważ produkt jest cyfrowy (plik PDF), po pobraniu zwroty nie są możliwe. W razie problemów technicznych z otrzymaniem pliku skontaktuj się w ciągu 14 dni — pomożemy.' },
+      { h: '5. Własność intelektualna', p: 'Wszystkie przepisy, zdjęcia i projekt są własnością intelektualną autorki. Zabronione: odsprzedaż, publikacja na innych zasobach, przekazywanie pliku osobom trzecim.\nDozwolone: wykorzystywanie przepisów we własnej działalności cukierniczej do przygotowywania i sprzedaży tortów.' },
+      { h: '6. Gwarancje', p: 'Autorka gwarantuje: przepisy są sprawdzone we własnym biznesie cukierniczym, zawierają dokładne gramatury i temperatury. Jednak wynik zależy od jakości składników, sprzętu i przestrzegania technologii.' },
+      { h: '7. Kontakt', p: 'Email: {EMAIL}\nInstagram: @troublebaba' },
+    ],
   },
 
   en: {
@@ -811,6 +916,42 @@ export const t = {
     popup_msg:    'Your browser is set to %lang%. Switch the site to this language?',
     popup_switch: 'Yes, switch',
     popup_stay:   'Stay',
+
+    // === Legal / system pages ===
+    legal_back:         '← TROUBLEBABA',
+    p404_meta_title:    '404 — Page not found | TROUBLEBABA',
+    p404_meta_desc:     'The page you requested does not exist.',
+    p404_heading:       'Page not found',
+    p404_text:          'It looks like this page does not exist. Maybe it moved or was removed. Go back to the home page?',
+    p404_back:          'Back to home',
+
+    privacy_meta_title: 'Privacy Policy | TROUBLEBABA',
+    privacy_meta_desc:  'Privacy policy and personal data processing.',
+    privacy_heading:    'Privacy Policy',
+    privacy_updated:    'Last updated: May 2026',
+    privacy_sections: [
+      { h: '1. General provisions', p: 'This Privacy Policy explains what personal data we collect, how we use, store and protect it. By using the site you agree to this Policy.' },
+      { h: '2. Data we collect',    p: 'Email — when ordering via Gumroad.\nAnonymous analytics (Google Analytics): IP, browser, behaviour on the site.\nCookies — for remembering language preference.' },
+      { h: '3. Purpose of processing', p: 'Data is used solely to: deliver the purchased PDF to email, provide technical support, improve the site.' },
+      { h: '4. Sharing with third parties', p: 'Data is not shared with third parties except the payment processor Gumroad (PCI DSS compliant), which handles payments.' },
+      { h: '5. Your rights',        p: 'You have the right to: receive a copy of your data, correct it, delete it, withdraw consent. For requests write to {EMAIL}.' },
+      { h: '6. Cookies',            p: 'We use cookies only for site functionality (interface language). No marketing cookies.' },
+      { h: '7. Contact',            p: 'For privacy questions: {EMAIL}' },
+    ],
+
+    terms_meta_title:   'Public Offer | TROUBLEBABA',
+    terms_meta_desc:    'Public offer for the sale of a digital product — PDF recipe collection.',
+    terms_heading:      'Public Offer',
+    terms_updated:      'Last updated: May 2026',
+    terms_sections: [
+      { h: '1. Subject',     p: 'This document is an official offer (public offer) by the author Evgeniya (the «Seller») for the sale of a digital product — the PDF collection «Bento Cake — 10 author recipes».' },
+      { h: '2. Price and payment', p: 'Price of the collection: $20 USD. Payment is processed via Gumroad (Visa, Mastercard, Apple Pay, Google Pay). The amount is automatically converted to your bank currency at the current rate.' },
+      { h: '3. Delivery',    p: 'After successful payment, the PDF download link is sent to the specified email within 1–2 minutes. The file is available for unlimited downloads.' },
+      { h: '4. Refunds',     p: 'Since the product is digital (PDF file), refunds are not provided after download. If you have technical problems receiving the file, contact us within 14 days — we will help.' },
+      { h: '5. Intellectual property', p: 'All recipes, photos and design are the intellectual property of the author. Forbidden: resale, publication on other resources, transfer of the file to third parties.\nAllowed: using the recipes in your own confectionery activity for preparing and selling cakes.' },
+      { h: '6. Guarantees', p: 'The author guarantees: recipes are tested in own confectionery business, contain precise grams and temperatures. However, the result depends on quality of ingredients, equipment, and adherence to technology.' },
+      { h: '7. Contacts',    p: 'Email: {EMAIL}\nInstagram: @troublebaba' },
+    ],
   },
 };
 
