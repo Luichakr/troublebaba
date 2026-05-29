@@ -42,6 +42,10 @@ export const SITE = {
 
   // Browser chrome
   themeColor: '#F5EFE8',
+
+  // Analytics — Google Analytics 4 Measurement ID.
+  // Set to empty string '' to disable analytics in production.
+  gaId: 'G-6JQ23T5RWN',
 };
 
 // === Bonus counter ===

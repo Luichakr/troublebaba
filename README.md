@@ -70,6 +70,7 @@ bentocake-landing/
 | Privacy / Terms text | `src/i18n/translations.js` → `privacy_sections` / `terms_sections` | Array of `{ h, p }`, supports `{EMAIL}` placeholder |
 | Section text on the landing | `src/i18n/translations.js` → keys with `data-i18n="..."` in `index.astro` | |
 | Theme color / favicon color | `src/config/site.js` → `SITE.themeColor`; `public/favicon.svg` | |
+| Google Analytics ID | `src/config/site.js` → `SITE.gaId` | Set to `''` to disable. Tag loads from Layout, hits every page. |
 | Hero / recipe photos | `public/images/` | Reference relatively in HTML: `images/foo.webp` |
 
 ## Adding a new language

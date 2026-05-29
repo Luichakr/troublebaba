@@ -94,6 +94,19 @@ const showHreflang = pageType === 'home';
   <link rel="manifest"         href="/site.webmanifest" />
   <link rel="mask-icon"        href="/favicon.svg" color="#8B7355" />
 
+  <!-- Google Analytics 4 — loaded on every page via this shared layout -->
+  {SITE.gaId && (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.gaId}`} is:inline></script>
+      <script is:inline define:vars={{ gaId: SITE.gaId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', gaId, { anonymize_ip: true });
+      </script>
+    </>
+  )}
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
