@@ -2,7 +2,7 @@
 
 Premium static landing page for a $20 PDF recipe collection ("Bento Cake by TROUBLEBABA — 10 bento cake recipes"). Audience: pastry chefs in Ukraine, Poland, EU.
 
-**Live:** https://luichakr.github.io/troublebaba/
+**Live:** https://troublebaba.com
 
 ## Stack
 
@@ -100,14 +100,22 @@ The bonus section animates a counter from `BONUS_TOTAL` (20) down to `BONUS_REMA
 
 ## Deployment
 
-Push to `main` triggers `.github/workflows/deploy.yml`:
+**Production: Cloudflare Pages** — auto-builds on every push to `main`.
 
-1. Node 22 → `npm ci` → `npm run build` with `GITHUB_PAGES=true`
-2. The env var flips `astro.config.mjs` `base` to `/troublebaba/`
-3. `./dist/` uploaded to GitHub Pages
-4. Live at https://luichakr.github.io/troublebaba/
+- **Framework preset:** Astro
+- **Build command:** `npm run build`
+- **Output directory:** `dist`
+- **Node version:** 22 (set via `NODE_VERSION=22` env var in Pages settings)
+- **Custom domains:** `troublebaba.com` (apex) + `www.troublebaba.com` (redirects to apex via `public/_redirects`)
 
-For a custom domain (e.g. `troublebaba.com`): update `SITE.url` in `src/config/site.js`, update `Sitemap:` URL in `public/robots.txt`, update the GitHub Pages custom-domain setting and remove the `base` override in `astro.config.mjs`.
+Cloudflare Pages picks up:
+- `public/_headers` — cache + security headers
+- `public/_redirects` — www → apex + legacy GitHub Pages redirect
+- `public/sitemap.xml`, `robots.txt`, `site.webmanifest` — served as-is
+
+**Legacy GitHub Pages workflow** (`.github/workflows/deploy.yml`) is kept as a manual-trigger backup. To deploy to GitHub Pages from CI: Actions → "Deploy to GitHub Pages (manual backup)" → Run workflow.
+
+To change the domain: update `SITE.url` in `src/config/site.js`, update `Sitemap:` URL in `public/robots.txt`, update sitemap.xml URLs, update Cloudflare Pages custom-domain settings.
 
 ## Outstanding TODOs
 

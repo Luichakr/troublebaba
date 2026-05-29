@@ -7,8 +7,9 @@ export const SITE = {
   name:        'TROUBLEBABA',
   productName: 'Bento Cake by TROUBLEBABA',
 
-  // Production URLs (no trailing slash on `url`)
-  url:         'https://luichakr.github.io/troublebaba',
+  // Production URL (no trailing slash). Site is hosted on Cloudflare Pages
+  // and bound to the apex domain troublebaba.com.
+  url:         'https://troublebaba.com',
 
   // Contact
   // TODO: INSERT VERIFIED CONTACT EMAIL — current value is placeholder

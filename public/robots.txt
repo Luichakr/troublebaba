@@ -11,4 +11,4 @@ Allow: /
 # User-agent: CCBot
 # Disallow: /
 
-Sitemap: https://luichakr.github.io/troublebaba/sitemap.xml
+Sitemap: https://troublebaba.com/sitemap.xml

@@ -2,12 +2,11 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
-// base — только для GitHub Pages (когда установлена переменная GITHUB_PAGES)
-const isGhPages = process.env.GITHUB_PAGES === 'true';
-
+// Site lives at apex domain troublebaba.com (root path).
+// The public/CNAME file pins GitHub Pages to this domain.
 export default defineConfig({
-  site: 'https://luichakr.github.io',
-  base: isGhPages ? '/troublebaba/' : '/',
+  site: 'https://troublebaba.com',
+  base: '/',
   output: 'static',
   vite: {
     plugins: [tailwindcss()]

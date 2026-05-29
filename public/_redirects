@@ -1,0 +1,8 @@
+# Cloudflare Pages redirects.
+# Docs: https://developers.cloudflare.com/pages/configuration/redirects/
+
+# www → apex (301)
+https://www.troublebaba.com/*  https://troublebaba.com/:splat  301!
+
+# Legacy GitHub Pages URL → apex
+https://luichakr.github.io/troublebaba/*  https://troublebaba.com/:splat  301!

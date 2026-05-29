@@ -1,8 +1,13 @@
-name: Deploy to GitHub Pages
+# LEGACY — GitHub Pages deploy.
+# Production hosting is now Cloudflare Pages (auto-deploys on push to main).
+# This workflow is kept as a manual-trigger backup. To deploy to GitHub Pages
+# again, go to Actions → "Deploy to GitHub Pages (manual backup)" → Run workflow.
+#
+# If you fully retire GitHub Pages, you can delete this file.
+
+name: Deploy to GitHub Pages (manual backup)
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -29,8 +34,6 @@ jobs:
         run: npm ci
       - name: Build with Astro
         run: npm run build
-        env:
-          GITHUB_PAGES: 'true'
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
