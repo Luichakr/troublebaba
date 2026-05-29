@@ -1,18 +1,25 @@
 ---
 import '../styles/global.css';
-import { SITE, LOCALES, canonicalFor } from '../config/site.js';
+import { SITE, LOCALES } from '../config/site.js';
 import { t } from '../i18n/translations.js';
 
+type Lang = 'uk' | 'ru' | 'pl' | 'en';
+
 interface Props {
-  /** Page title — overrides SITE default. Localized titles are also swapped client-side via applyMeta. */
+  /** Page title (server-rendered per language; no client mutation). */
   title?: string;
   /** Meta description. */
   description?: string;
-  /** Initial html lang (real lang is set client-side once detected). */
-  lang?: string;
-  /** Pathname for canonical (no leading slash). '' = home, 'privacy', 'terms'. */
+  /** Page language (uk | ru | pl | en). */
+  lang?: Lang;
+  /** URL path RELATIVE to the site root. Examples:
+   *  ''         → /            (uk home)
+   *  'ru'       → /ru/         (ru home)
+   *  'privacy'  → /privacy     (uk privacy)
+   *  'ru/privacy' → /ru/privacy (ru privacy)
+   */
   path?: string;
-  /** Page type — 'home', 'legal', 'error'. Drives JSON-LD selection. */
+  /** Page type — 'home', 'legal', 'error'. Drives JSON-LD and GA loading. */
   pageType?: 'home' | 'legal' | 'error';
   /** When true, add <meta name="robots" content="noindex,nofollow"> (use for 404). */
   noindex?: boolean;
@@ -21,20 +28,72 @@ interface Props {
 const {
   title       = 'Bento Cake by TROUBLEBABA — 10 рецептів бенто-тортів | PDF',
   description = 'Збірник 10 авторських рецептів бенто-тортів від кондитера @troublebaba. PDF з покроковими фото, точними грамажами та таблицею перерахунку.',
-  lang        = SITE.defaultLang,
+  lang        = SITE.defaultLang as Lang,
   path        = '',
   pageType    = 'home',
   noindex     = false,
 } = Astro.props;
 
-const BASE      = import.meta.env.BASE_URL;
-const SITE_URL  = SITE.url;
-const CANONICAL = canonicalFor(path);
+const BASE     = import.meta.env.BASE_URL;
+const SITE_URL = SITE.url;
+
+// Helpers ---------------------------------------------------------------
+const SUPPORTED: Lang[] = ['uk', 'ru', 'pl', 'en'];
+
+// Build absolute URL: home for lang, with trailing slash. UK home is at root.
+function homePathFor(l: Lang): string {
+  return l === 'uk' ? '/' : `/${l}/`;
+}
+
+// Strip the lang prefix from `path` if it leads. Returns subpath: '' | 'privacy' | 'terms'.
+function stripLangPrefix(p: string): string {
+  const parts = p.replace(/^\/+/, '').replace(/\/+$/, '').split('/');
+  if (parts.length === 0) return '';
+  const head = parts[0];
+  if ((SUPPORTED as string[]).includes(head)) return parts.slice(1).join('/');
+  return parts.join('/');
+}
+
+// Localized URL for the SAME logical page in a different language.
+function altUrlFor(l: Lang): string {
+  const sub = stripLangPrefix(path);
+  return SITE_URL + homePathFor(l) + sub;
+}
+
+const CANONICAL = SITE_URL + (path
+  ? '/' + path.replace(/^\/+/, '').replace(/\/+$/, '') + (pageType === 'home' ? '/' : '')
+  : '/');
+
 const OG_IMAGE  = SITE_URL + SITE.ogImage;
 const OG_LOCALE = LOCALES[lang]?.og || 'uk_UA';
 
-// hreflang alternates — only for home page (legal pages aren't yet route-localized; they switch lang client-side).
-const showHreflang = pageType === 'home';
+// Hreflang alternates — emit for home and legal pages (skip 404/error).
+const emitHreflang = pageType === 'home' || pageType === 'legal';
+const hreflangEntries = SUPPORTED.map(l => ({ lang: l, url: altUrlFor(l) }));
+const xDefaultUrl = altUrlFor('uk');
+
+// JSON-LD helpers -------------------------------------------------------
+const tr = (t as Record<string, any>)[lang] || (t as Record<string, any>).uk;
+
+// Localized breadcrumb "Home" label per language.
+const HOME_LABEL: Record<Lang, string> = {
+  uk: 'Головна',
+  ru: 'Главная',
+  pl: 'Strona główna',
+  en: 'Home',
+};
+const homeLabel = HOME_LABEL[lang] ?? 'Home';
+
+// Localized Product.category per language.
+const PRODUCT_CATEGORY: Record<Lang, string> = {
+  uk: 'Цифрова збірка рецептів',
+  ru: 'Цифровой сборник рецептов',
+  pl: 'Cyfrowy zbiór przepisów',
+  en: 'Digital cookbook',
+};
+
+// Skip GA on legal/404 pages — avoid noise + reduce JS on low-value pages.
+const loadGA = pageType === 'home' && !!SITE.gaId;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -42,49 +101,55 @@ const showHreflang = pageType === 'home';
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <base href={BASE} />
-  <title id="page-title">{title}</title>
-  <meta name="description" id="meta-description" content={description} />
+  <title>{title}</title>
+  <meta name="description" content={description} />
   {noindex && <meta name="robots" content="noindex,nofollow" />}
   <meta name="author" content={SITE.name} />
   <meta name="theme-color" content={SITE.themeColor} />
   <meta name="color-scheme" content="light" />
 
   <!-- Canonical (per-page) -->
-  <link rel="canonical" id="canonical-link" href={CANONICAL} />
+  <link rel="canonical" href={CANONICAL} />
 
-  {showHreflang && (
+  {emitHreflang && (
     <>
-      <link rel="alternate" hreflang="x-default" href={SITE_URL + '/'} />
-      <link rel="alternate" hreflang="uk" href={SITE_URL + '/'} />
-      <link rel="alternate" hreflang="ru" href={SITE_URL + '/?lang=ru'} />
-      <link rel="alternate" hreflang="pl" href={SITE_URL + '/?lang=pl'} />
-      <link rel="alternate" hreflang="en" href={SITE_URL + '/?lang=en'} />
+      <link rel="alternate" hreflang="x-default" href={xDefaultUrl} />
+      {hreflangEntries.map(e => (
+        <link rel="alternate" hreflang={e.lang} href={e.url} />
+      ))}
     </>
   )}
 
   <!-- Open Graph (Facebook, Telegram, WhatsApp, LinkedIn) -->
   <meta property="og:type"             content={pageType === 'home' ? 'product' : 'website'} />
   <meta property="og:site_name"        content={SITE.name} />
-  <meta property="og:title"            id="og-title"       content={title} />
-  <meta property="og:description"      id="og-description" content={description} />
-  <meta property="og:url"              id="og-url"         content={CANONICAL} />
-  <meta property="og:image"            id="og-image"       content={OG_IMAGE} />
+  <meta property="og:title"            content={title} />
+  <meta property="og:description"      content={description} />
+  <meta property="og:url"              content={CANONICAL} />
+  <meta property="og:image"            content={OG_IMAGE} />
   <meta property="og:image:secure_url" content={OG_IMAGE} />
   <meta property="og:image:type"       content={SITE.ogImageType} />
   <meta property="og:image:width"      content={String(SITE.ogImageWidth)} />
   <meta property="og:image:height"     content={String(SITE.ogImageHeight)} />
-  <meta property="og:image:alt"        id="og-image-alt"   content="Bento Cake — PDF збірник рецептів від TROUBLEBABA" />
-  <meta property="og:locale"           id="og-locale"      content={OG_LOCALE} />
-  <meta property="og:locale:alternate" content="uk_UA" />
-  <meta property="og:locale:alternate" content="ru_RU" />
-  <meta property="og:locale:alternate" content="pl_PL" />
-  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:image:alt"        content="Bento Cake — PDF збірник рецептів від TROUBLEBABA" />
+  <meta property="og:locale"           content={OG_LOCALE} />
+  {SUPPORTED.filter(l => l !== lang).map(l => (
+    <meta property="og:locale:alternate" content={LOCALES[l].og} />
+  ))}
+
+  <!-- Product price meta — picked up by Pinterest, some Telegram clients -->
+  {pageType === 'home' && (
+    <>
+      <meta property="product:price:amount"   content={String(SITE.price)} />
+      <meta property="product:price:currency" content={SITE.currency} />
+    </>
+  )}
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       id="tw-title"       content={title} />
-  <meta name="twitter:description" id="tw-description" content={description} />
-  <meta name="twitter:image"       id="tw-image"       content={OG_IMAGE} />
+  <meta name="twitter:title"       content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image"       content={OG_IMAGE} />
   <meta name="twitter:image:alt"   content="Bento Cake — PDF збірник рецептів від TROUBLEBABA" />
 
   <!-- Favicon set -->
@@ -94,8 +159,8 @@ const showHreflang = pageType === 'home';
   <link rel="manifest"         href="/site.webmanifest" />
   <link rel="mask-icon"        href="/favicon.svg" color="#8B7355" />
 
-  <!-- Google Analytics 4 — loaded on every page via this shared layout -->
-  {SITE.gaId && (
+  <!-- Google Analytics 4 — only on home pages (skip 404 / legal / error to reduce noise) -->
+  {loadGA && (
     <>
       <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.gaId}`} is:inline></script>
       <script is:inline define:vars={{ gaId: SITE.gaId }}>
@@ -107,10 +172,12 @@ const showHreflang = pageType === 'home';
     </>
   )}
 
-  <!-- Fonts -->
+  <!-- Fonts — only actually-used families and weights.
+       Outfit is loaded locally via @fontsource (see global.css), so it's
+       intentionally NOT in this Google Fonts URL. -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@400;500;600;700&family=Outfit:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet" />
 
   <!-- JSON-LD: Organization (always) -->
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -132,11 +199,12 @@ const showHreflang = pageType === 'home';
     "inLanguage": SITE.supportedLangs,
   })} />
 
-  {pageType === 'home' && t.uk.faq_items && (
+  {pageType === 'home' && tr?.faq_items && (
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "mainEntity": t.uk.faq_items.map((it) => ({
+      "inLanguage": lang,
+      "mainEntity": tr.faq_items.map((it: any) => ({
         "@type": "Question",
         "name": it.q,
         "acceptedAnswer": { "@type": "Answer", "text": it.a },
@@ -150,16 +218,30 @@ const showHreflang = pageType === 'home';
       "@type": "Product",
       "name": SITE.productName,
       "description": description,
+      "inLanguage": lang,
       "brand": { "@type": "Brand", "name": SITE.name },
       "image": OG_IMAGE,
-      "category": "Digital download / Cookbook",
+      "category": PRODUCT_CATEGORY[lang] || PRODUCT_CATEGORY.en,
+      "sku": "troublebaba-bento-cake-pdf",
       "offers": {
         "@type": "Offer",
         "price": String(SITE.price),
         "priceCurrency": SITE.currency,
         "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
         "url": SITE.paymentUrl,
+        "seller": { "@type": "Organization", "name": SITE.name },
       }
+    })} />
+  )}
+
+  {pageType === 'home' && (
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": homeLabel, "item": CANONICAL },
+      ],
     })} />
   )}
 
@@ -168,7 +250,7 @@ const showHreflang = pageType === 'home';
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + '/' },
+        { "@type": "ListItem", "position": 1, "name": homeLabel, "item": SITE_URL + homePathFor(lang) },
         { "@type": "ListItem", "position": 2, "name": title.split(' | ')[0], "item": CANONICAL },
       ],
     })} />

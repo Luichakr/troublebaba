@@ -1,0 +1,28 @@
+---
+// Localized home pages: /ru/, /pl/, /en/.
+// Ukrainian is served at root /, so it's not in this getStaticPaths.
+import Layout from '../../layouts/Layout.astro';
+import HomePage from '../../components/HomePage.astro';
+import { meta } from '../../i18n/translations.js';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'ru' } },
+    { params: { lang: 'pl' } },
+    { params: { lang: 'en' } },
+  ];
+}
+
+type Lang = 'ru' | 'pl' | 'en';
+const { lang } = Astro.params as { lang: Lang };
+const m = (meta as any)[lang] ?? {};
+---
+<Layout
+  title={m.title}
+  description={m.description}
+  lang={lang}
+  path={lang}
+  pageType="home"
+>
+  <HomePage lang={lang} />
+</Layout>

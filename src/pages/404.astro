@@ -1,23 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
-const BASE = import.meta.env.BASE_URL;
+import { t } from '../i18n/translations.js';
+
+// 404 is noindex (Google won't index it), so we render in UK only.
+const lang = 'uk' as const;
+const tr = (t as any)[lang];
 ---
 <Layout
-  title="404 — Сторінка не знайдена | TROUBLEBABA"
-  description="Сторінка не знайдена."
+  title={tr.p404_meta_title}
+  description={tr.p404_meta_desc}
+  lang={lang}
   path=""
   pageType="error"
   noindex={true}
 >
   <main class="min-h-[100dvh] flex items-center justify-center px-6" style="background:#F5EFE8;">
     <div class="text-center max-w-md">
-      <!-- Logo -->
-      <a href={BASE} class="inline-block font-cabinet text-espresso text-3xl mb-12 tracking-tight" aria-label="TROUBLEBABA — на головну">TROUBLEBABA</a>
+      <a href="/" class="inline-block font-cabinet text-espresso text-3xl mb-12 tracking-tight" aria-label="TROUBLEBABA">TROUBLEBABA</a>
 
-      <!-- 404 -->
       <div class="font-cabinet text-mocha mb-6" style="font-size:clamp(5rem,12vw,9rem);line-height:1;">404</div>
 
-      <!-- Decorative line + heart -->
       <div class="flex items-center justify-center gap-3 mb-8" aria-hidden="true">
         <div class="h-px w-16 bg-mocha/40"></div>
         <svg width="14" height="13" viewBox="0 0 13 12" fill="none">
@@ -26,24 +28,15 @@ const BASE = import.meta.env.BASE_URL;
         <div class="h-px w-16 bg-mocha/40"></div>
       </div>
 
-      <h1 class="font-cabinet text-espresso mb-4" style="font-size:clamp(1.8rem,3.5vw,2.8rem);line-height:1.1;" data-i18n="p404_heading">
-        Сторінка не знайдена
-      </h1>
-      <p class="font-outfit text-espresso/55 leading-relaxed mb-10" data-i18n="p404_text">
-        Здається, такої сторінки не існує. Можливо, вона переїхала або була видалена. Повернемось на головну?
-      </p>
+      <h1 class="font-cabinet text-espresso mb-4" style="font-size:clamp(1.8rem,3.5vw,2.8rem);line-height:1.1;">{tr.p404_heading}</h1>
+      <p class="font-outfit text-espresso/55 leading-relaxed mb-10">{tr.p404_text}</p>
 
-      <a href={BASE} class="inline-flex items-center gap-3 bg-mocha text-warm-white font-outfit font-semibold text-base px-7 py-4 rounded-2xl hover:bg-mocha-dark transition-colors min-h-[44px]">
+      <a href="/" class="inline-flex items-center gap-3 bg-mocha text-warm-white font-outfit font-semibold text-base px-7 py-4 rounded-2xl hover:bg-mocha-dark transition-colors min-h-[44px]">
         <svg width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true">
           <path d="M14 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <span data-i18n="p404_back">На головну</span>
+        <span>{tr.p404_back}</span>
       </a>
     </div>
   </main>
-
-  <script>
-    import { initLegalI18n } from '../scripts/legal-i18n.ts';
-    initLegalI18n({ titleKey: 'p404_meta_title', descKey: 'p404_meta_desc' });
-  </script>
 </Layout>

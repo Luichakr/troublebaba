@@ -31,3 +31,8 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   X-Frame-Options: SAMEORIGIN
+  # HSTS — 1 year, includeSubDomains. NOT submitting to Chrome preload list
+  # (preload registration is effectively irreversible).
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  # Minimal CSP — self + GA4. Adjust if you add Gumroad iframe or other 3rd party.
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com; frame-ancestors 'self'

@@ -1,14 +1,4 @@
-# robots.txt — Bento Cake by TROUBLEBABA
-# Default: allow all crawlers. CSS/JS/images are not blocked
-# (Google needs them to render and rank the page correctly).
-
 User-agent: *
 Allow: /
 
-# Bad-bot block list (optional — uncomment to enable)
-# User-agent: GPTBot
-# Disallow: /
-# User-agent: CCBot
-# Disallow: /
-
-Sitemap: https://troublebaba.com/sitemap.xml
+Sitemap: https://troublebaba.com/sitemap-index.xml

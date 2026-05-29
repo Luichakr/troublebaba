@@ -1,0 +1,27 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import LegalPage from '../../components/LegalPage.astro';
+import { t, meta } from '../../i18n/translations.js';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'ru' } },
+    { params: { lang: 'pl' } },
+    { params: { lang: 'en' } },
+  ];
+}
+
+type Lang = 'ru' | 'pl' | 'en';
+const { lang } = Astro.params as { lang: Lang };
+const tr = (t as any)[lang];
+const m  = (meta as any)[lang] ?? {};
+---
+<Layout
+  title={tr.privacy_meta_title || m.title}
+  description={tr.privacy_meta_desc || m.description}
+  lang={lang}
+  path={`${lang}/privacy`}
+  pageType="legal"
+>
+  <LegalPage lang={lang} kind="privacy" homeUrl={`/${lang}/`} />
+</Layout>

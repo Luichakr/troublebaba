@@ -1,36 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
-const BASE = import.meta.env.BASE_URL;
+import LegalPage from '../components/LegalPage.astro';
+import { t, meta } from '../i18n/translations.js';
+
+const lang = 'uk' as const;
+const tr = (t as any)[lang];
+const m  = (meta as any)[lang] ?? {};
 ---
 <Layout
-  title="Політика конфіденційності | TROUBLEBABA"
-  description="Політика конфіденційності та обробки персональних даних."
+  title={tr.privacy_meta_title || m.title}
+  description={tr.privacy_meta_desc || m.description}
+  lang={lang}
   path="privacy"
   pageType="legal"
 >
-  <main class="min-h-[100dvh] py-16 lg:py-24" style="background:#F5EFE8;">
-    <div class="max-w-3xl mx-auto px-6 lg:px-10">
-
-      <a href={BASE} class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10" aria-label="TROUBLEBABA — на головну">
-        <svg width="14" height="12" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M14 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span data-i18n="legal_back">← TROUBLEBABA</span>
-      </a>
-
-      <h1 class="font-cabinet text-espresso mb-4" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;" data-i18n="privacy_heading">Політика конфіденційності</h1>
-      <p class="font-outfit text-espresso/45 text-sm mb-12" data-i18n="privacy_updated">Остання редакція: травень 2026</p>
-
-      <div id="legal-sections" class="space-y-6 font-outfit text-espresso/75 text-[15px] leading-relaxed">
-        <!-- Server-rendered fallback (uk) for SEO + no-JS users -->
-        <section>
-          <h2 class="font-cabinet text-espresso text-xl mb-3">1. Загальні положення</h2>
-          <p>Ця Політика конфіденційності пояснює, які персональні дані ми збираємо, як використовуємо, зберігаємо та захищаємо. Користуючись сайтом ви погоджуєтесь з цією Політикою.</p>
-        </section>
-      </div>
-    </div>
-  </main>
-
-  <script>
-    import { initLegalI18n } from '../scripts/legal-i18n.ts';
-    initLegalI18n({ titleKey: 'privacy_meta_title', descKey: 'privacy_meta_desc', sectionsKey: 'privacy_sections' });
-  </script>
+  <LegalPage lang={lang} kind="privacy" homeUrl="/" />
 </Layout>

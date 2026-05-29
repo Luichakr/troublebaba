@@ -1,0 +1,42 @@
+---
+import { t } from '../i18n/translations.js';
+import { SITE } from '../config/site.js';
+
+type Lang = 'uk' | 'ru' | 'pl' | 'en';
+interface Props {
+  lang: Lang;
+  /** Translation key prefix: 'privacy' or 'terms'. */
+  kind: 'privacy' | 'terms';
+  /** Base URL for the "back to home" link, language-aware. */
+  homeUrl: string;
+}
+
+const { lang, kind, homeUrl } = Astro.props;
+const tr = (t as any)[lang] as Record<string, any>;
+const sections = (tr[`${kind}_sections`] || []) as { h: string; p: string }[];
+const heading  = tr[`${kind}_heading`];
+const updated  = tr[`${kind}_updated`];
+const backLabel = tr.legal_back || '← TROUBLEBABA';
+
+const email = SITE.contactEmail;
+const emailLinkHtml = '<a href="mailto:' + email + '" class="text-mocha underline hover:text-mocha-dark">' + email + '</a>';
+function fmt(text: string): string {
+  return text.replace(/\{EMAIL\}/g, emailLinkHtml).replace(/\n/g, '<br/>');
+}
+---
+<main class="min-h-[100dvh] py-16 lg:py-24" style="background:#F5EFE8;">
+  <div class="max-w-3xl mx-auto px-6 lg:px-10">
+
+    <a href={homeUrl} class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10" aria-label="TROUBLEBABA">
+      <svg width="14" height="12" viewBox="0 0 16 14" fill="none" aria-hidden="true">
+        <path d="M14 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>{backLabel}</span>
+    </a>
+
+    <h1 class="font-cabinet text-espresso mb-4" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;">{heading}</h1>
+    <p class="font-outfit text-espresso/45 text-sm mb-12">{updated}</p>
+
+    <div class="space-y-6 font-outfit text-espresso/75 text-[15px] leading-relaxed" set:html={sections.map(s => `<section><h2 class="font-cabinet text-espresso text-xl mb-3">${s.h}</h2><p>${fmt(s.p)}</p></section>`).join('')} />
+  </div>
+</main>
