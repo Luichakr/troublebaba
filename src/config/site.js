@@ -15,11 +15,20 @@ export const SITE = {
   // TODO: INSERT VERIFIED CONTACT EMAIL — current value is placeholder
   contactEmail: 'hello@troublebaba.com',
 
-  // Social
+  // Social — main profile URLs
   instagramUrl: 'https://instagram.com/troublebaba',
   tiktokUrl:    'https://tiktok.com/@troublebaba',
   youtubeUrl:   'https://youtube.com/@troublebaba',
   facebookUrl:  'https://facebook.com/troublebaba',
+
+  // Featured posts shown in the "Соцсети TROUBLEBABA" home section.
+  // TODO: replace with REAL deep-links to specific Reels / TikTok video / YouTube video.
+  // Until real URLs are provided, each falls back to the main profile.
+  socialPosts: {
+    instagram: 'https://instagram.com/troublebaba',
+    tiktok:    'https://tiktok.com/@troublebaba',
+    youtube:   'https://youtube.com/@troublebaba',
+  },
 
   // Payment
   // TODO: INSERT FINAL GUMROAD / PAYMENT LINK

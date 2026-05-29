@@ -719,6 +719,218 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
     </div>
   </section>
 
+  <!-- ── SOCIAL (links to Instagram / TikTok / YouTube content) ── -->
+  <section id="social" class="py-16 lg:py-24" style="background:#F5EFE8;" aria-labelledby="social-title">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-16">
+      <div class="reveal rounded-[1.5rem] lg:rounded-[2rem] bg-warm-white overflow-hidden"
+        style="box-shadow:0 8px 40px rgba(139,115,85,0.10), 0 32px 80px rgba(139,115,85,0.08); border:1px solid rgba(200,184,162,0.25);">
+        <div class="grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] items-stretch">
+
+          <!-- ── Left: text + pills ── -->
+          <div class="px-6 sm:px-10 lg:px-14 py-10 lg:py-14 flex flex-col">
+
+            <!-- Eyebrow with decorative ribbon -->
+            <div class="flex items-center gap-3 mb-7">
+              <svg width="14" height="12" viewBox="0 0 16 14" fill="none" aria-hidden="true">
+                <path d="M3 7Q5 3 8 5 Q11 3 13 7" stroke="#8B7355" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+                <circle cx="8" cy="5.5" r="0.8" fill="#8B7355"/>
+              </svg>
+              <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha">{tr.social_eyebrow}</span>
+              <div class="h-px flex-1 bg-mocha/30"></div>
+            </div>
+
+            <!-- Heading -->
+            <h2 id="social-title" class="font-cabinet text-espresso mb-5 lg:mb-6" style="font-size:clamp(2rem,3.4vw,3rem);line-height:1.05;">
+              {tr.social_title}
+            </h2>
+
+            <!-- Sub -->
+            <p class="font-outfit text-espresso/60 text-[15px] leading-relaxed mb-8 max-w-[440px]">
+              {tr.social_sub}
+            </p>
+
+            <!-- Platform pills (link to profiles, not posts) -->
+            <div class="flex flex-wrap gap-2.5 mb-2">
+              <a href={SITE.instagramUrl} target="_blank" rel="noopener noreferrer"
+                 data-analytics="social_profile_click" data-platform="instagram" data-location="homepage_social_block"
+                 class="inline-flex items-center gap-2 bg-surface border border-taupe/30 hover:border-mocha/50 transition-colors rounded-full px-4 py-2.5 text-espresso/75 font-outfit text-sm font-medium min-h-[44px]">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="6" stroke="#8B7355" stroke-width="1.6"/>
+                  <circle cx="12" cy="12" r="4.5" stroke="#8B7355" stroke-width="1.6"/>
+                  <circle cx="17.5" cy="6.5" r="1.2" fill="#8B7355"/>
+                </svg>
+                <span>{tr.social_pill_ig}</span>
+              </a>
+              <a href={SITE.tiktokUrl} target="_blank" rel="noopener noreferrer"
+                 data-analytics="social_profile_click" data-platform="tiktok" data-location="homepage_social_block"
+                 class="inline-flex items-center gap-2 bg-surface border border-taupe/30 hover:border-mocha/50 transition-colors rounded-full px-4 py-2.5 text-espresso/75 font-outfit text-sm font-medium min-h-[44px]">
+                <svg width="14" height="16" viewBox="0 0 24 26" fill="none" aria-hidden="true">
+                  <path d="M17 1C17.3 4.5 19.3 6.8 23 7.1V11C21 10.8 19.2 10.1 17.7 9V17.5C17.7 21.9 14.4 25.5 10 25.5C5.6 25.5 2 22 2 17.6C2 13.1 5.5 9.8 10 9.8C10.4 9.8 10.7 9.8 11 9.9V14C10.7 13.9 10.4 13.9 10 13.9C7.8 13.9 6 15.6 6 17.8C6 20 7.8 21.6 10 21.6C12.2 21.6 14.1 19.9 14.1 17.7L14.2 1H17Z" stroke="#8B7355" stroke-width="1.6" stroke-linejoin="round"/>
+                </svg>
+                <span>{tr.social_pill_tt}</span>
+              </a>
+              <a href={SITE.youtubeUrl} target="_blank" rel="noopener noreferrer"
+                 data-analytics="social_profile_click" data-platform="youtube" data-location="homepage_social_block"
+                 class="inline-flex items-center gap-2 bg-surface border border-taupe/30 hover:border-mocha/50 transition-colors rounded-full px-4 py-2.5 text-espresso/75 font-outfit text-sm font-medium min-h-[44px]">
+                <svg width="18" height="13" viewBox="0 0 28 20" fill="none" aria-hidden="true">
+                  <path d="M26.5 3.2C26.2 2.1 25.3 1.3 24.2 1C22.2 0.5 14 0.5 14 0.5C14 0.5 5.8 0.5 3.8 1C2.7 1.3 1.8 2.2 1.5 3.2C1 5.2 1 10 1 10C1 10 1 14.8 1.5 16.8C1.8 17.9 2.7 18.7 3.8 19C5.8 19.5 14 19.5 14 19.5C14 19.5 22.2 19.5 24.2 19C25.3 18.7 26.2 17.8 26.5 16.8C27 14.8 27 10 27 10C27 10 27 5.2 26.5 3.2Z" stroke="#8B7355" stroke-width="1.6"/>
+                  <path d="M11.5 14L18 10L11.5 6V14Z" fill="#8B7355"/>
+                </svg>
+                <span>{tr.social_pill_yt}</span>
+              </a>
+            </div>
+
+          </div>
+
+          <!-- ── Right: 3 cards ── -->
+          <div class="px-6 sm:px-10 lg:pl-4 lg:pr-14 pb-10 pt-2 lg:py-14">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5">
+              {[
+                {
+                  platform: 'instagram',
+                  label: tr.social_pill_ig,
+                  title: tr.social_card_ig_title,
+                  desc:  tr.social_card_ig_desc,
+                  btn:   tr.social_btn_ig,
+                  url:   SITE.socialPosts?.instagram ?? SITE.instagramUrl,
+                  img:   'images/social/instagram-bento-cover.webp',
+                  alt:   tr.social_card_ig_title,
+                  iconBg:'linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)',
+                  icon:  `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg>`,
+                  btnBg: '#E5A8A8',
+                  btnTx: '#5C2E2E',
+                },
+                {
+                  platform: 'tiktok',
+                  label: tr.social_pill_tt,
+                  title: tr.social_card_tt_title,
+                  desc:  tr.social_card_tt_desc,
+                  btn:   tr.social_btn_tt,
+                  url:   SITE.socialPosts?.tiktok ?? SITE.tiktokUrl,
+                  img:   'images/social/tiktok-bento-cover.webp',
+                  alt:   tr.social_card_tt_title,
+                  iconBg:'#000',
+                  icon:  `<svg width="12" height="14" viewBox="0 0 24 26" fill="none"><path d="M17 1C17.3 4.5 19.3 6.8 23 7.1V11C21 10.8 19.2 10.1 17.7 9V17.5C17.7 21.9 14.4 25.5 10 25.5C5.6 25.5 2 22 2 17.6C2 13.1 5.5 9.8 10 9.8C10.4 9.8 10.7 9.8 11 9.9V14C10.7 13.9 10.4 13.9 10 13.9C7.8 13.9 6 15.6 6 17.8C6 20 7.8 21.6 10 21.6C12.2 21.6 14.1 19.9 14.1 17.7L14.2 1H17Z" fill="white"/></svg>`,
+                  btnBg: '#1A1A1A',
+                  btnTx: '#FDFAF6',
+                },
+                {
+                  platform: 'youtube',
+                  label: tr.social_pill_yt,
+                  title: tr.social_card_yt_title,
+                  desc:  tr.social_card_yt_desc,
+                  btn:   tr.social_btn_yt,
+                  url:   SITE.socialPosts?.youtube ?? SITE.youtubeUrl,
+                  img:   'images/social/youtube-bento-cover.webp',
+                  alt:   tr.social_card_yt_title,
+                  iconBg:'#FF0000',
+                  icon:  `<svg width="14" height="11" viewBox="0 0 28 20" fill="none"><path d="M26.5 3.2C26.2 2.1 25.3 1.3 24.2 1C22.2 0.5 14 0.5 14 0.5C14 0.5 5.8 0.5 3.8 1C2.7 1.3 1.8 2.2 1.5 3.2C1 5.2 1 10 1 10C1 10 1 14.8 1.5 16.8C1.8 17.9 2.7 18.7 3.8 19C5.8 19.5 14 19.5 14 19.5C14 19.5 22.2 19.5 24.2 19C25.3 18.7 26.2 17.8 26.5 16.8C27 14.8 27 10 27 10C27 10 27 5.2 26.5 3.2Z" fill="white"/><path d="M11.5 14L18 10L11.5 6V14Z" fill="#FF0000"/></svg>`,
+                  btnBg: '#B85959',
+                  btnTx: '#FDFAF6',
+                },
+              ].map(c => (
+                <a href={c.url} target="_blank" rel="noopener noreferrer"
+                   data-analytics="social_card_click" data-platform={c.platform} data-location="homepage_social_block"
+                   class="group block bg-warm-white rounded-2xl overflow-hidden flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mocha hover:-translate-y-1 transition-transform duration-300"
+                   style="box-shadow:0 4px 18px rgba(139,115,85,0.10); border:1px solid rgba(200,184,162,0.30);">
+                  <!-- Platform label row -->
+                  <div class="flex items-center gap-2 px-3 pt-3 pb-2.5">
+                    <div class="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0" style={`background:${c.iconBg};`} set:html={c.icon}></div>
+                    <span class="font-outfit text-[12px] font-semibold text-espresso/75">{c.label}</span>
+                    <span class="ml-auto opacity-40">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" stroke="#8B7355" stroke-width="1.5"/>
+                        <path d="M9 9h6v6" stroke="#8B7355" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                  </div>
+                  <!-- Cover image -->
+                  <div class="relative w-full overflow-hidden" style="aspect-ratio:4/5;">
+                    <img src={c.img} alt={c.alt} width="1000" height="1250"
+                         loading="lazy" decoding="async"
+                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+                    <!-- Play icon overlay -->
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <div class="w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-warm-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg group-hover:bg-warm-white transition-colors">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M8 5.5V18.5L19 12L8 5.5Z" fill="#1A1A1A"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Body -->
+                  <div class="flex-1 flex flex-col px-4 pt-4 pb-4">
+                    <h3 class="font-cabinet text-espresso text-[16px] lg:text-[17px] leading-snug mb-1.5">{c.title}</h3>
+                    <p class="font-outfit text-espresso/55 text-[13px] mb-4">{c.desc}</p>
+                    <span class="mt-auto inline-flex items-center justify-center gap-2 font-outfit font-semibold text-[13px] rounded-xl px-4 py-2.5 min-h-[40px] transition-opacity group-hover:opacity-90"
+                          style={`background:${c.btnBg};color:${c.btnTx};`}>
+                      {c.btn}
+                      <svg width="14" height="12" viewBox="0 0 16 14" fill="none" aria-hidden="true">
+                        <path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ── Bottom features strip ── -->
+        <div class="border-t border-taupe/20 px-6 sm:px-10 lg:px-14 py-7">
+          <!-- Decorative center heart -->
+          <div class="flex items-center justify-center mb-6" aria-hidden="true">
+            <div class="h-px w-12 bg-mocha/25"></div>
+            <svg width="14" height="13" viewBox="0 0 13 12" fill="none" class="mx-3">
+              <path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round" fill="none"/>
+            </svg>
+            <div class="h-px w-12 bg-mocha/25"></div>
+          </div>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            {(tr.social_feat ?? []).map((f: any, i: number) => (
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 rounded-xl bg-surface flex items-center justify-center flex-shrink-0 mt-0.5" aria-hidden="true">
+                  {i === 0 && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path d="M9 18h6M10 21h4M12 2C7 2 4.5 5 4.5 8.5C4.5 11.5 7 13 7 15h10c0-2 2.5-3.5 2.5-6.5C19.5 5 17 2 12 2Z" stroke="#8B7355" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                  {i === 1 && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <rect x="3" y="6" width="14" height="12" rx="2" stroke="#8B7355" stroke-width="1.4"/>
+                      <path d="M17 10l5-3v10l-5-3z" stroke="#8B7355" stroke-width="1.4" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                  {i === 2 && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <ellipse cx="12" cy="14" rx="7" ry="4" stroke="#8B7355" stroke-width="1.4"/>
+                      <path d="M7 11c1-3 4-5 5-5s4 2 5 5" stroke="#8B7355" stroke-width="1.4" stroke-linecap="round"/>
+                      <circle cx="9.5" cy="13.5" r="0.8" fill="#8B7355"/>
+                      <circle cx="14.5" cy="13.5" r="0.8" fill="#8B7355"/>
+                    </svg>
+                  )}
+                  {i === 3 && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <rect x="3" y="8" width="18" height="13" rx="2" stroke="#8B7355" stroke-width="1.4"/>
+                      <path d="M12 8v13M3 12h18" stroke="#8B7355" stroke-width="1.4"/>
+                      <path d="M8 8s-2-4 1-4 3 4 3 4-3 0-4 0Z M16 8s2-4-1-4-3 4-3 4 3 0 4 0Z" stroke="#8B7355" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                  )}
+                </div>
+                <div>
+                  <div class="font-cabinet text-espresso text-[14px] lg:text-[15px] leading-tight mb-1">{f.h}</div>
+                  <div class="font-outfit text-espresso/55 text-[12px] leading-snug">{f.p}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ── BONUS ── -->
   <section class="py-12 lg:py-20" style="background:#F5EFE8;">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-16">
@@ -1544,6 +1756,19 @@ document.querySelectorAll<HTMLElement>('.faq-item').forEach(item => {
         page_lang: document.documentElement.lang || 'uk',
       });
     }
+  });
+});
+
+// Social block: profile pills + card clicks
+document.querySelectorAll<HTMLAnchorElement>('[data-analytics^="social_"]').forEach(a => {
+  a.addEventListener('click', () => {
+    const eventName = a.dataset.analytics + '_' + (a.dataset.platform || 'unknown');
+    send(eventName, {
+      platform: a.dataset.platform,
+      url: a.getAttribute('href') || '',
+      location: a.dataset.location || 'unknown',
+      page_lang: document.documentElement.lang || 'uk',
+    });
   });
 });
 </script>
