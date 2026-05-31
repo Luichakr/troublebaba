@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CheckoutResultPage from '../components/CheckoutResultPage.astro';
+import { t } from '../i18n/translations.js';
+const lang = 'uk' as const;
+const tr = (t as any)[lang];
+---
+<Layout title={tr.checkout_failure_meta_title} description={tr.checkout_failure_meta_desc} lang={lang} path="payment-failed" pageType="legal" noindex={true}>
+  <CheckoutResultPage lang={lang} kind="failure" homeUrl="/" />
+</Layout>

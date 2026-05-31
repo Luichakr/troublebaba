@@ -303,6 +303,27 @@ export const t = {
       { h: 'Корисні поради',          p: 'Лайфхаки та відповіді на питання' },
       { h: 'Бонуси для підписників',  p: 'Розіграші та ексклюзиви' },
     ],
+
+    // === Checkout result pages ===
+    checkout_success_meta_title: 'Дякуємо за покупку! | TROUBLEBABA',
+    checkout_success_meta_desc:  'Оплата успішна. PDF буде надіслано на вашу пошту.',
+    checkout_success_heading:    'Дякуємо!',
+    checkout_success_text:       'Оплата пройшла успішно. Лист із PDF-збірником прийде на пошту, яку ви вказали під час оплати, протягом години.\nЯкщо листа немає — перевірте спам або напишіть на {EMAIL}.',
+    checkout_success_cta:        'Повернутися на головну',
+    checkout_status_label:       'Інформація про платіж',
+
+    checkout_failure_meta_title: 'Оплата не пройшла | TROUBLEBABA',
+    checkout_failure_meta_desc:  'Оплату не завершено. Спробуйте ще раз або напишіть нам.',
+    checkout_failure_heading:    'Оплата не пройшла',
+    checkout_failure_text:       'Схоже, оплату не було завершено. Гроші не списались. Можна спробувати ще раз — або написати на {EMAIL}, допоможемо розібратися.',
+    checkout_failure_cta:        'На головну',
+    checkout_failure_retry:      'Спробувати ще раз',
+
+    checkout_support:            'Якщо щось не так — пишіть:',
+
+    // === Buy button states (used during /api/checkout/create roundtrip) ===
+    buy_loading:                 'Створюємо оплату…',
+    buy_error:                   'Не вдалося створити оплату. Спробуйте за хвилину.',
   },
 
   ru: {
@@ -550,6 +571,27 @@ export const t = {
       { h: 'Полезные советы',         p: 'Лайфхаки и ответы на вопросы' },
       { h: 'Бонусы для подписчиков',  p: 'Розыгрыши и эксклюзивы' },
     ],
+
+    // === Checkout result pages ===
+    checkout_success_meta_title: 'Спасибо за покупку! | TROUBLEBABA',
+    checkout_success_meta_desc:  'Оплата прошла успешно. PDF будет отправлен на ваш email.',
+    checkout_success_heading:    'Спасибо!',
+    checkout_success_text:       'Оплата прошла успешно. Письмо с PDF-сборником придёт на email, который вы указали при оплате, в течение часа.\nЕсли письма нет — проверьте спам или напишите на {EMAIL}.',
+    checkout_success_cta:        'Вернуться на главную',
+    checkout_status_label:       'Информация о платеже',
+
+    checkout_failure_meta_title: 'Оплата не прошла | TROUBLEBABA',
+    checkout_failure_meta_desc:  'Оплата не была завершена. Попробуйте ещё раз или напишите нам.',
+    checkout_failure_heading:    'Оплата не прошла',
+    checkout_failure_text:       'Похоже, оплата не была завершена. Деньги не списались. Можно попробовать ещё раз — или написать на {EMAIL}, поможем разобраться.',
+    checkout_failure_cta:        'На главную',
+    checkout_failure_retry:      'Попробовать ещё раз',
+
+    checkout_support:            'Если что-то не так — пишите:',
+
+    // === Buy button states (used during /api/checkout/create roundtrip) ===
+    buy_loading:                 'Создаём оплату…',
+    buy_error:                   'Не удалось создать оплату. Попробуйте через минуту.',
   },
 
   pl: {
@@ -797,6 +839,27 @@ export const t = {
       { h: 'Przydatne porady',         p: 'Triki i odpowiedzi na pytania' },
       { h: 'Bonusy dla obserwujących', p: 'Losowania i ekskluzywne treści' },
     ],
+
+    // === Checkout result pages ===
+    checkout_success_meta_title: 'Dziękujemy za zakup! | TROUBLEBABA',
+    checkout_success_meta_desc:  'Płatność zakończona pomyślnie. PDF zostanie wysłany na twój email.',
+    checkout_success_heading:    'Dziękujemy!',
+    checkout_success_text:       'Płatność zakończona pomyślnie. List z PDF-zbiorem przyjdzie na email podany przy płatności w ciągu godziny.\nJeśli listu nie ma — sprawdź spam lub napisz na {EMAIL}.',
+    checkout_success_cta:        'Wróć na stronę główną',
+    checkout_status_label:       'Informacje o płatności',
+
+    checkout_failure_meta_title: 'Płatność nie powiodła się | TROUBLEBABA',
+    checkout_failure_meta_desc:  'Płatność nie została zakończona. Spróbuj ponownie lub napisz do nas.',
+    checkout_failure_heading:    'Płatność nie powiodła się',
+    checkout_failure_text:       'Wygląda na to, że płatność nie została zakończona. Pieniądze nie zostały pobrane. Możesz spróbować ponownie — lub napisz na {EMAIL}, pomożemy.',
+    checkout_failure_cta:        'Strona główna',
+    checkout_failure_retry:      'Spróbuj ponownie',
+
+    checkout_support:            'Jeśli coś nie tak — pisz:',
+
+    // === Buy button states (used during /api/checkout/create roundtrip) ===
+    buy_loading:                 'Tworzymy płatność…',
+    buy_error:                   'Nie udało się utworzyć płatności. Spróbuj za minutę.',
   },
 
   en: {
@@ -1044,6 +1107,27 @@ export const t = {
       { h: 'Useful tips',           p: 'Hacks and answers to questions' },
       { h: 'Bonuses for followers', p: 'Giveaways and exclusives' },
     ],
+
+    // === Checkout result pages ===
+    checkout_success_meta_title: 'Thank you for your purchase! | TROUBLEBABA',
+    checkout_success_meta_desc:  'Payment successful. The PDF will be sent to your email.',
+    checkout_success_heading:    'Thank you!',
+    checkout_success_text:       'Payment went through. The email with the PDF collection will arrive at the address you used for checkout within the hour.\nNo email yet? Check spam, or write to {EMAIL}.',
+    checkout_success_cta:        'Back to home',
+    checkout_status_label:       'Payment details',
+
+    checkout_failure_meta_title: 'Payment failed | TROUBLEBABA',
+    checkout_failure_meta_desc:  'The payment was not completed. Try again or reach out.',
+    checkout_failure_heading:    'Payment failed',
+    checkout_failure_text:       'Looks like the payment didn\'t go through. No money was taken. You can try again — or write to {EMAIL}, we\'ll help.',
+    checkout_failure_cta:        'Home',
+    checkout_failure_retry:      'Try again',
+
+    checkout_support:            'If something is wrong — reach us:',
+
+    // === Buy button states (used during /api/checkout/create roundtrip) ===
+    buy_loading:                 'Creating payment…',
+    buy_error:                   'Couldn\'t create the payment. Try again in a minute.',
   },
 };
 

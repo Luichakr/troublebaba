@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CheckoutResultPage from '../components/CheckoutResultPage.astro';
+import { t } from '../i18n/translations.js';
+const lang = 'uk' as const;
+const tr = (t as any)[lang];
+---
+<Layout title={tr.checkout_success_meta_title} description={tr.checkout_success_meta_desc} lang={lang} path="thank-you" pageType="legal" noindex={true} loadGA={true}>
+  <CheckoutResultPage lang={lang} kind="success" homeUrl="/" />
+</Layout>

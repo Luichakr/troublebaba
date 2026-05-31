@@ -1,0 +1,116 @@
+---
+import { t } from '../i18n/translations.js';
+import { SITE } from '../config/site.js';
+
+type Lang = 'uk' | 'ru' | 'pl' | 'en';
+interface Props {
+  lang: Lang;
+  kind: 'success' | 'failure';
+  homeUrl: string;
+}
+
+const { lang, kind, homeUrl } = Astro.props;
+const tr = (t as any)[lang] as Record<string, any>;
+
+const heading      = tr[`checkout_${kind}_heading`];
+const text         = tr[`checkout_${kind}_text`];
+const ctaBack      = tr[`checkout_${kind}_cta`];
+const retryHref    = `${homeUrl}#price`;
+const supportEmail = SITE.contactEmail;
+
+// Tone & color per kind.
+const isSuccess = kind === 'success';
+const accent    = isSuccess ? '#8B7355' : '#A14848';
+---
+<main class="min-h-[100dvh] flex items-center justify-center px-6 py-20" style="background:#F5EFE8;">
+  <div class="max-w-xl text-center">
+    <a href={homeUrl} class="inline-block font-cabinet text-espresso text-3xl mb-12 tracking-tight" aria-label="TROUBLEBABA">TROUBLEBABA</a>
+
+    <!-- Icon -->
+    <div class="flex items-center justify-center mb-8" aria-hidden="true">
+      <div class="w-20 h-20 rounded-full flex items-center justify-center" style={`background:${isSuccess ? 'rgba(139,115,85,0.12)' : 'rgba(161,72,72,0.12)'};`}>
+        {isSuccess ? (
+          <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
+            <path d="M6 16l6 6 14-14" stroke={accent} stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        ) : (
+          <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="13" stroke={accent} stroke-width="2"/>
+            <path d="M10 10l12 12M22 10L10 22" stroke={accent} stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+        )}
+      </div>
+    </div>
+
+    <h1 class="font-cabinet text-espresso mb-5" style="font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.05;">{heading}</h1>
+
+    <p class="font-outfit text-espresso/65 leading-relaxed mb-8" style="font-size:clamp(1rem,1.2vw,1.1rem);" id="result-text" data-status-pending={!isSuccess ? undefined : 'true'} set:html={text.replace(/\{EMAIL\}/g, `<a href="mailto:${supportEmail}" class="text-mocha underline">${supportEmail}</a>`)}></p>
+
+    {/* Live status — populated only on success; fetches /api/checkout/status when invoiceId is present. */}
+    {isSuccess && (
+      <div id="status-block" class="hidden bg-warm-white border border-taupe/30 rounded-2xl px-6 py-5 mb-8 text-left">
+        <div class="font-outfit text-[12px] uppercase tracking-[0.15em] text-mocha mb-2">{tr.checkout_status_label}</div>
+        <div id="status-content" class="font-outfit text-espresso/75 text-[14px] leading-relaxed">…</div>
+      </div>
+    )}
+
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a href={homeUrl} class="inline-flex items-center justify-center gap-2 bg-mocha text-warm-white font-outfit font-semibold px-7 py-4 rounded-2xl hover:bg-mocha-dark transition-colors min-h-[44px]" data-buy-source={isSuccess ? undefined : 'checkout-failed'}>
+        {ctaBack}
+      </a>
+      {!isSuccess && (
+        <a href={retryHref} class="inline-flex items-center justify-center gap-2 border border-mocha/40 text-mocha font-outfit font-semibold px-7 py-4 rounded-2xl hover:bg-mocha/10 transition-colors min-h-[44px]">
+          {tr.checkout_failure_retry}
+        </a>
+      )}
+    </div>
+
+    <p class="font-outfit text-espresso/40 text-sm mt-12">
+      {tr.checkout_support}
+      <a href={`mailto:${supportEmail}`} class="text-mocha underline ml-1">{supportEmail}</a>
+    </p>
+  </div>
+</main>
+
+{isSuccess && (
+  <script>
+    // Verify the payment status server-side. The invoiceId comes from Monobank's redirectUrl.
+    (async () => {
+      const params = new URLSearchParams(location.search);
+      const invoiceId = params.get('invoiceId') || params.get('invoice');
+      if (!invoiceId) return;
+
+      const block   = document.getElementById('status-block');
+      const content = document.getElementById('status-content');
+      if (!block || !content) return;
+      block.classList.remove('hidden');
+      content.textContent = '…';
+
+      try {
+        const res = await fetch(`/api/checkout/status?invoiceId=${encodeURIComponent(invoiceId)}`, { cache: 'no-store' });
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+          content.textContent = data?.error ?? 'Status check failed.';
+          return;
+        }
+        const fmt = (kop: number) => (kop / 100).toFixed(2);
+        const ccyName = data.ccy === 980 ? 'UAH' : data.ccy === 840 ? 'USD' : data.ccy === 978 ? 'EUR' : `(${data.ccy})`;
+        content.innerHTML =
+          `<div><strong>Status:</strong> ${data.status}</div>` +
+          `<div><strong>Amount:</strong> ${fmt(data.finalAmount ?? data.amount)} ${ccyName}</div>` +
+          `<div><strong>Invoice:</strong> <code class="font-mono text-[12px]">${data.invoiceId}</code></div>`;
+
+        // Fire GA conversion only on confirmed success.
+        if (data.status === 'success' && (window as any).gtag) {
+          (window as any).gtag('event', 'purchase', {
+            transaction_id: data.invoiceId,
+            value: (data.finalAmount ?? data.amount) / 100,
+            currency: ccyName,
+          });
+        }
+      } catch (e) {
+        content.textContent = 'Status check failed. Refresh in a minute.';
+      }
+    })();
+  </script>
+)}

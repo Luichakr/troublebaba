@@ -23,6 +23,8 @@ interface Props {
   pageType?: 'home' | 'legal' | 'error';
   /** When true, add <meta name="robots" content="noindex,nofollow"> (use for 404). */
   noindex?: boolean;
+  /** Override GA loading. Default rule: load only on home. Set true to also load on /thank-you so purchase events fire. */
+  loadGA?: boolean;
 }
 
 const {
@@ -32,6 +34,7 @@ const {
   path        = '',
   pageType    = 'home',
   noindex     = false,
+  loadGA: loadGAOverride,
 } = Astro.props;
 
 const BASE     = import.meta.env.BASE_URL;
@@ -93,7 +96,8 @@ const PRODUCT_CATEGORY: Record<Lang, string> = {
 };
 
 // Skip GA on legal/404 pages — avoid noise + reduce JS on low-value pages.
-const loadGA = pageType === 'home' && !!SITE.gaId;
+// `loadGA` prop overrides (e.g. /thank-you needs GA so the `purchase` event fires).
+const loadGA = (loadGAOverride ?? pageType === 'home') && !!SITE.gaId;
 ---
 <!doctype html>
 <html lang={lang}>

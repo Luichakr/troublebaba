@@ -22,8 +22,11 @@ export default defineConfig({
           en: 'en',
         },
       },
-      // 404 should not be in the sitemap.
-      filter: (page) => !page.endsWith('/404'),
+      // Skip noindex / utility pages from the public sitemap.
+      filter: (page) =>
+        !page.endsWith('/404') &&
+        !/\/thank-you\/?$/.test(page) &&
+        !/\/payment-failed\/?$/.test(page),
       changefreq: 'weekly',
       priority: 0.8,
       // Boost the home page; legal pages stay lower.

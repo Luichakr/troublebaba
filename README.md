@@ -99,6 +99,55 @@ The bonus section animates a counter from `BONUS_TOTAL` (20) down to `BONUS_REMA
 - ✅ `sitemap.xml` with hreflang alternates
 - ✅ `robots.txt` — allows all, links sitemap
 
+## Monobank checkout (Cloudflare Pages Functions)
+
+The site processes payments through **Monobank Acquiring API** via Cloudflare Pages Functions living next to the static site (no separate worker).
+
+### Endpoints
+
+| Route | Purpose |
+|---|---|
+| `POST /api/checkout/create` | Creates an invoice, returns `{ pageUrl, invoiceId }`. Client redirects `window.location` to `pageUrl`. |
+| `GET  /api/checkout/status?invoiceId=…` | Proxies to Monobank status. Used by `/thank-you` to verify payment server-side. |
+| `POST /api/checkout/webhook` | Receives Monobank status callbacks. Verifies ECDSA `X-Sign` via Web Crypto. Logs to CF Workers logs (extend with email delivery here). |
+
+### Required environment variables
+
+Add these in Cloudflare Pages dashboard → your project → **Settings → Environment variables → Production** (also set for Preview if you use it):
+
+| Variable | Value | Notes |
+|---|---|---|
+| `MONOBANK_TOKEN` | Merchant X-Token from https://web.monobank.ua (Мерчант) | Required — secret. Without this, `/api/checkout/create` returns 502. |
+| `MONOBANK_PUBKEY` | Base64 PEM key from `GET /api/merchant/pubkey` (optional) | Optional optimisation — avoids a key fetch per webhook cold start. Refreshes automatically if mismatch. |
+| `MONOBANK_API` | `https://api.monobank.ua` | Optional. Default = production. Use `https://api.monobank.ua` for test tokens too (Monobank uses same host). |
+| `SITE_URL` | `https://troublebaba.com` | Optional. Defaults to request origin. |
+
+### Test tokens
+
+Get a test token from https://api.monobank.ua/ (scan QR with monobank app). Test payments do NOT charge a real card. Production tokens are issued from web.monobank.ua (Мерчант section).
+
+### Webhook URL
+
+The create endpoint registers `webHookUrl = ${origin}/api/checkout/webhook`. Make sure your Monobank merchant settings allow that URL (Mono accepts any HTTPS URL on the public internet).
+
+### Price
+
+Currently set in code at `functions/api/checkout/create.ts` → `PRICE_UAH_KOPECKS = 85000` (850 UAH ≈ $20 at rate 42.5). Edit when FX moves materially or you want a round number. Currency is UAH (ccy: 980).
+
+### PDF delivery
+
+The webhook currently only **logs** successful payments to Cloudflare logs. Actual PDF email delivery is a TODO inside `functions/api/checkout/webhook.ts → handleSuccess()`. For now, manually email the PDF after seeing the webhook log entry.
+
+To automate, wire Resend (https://resend.com) inside `handleSuccess` — they have a free tier (3k emails/month). Customer email is in `customerEmails` field that we pass when creating the invoice.
+
+### Local testing
+
+```sh
+npx wrangler pages dev dist --binding MONOBANK_TOKEN=test_token_xxx
+```
+
+This runs Pages Functions locally against the built `dist/` directory.
+
 ## Deployment
 
 **Production: Cloudflare Pages** — auto-builds on every push to `main`.
