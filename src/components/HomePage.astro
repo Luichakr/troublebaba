@@ -1728,11 +1728,32 @@ document.addEventListener('keydown', (e) => {
   setDropOpen(false);
 });
 
-// ── GA4 events: track buy clicks + FAQ opens + language clicks ──
+// ── Events: GA4 + own /api/track (D1) ──
 type GtagFn = (event: 'event', name: string, params?: Record<string, unknown>) => void;
 const gtag = (window as unknown as { gtag?: GtagFn }).gtag;
+
+/** Fire-and-forget tracker. Mirrors event into GA4 (for marketing analytics) and
+ *  /api/track → Cloudflare D1 (for the operator's own dashboard at /admin/stats). */
 const send = (name: string, params: Record<string, unknown> = {}) => {
   if (typeof gtag === 'function') gtag('event', name, params);
+
+  // Best-effort POST. Errors and slow networks must not block UX.
+  try {
+    const payload = {
+      type:   name,
+      source: typeof params.source === 'string' ? params.source : undefined,
+      lang:   typeof params.page_lang === 'string' ? params.page_lang : (document.documentElement.lang || 'uk').slice(0, 2),
+      path:   location.pathname,
+      ref:    document.referrer ? document.referrer.slice(0, 200) : undefined,
+    };
+    const body = JSON.stringify(payload);
+    // sendBeacon survives page unload (critical for redirect-to-Monobank case).
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/api/track', new Blob([body], { type: 'application/json' }));
+    } else {
+      fetch('/api/track', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, keepalive: true }).catch(() => {});
+    }
+  } catch { /* swallow */ }
 };
 
 document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {

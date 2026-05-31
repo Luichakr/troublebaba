@@ -1,0 +1,250 @@
+---
+// Admin dashboard for click + funnel events stored in D1.
+// Protected by Bearer token (the ADMIN_PASS env var on Cloudflare).
+// The static HTML is public but useless without the password.
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="Stats — TROUBLEBABA admin"
+  description="Internal click + checkout stats."
+  lang="uk"
+  path="admin/stats"
+  pageType="error"
+  noindex={true}
+>
+  <main class="min-h-[100dvh] py-12 px-6" style="background:#F5EFE8;">
+    <div class="max-w-[1100px] mx-auto">
+
+      <header class="flex items-center justify-between mb-10">
+        <h1 class="font-cabinet text-espresso text-3xl tracking-tight">📊 TROUBLEBABA stats</h1>
+        <div class="flex items-center gap-3">
+          <select id="range" class="font-outfit text-sm bg-warm-white border border-taupe/40 rounded-xl px-3 py-2">
+            <option value="1">Last 24h</option>
+            <option value="7" selected>Last 7 days</option>
+            <option value="30">Last 30 days</option>
+            <option value="90">Last 90 days</option>
+          </select>
+          <button id="refresh" class="font-outfit text-sm bg-mocha text-warm-white rounded-xl px-4 py-2 hover:bg-mocha-dark">Refresh</button>
+          <button id="logout" class="font-outfit text-sm border border-mocha/40 text-mocha rounded-xl px-4 py-2 hover:bg-mocha/10">Log out</button>
+        </div>
+      </header>
+
+      <!-- Login gate -->
+      <div id="login-card" class="hidden bg-warm-white rounded-2xl px-8 py-10 max-w-md mx-auto" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+        <h2 class="font-cabinet text-espresso text-xl mb-2">Login</h2>
+        <p class="font-outfit text-espresso/60 text-sm mb-6">Enter the dashboard password.</p>
+        <input id="pass-input" type="password" placeholder="••••••••" autocomplete="current-password"
+               class="w-full font-outfit text-base bg-cream border border-taupe/40 rounded-xl px-4 py-3 mb-4 outline-none focus:border-mocha" />
+        <button id="pass-submit" class="w-full bg-mocha text-warm-white font-outfit font-semibold rounded-xl py-3 hover:bg-mocha-dark">Sign in</button>
+        <p id="pass-err" class="hidden mt-4 text-sm text-red-700 font-outfit"></p>
+      </div>
+
+      <!-- Stats grid (filled after auth) -->
+      <div id="stats" class="hidden space-y-6">
+
+        <!-- Totals -->
+        <section class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="totals"></section>
+
+        <!-- Click_buy by source -->
+        <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+          <h2 class="font-cabinet text-espresso text-lg mb-4">Buy clicks by source</h2>
+          <div id="by-source" class="font-outfit text-sm"></div>
+        </section>
+
+        <!-- Lang + country side by side -->
+        <section class="grid lg:grid-cols-2 gap-6">
+          <div class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+            <h2 class="font-cabinet text-espresso text-lg mb-4">By language</h2>
+            <div id="by-lang" class="font-outfit text-sm"></div>
+          </div>
+          <div class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+            <h2 class="font-cabinet text-espresso text-lg mb-4">By country</h2>
+            <div id="by-country" class="font-outfit text-sm"></div>
+          </div>
+        </section>
+
+        <!-- Day-by-day -->
+        <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+          <h2 class="font-cabinet text-espresso text-lg mb-4">Buy clicks per day</h2>
+          <div id="by-day" class="font-outfit text-sm font-mono"></div>
+        </section>
+
+        <!-- All event types -->
+        <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+          <h2 class="font-cabinet text-espresso text-lg mb-4">All event types</h2>
+          <div id="by-type" class="font-outfit text-sm"></div>
+        </section>
+
+        <!-- Recent feed -->
+        <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+          <h2 class="font-cabinet text-espresso text-lg mb-4">Latest 100 events</h2>
+          <div id="recent" class="font-mono text-[12px] text-espresso/70 overflow-x-auto"></div>
+        </section>
+
+      </div>
+
+      <div id="loading" class="hidden text-center py-20 font-outfit text-espresso/60">Loading…</div>
+      <div id="error"   class="hidden text-center py-20 font-outfit text-red-700"></div>
+
+    </div>
+  </main>
+
+  <script is:inline>
+    const TOKEN_KEY = 'tbb_admin_token';
+    const $ = (id) => document.getElementById(id);
+
+    function setVisible(id, on) { $(id).classList.toggle('hidden', !on); }
+
+    function bar(label, n, max) {
+      const pct = max > 0 ? (n / max) * 100 : 0;
+      return `<div class="flex items-center gap-3 py-1.5">
+        <div class="w-32 text-espresso/70">${label}</div>
+        <div class="flex-1 h-5 bg-cream rounded-full overflow-hidden">
+          <div class="h-full bg-mocha rounded-full" style="width:${pct.toFixed(1)}%;"></div>
+        </div>
+        <div class="w-12 text-right font-mono">${n}</div>
+      </div>`;
+    }
+
+    function totals(t) {
+      const cells = [
+        { label: 'Buy clicks (period)', value: t?.clicks_period ?? 0 },
+        { label: 'Buy clicks (all time)', value: t?.total_clicks ?? 0 },
+        { label: 'Successful payments', value: t?.total_success ?? 0 },
+        { label: 'CR (clicks→sales)', value: (t?.total_clicks && t?.total_success)
+          ? ((t.total_success / t.total_clicks) * 100).toFixed(1) + '%' : '—' },
+      ];
+      $('totals').innerHTML = cells.map(c => `
+        <div class="bg-warm-white rounded-2xl p-5" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+          <div class="font-outfit text-xs uppercase tracking-[0.12em] text-mocha mb-2">${c.label}</div>
+          <div class="font-cabinet text-espresso text-3xl">${c.value}</div>
+        </div>`).join('');
+    }
+
+    function renderBars(elId, rows, labelKey) {
+      const max = rows.reduce((m, r) => Math.max(m, r.n), 0);
+      if (rows.length === 0) {
+        $(elId).innerHTML = '<div class="text-espresso/45 italic">No data yet</div>';
+        return;
+      }
+      $(elId).innerHTML = rows.map(r => bar(r[labelKey] ?? '(empty)', r.n, max)).join('');
+    }
+
+    function renderDay(rows) {
+      if (rows.length === 0) {
+        $('by-day').innerHTML = '<div class="text-espresso/45 italic">No data yet</div>';
+        return;
+      }
+      const max = rows.reduce((m, r) => Math.max(m, r.n), 0);
+      $('by-day').innerHTML = rows.map(r => `
+        <div class="flex items-center gap-3 py-1">
+          <div class="w-24 text-espresso/70">${r.day}</div>
+          <div class="flex-1 h-4 bg-cream rounded-full overflow-hidden">
+            <div class="h-full bg-mocha rounded-full" style="width:${((r.n/max)*100).toFixed(1)}%;"></div>
+          </div>
+          <div class="w-12 text-right">${r.n}</div>
+        </div>`).join('');
+    }
+
+    function renderRecent(rows) {
+      if (rows.length === 0) {
+        $('recent').innerHTML = '<div class="text-espresso/45 italic">No events yet</div>';
+        return;
+      }
+      const rowsHtml = rows.map(r => {
+        const d = new Date(r.ts);
+        const ts = d.toISOString().replace('T', ' ').slice(0, 19);
+        return `<tr>
+          <td class="py-1 pr-4 text-espresso/55">${ts}</td>
+          <td class="py-1 pr-4">${r.type}</td>
+          <td class="py-1 pr-4 text-mocha">${r.source ?? ''}</td>
+          <td class="py-1 pr-4">${r.page_lang ?? ''}</td>
+          <td class="py-1 pr-4">${r.ip_country ?? ''}</td>
+          <td class="py-1 text-espresso/45">${r.page_path ?? ''}</td>
+        </tr>`;
+      }).join('');
+      $('recent').innerHTML = `<table class="w-full text-left">
+        <thead><tr class="text-espresso/45 border-b border-taupe/30">
+          <th class="py-1 pr-4 font-normal">when</th>
+          <th class="py-1 pr-4 font-normal">type</th>
+          <th class="py-1 pr-4 font-normal">source</th>
+          <th class="py-1 pr-4 font-normal">lang</th>
+          <th class="py-1 pr-4 font-normal">country</th>
+          <th class="py-1 font-normal">path</th>
+        </tr></thead><tbody>${rowsHtml}</tbody></table>`;
+    }
+
+    async function load() {
+      const token = sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY);
+      if (!token) { showLogin(); return; }
+
+      setVisible('login-card', false);
+      setVisible('stats', false);
+      setVisible('error', false);
+      setVisible('loading', true);
+
+      const days = $('range').value;
+      try {
+        const res = await fetch('/api/admin/stats?days=' + days, {
+          headers: { 'Authorization': 'Bearer ' + token },
+          cache: 'no-store',
+        });
+        if (res.status === 401) {
+          sessionStorage.removeItem(TOKEN_KEY);
+          localStorage.removeItem(TOKEN_KEY);
+          showLogin('Wrong password.');
+          return;
+        }
+        const data = await res.json();
+        if (!res.ok || !data.ok) throw new Error(data?.error || 'Unknown error');
+
+        totals(data.total);
+        renderBars('by-source', data.bySource, 'source');
+        renderBars('by-lang',   data.byLang,   'page_lang');
+        renderBars('by-country',data.byCountry,'ip_country');
+        renderBars('by-type',   data.byType,   'type');
+        renderDay(data.byDay);
+        renderRecent(data.recent);
+
+        setVisible('loading', false);
+        setVisible('stats', true);
+      } catch (e) {
+        setVisible('loading', false);
+        setVisible('error', true);
+        $('error').textContent = 'Failed to load: ' + e.message;
+      }
+    }
+
+    function showLogin(errMsg) {
+      setVisible('login-card', true);
+      setVisible('stats', false);
+      setVisible('loading', false);
+      setVisible('error', false);
+      if (errMsg) {
+        $('pass-err').textContent = errMsg;
+        setVisible('pass-err', true);
+      }
+      $('pass-input').focus();
+    }
+
+    $('pass-submit').addEventListener('click', () => {
+      const v = $('pass-input').value.trim();
+      if (!v) return;
+      sessionStorage.setItem(TOKEN_KEY, v);
+      localStorage.setItem(TOKEN_KEY, v);   // persist across reloads
+      load();
+    });
+    $('pass-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') $('pass-submit').click();
+    });
+    $('range').addEventListener('change', load);
+    $('refresh').addEventListener('click', load);
+    $('logout').addEventListener('click', () => {
+      sessionStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(TOKEN_KEY);
+      showLogin();
+    });
+
+    load();
+  </script>
+</Layout>

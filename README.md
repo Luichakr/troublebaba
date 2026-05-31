@@ -148,6 +148,70 @@ npx wrangler pages dev dist --binding MONOBANK_TOKEN=test_token_xxx
 
 This runs Pages Functions locally against the built `dist/` directory.
 
+## Stats dashboard (`/admin/stats`)
+
+Internal funnel dashboard at **https://troublebaba.com/admin/stats** — password-protected, shows real-time click + checkout stats from Cloudflare D1.
+
+### One-time setup (do once after first deploy of the tracking code)
+
+#### 1. Create the D1 database
+Cloudflare dashboard → **Workers & Pages → D1 → Create database**.
+Name: `troublebaba-events`. Region: choose closest (e.g. WEUR or ENAM).
+
+#### 2. Run the schema migration
+After the database is created, open it → **Console** tab → paste the contents of `migrations/0001_init.sql` → Execute.
+
+Alternative via CLI:
+```sh
+npx wrangler d1 execute troublebaba-events --remote --file=migrations/0001_init.sql
+```
+
+#### 3. Bind D1 to the Pages project
+Cloudflare dashboard → **Workers & Pages → troublebaba → Settings → Functions → Bindings → D1 database binding → Add**.
+- Variable name: **`DB`** (must match — Pages Functions reference `env.DB`)
+- D1 database: `troublebaba-events`
+
+Then **Save**.
+
+#### 4. Set the admin password
+In **Settings → Environment variables → Production → + Add**:
+- Name: `ADMIN_PASS`
+- Value: any strong string you'll remember (suggestion: `bento-admin-2026-N7k9pQ`)
+- ✅ **Encrypt** (mark as Secret)
+
+#### 5. Redeploy
+Push a commit (or **Deployments → Retry deployment**) so Functions pick up both the binding and the env var.
+
+### How to view stats
+
+Open **https://troublebaba.com/admin/stats** → enter the password → see live counts. Range selector (24h / 7d / 30d / 90d) and a Refresh button.
+
+The page password is stored in browser localStorage so you don't re-enter it.
+
+### Events tracked
+
+- `click_buy` — every click on a Buy button. Source values: `header`, `hero`, `recipes`, `bonus`, `price`, `final-cta`, `sticky-mobile`.
+- `language_switch` — language pill clicks
+- `faq_open` — FAQ accordion opens
+- `social_card_click_{platform}` / `social_profile_click_{platform}` — social block
+- `invoice_create`, `invoice_success`, `invoice_failure` — future hooks (wire from the webhook handler when needed)
+
+### Querying D1 from CLI (for support / debugging)
+
+```sh
+npx wrangler d1 execute troublebaba-events --remote \
+  --command="SELECT source, COUNT(*) FROM events WHERE type='click_buy' AND ts >= strftime('%s','now','-7 days')*1000 GROUP BY source ORDER BY 2 DESC"
+```
+
+### Why D1 instead of just GA4?
+
+GA4 still fires (`click_buy` events visible in the GA dashboard with 24h delay). D1 is added because:
+- **Real-time** — events appear in the dashboard within seconds, not 24h.
+- **Owner-readable** — single password instead of GA navigation.
+- **Operator-queryable** — Claude can run SQL via Wrangler when you ask "how many bonus clicks last week?".
+
+If D1 binding is missing, `/api/track` silently no-ops (returns ok:false). The site keeps working; just no events are stored.
+
 ## Deployment
 
 **Production: Cloudflare Pages** — auto-builds on every push to `main`.
