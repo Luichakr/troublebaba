@@ -1,6 +1,4 @@
-// GET /api/admin/stats?days=7
-// Returns aggregated stats from the D1 events table.
-// Auth: Authorization: Bearer <ADMIN_PASS env var>.
+// Internal metrics endpoint. Bearer auth required (ADMIN_PASS env).
 
 interface Env {
   DB: D1Database;

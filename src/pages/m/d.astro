@@ -1,0 +1,310 @@
+---
+// Internal metrics page. Protected by Bearer token from CF env.
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="m"
+  description=""
+  lang="uk"
+  path="m/d"
+  pageType="error"
+  noindex={true}
+>
+  <main class="min-h-[100dvh] py-12 px-6" style="background:#F5EFE8;">
+    <div class="max-w-[1100px] mx-auto">
+
+      <header class="flex items-center justify-between mb-10">
+        <h1 class="font-cabinet text-espresso text-3xl tracking-tight flex items-center gap-3">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-mocha/10" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M3 21h18" stroke="#8B7355" stroke-width="1.6" stroke-linecap="round"/>
+              <rect x="5"  y="12" width="3" height="6" rx="0.8" stroke="#8B7355" stroke-width="1.6"/>
+              <rect x="10.5" y="8" width="3" height="10" rx="0.8" stroke="#8B7355" stroke-width="1.6"/>
+              <rect x="16" y="4"  width="3" height="14" rx="0.8" stroke="#8B7355" stroke-width="1.6"/>
+            </svg>
+          </span>
+          <span>Статистика TROUBLEBABA</span>
+        </h1>
+        <div class="flex items-center gap-3">
+          <select id="range" class="font-outfit text-sm bg-warm-white border border-taupe/40 rounded-xl px-3 py-2">
+            <option value="1">За 24 часа</option>
+            <option value="7" selected>За 7 дней</option>
+            <option value="30">За 30 дней</option>
+            <option value="90">За 90 дней</option>
+          </select>
+          <button id="refresh" class="font-outfit text-sm bg-mocha text-warm-white rounded-xl px-4 py-2 hover:bg-mocha-dark">Обновить</button>
+          <button id="logout" class="font-outfit text-sm border border-mocha/40 text-mocha rounded-xl px-4 py-2 hover:bg-mocha/10">Выйти</button>
+        </div>
+      </header>
+
+      <!-- Login gate -->
+      <div id="login-card" class="hidden bg-warm-white rounded-2xl px-8 py-10 max-w-md mx-auto" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+        <h2 class="font-cabinet text-espresso text-xl mb-2">Вход</h2>
+        <p class="font-outfit text-espresso/60 text-sm mb-6">Введите пароль для доступа.</p>
+        <input id="pass-input" type="password" placeholder="••••••••" autocomplete="current-password"
+               class="w-full font-outfit text-base bg-cream border border-taupe/40 rounded-xl px-4 py-3 mb-4 outline-none focus:border-mocha" />
+        <button id="pass-submit" class="w-full bg-mocha text-warm-white font-outfit font-semibold rounded-xl py-3 hover:bg-mocha-dark">Войти</button>
+        <p id="pass-err" class="hidden mt-4 text-sm text-red-700 font-outfit"></p>
+      </div>
+
+      <!-- Stats grid -->
+      <div id="stats" class="hidden space-y-6">
+
+        <!-- Visits hero -->
+        <section class="bg-warm-white rounded-2xl p-6 lg:p-8" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+          <div class="flex items-baseline justify-between mb-6">
+            <h2 class="font-cabinet text-espresso text-xl">Визиты</h2>
+            <div class="text-right">
+              <div class="font-cabinet text-espresso text-4xl lg:text-5xl tabular-nums" id="visits-total-period">—</div>
+              <div class="font-outfit text-xs uppercase tracking-[0.14em] text-mocha mt-1">За период</div>
+            </div>
+          </div>
+          <div id="visits-by-lang" class="grid grid-cols-2 lg:grid-cols-4 gap-3"></div>
+          <div class="mt-5 flex items-center gap-2 font-outfit text-xs text-espresso/45">
+            <span>За всё время:</span>
+            <span class="font-mono text-espresso/70" id="visits-total-all">—</span>
+          </div>
+        </section>
+
+        <!-- Totals -->
+        <section class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="totals"></section>
+
+        <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+          <h2 class="font-cabinet text-espresso text-lg mb-4">Клики «Купить» — по блокам</h2>
+          <div id="by-source" class="font-outfit text-sm"></div>
+        </section>
+
+        <section class="grid lg:grid-cols-2 gap-6">
+          <div class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+            <h2 class="font-cabinet text-espresso text-lg mb-4">Клики «Купить» — по языку</h2>
+            <div id="by-lang" class="font-outfit text-sm"></div>
+          </div>
+          <div class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+            <h2 class="font-cabinet text-espresso text-lg mb-4">Клики «Купить» — по странам</h2>
+            <div id="by-country" class="font-outfit text-sm"></div>
+          </div>
+        </section>
+
+        <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+          <h2 class="font-cabinet text-espresso text-lg mb-4">Клики «Купить» — по дням</h2>
+          <div id="by-day" class="font-outfit text-sm font-mono"></div>
+        </section>
+
+        <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+          <h2 class="font-cabinet text-espresso text-lg mb-4">Все типы событий</h2>
+          <div id="by-type" class="font-outfit text-sm"></div>
+        </section>
+
+        <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+          <h2 class="font-cabinet text-espresso text-lg mb-4">Последние 100 событий</h2>
+          <div id="recent" class="font-mono text-[12px] text-espresso/70 overflow-x-auto"></div>
+        </section>
+
+      </div>
+
+      <div id="loading" class="hidden text-center py-20 font-outfit text-espresso/60">Загрузка…</div>
+      <div id="error"   class="hidden text-center py-20 font-outfit text-red-700"></div>
+
+    </div>
+  </main>
+
+  <script is:inline>
+    const TOKEN_KEY = 'tbb_k';
+    const ENDPOINT  = '/api/m/d';
+    const $ = (id) => document.getElementById(id);
+    const setVisible = (id, on) => $(id).classList.toggle('hidden', !on);
+
+    function fmtNum(n) {
+      if (n == null) return '0';
+      return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    }
+
+    const LANG_META = {
+      uk: { label: 'UK', name: 'Українська' },
+      ru: { label: 'RU', name: 'Русский'    },
+      pl: { label: 'PL', name: 'Polski'     },
+      en: { label: 'EN', name: 'English'    },
+    };
+
+    function bar(label, n, max) {
+      const pct = max > 0 ? (n / max) * 100 : 0;
+      return `<div class="flex items-center gap-3 py-1.5">
+        <div class="w-32 text-espresso/70">${label}</div>
+        <div class="flex-1 h-5 bg-cream rounded-full overflow-hidden">
+          <div class="h-full bg-mocha rounded-full" style="width:${pct.toFixed(1)}%;"></div>
+        </div>
+        <div class="w-14 text-right font-mono">${fmtNum(n)}</div>
+      </div>`;
+    }
+
+    function renderVisits(byLang, vTotal) {
+      $('visits-total-period').textContent = fmtNum(vTotal && vTotal.visits_period || 0);
+      $('visits-total-all').textContent    = fmtNum(vTotal && vTotal.visits_total  || 0);
+
+      const all = ['uk', 'ru', 'pl', 'en'];
+      const map = {};
+      (byLang || []).forEach(function(r){ map[r.page_lang] = r.n; });
+      const max = Math.max(0, ...all.map(function(l){ return map[l] || 0; }));
+      $('visits-by-lang').innerHTML = all.map(function(l){
+        const m = LANG_META[l];
+        const n = map[l] || 0;
+        const pct = max > 0 ? (n / max) * 100 : 0;
+        const accent = l === 'uk' ? '#8B7355' : l === 'ru' ? '#A67C52' : l === 'pl' ? '#C8B8A2' : '#6E5C43';
+        return '<div class="bg-cream rounded-xl px-4 py-4 flex flex-col gap-2 border border-taupe/20">' +
+          '<div class="flex items-baseline justify-between">' +
+            '<span class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-mocha">' + m.label + '</span>' +
+            '<span class="font-outfit text-[11px] text-espresso/45">' + m.name + '</span>' +
+          '</div>' +
+          '<div class="font-cabinet text-espresso text-3xl tabular-nums leading-none">' + fmtNum(n) + '</div>' +
+          '<div class="font-outfit text-[10px] uppercase tracking-[0.14em] text-espresso/40">визитов</div>' +
+          '<div class="h-1.5 bg-warm-white rounded-full overflow-hidden mt-1">' +
+            '<div class="h-full rounded-full transition-all duration-500" style="width:' + pct.toFixed(1) + '%;background:' + accent + ';"></div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function totals(t) {
+      const cells = [
+        { label: 'Кликов «Купить» (период)',  value: fmtNum((t && t.clicks_period) || 0) },
+        { label: 'Кликов «Купить» (всего)',   value: fmtNum((t && t.total_clicks)  || 0) },
+        { label: 'Успешных оплат',            value: fmtNum((t && t.total_success) || 0) },
+        { label: 'Конверсия (CR)',            value: (t && t.total_clicks && t.total_success)
+          ? ((t.total_success / t.total_clicks) * 100).toFixed(1) + '%' : '—' },
+      ];
+      $('totals').innerHTML = cells.map(function(c){
+        return '<div class="bg-warm-white rounded-2xl p-5" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">' +
+          '<div class="font-outfit text-xs uppercase tracking-[0.12em] text-mocha mb-2">' + c.label + '</div>' +
+          '<div class="font-cabinet text-espresso text-3xl">' + c.value + '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function renderBars(elId, rows, labelKey) {
+      const max = rows.reduce(function(m, r){ return Math.max(m, r.n); }, 0);
+      if (rows.length === 0) {
+        $(elId).innerHTML = '<div class="text-espresso/45 italic">Нет данных за этот период</div>';
+        return;
+      }
+      $(elId).innerHTML = rows.map(function(r){ return bar(r[labelKey] || '(пусто)', r.n, max); }).join('');
+    }
+
+    function renderDay(rows) {
+      if (rows.length === 0) {
+        $('by-day').innerHTML = '<div class="text-espresso/45 italic">Нет данных за этот период</div>';
+        return;
+      }
+      const max = rows.reduce(function(m, r){ return Math.max(m, r.n); }, 0);
+      $('by-day').innerHTML = rows.map(function(r){
+        return '<div class="flex items-center gap-3 py-1">' +
+          '<div class="w-24 text-espresso/70">' + r.day + '</div>' +
+          '<div class="flex-1 h-4 bg-cream rounded-full overflow-hidden">' +
+            '<div class="h-full bg-mocha rounded-full" style="width:' + ((r.n/max)*100).toFixed(1) + '%;"></div>' +
+          '</div>' +
+          '<div class="w-14 text-right">' + fmtNum(r.n) + '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function renderRecent(rows) {
+      if (rows.length === 0) {
+        $('recent').innerHTML = '<div class="text-espresso/45 italic">Пока нет событий</div>';
+        return;
+      }
+      const rowsHtml = rows.map(function(r){
+        const d = new Date(r.ts);
+        const ts = d.toISOString().replace('T', ' ').slice(0, 19);
+        return '<tr>' +
+          '<td class="py-1 pr-4 text-espresso/55">' + ts + '</td>' +
+          '<td class="py-1 pr-4">' + r.type + '</td>' +
+          '<td class="py-1 pr-4 text-mocha">' + (r.source || '') + '</td>' +
+          '<td class="py-1 pr-4">' + (r.page_lang || '') + '</td>' +
+          '<td class="py-1 pr-4">' + (r.ip_country || '') + '</td>' +
+          '<td class="py-1 text-espresso/45">' + (r.page_path || '') + '</td>' +
+        '</tr>';
+      }).join('');
+      $('recent').innerHTML =
+        '<table class="w-full text-left">' +
+          '<thead><tr class="text-espresso/45 border-b border-taupe/30">' +
+            '<th class="py-1 pr-4 font-normal">время</th>' +
+            '<th class="py-1 pr-4 font-normal">тип</th>' +
+            '<th class="py-1 pr-4 font-normal">блок</th>' +
+            '<th class="py-1 pr-4 font-normal">язык</th>' +
+            '<th class="py-1 pr-4 font-normal">страна</th>' +
+            '<th class="py-1 font-normal">путь</th>' +
+          '</tr></thead><tbody>' + rowsHtml + '</tbody></table>';
+    }
+
+    async function load() {
+      const token = sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY);
+      if (!token) { showLogin(); return; }
+
+      setVisible('login-card', false);
+      setVisible('stats', false);
+      setVisible('error', false);
+      setVisible('loading', true);
+
+      const days = $('range').value;
+      try {
+        const res = await fetch(ENDPOINT + '?days=' + days, {
+          headers: { 'Authorization': 'Bearer ' + token },
+          cache: 'no-store',
+        });
+        if (res.status === 401) {
+          sessionStorage.removeItem(TOKEN_KEY);
+          localStorage.removeItem(TOKEN_KEY);
+          showLogin('Неверный пароль.');
+          return;
+        }
+        const data = await res.json();
+        if (!res.ok || !data.ok) throw new Error((data && data.error) || 'unknown');
+
+        renderVisits(data.visitsByLang, data.visitsTotal);
+        totals(data.total);
+        renderBars('by-source', data.bySource, 'source');
+        renderBars('by-lang',   data.byLang,   'page_lang');
+        renderBars('by-country',data.byCountry,'ip_country');
+        renderBars('by-type',   data.byType,   'type');
+        renderDay(data.byDay);
+        renderRecent(data.recent);
+
+        setVisible('loading', false);
+        setVisible('stats', true);
+      } catch (e) {
+        setVisible('loading', false);
+        setVisible('error', true);
+        $('error').textContent = 'Не удалось загрузить: ' + e.message;
+      }
+    }
+
+    function showLogin(errMsg) {
+      setVisible('login-card', true);
+      setVisible('stats', false);
+      setVisible('loading', false);
+      setVisible('error', false);
+      if (errMsg) {
+        $('pass-err').textContent = errMsg;
+        setVisible('pass-err', true);
+      }
+      $('pass-input').focus();
+    }
+
+    $('pass-submit').addEventListener('click', function(){
+      const v = $('pass-input').value.trim();
+      if (!v) return;
+      sessionStorage.setItem(TOKEN_KEY, v);
+      localStorage.setItem(TOKEN_KEY, v);
+      load();
+    });
+    $('pass-input').addEventListener('keydown', function(e){ if (e.key === 'Enter') $('pass-submit').click(); });
+    $('range').addEventListener('change', load);
+    $('refresh').addEventListener('click', load);
+    $('logout').addEventListener('click', function(){
+      sessionStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(TOKEN_KEY);
+      showLogin();
+    });
+
+    load();
+  </script>
+</Layout>

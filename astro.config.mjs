@@ -27,7 +27,7 @@ export default defineConfig({
         !page.endsWith('/404') &&
         !/\/thank-you\/?$/.test(page) &&
         !/\/payment-failed\/?$/.test(page) &&
-        !/\/admin(\/|$)/.test(page),
+        !/\/m(\/|$)/.test(page),
       changefreq: 'weekly',
       priority: 0.8,
       // Boost the home page; legal pages stay lower.
