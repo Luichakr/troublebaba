@@ -17,18 +17,76 @@ async function fetchAndCacheKey(env: Env): Promise<string> {
   return key;
 }
 
+/** Escape `&`, `<`, `>` for Telegram HTML parse mode. */
+function tgEscape(s: string | undefined | null): string {
+  if (!s) return '';
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function fmtAmount(kopecks: number, ccy: number): string {
+  const sym = ccy === 980 ? 'UAH' : ccy === 840 ? 'USD' : ccy === 978 ? 'EUR' : String(ccy);
+  return (kopecks / 100).toFixed(2) + ' ' + sym;
+}
+
+function fmtKievTime(iso?: string): string {
+  const d = iso ? new Date(iso) : new Date();
+  // ru-RU + Europe/Kiev → "31 мая 2026 г., 22:45"
+  return d.toLocaleString('ru-RU', {
+    timeZone: 'Europe/Kiev',
+    day: 'numeric', month: 'long', year: 'numeric',
+    hour: '2-digit', minute: '2-digit',
+  });
+}
+
+/** Post a notification to every chat in TELEGRAM_NOTIFY_CHAT_IDS. Best-effort,
+ *  never throws (a Telegram outage must not break the webhook). */
+async function notifyTelegram(env: Env, invoice: InvoiceStatusResponse): Promise<void> {
+  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_NOTIFY_CHAT_IDS) return;
+
+  const chatIds = env.TELEGRAM_NOTIFY_CHAT_IDS.split(',').map(s => s.trim()).filter(Boolean);
+  if (chatIds.length === 0) return;
+
+  const pi: any = invoice.paymentInfo ?? {};
+  const lines = [
+    '<b>🍰 Новая продажа</b>',
+    'Bento Cake by TROUBLEBABA — PDF',
+    '',
+    '<b>Сумма:</b> ' + tgEscape(fmtAmount(invoice.finalAmount ?? invoice.amount, invoice.ccy)),
+    '<b>Время:</b> ' + tgEscape(fmtKievTime(invoice.modifiedDate)),
+    '',
+    '<b>Invoice:</b> <code>' + tgEscape(invoice.invoiceId) + '</code>',
+    invoice.reference ? '<b>Ref:</b> <code>' + tgEscape(invoice.reference) + '</code>' : '',
+    pi.maskedPan  ? '<b>Карта:</b> <code>' + tgEscape(pi.maskedPan) + '</code>' + (pi.paymentSystem ? ' (' + tgEscape(pi.paymentSystem) + ')' : '') : '',
+    pi.bank       ? '<b>Банк:</b> ' + tgEscape(pi.bank) : '',
+    pi.paymentMethod ? '<b>Метод:</b> ' + tgEscape(pi.paymentMethod) : '',
+  ].filter(Boolean).join('\n');
+
+  const url = 'https://api.telegram.org/bot' + env.TELEGRAM_BOT_TOKEN + '/sendMessage';
+  await Promise.all(chatIds.map(async chatId => {
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: lines,
+          parse_mode: 'HTML',
+          disable_web_page_preview: true,
+        }),
+      });
+      if (!res.ok) {
+        // Never log the token.
+        const errText = (await res.text()).slice(0, 300);
+        console.error('[tg-notify] chat=' + chatId + ' status=' + res.status + ' body=' + errText);
+      }
+    } catch (e: any) {
+      console.error('[tg-notify] chat=' + chatId + ' exception=' + (e?.message ?? 'unknown'));
+    }
+  }));
+}
+
 async function handleSuccess(invoice: InvoiceStatusResponse, env: Env): Promise<void> {
-  // TODO: deliver the PDF.
-  //
-  // Minimal viable path (do this in a separate PR — keep webhook fast):
-  //   1. Look up the customer email — either:
-  //        a) returned by Monobank in the redirect/status, or
-  //        b) carried via our own `reference` field (we generated `tbb-...`)
-  //   2. POST to Resend / Sendgrid with a signed download link
-  //   3. Mark the invoice as "delivered" in KV / D1 so duplicate webhooks no-op
-  //
-  // For now we just log. Owner can see the entry in `npx wrangler tail` or
-  // Cloudflare dashboard → Workers & Pages → troublebaba → Logs.
+  // Log to Cloudflare Workers logs for the operator's wrangler tail / dashboard.
   console.log('[webhook][SUCCESS]', JSON.stringify({
     invoiceId:   invoice.invoiceId,
     amount:      invoice.amount,
@@ -36,6 +94,11 @@ async function handleSuccess(invoice: InvoiceStatusResponse, env: Env): Promise<
     reference:   invoice.reference,
     paymentInfo: invoice.paymentInfo,
   }));
+
+  // Fan out Telegram notifications (best-effort, won't throw).
+  await notifyTelegram(env, invoice);
+
+  // TODO: deliver the PDF (Resend / R2 signed URL). See README "Monobank checkout".
 }
 
 function handleFailure(invoice: InvoiceStatusResponse): void {

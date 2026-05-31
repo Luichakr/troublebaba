@@ -12,6 +12,12 @@ export interface Env {
   MONOBANK_PUBKEY?: string;
   /** Optional site URL override; falls back to request origin. */
   SITE_URL?: string;
+
+  // ─── Telegram notifications (successful payments only) ───
+  /** Bot token from @BotFather. Encrypted in CF env. */
+  TELEGRAM_BOT_TOKEN?: string;
+  /** Comma-separated list of Telegram chat IDs to notify. Example: "436984255,123456789". */
+  TELEGRAM_NOTIFY_CHAT_IDS?: string;
 }
 
 const DEFAULT_API = 'https://api.monobank.ua';
