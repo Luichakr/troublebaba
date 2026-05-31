@@ -1,3 +1,17 @@
-name = "bentocake-landing"
-compatibility_date = "2024-01-01"
-pages_build_output_dir = "dist"
+# Cloudflare Pages configuration.
+# Docs: https://developers.cloudflare.com/pages/functions/wrangler-configuration/
+#
+# Secrets (MONOBANK_TOKEN, MONOBANK_PUBKEY, ADMIN_PASS) are NOT stored here —
+# they live in CF Pages → Settings → Environment variables (marked Encrypted).
+# This file only declares non-secret bindings (D1, KV, R2, etc.).
+
+name                    = "bentocake-landing"
+compatibility_date      = "2024-09-01"
+pages_build_output_dir  = "dist"
+
+# D1 database for click + funnel event tracking.
+# Read by functions/api/track.ts (write side) and functions/api/admin/stats.ts (read side).
+[[d1_databases]]
+binding       = "DB"
+database_name = "troublebaba-events"
+database_id   = "a19ec210-0b18-48ba-8325-47ee8a351620"
