@@ -38,7 +38,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   const since = Date.now() - days * 86400 * 1000;
 
   try {
-    const [byType, bySource, byLang, byCountry, byDay, total, recent] = await Promise.all([
+    const [byType, bySource, byLang, byCountry, byDay, total, recent, visitsByLang, visitsTotal] = await Promise.all([
       env.DB.prepare(
         `SELECT type, COUNT(*) AS n FROM events WHERE ts >= ? GROUP BY type ORDER BY n DESC`,
       ).bind(since).all(),
@@ -69,18 +69,29 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
         `SELECT ts, type, source, page_lang, ip_country, page_path
          FROM events ORDER BY ts DESC LIMIT 100`,
       ).all(),
+      env.DB.prepare(
+        `SELECT page_lang, COUNT(*) AS n FROM events
+         WHERE ts >= ? AND type = 'pageview' GROUP BY page_lang ORDER BY n DESC`,
+      ).bind(since).all(),
+      env.DB.prepare(
+        `SELECT
+           (SELECT COUNT(*) FROM events WHERE type='pageview') AS visits_total,
+           (SELECT COUNT(*) FROM events WHERE type='pageview' AND ts >= ?) AS visits_period`,
+      ).bind(since).first(),
     ]);
 
     return json({
       ok: true,
       windowDays: days,
       total,
-      byType:    byType.results,
-      bySource:  bySource.results,
-      byLang:    byLang.results,
-      byCountry: byCountry.results,
-      byDay:     byDay.results,
-      recent:    recent.results,
+      visitsTotal,
+      byType:       byType.results,
+      bySource:     bySource.results,
+      byLang:       byLang.results,
+      byCountry:    byCountry.results,
+      byDay:        byDay.results,
+      recent:       recent.results,
+      visitsByLang: visitsByLang.results,
     });
   } catch (e: any) {
     console.error('[admin/stats] error:', e?.message);

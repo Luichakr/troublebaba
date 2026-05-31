@@ -1836,4 +1836,16 @@ document.querySelectorAll<HTMLAnchorElement>('[data-analytics^="social_"]').forE
     });
   });
 });
+
+// One pageview per session per language. Use sessionStorage so refreshes within
+// the same tab don't double-count, but each new tab/visit is a fresh hit.
+(() => {
+  try {
+    const pageLang = (document.documentElement.lang || 'uk').slice(0, 2);
+    const key = 'tbb_pv_' + pageLang + '_' + location.pathname;
+    if (sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, '1');
+    send('pageview', { page_lang: pageLang });
+  } catch { /* swallow */ }
+})();
 </script>

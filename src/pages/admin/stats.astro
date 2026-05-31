@@ -16,7 +16,17 @@ import Layout from '../../layouts/Layout.astro';
     <div class="max-w-[1100px] mx-auto">
 
       <header class="flex items-center justify-between mb-10">
-        <h1 class="font-cabinet text-espresso text-3xl tracking-tight">📊 TROUBLEBABA stats</h1>
+        <h1 class="font-cabinet text-espresso text-3xl tracking-tight flex items-center gap-3">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-mocha/10" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M3 21h18" stroke="#8B7355" stroke-width="1.6" stroke-linecap="round"/>
+              <rect x="5"  y="12" width="3" height="6" rx="0.8" stroke="#8B7355" stroke-width="1.6"/>
+              <rect x="10.5" y="8" width="3" height="10" rx="0.8" stroke="#8B7355" stroke-width="1.6"/>
+              <rect x="16" y="4"  width="3" height="14" rx="0.8" stroke="#8B7355" stroke-width="1.6"/>
+            </svg>
+          </span>
+          <span>TROUBLEBABA stats</span>
+        </h1>
         <div class="flex items-center gap-3">
           <select id="range" class="font-outfit text-sm bg-warm-white border border-taupe/40 rounded-xl px-3 py-2">
             <option value="1">Last 24h</option>
@@ -41,6 +51,22 @@ import Layout from '../../layouts/Layout.astro';
 
       <!-- Stats grid (filled after auth) -->
       <div id="stats" class="hidden space-y-6">
+
+        <!-- Visits — top hero block per language -->
+        <section class="bg-warm-white rounded-2xl p-6 lg:p-8" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+          <div class="flex items-baseline justify-between mb-6">
+            <h2 class="font-cabinet text-espresso text-xl">Visits</h2>
+            <div class="text-right">
+              <div class="font-cabinet text-espresso text-4xl lg:text-5xl tabular-nums" id="visits-total-period">—</div>
+              <div class="font-outfit text-xs uppercase tracking-[0.14em] text-mocha mt-1">Total this period</div>
+            </div>
+          </div>
+          <div id="visits-by-lang" class="grid grid-cols-2 lg:grid-cols-4 gap-3"></div>
+          <div class="mt-5 flex items-center gap-2 font-outfit text-xs text-espresso/45">
+            <span>All time visits:</span>
+            <span class="font-mono text-espresso/70" id="visits-total-all">—</span>
+          </div>
+        </section>
 
         <!-- Totals -->
         <section class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="totals"></section>
@@ -104,6 +130,46 @@ import Layout from '../../layouts/Layout.astro';
         </div>
         <div class="w-12 text-right font-mono">${n}</div>
       </div>`;
+    }
+
+    function fmtNum(n) {
+      if (n == null) return '0';
+      return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    }
+
+    const LANG_META = {
+      uk: { label: 'UK', name: 'Українська' },
+      ru: { label: 'RU', name: 'Русский'    },
+      pl: { label: 'PL', name: 'Polski'     },
+      en: { label: 'EN', name: 'English'    },
+    };
+
+    function renderVisits(byLang, vTotal) {
+      $('visits-total-period').textContent = fmtNum(vTotal?.visits_period ?? 0);
+      $('visits-total-all').textContent    = fmtNum(vTotal?.visits_total  ?? 0);
+
+      const all = ['uk', 'ru', 'pl', 'en'];
+      const map = Object.fromEntries((byLang || []).map(r => [r.page_lang, r.n]));
+      const max = Math.max(0, ...all.map(l => map[l] || 0));
+      $('visits-by-lang').innerHTML = all.map(l => {
+        const m   = LANG_META[l];
+        const n   = map[l] || 0;
+        const pct = max > 0 ? (n / max) * 100 : 0;
+        const accent = l === 'uk' ? '#8B7355' : l === 'ru' ? '#A67C52' : l === 'pl' ? '#C8B8A2' : '#6E5C43';
+        return `
+          <div class="bg-cream rounded-xl px-4 py-4 flex flex-col gap-2 border border-taupe/20">
+            <div class="flex items-baseline justify-between">
+              <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-mocha">${m.label}</span>
+              <span class="font-outfit text-[11px] text-espresso/45">${m.name}</span>
+            </div>
+            <div class="font-cabinet text-espresso text-3xl tabular-nums leading-none">${fmtNum(n)}</div>
+            <div class="font-outfit text-[10px] uppercase tracking-[0.14em] text-espresso/40">visits</div>
+            <div class="h-1.5 bg-warm-white rounded-full overflow-hidden mt-1">
+              <div class="h-full rounded-full transition-all duration-500" style="width:${pct.toFixed(1)}%;background:${accent};"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
     function totals(t) {
@@ -198,6 +264,7 @@ import Layout from '../../layouts/Layout.astro';
         const data = await res.json();
         if (!res.ok || !data.ok) throw new Error(data?.error || 'Unknown error');
 
+        renderVisits(data.visitsByLang, data.visitsTotal);
         totals(data.total);
         renderBars('by-source', data.bySource, 'source');
         renderBars('by-lang',   data.byLang,   'page_lang');
