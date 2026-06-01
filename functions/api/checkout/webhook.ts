@@ -8,7 +8,12 @@
 
 import { getPubKey, json, bad } from '../../_lib/monobank';
 import { importMonoPubKey, verifyWebhook } from '../../_lib/verify';
-import type { Env, InvoiceStatusResponse } from '../../_lib/monobank';
+import type { Env as MonoEnv, InvoiceStatusResponse } from '../../_lib/monobank';
+import { getOrderByMonoReference, setOrderPaid, logBotEvent } from '../../_lib/orders';
+import { deliverPdfToTelegram } from '../../_lib/pdf-delivery';
+import type { PdfEnv } from '../../_lib/pdf-delivery';
+
+type Env = MonoEnv & PdfEnv;
 
 async function fetchAndCacheKey(env: Env): Promise<string> {
   // If MONOBANK_PUBKEY env var is set, prefer it (no extra request per cold start).
@@ -95,10 +100,40 @@ async function handleSuccess(invoice: InvoiceStatusResponse, env: Env): Promise<
     paymentInfo: invoice.paymentInfo,
   }));
 
-  // Fan out Telegram notifications (best-effort, won't throw).
+  // Fan out Telegram notifications to admins (best-effort, won't throw).
   await notifyTelegram(env, invoice);
 
-  // TODO: deliver the PDF (Resend / R2 signed URL). See README "Monobank checkout".
+  // ── Bot-order delivery ──────────────────────────────────────────────────────
+  // If the invoice originated from the Telegram bot, its reference starts with
+  // "tbb-bot-" and we have a row in bot_orders. Deliver the PDF to the buyer.
+  const ref = invoice.reference;
+  if (ref && ref.startsWith('tbb-bot-')) {
+    try {
+      const order = await getOrderByMonoReference(env, ref);
+      if (!order) {
+        console.warn('[webhook] bot order not found for reference:', ref);
+      } else if (order.status === 'delivered') {
+        console.log('[webhook] bot order already delivered (idempotent skip):', order.order_id);
+      } else {
+        // Mark paid (idempotent — if already paid, just overwrites the same fields).
+        await setOrderPaid(env, order.order_id, invoice.invoiceId, invoice.paymentInfo);
+        await logBotEvent(env, 'bot_payment_success', order.telegram_id, order.order_id, {
+          invoice_id: invoice.invoiceId, amount: invoice.amount, ccy: invoice.ccy,
+        });
+
+        // Pull username from the extras blob if we stored it on order creation.
+        let username: string | undefined;
+        try { username = JSON.parse(order.extra ?? '{}')?.username; } catch { /* */ }
+
+        const r = await deliverPdfToTelegram(env, { ...order, status: 'paid' }, username);
+        if (!r.delivered) {
+          console.error('[webhook] PDF delivery failed for', order.order_id, '— reason:', r.error);
+        }
+      }
+    } catch (e: any) {
+      console.error('[webhook] bot delivery error:', e?.message);
+    }
+  }
 }
 
 function handleFailure(invoice: InvoiceStatusResponse): void {
