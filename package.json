@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "og:rebuild": "node scripts/build-og-cover.mjs"
+    "og:rebuild": "node scripts/build-og-cover.mjs",
+    "indexnow": "node scripts/indexnow-submit.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
