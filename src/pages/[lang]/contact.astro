@@ -1,0 +1,15 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ContactPage from '../../components/ContactPage.astro';
+import { t } from '../../i18n/translations.js';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'ru' } }, { params: { lang: 'pl' } }, { params: { lang: 'en' } }];
+}
+type Lang = 'ru' | 'pl' | 'en';
+const { lang } = Astro.params as { lang: Lang };
+const tr = (t as any)[lang];
+---
+<Layout title={tr.contact_meta_title} description={tr.contact_meta_desc} lang={lang} path={`${lang}/contact`} pageType="content">
+  <ContactPage lang={lang} homeUrl={`/${lang}/`} />
+</Layout>

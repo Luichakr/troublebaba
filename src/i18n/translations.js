@@ -101,6 +101,7 @@ export const t = {
     inside_label:  'Що всередині',
     inside_title:  'Не просто рецепти — старт-пак для продажів',
     inside_sub:    'Усередині все, що потрібно щоб спекти свій перший бенто і запакувати клієнту: рецепти з точними грамажами, які продукти купувати, який інвентар потрібен, і як гарно подати в коробці. Від замішування бісквіту до бирки з твоїм Instagram.',
+    inside_products_note: 'Продукти й бренди в збірнику підібрані для українського та європейського ринку. У вашій країні деякі з них можуть називатися інакше або бути відсутні — у PDF пояснено, за якими ознаками обирати аналог (жирність, склад, текстура), тож ви легко знайдете заміну.',
     inside_items: [
       ['10 рецептів у 3 розмірах', 'Кожен рецепт одразу перерахований на 1, 2 і 3 торти — без математики, бери і печи'],
       ['Які продукти купувати', 'Конкретно: кукурудзяний крохмаль, какао 20–22%, борошно з білком ~8г, масло 82,5%. З фото пачок та поясненням чому саме так.'],
@@ -210,6 +211,7 @@ export const t = {
       { q: 'Як я отримаю PDF після оплати?', a: 'Відразу після оплати на вашу пошту надійде лист із посиланням для завантаження. Файл доступний одразу — ніяких затримок.' },
       { q: 'Чи підходить збірник для початківців?', a: 'Так. Кожен рецепт містить точні грами, температури та детальний опис кожного кроку. Навіть якщо ви ще не пекли бенто-торти — все вийде.' },
       { q: 'Який формат файлу?', a: 'PDF, адаптований для читання на телефоні, планшеті та комп\'ютері. Можна роздрукувати.' },
+      { q: 'А якщо у мене немає таких продуктів?', a: 'Продукти й бренди підібрані для українського та європейського ринку. У вашій країні щось може називатися інакше — у PDF пояснено, за якими ознаками обирати аналог (жирність, склад, текстура), тож заміну знайти легко.' },
       { q: 'Чи можна використовувати рецепти для продажу тортів?', a: 'Так, саме для цього вони й створені. Авторка сама використовує ці рецепти у своєму кондитерському бізнесі.' },
       { q: 'Яку валюту і як можна оплатити?', a: 'Оплата через Gumroad: Visa, Mastercard, Apple Pay, Google Pay. Сума $20 — конвертується автоматично в UAH, PLN або EUR за курсом вашого банку.' },
       { q: 'Чи є повернення коштів?', a: 'Оскільки це цифровий товар, після завантаження повернення не передбачено. Якщо є технічні проблеми — пишіть в Instagram @troublebaba.' },
@@ -324,6 +326,28 @@ export const t = {
     // === Buy button states (used during /api/checkout/create roundtrip) ===
     buy_loading:                 'Створюємо оплату…',
     buy_error:                   'Не вдалося створити оплату. Спробуйте за хвилину.',
+
+    // === About page ===
+    about_meta_title:  'Про авторку — TROUBLEBABA | Bento Cake',
+    about_meta_desc:   'TROUBLEBABA (Женя) — кондитерка з 2014 року. 100 000+ людей готують за її рецептами. Історія авторки збірника Bento Cake.',
+    about_heading:     'Женя — TROUBLEBABA',
+    about_role:        'Кондитер-практик · авторка рецептів',
+    about_p1:          'Мене звуть Женя, я — @troublebaba. З 2014 року печу торти на продаж і веду кулінарний блог. За ці роки я не «збирала рецепти з інтернету» — я розробляла свої, розуміючи, як поводиться кожен продукт.',
+    about_p2:          'Кожен рецепт у збірнику пройшов кілька етапів доопрацювання, поки не вийшов на ідеал — стабільний, повторюваний, продаваний. Це робоча база, на якій я роблю торти клієнтам досі.',
+    about_p3:          'Сьогодні понад 100 000 людей готують за моїми рецептами. Усі вони зібрані в моїх соцмережах — заходьте, там багато процесів, ідей та натхнення.',
+    about_stats_label: 'Коротко про мене',
+    about_cta:         'Переглянути збірник рецептів',
+    about_socials:     'Де мене знайти',
+
+    // === Contact page ===
+    contact_meta_title: 'Контакти | TROUBLEBABA',
+    contact_meta_desc:  'Звʼязатися з TROUBLEBABA щодо збірника рецептів Bento Cake, оплати та підтримки.',
+    contact_heading:    'Звʼязатися з нами',
+    contact_intro:      'Якщо є питання про збірник, оплату або ви не отримали PDF — напишіть, ми допоможемо.',
+    contact_email_label: 'Електронна пошта',
+    contact_social_label: 'Соцмережі',
+    contact_response:   'Зазвичай відповідаємо протягом 24 годин. Найшвидший спосіб — написати в Instagram.',
+    contact_back:       '← На головну',
   },
 
   ru: {
@@ -389,6 +413,7 @@ export const t = {
     inside_label:  'Что внутри',
     inside_title:  'Не просто рецепты — старт-пак для продаж',
     inside_sub:    'Внутри всё, что нужно чтобы испечь свой первый бенто и упаковать его клиенту: рецепты с точными граммовками, какие продукты покупать, какой инвентарь нужен, и как красиво подать в коробке. От замеса бисквита до бирки с твоим Instagram.',
+    inside_products_note: 'Продукты и бренды в сборнике подобраны для украинского и европейского рынка. В вашей стране некоторые из них могут называться иначе или отсутствовать — в PDF объяснено, по каким признакам выбирать аналог (жирность, состав, текстура), так что вы легко найдёте замену.',
     inside_items: [
       ['10 рецептов в 3 размерах', 'Каждый рецепт сразу пересчитан на 1, 2 и 3 торта — никакой математики, бери и пеки'],
       ['Какие продукты покупать', 'Конкретно: кукурузный крахмал, какао 20–22%, мука с белком ~8г, масло 82,5%. С фото пачек и пояснением почему именно так.'],
@@ -484,6 +509,7 @@ export const t = {
       { q: 'Как я получу PDF после оплаты?', a: 'Сразу после оплаты на вашу почту придёт письмо со ссылкой для скачивания. Файл доступен сразу — никаких задержек.' },
       { q: 'Подходит ли сборник для начинающих?', a: 'Да. Каждый рецепт содержит точные граммы, температуры и детальное описание каждого шага. Даже если вы ещё не пекли бенто-торты — всё получится.' },
       { q: 'Какой формат файла?', a: 'PDF, адаптированный для чтения на телефоне, планшете и компьютере. Можно распечатать.' },
+      { q: 'А если у меня нет таких продуктов?', a: 'Продукты и бренды подобраны для украинского и европейского рынка. В вашей стране что-то может называться иначе — в PDF объяснено, по каким признакам выбирать аналог (жирность, состав, текстура), так что замену найти легко.' },
       { q: 'Можно ли использовать рецепты для продажи тортов?', a: 'Да, именно для этого они и созданы. Автор сама использует эти рецепты в своём кондитерском бизнесе.' },
       { q: 'Какую валюту и как можно оплатить?', a: 'Оплата через Gumroad: Visa, Mastercard, Apple Pay, Google Pay. Сумма $20 — конвертируется автоматически в UAH, PLN или EUR по курсу вашего банка.' },
       { q: 'Есть ли возврат средств?', a: 'Так как это цифровой товар, после скачивания возврат не предусмотрен. Если есть технические проблемы — пишите в Instagram @troublebaba.' },
@@ -592,6 +618,28 @@ export const t = {
     // === Buy button states (used during /api/checkout/create roundtrip) ===
     buy_loading:                 'Создаём оплату…',
     buy_error:                   'Не удалось создать оплату. Попробуйте через минуту.',
+
+    // === About page ===
+    about_meta_title:  'Об авторе — TROUBLEBABA | Bento Cake',
+    about_meta_desc:   'TROUBLEBABA (Женя) — кондитер с 2014 года. 100 000+ человек готовят по её рецептам. История автора сборника Bento Cake.',
+    about_heading:     'Женя — TROUBLEBABA',
+    about_role:        'Кондитер-практик · автор рецептов',
+    about_p1:          'Меня зовут Женя, я — @troublebaba. С 2014 года пеку торты на продажу и веду кулинарный блог. За эти годы я не «собирала рецепты из интернета» — я разрабатывала свои, понимая, как ведёт себя каждый продукт.',
+    about_p2:          'Каждый рецепт в сборнике прошёл несколько этапов доработки, пока не вышел на идеал — стабильный, повторяемый, продаваемый. Это рабочая база, на которой я делаю торты клиентам до сих пор.',
+    about_p3:          'Сегодня более 100 000 человек готовят по моим рецептам. Все они собраны в моих соцсетях — заходите, там много процессов, идей и вдохновения.',
+    about_stats_label: 'Коротко обо мне',
+    about_cta:         'Посмотреть сборник рецептов',
+    about_socials:     'Где меня найти',
+
+    // === Contact page ===
+    contact_meta_title: 'Контакты | TROUBLEBABA',
+    contact_meta_desc:  'Связаться с TROUBLEBABA по вопросам сборника рецептов Bento Cake, оплаты и поддержки.',
+    contact_heading:    'Связаться с нами',
+    contact_intro:      'Если есть вопрос про сборник, оплату или вы не получили PDF — напишите, мы поможем.',
+    contact_email_label: 'Электронная почта',
+    contact_social_label: 'Соцсети',
+    contact_response:   'Обычно отвечаем в течение 24 часов. Самый быстрый способ — написать в Instagram.',
+    contact_back:       '← На главную',
   },
 
   pl: {
@@ -657,6 +705,7 @@ export const t = {
     inside_label:  'Co w środku',
     inside_title:  'Nie tylko przepisy — starter-pack do sprzedaży',
     inside_sub:    'W środku wszystko, czego potrzebujesz, żeby upiec swoje pierwsze bento i zapakować je klientowi: przepisy z dokładnymi gramaturami, jakie produkty kupować, jaki sprzęt jest potrzebny i jak ładnie podać w pudełku. Od ubijania biszkoptu po metkę z twoim Instagramem.',
+    inside_products_note: 'Produkty i marki w zbiorze dobrano pod rynek ukraiński i europejski. W twoim kraju niektóre z nich mogą nazywać się inaczej lub być niedostępne — w PDF wyjaśniono, według jakich cech dobierać zamiennik (zawartość tłuszczu, skład, tekstura), więc łatwo znajdziesz zamianę.',
     inside_items: [
       ['10 przepisów w 3 rozmiarach', 'Każdy przepis już przeliczony na 1, 2 i 3 torty — bez matematyki, bierz i piecz'],
       ['Jakie produkty kupować', 'Konkretnie: skrobia kukurydziana, kakao 20–22%, mąka z białkiem ~8g, masło 82,5%. Ze zdjęciami opakowań i wyjaśnieniem dlaczego właśnie tak.'],
@@ -752,6 +801,7 @@ export const t = {
       { q: 'Jak otrzymam PDF po płatności?', a: 'Zaraz po płatności na Twój e-mail przyjdzie link do pobrania. Plik dostępny od razu — bez opóźnień.' },
       { q: 'Czy zbiór jest odpowiedni dla początkujących?', a: 'Tak. Każdy przepis zawiera dokładne gramy, temperatury i szczegółowy opis każdego kroku. Nawet jeśli nigdy nie robiłaś tortów bento — wszystko się uda.' },
       { q: 'Jaki format pliku?', a: 'PDF dostosowany do czytania na telefonie, tablecie i komputerze. Można wydrukować.' },
+      { q: 'A jeśli nie mam takich produktów?', a: 'Produkty i marki dobrano pod rynek ukraiński i europejski. W Twoim kraju coś może nazywać się inaczej — w PDF wyjaśniono, według jakich cech dobierać zamiennik (zawartość tłuszczu, skład, tekstura), więc łatwo znajdziesz zamianę.' },
       { q: 'Czy można używać przepisów do sprzedaży tortów?', a: 'Tak, właśnie do tego zostały stworzone. Autorka sama używa tych przepisów w swojej cukierniczej działalności.' },
       { q: 'Jak można zapłacić?', a: 'Płatność przez Gumroad: Visa, Mastercard, Apple Pay, Google Pay, BLIK. Kwota $20 — przeliczana automatycznie na PLN po kursie Twojego banku.' },
       { q: 'Czy jest możliwość zwrotu?', a: 'Ponieważ jest to produkt cyfrowy, po pobraniu zwrot nie jest możliwy. W razie problemów technicznych — napisz na Instagram @troublebaba.' },
@@ -860,6 +910,28 @@ export const t = {
     // === Buy button states (used during /api/checkout/create roundtrip) ===
     buy_loading:                 'Tworzymy płatność…',
     buy_error:                   'Nie udało się utworzyć płatności. Spróbuj za minutę.',
+
+    // === About page ===
+    about_meta_title:  'O autorce — TROUBLEBABA | Bento Cake',
+    about_meta_desc:   'TROUBLEBABA (Żenia) — cukierniczka od 2014 roku. 100 000+ osób gotuje według jej przepisów. Historia autorki zbioru Bento Cake.',
+    about_heading:     'Żenia — TROUBLEBABA',
+    about_role:        'Cukierniczka-praktyk · autorka przepisów',
+    about_p1:          'Mam na imię Żenia, jestem @troublebaba. Od 2014 roku piekę torty na sprzedaż i prowadzę blog kulinarny. Przez te lata nie «zbierałam przepisów z internetu» — opracowywałam własne, rozumiejąc, jak zachowuje się każdy produkt.',
+    about_p2:          'Każdy przepis w zbiorze przeszedł kilka etapów dopracowania, zanim osiągnął ideał — stabilny, powtarzalny, sprzedawalny. To baza, na której do dziś robię torty dla klientów.',
+    about_p3:          'Dziś ponad 100 000 osób gotuje według moich przepisów. Wszystkie zebrane są w moich social mediach — zajrzyj, jest tam mnóstwo procesów, pomysłów i inspiracji.',
+    about_stats_label: 'Krótko o mnie',
+    about_cta:         'Zobacz zbiór przepisów',
+    about_socials:     'Gdzie mnie znaleźć',
+
+    // === Contact page ===
+    contact_meta_title: 'Kontakt | TROUBLEBABA',
+    contact_meta_desc:  'Skontaktuj się z TROUBLEBABA w sprawie zbioru przepisów Bento Cake, płatności i wsparcia.',
+    contact_heading:    'Skontaktuj się z nami',
+    contact_intro:      'Jeśli masz pytanie o zbiór, płatność lub nie otrzymałaś PDF — napisz, pomożemy.',
+    contact_email_label: 'E-mail',
+    contact_social_label: 'Social media',
+    contact_response:   'Zwykle odpowiadamy w ciągu 24 godzin. Najszybciej — napisz na Instagramie.',
+    contact_back:       '← Strona główna',
   },
 
   en: {
@@ -925,6 +997,7 @@ export const t = {
     inside_label:  'What\'s inside',
     inside_title:  'Not just recipes — a starter pack for selling',
     inside_sub:    'Everything you need to bake your first bento and pack it for a client: recipes with precise grams, which exact products to buy, what tools you need, and how to present it beautifully in the box. From mixing the sponge to the tag with your Instagram.',
+    inside_products_note: 'The products and brands in the collection are selected for the Ukrainian and European market. In your country some may be named differently or unavailable — the PDF explains which properties to match when choosing a substitute (fat content, composition, texture), so you can easily find a replacement.',
     inside_items: [
       ['10 recipes in 3 sizes', 'Each recipe pre-scaled for 1, 2 and 3 cakes — no math, just bake'],
       ['Exactly which products to buy', 'Specific: corn starch, cocoa 20–22%, flour with ~8g protein, butter 82.5%. With package photos and reasoning why.'],
@@ -1020,6 +1093,7 @@ export const t = {
       { q: 'How will I get the PDF after payment?', a: 'Immediately after payment you\'ll receive an email with a download link. The file is available instantly — no delays.' },
       { q: 'Is the collection suitable for beginners?', a: 'Yes. Every recipe includes exact grams, temperatures and a detailed step-by-step description. Even if you\'ve never made a bento cake — you\'ll succeed.' },
       { q: 'What file format is it?', a: 'PDF, optimised for reading on phone, tablet and computer. Printable.' },
+      { q: 'What if I don\'t have those exact products?', a: 'The products and brands are selected for the Ukrainian and European market. In your country something may be named differently — the PDF explains which properties to match when choosing a substitute (fat content, composition, texture), so a replacement is easy to find.' },
       { q: 'Can I use the recipes to sell cakes?', a: 'Yes, that\'s exactly what they were designed for. The author uses these very recipes in her own baking business.' },
       { q: 'How can I pay?', a: 'Payment through Gumroad: Visa, Mastercard, Apple Pay, Google Pay. $20 — automatically converted to your local currency.' },
       { q: 'Is there a refund policy?', a: 'As this is a digital product, refunds are not available after download. For technical issues, message @troublebaba on Instagram.' },
@@ -1128,6 +1202,28 @@ export const t = {
     // === Buy button states (used during /api/checkout/create roundtrip) ===
     buy_loading:                 'Creating payment…',
     buy_error:                   'Couldn\'t create the payment. Try again in a minute.',
+
+    // === About page ===
+    about_meta_title:  'About the author — TROUBLEBABA | Bento Cake',
+    about_meta_desc:   'TROUBLEBABA (Zhenya) — a pastry chef since 2014. 100,000+ people bake by her recipes. The story behind the Bento Cake collection.',
+    about_heading:     'Zhenya — TROUBLEBABA',
+    about_role:        'Pastry practitioner · recipe author',
+    about_p1:          'My name is Zhenya, I\'m @troublebaba. Since 2014 I\'ve been baking cakes for sale and running a food blog. Over these years I haven\'t «collected recipes from the internet» — I developed my own, understanding how every ingredient behaves.',
+    about_p2:          'Every recipe in the collection went through several rounds of refinement until it reached perfection — stable, repeatable, sellable. It\'s the working base I still use to make cakes for clients today.',
+    about_p3:          'Today more than 100,000 people bake by my recipes. They\'re all gathered on my social media — come over, there\'s plenty of process, ideas and inspiration.',
+    about_stats_label: 'A bit about me',
+    about_cta:         'See the recipe collection',
+    about_socials:     'Where to find me',
+
+    // === Contact page ===
+    contact_meta_title: 'Contact | TROUBLEBABA',
+    contact_meta_desc:  'Get in touch with TROUBLEBABA about the Bento Cake recipe collection, payments and support.',
+    contact_heading:    'Get in touch',
+    contact_intro:      'If you have a question about the collection, payment, or didn\'t receive your PDF — message us, we\'ll help.',
+    contact_email_label: 'Email',
+    contact_social_label: 'Social media',
+    contact_response:   'We usually reply within 24 hours. The fastest way is to message us on Instagram.',
+    contact_back:       '← Home',
   },
 };
 

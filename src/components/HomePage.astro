@@ -664,6 +664,15 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
               ));
             })()}
           </div>
+
+          {/* Disclaimer: products are selected for UA/EU market */}
+          <div class="reveal mt-5 flex items-start gap-3 bg-cream/60 border border-taupe/25 rounded-2xl px-5 py-4">
+            <svg class="flex-shrink-0 mt-0.5" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="9.5" stroke="#8B7355" stroke-width="1.4"/>
+              <path d="M12 8.2v.2M12 11v5" stroke="#8B7355" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            <p class="font-outfit text-espresso/60 text-[12.5px] leading-relaxed">{tr.inside_products_note}</p>
+          </div>
         </div>
 
         <div class="reveal reveal-d2">
@@ -1508,9 +1517,11 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
           <div class="font-outfit font-semibold text-warm-white/35 text-[11px] uppercase tracking-[0.22em] mb-7">{tr.footer_info}</div>
           <div class="flex flex-col">
             {[
-              { label: tr.footer_faq, href: '#faq' },
-              { label: tr.footer_privacy, href: '/privacy' },
-              { label: tr.footer_terms, href: '/terms' },
+              { label: tr.footer_faq,     href: '#faq' },
+              { label: tr.nav_author,     href: (isUk ? '' : '/' + lang) + '/about' },
+              { label: tr.contact_heading, href: (isUk ? '' : '/' + lang) + '/contact' },
+              { label: tr.footer_privacy, href: (isUk ? '' : '/' + lang) + '/privacy' },
+              { label: tr.footer_terms,   href: (isUk ? '' : '/' + lang) + '/terms' },
             ].map((link, i) => (
               <a href={link.href} class={`group flex items-center justify-between py-4 font-outfit text-warm-white/70 text-sm hover:text-warm-white transition-colors ${i > 0 ? 'border-t border-white/8' : ''}`}>
                 <span>{link.label}</span>

@@ -1,0 +1,15 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AboutPage from '../../components/AboutPage.astro';
+import { t } from '../../i18n/translations.js';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'ru' } }, { params: { lang: 'pl' } }, { params: { lang: 'en' } }];
+}
+type Lang = 'ru' | 'pl' | 'en';
+const { lang } = Astro.params as { lang: Lang };
+const tr = (t as any)[lang];
+---
+<Layout title={tr.about_meta_title} description={tr.about_meta_desc} lang={lang} path={`${lang}/about`} pageType="about">
+  <AboutPage lang={lang} homeUrl={`/${lang}/`} />
+</Layout>

@@ -19,8 +19,8 @@ interface Props {
    *  'ru/privacy' → /ru/privacy (ru privacy)
    */
   path?: string;
-  /** Page type — 'home', 'legal', 'error'. Drives JSON-LD and GA loading. */
-  pageType?: 'home' | 'legal' | 'error';
+  /** Page type — drives JSON-LD and GA loading. */
+  pageType?: 'home' | 'legal' | 'error' | 'about' | 'content';
   /** When true, add <meta name="robots" content="noindex,nofollow"> (use for 404). */
   noindex?: boolean;
   /** Override GA loading. Default rule: load only on home. Set true to also load on /thank-you so purchase events fire. */
@@ -71,7 +71,7 @@ const OG_IMAGE  = SITE_URL + SITE.ogImage;
 const OG_LOCALE = LOCALES[lang]?.og || 'uk_UA';
 
 // Hreflang alternates — emit for home and legal pages (skip 404/error).
-const emitHreflang = pageType === 'home' || pageType === 'legal';
+const emitHreflang = pageType === 'home' || pageType === 'legal' || pageType === 'about' || pageType === 'content';
 const hreflangEntries = SUPPORTED.map(l => ({ lang: l, url: altUrlFor(l) }));
 const xDefaultUrl = altUrlFor('uk');
 
@@ -249,7 +249,7 @@ const loadGA = (loadGAOverride ?? pageType === 'home') && !!SITE.gaId;
     })} />
   )}
 
-  {pageType === 'legal' && (
+  {(pageType === 'legal' || pageType === 'about' || pageType === 'content') && (
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -257,6 +257,20 @@ const loadGA = (loadGAOverride ?? pageType === 'home') && !!SITE.gaId;
         { "@type": "ListItem", "position": 1, "name": homeLabel, "item": SITE_URL + homePathFor(lang) },
         { "@type": "ListItem", "position": 2, "name": title.split(' | ')[0], "item": CANONICAL },
       ],
+    })} />
+  )}
+
+  {pageType === 'about' && (
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "TROUBLEBABA",
+      "alternateName": "Zhenya",
+      "jobTitle": "Pastry chef",
+      "url": CANONICAL,
+      "image": SITE_URL + '/images/author.webp',
+      "sameAs": [SITE.instagramUrl, SITE.tiktokUrl, SITE.youtubeUrl, SITE.facebookUrl],
+      "worksFor": { "@type": "Organization", "name": SITE.name, "url": SITE_URL + '/' },
     })} />
   )}
 </head>

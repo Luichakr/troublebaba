@@ -1,0 +1,71 @@
+---
+import { t } from '../i18n/translations.js';
+import { SITE } from '../config/site.js';
+
+type Lang = 'uk' | 'ru' | 'pl' | 'en';
+interface Props { lang: Lang; homeUrl: string }
+const { lang, homeUrl } = Astro.props;
+const tr = (t as any)[lang] as Record<string, any>;
+
+const socials = [
+  { label: 'Instagram', url: SITE.instagramUrl },
+  { label: 'TikTok',    url: SITE.tiktokUrl },
+  { label: 'YouTube',   url: SITE.youtubeUrl },
+  { label: 'Facebook',  url: SITE.facebookUrl },
+];
+---
+<main class="min-h-[100dvh] bg-espresso">
+  <div class="max-w-[1100px] mx-auto px-6 lg:px-16 py-16 lg:py-24">
+
+    <a href={homeUrl} class="inline-flex items-center gap-2 font-outfit text-warm-white/60 hover:text-warm-white transition-colors text-sm mb-12">
+      <svg width="14" height="12" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M14 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>{tr.contact_back}</span>
+    </a>
+
+    <div class="grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-12 lg:gap-16 items-start">
+
+      <!-- Photo -->
+      <div class="relative w-full max-w-[460px] mx-auto lg:mx-0">
+        <div class="relative rounded-3xl overflow-hidden" style="aspect-ratio:3/3.6; box-shadow:0 0 0 1px rgba(132,100,76,0.5), 0 32px 80px rgba(0,0,0,0.5);">
+          <div class="img-skeleton absolute inset-0 w-full h-full" style="background-color:#2a2320;"></div>
+          <img src="images/author.webp" alt={tr.about_heading} width="1152" height="1365"
+               loading="eager" fetchpriority="high" decoding="async"
+               class="absolute inset-0 w-full h-full object-cover object-top"
+               onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+          <div class="absolute bottom-5 left-1/2 -translate-x-1/2">
+            <span class="font-outfit font-semibold text-warm-white/90 text-sm bg-black/50 backdrop-blur-sm border border-white/10 rounded-full px-5 py-2">@troublebaba</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div>
+        <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.18em] text-mocha">{tr.about_role}</span>
+        <h1 class="font-cabinet font-black text-warm-white mt-3 mb-8" style="font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.02;">{tr.about_heading}</h1>
+
+        <div class="space-y-5 font-outfit text-warm-white/65 text-base leading-relaxed mb-10">
+          <p>{tr.about_p1}</p>
+          <p>{tr.about_p2}</p>
+          <p>{tr.about_p3}</p>
+        </div>
+
+        <!-- Socials -->
+        <div class="mb-10">
+          <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-warm-white/40 mb-3">{tr.about_socials}</div>
+          <div class="flex flex-wrap gap-2.5">
+            {socials.map(s => (
+              <a href={s.url} target="_blank" rel="noopener noreferrer"
+                 class="font-outfit text-sm text-warm-white/80 bg-white/5 border border-white/10 hover:border-mocha/40 hover:bg-white/10 transition-colors rounded-full px-4 py-2.5 min-h-[44px] inline-flex items-center">{s.label}</a>
+            ))}
+          </div>
+        </div>
+
+        <a href={homeUrl + '#price'} class="inline-flex items-center justify-center gap-3 bg-warm-white text-espresso font-outfit font-bold px-7 py-4 rounded-2xl hover:bg-cream transition-colors">
+          {tr.about_cta}
+          <svg width="16" height="14" viewBox="0 0 16 14" fill="none"><path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
