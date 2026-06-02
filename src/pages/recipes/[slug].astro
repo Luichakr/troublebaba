@@ -1,0 +1,15 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import FlavorPage from '../../components/FlavorPage.astro';
+import { FLAVORS, FLAVOR_BY_SLUG } from '../../data/flavors.js';
+
+export function getStaticPaths() {
+  return (FLAVORS as any[]).map(f => ({ params: { slug: f.slug } }));
+}
+const lang = 'uk' as const;
+const { slug } = Astro.params as { slug: string };
+const f = (FLAVOR_BY_SLUG as any)[slug].t[lang];
+---
+<Layout title={f.metaTitle} description={f.metaDesc} lang={lang} path={`recipes/${slug}`} pageType="content">
+  <FlavorPage lang={lang} slug={slug} homeUrl="/" recipesUrl="/recipes/" />
+</Layout>

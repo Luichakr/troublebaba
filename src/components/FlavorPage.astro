@@ -1,0 +1,86 @@
+---
+import { FLAVORS, FLAVOR_BY_SLUG, RECIPES_HUB } from '../data/flavors.js';
+import { SITE } from '../config/site.js';
+
+type Lang = 'uk' | 'ru' | 'pl' | 'en';
+interface Props { lang: Lang; slug: string; homeUrl: string; recipesUrl: string }
+const { lang, slug, homeUrl, recipesUrl } = Astro.props;
+
+const flavor = (FLAVOR_BY_SLUG as any)[slug];
+const f = flavor.t[lang];
+const hub = (RECIPES_HUB as any)[lang];
+
+// Other flavors for internal linking (exclude current).
+const others = (FLAVORS as any[]).filter(x => x.slug !== slug).slice(0, 6);
+const langPrefix = lang === 'uk' ? '' : '/' + lang;
+const flavorUrl = (s: string) => `${langPrefix}/recipes/${s}/`;
+---
+<main class="min-h-[100dvh]" style="background:#F5EFE8;">
+  <div class="max-w-[1100px] mx-auto px-6 lg:px-16 py-12 lg:py-20">
+
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 font-outfit text-[13px] text-espresso/45 mb-10" aria-label="breadcrumb">
+      <a href={homeUrl} class="hover:text-mocha transition-colors">TROUBLEBABA</a>
+      <span aria-hidden="true">/</span>
+      <a href={recipesUrl} class="hover:text-mocha transition-colors">{hub.allLabel}</a>
+      <span aria-hidden="true">/</span>
+      <span class="text-espresso/70">{f.name}</span>
+    </nav>
+
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+
+      <!-- Image -->
+      <div class="relative rounded-3xl overflow-hidden" style="aspect-ratio:4/5; box-shadow:0 24px 64px rgba(139,115,85,0.20);">
+        <div class="img-skeleton absolute inset-0 w-full h-full"></div>
+        <img src={flavor.image} alt={`${f.name} — ${f.layers}`} width="1122" height="1402"
+             loading="eager" fetchpriority="high" decoding="async"
+             class="absolute inset-0 w-full h-full object-cover"
+             onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+        {flavor.bestseller && (
+          <span class="absolute top-4 left-4 bg-mocha text-warm-white font-outfit font-semibold text-[11px] tracking-[0.12em] uppercase px-3 py-1.5 rounded-full">★ Bestseller</span>
+        )}
+      </div>
+
+      <!-- Content -->
+      <div>
+        <h1 class="font-cabinet text-espresso mb-3" style="font-size:clamp(2.2rem,4.5vw,3.4rem);line-height:1.04;">{f.name}</h1>
+        <p class="font-outfit text-mocha text-[14px] tracking-wide mb-6">{f.layers}</p>
+        <p class="font-outfit text-espresso/65 text-base leading-relaxed mb-8">{f.lead}</p>
+
+        <!-- What you'll learn in the PDF -->
+        <div class="bg-warm-white rounded-2xl p-6 mb-8" style="box-shadow:0 4px 18px rgba(139,115,85,0.10);">
+          <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-mocha mb-4">{hub.allLabel === 'Все вкусы' ? 'Что в PDF про этот торт' : hub.allLabel === 'Усі смаки' ? 'Що в PDF про цей торт' : hub.allLabel === 'Wszystkie smaki' ? 'Co w PDF o tym torcie' : 'In the PDF for this cake'}</div>
+          <ul class="space-y-3">
+            {f.learn.map((item: string) => (
+              <li class="flex items-start gap-3 font-outfit text-espresso/75 text-[14px]">
+                <svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#8B7355" stroke-width="1.3"/><path d="M5.5 9l2.5 2.5 4.5-4.5" stroke="#8B7355" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <a href={homeUrl + '#price'} class="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-mocha text-warm-white font-outfit font-bold px-8 py-4 rounded-2xl hover:bg-mocha-dark transition-colors btn-pulse">
+          {hub.cta}
+          <svg width="16" height="14" viewBox="0 0 16 14" fill="none"><path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Other flavors -->
+    <section class="mt-20">
+      <h2 class="font-cabinet text-espresso text-2xl mb-8">{hub.allLabel}</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 lg:gap-4">
+        {others.map((o: any) => (
+          <a href={flavorUrl(o.slug)} class="group block">
+            <div class="relative rounded-xl overflow-hidden mb-2" style="aspect-ratio:4/5;">
+              <img src={o.image} alt={o.t[lang].name} width="1122" height="1402" loading="lazy" decoding="async"
+                   class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.style.display='none'" />
+            </div>
+            <div class="font-cabinet text-espresso text-[14px] group-hover:text-mocha transition-colors">{o.t[lang].name}</div>
+          </a>
+        ))}
+      </div>
+    </section>
+  </div>
+</main>

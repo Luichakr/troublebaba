@@ -432,7 +432,7 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
       </div>
 
       <div class="mt-12 flex flex-col items-center gap-5 reveal">
-        <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="recipes"
+        <a href={(isUk ? '' : '/' + lang) + '/recipes/'}
            class="inline-flex items-center gap-3 font-outfit font-semibold text-base text-espresso/75 hover:text-mocha transition-colors group">
           {tr.recipes_cta_link}
           <span class="w-9 h-9 rounded-full border border-taupe/40 flex items-center justify-center group-hover:border-mocha/60 group-hover:bg-mocha/8 transition-all">

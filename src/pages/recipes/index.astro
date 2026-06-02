@@ -1,0 +1,10 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import RecipesHub from '../../components/RecipesHub.astro';
+import { RECIPES_HUB } from '../../data/flavors.js';
+const lang = 'uk' as const;
+const hub = (RECIPES_HUB as any)[lang];
+---
+<Layout title={hub.metaTitle} description={hub.metaDesc} lang={lang} path="recipes" pageType="content">
+  <RecipesHub lang={lang} homeUrl="/" />
+</Layout>
