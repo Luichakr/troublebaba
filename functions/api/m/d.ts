@@ -78,6 +78,21 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
       ).bind(since).first(),
     ]);
 
+    // Waitlist — wrapped so a missing table (before migration 0003 runs) doesn't 500.
+    let waitlistTotal = 0;
+    let waitlistByLang: unknown[] = [];
+    let waitlistRecent: unknown[] = [];
+    try {
+      const [wTotal, wByLang, wRecent] = await Promise.all([
+        env.DB.prepare(`SELECT COUNT(*) AS n FROM waitlist`).first<{ n: number }>(),
+        env.DB.prepare(`SELECT lang, COUNT(*) AS n FROM waitlist GROUP BY lang ORDER BY n DESC`).all(),
+        env.DB.prepare(`SELECT email, lang, ip_country, ts FROM waitlist ORDER BY ts DESC LIMIT 50`).all(),
+      ]);
+      waitlistTotal  = wTotal?.n ?? 0;
+      waitlistByLang = wByLang.results ?? [];
+      waitlistRecent = wRecent.results ?? [];
+    } catch { /* waitlist table not created yet */ }
+
     return json({
       ok: true,
       windowDays: days,
@@ -90,6 +105,9 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
       byDay:        byDay.results,
       recent:       recent.results,
       visitsByLang: visitsByLang.results,
+      waitlistTotal,
+      waitlistByLang,
+      waitlistRecent,
     });
   } catch (e: any) {
     console.error('[admin/stats] error:', e?.message);

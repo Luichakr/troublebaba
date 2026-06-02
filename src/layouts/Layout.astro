@@ -25,6 +25,9 @@ interface Props {
   noindex?: boolean;
   /** Override GA loading. Default rule: load only on home. Set true to also load on /thank-you so purchase events fire. */
   loadGA?: boolean;
+  /** Restrict hreflang alternates to the languages this page actually has
+   *  (e.g. a blog post in ru+uk only). Defaults to all supported languages. */
+  hreflangLangs?: Array<'uk' | 'ru' | 'pl' | 'en'>;
 }
 
 const {
@@ -35,6 +38,7 @@ const {
   pageType    = 'home',
   noindex     = false,
   loadGA: loadGAOverride,
+  hreflangLangs,
 } = Astro.props;
 
 const BASE     = import.meta.env.BASE_URL;
@@ -72,8 +76,12 @@ const OG_LOCALE = LOCALES[lang]?.og || 'uk_UA';
 
 // Hreflang alternates — emit for home and legal pages (skip 404/error).
 const emitHreflang = pageType === 'home' || pageType === 'legal' || pageType === 'about' || pageType === 'content';
-const hreflangEntries = SUPPORTED.map(l => ({ lang: l, url: altUrlFor(l) }));
-const xDefaultUrl = altUrlFor('uk');
+// `hreflangLangs` lets a page restrict alternates to the languages it ACTUALLY
+// has (e.g. a blog post that exists only in ru+uk). Defaults to all supported.
+// Pointing hreflang at non-existent (404) versions is a real SEO error.
+const altLangs = (hreflangLangs && hreflangLangs.length ? hreflangLangs : SUPPORTED) as Lang[];
+const hreflangEntries = altLangs.map(l => ({ lang: l, url: altUrlFor(l) }));
+const xDefaultUrl = altUrlFor(altLangs.includes('uk') ? 'uk' : altLangs[0]);
 
 // JSON-LD helpers -------------------------------------------------------
 const tr = (t as Record<string, any>)[lang] || (t as Record<string, any>).uk;

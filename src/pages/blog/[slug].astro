@@ -5,16 +5,21 @@ import { t } from '../../i18n/translations.js';
 import { SITE } from '../../config/site.js';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', (e: any) => e.data.lang === 'uk' && e.data.draft === false);
-  return posts.map((post: any) => ({ params: { slug: post.data.slug }, props: { post } }));
+  const published = await getCollection('blog', (e: any) => e.data.draft === false);
+  const ukPosts = published.filter((e: any) => e.data.lang === 'uk');
+  return ukPosts.map((post: any) => ({
+    params: { slug: post.data.slug },
+    // Which languages this slug exists in → correct hreflang (no 404 alternates).
+    props: { post, slugLangs: published.filter((p: any) => p.data.slug === post.data.slug).map((p: any) => p.data.lang) },
+  }));
 }
 
-const { post } = Astro.props as { post: any };
+const { post, slugLangs } = Astro.props as { post: any; slugLangs: string[] };
 const lang = 'uk' as const;
 const tr = (t as any)[lang];
 const { Content } = await render(post);
 ---
-<Layout title={`${post.data.title} | TROUBLEBABA`} description={post.data.description} lang={lang} path={`blog/${post.data.slug}`} pageType="content">
+<Layout title={`${post.data.title} | TROUBLEBABA`} description={post.data.description} lang={lang} path={`blog/${post.data.slug}`} pageType="content" hreflangLangs={slugLangs}>
   <article class="min-h-[100dvh] py-12 lg:py-20" style="background:#F5EFE8;">
     <div class="max-w-2xl mx-auto px-6 lg:px-10">
       <a href="/blog/" class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10">

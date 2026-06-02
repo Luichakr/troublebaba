@@ -69,6 +69,19 @@ import Layout from '../../layouts/Layout.astro';
         <!-- Totals -->
         <section class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="totals"></section>
 
+        <!-- Waitlist (pre-launch) -->
+        <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+          <div class="flex items-baseline justify-between mb-4">
+            <h2 class="font-cabinet text-espresso text-lg">Лист ожидания (предзапуск)</h2>
+            <div class="flex items-center gap-3">
+              <span class="font-cabinet text-espresso text-2xl tabular-nums" id="wl-total">—</span>
+              <button id="wl-export" class="font-outfit text-xs bg-mocha text-warm-white rounded-lg px-3 py-1.5 hover:bg-mocha-dark">Экспорт CSV</button>
+            </div>
+          </div>
+          <div id="wl-by-lang" class="font-outfit text-sm mb-4"></div>
+          <div id="wl-recent" class="font-mono text-[12px] text-espresso/70 overflow-x-auto"></div>
+        </section>
+
         <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
           <h2 class="font-cabinet text-espresso text-lg mb-4">Клики «Купить» — по блокам</h2>
           <div id="by-source" class="font-outfit text-sm"></div>
@@ -235,6 +248,43 @@ import Layout from '../../layouts/Layout.astro';
           '</tr></thead><tbody>' + rowsHtml + '</tbody></table>';
     }
 
+    let WL_RECENT = [];
+    function renderWaitlist(total, byLang, recent) {
+      WL_RECENT = recent || [];
+      $('wl-total').textContent = fmtNum(total || 0);
+      const rows = byLang || [];
+      $('wl-by-lang').innerHTML = rows.length === 0
+        ? '<span class="text-espresso/45 italic">Пока никто не записался</span>'
+        : rows.map(function(r){
+            return '<span class="inline-block bg-cream rounded-lg px-3 py-1.5 mr-2 mb-2">' +
+              '<b>' + (r.lang || '—') + '</b>: ' + fmtNum(r.n) + '</span>';
+          }).join('');
+      if (WL_RECENT.length === 0) { $('wl-recent').innerHTML = ''; return; }
+      $('wl-recent').innerHTML = '<table class="w-full text-left">' +
+        '<thead><tr class="text-espresso/45 border-b border-taupe/30">' +
+          '<th class="py-1 pr-4 font-normal">время</th><th class="py-1 pr-4 font-normal">email</th>' +
+          '<th class="py-1 pr-4 font-normal">язык</th><th class="py-1 font-normal">страна</th></tr></thead><tbody>' +
+        WL_RECENT.map(function(r){
+          var ts = new Date(r.ts).toISOString().replace('T',' ').slice(0,16);
+          return '<tr><td class="py-1 pr-4 text-espresso/55">' + ts + '</td>' +
+            '<td class="py-1 pr-4">' + (r.email || '') + '</td>' +
+            '<td class="py-1 pr-4">' + (r.lang || '') + '</td>' +
+            '<td class="py-1">' + (r.ip_country || '') + '</td></tr>';
+        }).join('') + '</tbody></table>';
+    }
+
+    document.getElementById('wl-export').addEventListener('click', function(){
+      if (!WL_RECENT.length) { alert('Лист ожидания пуст'); return; }
+      var csv = 'email,lang,country,date\n' + WL_RECENT.map(function(r){
+        return [r.email, r.lang || '', r.ip_country || '', new Date(r.ts).toISOString()].join(',');
+      }).join('\n');
+      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'waitlist-latest50.csv';
+      a.click();
+    });
+
     async function load() {
       const token = sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY);
       if (!token) { showLogin(); return; }
@@ -260,6 +310,7 @@ import Layout from '../../layouts/Layout.astro';
         if (!res.ok || !data.ok) throw new Error((data && data.error) || 'unknown');
 
         renderVisits(data.visitsByLang, data.visitsTotal);
+        renderWaitlist(data.waitlistTotal, data.waitlistByLang, data.waitlistRecent);
         totals(data.total);
         renderBars('by-source', data.bySource, 'source');
         renderBars('by-lang',   data.byLang,   'page_lang');

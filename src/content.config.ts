@@ -5,7 +5,13 @@ import { glob } from 'astro/loaders';
 // Front-matter drives meta + listing. `draft: true` keeps a post out of the
 // build/sitemap until the author has reviewed it (E-E-A-T: real expertise).
 const blog = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+  // generateId keeps the lang directory in the id (ru/slug vs uk/slug) so the
+  // same slug in two languages doesn't collide (default strips to filename).
+  loader: glob({
+    pattern: '**/*.md',
+    base: './src/content/blog',
+    generateId: ({ entry }) => entry.replace(/\.md$/, ''),
+  }),
   schema: z.object({
     title:       z.string(),
     description: z.string(),
