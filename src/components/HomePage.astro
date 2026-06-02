@@ -1517,11 +1517,12 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
           <div class="font-outfit font-semibold text-warm-white/35 text-[11px] uppercase tracking-[0.22em] mb-7">{tr.footer_info}</div>
           <div class="flex flex-col">
             {[
-              { label: tr.footer_faq,     href: '#faq' },
-              { label: tr.nav_author,     href: (isUk ? '' : '/' + lang) + '/about' },
+              { label: tr.nav_recipes,     href: (isUk ? '' : '/' + lang) + '/recipes/' },
+              { label: tr.blog_heading,    href: (isUk ? '' : '/' + lang) + '/blog/' },
+              { label: tr.nav_author,      href: (isUk ? '' : '/' + lang) + '/about' },
               { label: tr.contact_heading, href: (isUk ? '' : '/' + lang) + '/contact' },
-              { label: tr.footer_privacy, href: (isUk ? '' : '/' + lang) + '/privacy' },
-              { label: tr.footer_terms,   href: (isUk ? '' : '/' + lang) + '/terms' },
+              { label: tr.footer_privacy,  href: (isUk ? '' : '/' + lang) + '/privacy' },
+              { label: tr.footer_terms,    href: (isUk ? '' : '/' + lang) + '/terms' },
             ].map((link, i) => (
               <a href={link.href} class={`group flex items-center justify-between py-4 font-outfit text-warm-white/70 text-sm hover:text-warm-white transition-colors ${i > 0 ? 'border-t border-white/8' : ''}`}>
                 <span>{link.label}</span>

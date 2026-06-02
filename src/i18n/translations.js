@@ -348,6 +348,14 @@ export const t = {
     contact_social_label: 'Соцмережі',
     contact_response:   'Зазвичай відповідаємо протягом 24 годин. Найшвидший спосіб — написати в Instagram.',
     contact_back:       '← На головну',
+    blog_meta_title:    'Блог про бенто-торти — поради й рецепти | TROUBLEBABA',
+    blog_meta_desc:     'Корисні поради про бенто-торти: креми, бісквіти, збірка, пакування для продажу. Від кондитерки з 2014 року.',
+    blog_heading:       'Блог про бенто-торти',
+    blog_intro:         'Поради, техніки й відповіді на питання про бенто-торти — від замішування бісквіту до пакування на продаж.',
+    blog_back:          '← На головну',
+    blog_read:          'Читати',
+    blog_empty:         'Незабаром тут зʼявляться статті. Слідкуйте за оновленнями в соцмережах.',
+    blog_all:           'Усі статті',
   },
 
   ru: {
@@ -640,6 +648,14 @@ export const t = {
     contact_social_label: 'Соцсети',
     contact_response:   'Обычно отвечаем в течение 24 часов. Самый быстрый способ — написать в Instagram.',
     contact_back:       '← На главную',
+    blog_meta_title:    'Блог про бенто-торты — советы и рецепты | TROUBLEBABA',
+    blog_meta_desc:     'Полезные советы про бенто-торты: кремы, бисквиты, сборка, упаковка для продажи. От кондитера с 2014 года.',
+    blog_heading:       'Блог про бенто-торты',
+    blog_intro:         'Советы, техники и ответы на вопросы про бенто-торты — от замеса бисквита до упаковки на продажу.',
+    blog_back:          '← На главную',
+    blog_read:          'Читать',
+    blog_empty:         'Скоро здесь появятся статьи. Следите за обновлениями в соцсетях.',
+    blog_all:           'Все статьи',
   },
 
   pl: {
@@ -932,6 +948,14 @@ export const t = {
     contact_social_label: 'Social media',
     contact_response:   'Zwykle odpowiadamy w ciągu 24 godzin. Najszybciej — napisz na Instagramie.',
     contact_back:       '← Strona główna',
+    blog_meta_title:    'Blog o tortach bento — porady i przepisy | TROUBLEBABA',
+    blog_meta_desc:     'Przydatne porady o tortach bento: kremy, biszkopty, montaż, pakowanie do sprzedaży. Od cukierniczki od 2014 roku.',
+    blog_heading:       'Blog o tortach bento',
+    blog_intro:         'Porady, techniki i odpowiedzi na pytania o torty bento — od ubijania biszkoptu po pakowanie do sprzedaży.',
+    blog_back:          '← Strona główna',
+    blog_read:          'Czytaj',
+    blog_empty:         'Wkrótce pojawią się tu artykuły. Śledź aktualizacje w social mediach.',
+    blog_all:           'Wszystkie artykuły',
   },
 
   en: {
@@ -1224,6 +1248,14 @@ export const t = {
     contact_social_label: 'Social media',
     contact_response:   'We usually reply within 24 hours. The fastest way is to message us on Instagram.',
     contact_back:       '← Home',
+    blog_meta_title:    'Bento cake blog — tips & recipes | TROUBLEBABA',
+    blog_meta_desc:     'Useful tips on bento cakes: creams, sponges, assembly, packaging for sale. From a pastry chef since 2014.',
+    blog_heading:       'Bento cake blog',
+    blog_intro:         'Tips, techniques and answers about bento cakes — from mixing the sponge to packaging for sale.',
+    blog_back:          '← Home',
+    blog_read:          'Read',
+    blog_empty:         'Articles are coming soon. Follow updates on social media.',
+    blog_all:           'All articles',
   },
 };
 

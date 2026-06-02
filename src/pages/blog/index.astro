@@ -1,0 +1,10 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlogHub from '../../components/BlogHub.astro';
+import { t } from '../../i18n/translations.js';
+const lang = 'uk' as const;
+const tr = (t as any)[lang];
+---
+<Layout title={tr.blog_meta_title} description={tr.blog_meta_desc} lang={lang} path="blog" pageType="content">
+  <BlogHub lang={lang} homeUrl="/" />
+</Layout>

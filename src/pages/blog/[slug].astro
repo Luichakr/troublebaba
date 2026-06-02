@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { t } from '../../i18n/translations.js';
+import { SITE } from '../../config/site.js';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (e: any) => e.data.lang === 'uk' && e.data.draft === false);
+  return posts.map((post: any) => ({ params: { slug: post.data.slug }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: any };
+const lang = 'uk' as const;
+const tr = (t as any)[lang];
+const { Content } = await render(post);
+---
+<Layout title={`${post.data.title} | TROUBLEBABA`} description={post.data.description} lang={lang} path={`blog/${post.data.slug}`} pageType="content">
+  <article class="min-h-[100dvh] py-12 lg:py-20" style="background:#F5EFE8;">
+    <div class="max-w-2xl mx-auto px-6 lg:px-10">
+      <a href="/blog/" class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10">
+        <svg width="14" height="12" viewBox="0 0 16 14" fill="none"><path d="M14 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>{tr.blog_all}</span>
+      </a>
+      <h1 class="font-cabinet text-espresso mb-6" style="font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.08;">{post.data.title}</h1>
+      <div class="blog-prose font-outfit text-espresso/75 leading-relaxed">
+        <Content />
+      </div>
+      <div class="mt-12 pt-8 border-t border-taupe/25">
+        <a href="/#price" class="inline-flex items-center gap-3 bg-mocha text-warm-white font-outfit font-bold px-7 py-4 rounded-2xl hover:bg-mocha-dark transition-colors">
+          {tr.recipes_cta}
+          <svg width="16" height="14" viewBox="0 0 16 14" fill="none"><path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  {/* Article JSON-LD */}
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.data.title,
+    "description": post.data.description,
+    "inLanguage": lang,
+    "datePublished": post.data.publishedAt,
+    "dateModified": post.data.updatedAt ?? post.data.publishedAt,
+    "author": { "@type": "Person", "name": "TROUBLEBABA", "url": SITE.url + '/about' },
+    "publisher": { "@type": "Organization", "name": SITE.name, "logo": SITE.url + '/favicon.svg' },
+    ...(post.data.cover ? { "image": SITE.url + '/' + post.data.cover.replace(/^\//, '') } : {}),
+  })} />
+</Layout>
+
+<style is:global>
+  .blog-prose h2 { font-family: 'Playfair Display', serif; font-weight: 700; color:#1A1A1A; font-size: 1.5rem; margin: 2rem 0 0.75rem; line-height: 1.2; }
+  .blog-prose h3 { font-family: 'Playfair Display', serif; font-weight: 600; color:#1A1A1A; font-size: 1.2rem; margin: 1.5rem 0 0.5rem; }
+  .blog-prose p  { margin: 0 0 1.1rem; font-size: 1.0625rem; }
+  .blog-prose ul, .blog-prose ol { margin: 0 0 1.1rem 1.25rem; }
+  .blog-prose li { margin-bottom: 0.5rem; }
+  .blog-prose a  { color:#8B7355; text-decoration: underline; }
+  .blog-prose strong { color:#1A1A1A; }
+</style>
