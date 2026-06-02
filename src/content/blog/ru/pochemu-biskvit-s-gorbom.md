@@ -6,7 +6,7 @@ slug: "pochemu-biskvit-s-gorbom"
 publishedAt: "2026-06-03"
 cover: "images/inside-cake.webp"
 tags: ["бисквит", "ошибки", "техника"]
-draft: true
+draft: false
 excerpt: "Главная причина «горки» на бисквите — и что с ней делать."
 ---
 

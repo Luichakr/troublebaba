@@ -6,7 +6,7 @@ slug: "kakoy-krem-dlya-bento"
 publishedAt: "2026-06-03"
 cover: "images/bento-you-can.webp"
 tags: ["крем", "техника", "выбор"]
-draft: true
+draft: false
 excerpt: "Чем отличаются основные кремы и когда какой брать."
 ---
 
