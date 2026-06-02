@@ -356,6 +356,17 @@ export const t = {
     blog_read:          'Читати',
     blog_empty:         'Незабаром тут зʼявляться статті. Слідкуйте за оновленнями в соцмережах.',
     blog_all:           'Усі статті',
+    // === Pre-launch / waitlist ===
+    presale_banner:     '🍰 Старт продажів — 10 липня. Залиш email, і ми нагадаємо.',
+    presale_badge:      'Скоро у продажу',
+    notify_heading:     'Старт продажів — 10 липня',
+    notify_sub:         'Збірник ще готується до запуску. Залиш email — надішлемо нагадування в день старту, щоб ти не пропустив(ла).',
+    notify_placeholder: 'Твій email',
+    notify_btn:         'Нагадати про старт',
+    notify_success:     'Готово! Нагадаємо тобі 10 липня. 🍰',
+    notify_error:       'Не вдалося зберегти. Перевір email і спробуй ще раз.',
+    notify_privacy:     'Лише нагадування про старт. Без спаму.',
+    notify_cta_short:   'Нагадати про старт',
   },
 
   ru: {
@@ -656,6 +667,17 @@ export const t = {
     blog_read:          'Читать',
     blog_empty:         'Скоро здесь появятся статьи. Следите за обновлениями в соцсетях.',
     blog_all:           'Все статьи',
+    // === Pre-launch / waitlist ===
+    presale_banner:     '🍰 Старт продаж — 10 июля. Оставь email, и мы напомним.',
+    presale_badge:      'Скоро в продаже',
+    notify_heading:     'Старт продаж — 10 июля',
+    notify_sub:         'Сборник ещё готовится к запуску. Оставь email — пришлём напоминание в день старта и не дадим пропустить.',
+    notify_placeholder: 'Твой email',
+    notify_btn:         'Напомнить о старте',
+    notify_success:     'Готово! Напомним тебе 10 июля. 🍰',
+    notify_error:       'Не удалось сохранить. Проверь email и попробуй ещё раз.',
+    notify_privacy:     'Только напоминание о старте. Без спама.',
+    notify_cta_short:   'Напомнить о старте',
   },
 
   pl: {
@@ -956,6 +978,17 @@ export const t = {
     blog_read:          'Czytaj',
     blog_empty:         'Wkrótce pojawią się tu artykuły. Śledź aktualizacje w social mediach.',
     blog_all:           'Wszystkie artykuły',
+    // === Pre-launch / waitlist ===
+    presale_banner:     '🍰 Start sprzedaży — 10 lipca. Zostaw email, a przypomnimy.',
+    presale_badge:      'Wkrótce w sprzedaży',
+    notify_heading:     'Start sprzedaży — 10 lipca',
+    notify_sub:         'Zbiór jest jeszcze przygotowywany do startu. Zostaw email — wyślemy przypomnienie w dniu premiery, żebyś nie przegapił(a).',
+    notify_placeholder: 'Twój email',
+    notify_btn:         'Przypomnij o starcie',
+    notify_success:     'Gotowe! Przypomnimy Ci 10 lipca. 🍰',
+    notify_error:       'Nie udało się zapisać. Sprawdź email i spróbuj ponownie.',
+    notify_privacy:     'Tylko przypomnienie o starcie. Bez spamu.',
+    notify_cta_short:   'Przypomnij o starcie',
   },
 
   en: {
@@ -1256,6 +1289,17 @@ export const t = {
     blog_read:          'Read',
     blog_empty:         'Articles are coming soon. Follow updates on social media.',
     blog_all:           'All articles',
+    // === Pre-launch / waitlist ===
+    presale_banner:     '🍰 Sales start July 10. Leave your email and we\'ll remind you.',
+    presale_badge:      'Coming soon',
+    notify_heading:     'Sales start July 10',
+    notify_sub:         'The collection is still getting ready to launch. Leave your email — we\'ll send a reminder on launch day so you don\'t miss it.',
+    notify_placeholder: 'Your email',
+    notify_btn:         'Remind me at launch',
+    notify_success:     'Done! We\'ll remind you on July 10. 🍰',
+    notify_error:       'Couldn\'t save. Check your email and try again.',
+    notify_privacy:     'Just a launch reminder. No spam.',
+    notify_cta_short:   'Remind me',
   },
 };
 

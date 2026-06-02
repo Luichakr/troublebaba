@@ -11,6 +11,9 @@ const tr = t[lang] as Record<string, any>;
 const isUk = lang === 'uk';
 const langUrl = (l: Lang) => l === 'uk' ? '/' : `/${l}/`;
 
+// Pre-launch mode: buy buttons collect e-mails instead of opening checkout.
+const presale = SITE.presaleMode === true;
+
 const RECIPE_IMAGES = [
   'images/q9.webp',   // 0: Oreo
   'images/q5.webp',   // 1: Red Velvet
@@ -150,6 +153,13 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
         </div>
       </div>
 
+      {presale && (
+        <div class="animate-fade-up animate-fade-up-d2 inline-flex items-center gap-2.5 self-start bg-mocha/10 border border-mocha/25 rounded-full pl-2.5 pr-4 py-2 mb-5">
+          <span class="font-outfit text-[10px] font-bold uppercase tracking-[0.14em] text-warm-white bg-mocha rounded-full px-2.5 py-1">{tr.presale_badge}</span>
+          <span class="font-outfit text-[13px] font-medium text-espresso/75">{tr.notify_heading}</span>
+        </div>
+      )}
+
       <!-- CTA buttons -->
       <div class="animate-fade-up animate-fade-up-d3 flex flex-col lg:flex-row gap-3 items-stretch lg:items-start mb-3.5 lg:mb-10">
         <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="hero"
@@ -158,7 +168,7 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
             <path d="M9 1v10M5 8l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M2 13v2a1 1 0 001 1h12a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
           </svg>
-          {tr.hero_cta}
+          {presale ? tr.notify_cta_short : tr.hero_cta}
         </a>
         <a href="#recipes"
            class="font-outfit font-medium text-espresso/60 text-base py-2 lg:py-4 px-2 hover:text-mocha transition-colors text-center lg:text-left">
@@ -1266,6 +1276,32 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
     </div>
   </section>
 
+  {presale && (
+    <!-- ── NOTIFY (pre-launch waitlist) ── -->
+    <section id="notify" class="py-16 lg:py-24" style="background:#F5EFE8;">
+      <div class="max-w-[760px] mx-auto px-6 lg:px-10">
+        <div class="rounded-[1.5rem] lg:rounded-[2rem] px-8 lg:px-14 py-12 lg:py-16 text-center"
+             style="background:linear-gradient(120deg, #2e2219 0%, #241a13 45%, #1A1A1A 100%); box-shadow:0 32px 80px rgba(26,26,26,0.28);">
+          <span class="inline-block font-outfit text-[11px] font-bold uppercase tracking-[0.18em] text-warm-white/85 bg-mocha rounded-full px-4 py-1.5 mb-6">{tr.presale_badge}</span>
+          <h2 class="font-cabinet text-warm-white mb-4" style="font-size:clamp(2rem,4vw,3rem);line-height:1.05;">{tr.notify_heading}</h2>
+          <p class="font-outfit text-warm-white/60 text-[15px] leading-relaxed mb-8 max-w-[460px] mx-auto">{tr.notify_sub}</p>
+
+          <form id="notify-form" class="flex flex-col sm:flex-row gap-3 max-w-[460px] mx-auto" novalidate>
+            <input id="notify-email" type="email" required autocomplete="email"
+                   placeholder={tr.notify_placeholder}
+                   class="flex-1 font-outfit text-base bg-warm-white/10 border border-white/15 rounded-xl px-4 py-3.5 text-warm-white placeholder:text-warm-white/40 outline-none focus:border-mocha min-h-[48px]" />
+            <button type="submit" id="notify-submit"
+                    class="font-outfit font-bold text-[15px] bg-warm-white text-espresso rounded-xl px-6 py-3.5 hover:bg-cream transition-colors whitespace-nowrap min-h-[48px]">
+              {tr.notify_btn}
+            </button>
+          </form>
+          <p id="notify-msg" class="hidden font-outfit text-sm mt-4"></p>
+          <p class="font-outfit text-warm-white/35 text-xs mt-5">{tr.notify_privacy}</p>
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- ── FAQ ── -->
   <section id="faq" class="py-24 lg:py-32" style="background:#F5EFE8;">
     <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
@@ -1576,10 +1612,14 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
     {tr.nav_buy}
   </a>
 
-<!-- Expose translated buy-button states to the main script (which is bundled, not inline). -->
-<script is:inline define:vars={{ buyLoading: tr.buy_loading, buyError: tr.buy_error }}>
-  window.TR_BUY_LOADING = buyLoading;
-  window.TR_BUY_ERROR   = buyError;
+<!-- Expose translated buy-button states + presale flag to the bundled script. -->
+<script is:inline define:vars={{ buyLoading: tr.buy_loading, buyError: tr.buy_error, presale, notifySuccess: tr.notify_success, notifyError: tr.notify_error, pageLang: lang }}>
+  window.TR_BUY_LOADING  = buyLoading;
+  window.TR_BUY_ERROR    = buyError;
+  window.TR_PRESALE      = presale;
+  window.TR_NOTIFY_OK    = notifySuccess;
+  window.TR_NOTIFY_ERR   = notifyError;
+  window.TR_PAGE_LANG    = pageLang;
 </script>
 
 <script>
@@ -1776,6 +1816,16 @@ document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
     // Always fire the GA "click_buy" event.
     send('click_buy', { source, page_lang: pageLang });
 
+    // Pre-launch: don't open checkout. Scroll to the e-mail capture and focus it.
+    if ((window as any).TR_PRESALE) {
+      e.preventDefault();
+      const notify = document.getElementById('notify');
+      const input  = document.getElementById('notify-email') as HTMLInputElement | null;
+      if (notify) notify.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (input) setTimeout(() => input.focus(), 500);
+      return;
+    }
+
     // Only buttons flagged with data-checkout-trigger="1" go through the Monobank flow.
     // (Footer / non-CTA links pass through normally.)
     if (a.dataset.checkoutTrigger !== '1') return;
@@ -1823,6 +1873,47 @@ document.querySelectorAll<HTMLAnchorElement>('.lang-btn').forEach(a => {
     });
   });
 });
+
+// ── Pre-launch waitlist form ──
+const notifyForm = document.getElementById('notify-form') as HTMLFormElement | null;
+if (notifyForm) {
+  const input  = document.getElementById('notify-email') as HTMLInputElement;
+  const submit = document.getElementById('notify-submit') as HTMLButtonElement;
+  const msg    = document.getElementById('notify-msg') as HTMLElement;
+  const showMsg = (text: string, ok: boolean) => {
+    msg.textContent = text;
+    msg.style.color = ok ? '#9FD3A8' : '#E5A8A8';
+    msg.classList.remove('hidden');
+  };
+  notifyForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = (input.value || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      showMsg((window as any).TR_NOTIFY_ERR || 'Invalid email', false);
+      input.focus();
+      return;
+    }
+    submit.disabled = true;
+    submit.style.opacity = '0.7';
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, lang: (window as any).TR_PAGE_LANG || 'uk', source: 'homepage_notify' }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error('failed');
+      showMsg((window as any).TR_NOTIFY_OK || 'Done!', true);
+      notifyForm.reset();
+      send('waitlist_signup', { page_lang: (window as any).TR_PAGE_LANG || 'uk' });
+    } catch {
+      showMsg((window as any).TR_NOTIFY_ERR || 'Try again', false);
+    } finally {
+      submit.disabled = false;
+      submit.style.opacity = '1';
+    }
+  });
+}
 
 // FAQ open tracking — fire when a closed item becomes open
 document.querySelectorAll<HTMLElement>('.faq-item').forEach(item => {

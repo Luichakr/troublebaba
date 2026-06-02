@@ -38,6 +38,12 @@ export const SITE = {
   price:    20,
   currency: 'USD',
 
+  // === Pre-launch mode ===
+  // While true: "Buy" buttons collect e-mails for a launch reminder instead of
+  // opening checkout. On launch day flip to false → buttons go live (Monobank).
+  presaleMode:  true,
+  salesStartISO: '2026-07-10',   // sales start date (shown in banner/notify copy)
+
   // i18n
   defaultLang:    'uk',
   supportedLangs: ['uk', 'ru', 'pl', 'en'],
