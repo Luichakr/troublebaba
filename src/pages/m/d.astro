@@ -114,6 +114,20 @@ import Layout from '../../layouts/Layout.astro';
           </div>
         </section>
 
+        <!-- Manual social posts (IG / TikTok) → feed -->
+        <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+          <h2 class="font-cabinet text-espresso text-lg mb-1">Посты Instagram / TikTok в ленте</h2>
+          <p class="font-outfit text-espresso/55 text-[13px] mb-4">Вставь ссылку на пост — он появится в ленте /shorts/. TikTok подтянет обложку автоматически; для Instagram можно указать ссылку на картинку-обложку (иначе будет фирменная плашка).</p>
+          <div class="grid sm:grid-cols-[1fr_1fr_auto] gap-2 mb-2">
+            <input id="sp-url" type="url" placeholder="https://www.tiktok.com/... или instagram.com/..." class="bg-cream border border-taupe/40 rounded-lg px-3 py-2 font-outfit text-sm text-espresso outline-none focus:border-mocha" />
+            <input id="sp-title" type="text" placeholder="Заголовок (необязательно)" class="bg-cream border border-taupe/40 rounded-lg px-3 py-2 font-outfit text-sm text-espresso outline-none focus:border-mocha" />
+            <button id="sp-add" class="font-outfit text-sm font-semibold bg-mocha text-warm-white rounded-lg px-5 py-2 hover:bg-mocha-dark whitespace-nowrap">Добавить</button>
+          </div>
+          <input id="sp-thumb" type="url" placeholder="URL обложки для Instagram (необязательно)" class="w-full bg-cream border border-taupe/40 rounded-lg px-3 py-2 font-outfit text-sm text-espresso outline-none focus:border-mocha mb-4" />
+          <div id="sp-msg" class="font-outfit text-[13px] mb-3"></div>
+          <div id="sp-list" class="font-outfit text-sm"></div>
+        </section>
+
         <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
           <h2 class="font-cabinet text-espresso text-lg mb-4">Клики «Купить» — по блокам</h2>
           <div id="by-source" class="font-outfit text-sm"></div>
@@ -362,6 +376,54 @@ import Layout from '../../layouts/Layout.astro';
         : '—';
     }
 
+    // ── Social posts (IG / TikTok) management ──
+    function spToken() { return sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY); }
+    async function loadSocialPosts() {
+      const list = $('sp-list');
+      try {
+        const r = await fetch('/api/m/social', { headers: { 'Authorization': 'Bearer ' + spToken() }, cache: 'no-store' });
+        const d = await r.json();
+        if (!d.ok) { list.innerHTML = '<span class="text-espresso/45 italic">Не удалось загрузить</span>'; return; }
+        if (!d.posts.length) { list.innerHTML = '<span class="text-espresso/45 italic">Пока ничего не добавлено</span>'; return; }
+        list.innerHTML = '<table class="w-full text-left"><tbody>' + d.posts.map(function(p){
+          return '<tr class="border-b border-taupe/15">' +
+            '<td class="py-2 pr-3"><span class="inline-block rounded px-2 py-0.5 text-[11px] font-semibold ' +
+              (p.platform==='tiktok'?'bg-espresso text-warm-white':p.platform==='instagram'?'bg-[#dc2743] text-white':'bg-mocha text-warm-white') + '">' + p.platform + '</span></td>' +
+            '<td class="py-2 pr-3 text-espresso/80">' + (p.title || '<span class="text-espresso/40">без заголовка</span>') + '</td>' +
+            '<td class="py-2 pr-3"><a href="' + p.url + '" target="_blank" rel="noopener" class="text-mocha underline text-[12px] break-all">ссылка</a></td>' +
+            '<td class="py-2 text-right"><button data-del="' + p.id + '" class="text-[#B85959] text-[12px] hover:underline">удалить</button></td>' +
+          '</tr>';
+        }).join('') + '</tbody></table>';
+        list.querySelectorAll('[data-del]').forEach(function(btn){
+          btn.addEventListener('click', async function(){
+            if (!confirm('Удалить пост из ленты?')) return;
+            await fetch('/api/m/social?id=' + this.getAttribute('data-del'), { method: 'DELETE', headers: { 'Authorization': 'Bearer ' + spToken() } });
+            loadSocialPosts();
+          });
+        });
+      } catch (e) { list.innerHTML = '<span class="text-espresso/45 italic">Ошибка сети</span>'; }
+    }
+    const spAddBtn = document.getElementById('sp-add');
+    if (spAddBtn) spAddBtn.addEventListener('click', async function(){
+      const url = $('sp-url').value.trim();
+      const msg = $('sp-msg');
+      if (!/^https?:\/\//.test(url)) { msg.innerHTML = '<span class="text-[#B85959]">Вставь корректную ссылку</span>'; return; }
+      this.disabled = true; msg.innerHTML = '<span class="text-espresso/50">Добавляем…</span>';
+      try {
+        const r = await fetch('/api/m/social', {
+          method: 'POST', headers: { 'Authorization': 'Bearer ' + spToken(), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: url, title: $('sp-title').value.trim(), thumbnail: $('sp-thumb').value.trim() }),
+        });
+        const d = await r.json();
+        if (r.ok && d.ok) {
+          msg.innerHTML = '<span class="text-mocha">Добавлено (' + d.platform + ')</span>';
+          $('sp-url').value = ''; $('sp-title').value = ''; $('sp-thumb').value = '';
+          loadSocialPosts();
+        } else { msg.innerHTML = '<span class="text-[#B85959]">Ошибка: ' + (d.error||'') + '</span>'; }
+      } catch (e) { msg.innerHTML = '<span class="text-[#B85959]">Ошибка сети</span>'; }
+      this.disabled = false;
+    });
+
     async function load() {
       const token = sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY);
       if (!token) { showLogin(); return; }
@@ -390,6 +452,7 @@ import Layout from '../../layouts/Layout.astro';
         renderWaitlist(data.waitlistTotal, data.waitlistByLang, data.waitlistRecent);
         renderFreeRecipe(data.freeRecipeTotal, data.freeRecipeByLang, data.freeRecipeRecent);
         renderShorts(data.shortsTotal, data.shortsPosted, data.shortsLastSync);
+        loadSocialPosts();
         totals(data.total);
         renderBars('by-source', data.bySource, 'source');
         renderBars('by-lang',   data.byLang,   'page_lang');

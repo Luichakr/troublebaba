@@ -61,6 +61,14 @@ const langPrefix = lang === 'uk' ? '' : '/' + lang;
 
       function escape(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
+      // Per-platform corner badge (so a TikTok/IG tile is distinguishable from YouTube).
+      function badge(platform) {
+        var bg = '#FF0000', icon = '<svg width="12" height="9" viewBox="0 0 28 20" fill="none"><path d="M26.5 3.2C26.2 2.1 25.3 1.3 24.2 1C22.2 0.5 14 0.5 14 0.5C14 0.5 5.8 0.5 3.8 1C2.7 1.3 1.8 2.2 1.5 3.2C1 5.2 1 10 1 10C1 10 1 14.8 1.5 16.8C1.8 17.9 2.7 18.7 3.8 19C5.8 19.5 14 19.5 14 19.5C14 19.5 22.2 19.5 24.2 19C25.3 18.7 26.2 17.8 26.5 16.8C27 14.8 27 10 27 10C27 10 27 5.2 26.5 3.2Z" fill="white"/><path d="M11.5 14L18 10L11.5 6V14Z" fill="#FF0000"/></svg>';
+        if (platform === 'tiktok') { bg = '#000'; icon = '<svg width="10" height="12" viewBox="0 0 24 26" fill="none"><path d="M17 1C17.3 4.5 19.3 6.8 23 7.1V11C21 10.8 19.2 10.1 17.7 9V17.5C17.7 21.9 14.4 25.5 10 25.5C5.6 25.5 2 22 2 17.6C2 13.1 5.5 9.8 10 9.8C10.4 9.8 10.7 9.8 11 9.9V14C10.7 13.9 10.4 13.9 10 13.9C7.8 13.9 6 15.6 6 17.8C6 20 7.8 21.6 10 21.6C12.2 21.6 14.1 19.9 14.1 17.7L14.2 1H17Z" fill="white"/></svg>'; }
+        if (platform === 'instagram') { bg = 'linear-gradient(135deg,#f09433,#dc2743,#bc1888)'; icon = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg>'; }
+        return '<span class="absolute top-2 right-2 w-6 h-6 rounded-md flex items-center justify-center" style="background:' + bg + ';">' + icon + '</span>';
+      }
+
       fetch('/api/shorts/feed?limit=50&all=1').then(r => r.ok ? r.json() : null).then(data => {
         if (!data || !data.ok) { grid.innerHTML = ''; if (empty) empty.classList.remove('hidden'); return; }
         const items = [];
@@ -69,14 +77,21 @@ const langPrefix = lang === 'uk' ? '' : '/' + lang;
         if (!items.length) { grid.innerHTML = ''; if (empty) empty.classList.remove('hidden'); return; }
 
         grid.innerHTML = items.map(function (s) {
+          var platform = s.platform || 'youtube';
+          // YouTube → derive thumbnail from videoId; others use stored thumbnail (or branded fallback).
+          var thumb = platform === 'youtube' && s.videoId
+            ? 'https://i.ytimg.com/vi/' + escape(s.videoId) + '/hqdefault.jpg'
+            : (s.thumbnail || '');
+          var imgOrFallback = thumb
+            ? '<img src="' + escape(thumb) + '" alt="' + escape(s.title) + '" width="360" height="640" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"/>'
+            : '<span class="absolute inset-0 flex items-center justify-center" style="background:linear-gradient(135deg,#C8B8A2,#8B7355);"><span class="font-cabinet text-warm-white/90 text-sm px-4 text-center">' + escape(s.title || platform) + '</span></span>';
           return '<a href="' + escape(s.url) + '" target="_blank" rel="noopener noreferrer"' +
-            ' data-analytics="shorts_thumb_click" data-platform="youtube" data-location="shorts_archive"' +
+            ' data-analytics="shorts_thumb_click" data-platform="' + escape(platform) + '" data-location="shorts_archive"' +
             ' class="group block rounded-xl overflow-hidden relative bg-espresso/5 hover:-translate-y-1 transition-transform duration-300"' +
             ' style="aspect-ratio:9/16; box-shadow:0 4px 14px rgba(139,115,85,0.08);" title="' + escape(s.title) + '">' +
-            '<img src="https://i.ytimg.com/vi/' + escape(s.videoId) + '/hqdefault.jpg" alt="' + escape(s.title) + '"' +
-            ' width="360" height="640" loading="lazy" decoding="async"' +
-            ' class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"/>' +
+            imgOrFallback +
             '<span class="absolute inset-0 bg-gradient-to-t from-espresso/55 via-espresso/0 to-transparent"></span>' +
+            badge(platform) +
             '<span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center" style="background:rgba(253,250,246,0.92);">' +
             '<svg width="14" height="16" viewBox="0 0 22 24" fill="none"><path d="M3 2v20l17-10L3 2z" fill="#1A1A1A"/></svg>' +
             '</span>' +

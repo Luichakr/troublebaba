@@ -60,6 +60,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
 
     const rows = results ?? [];
     const map = (r: Row) => ({
+      platform:    'youtube',
       videoId:     r.video_id,
       title:       r.title,
       thumbnail:   r.thumbnail_url,
@@ -68,10 +69,36 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
       url:         `https://www.youtube.com/shorts/${r.video_id}`,
     });
 
+    let items = rows.map(map);
+
+    // Archive view (all=1) also merges manually-curated IG/TikTok posts,
+    // interleaved with YouTube by date. Homepage rotation (default) stays
+    // YouTube-only so the "short of the day" logic is unambiguous.
+    if (all) {
+      try {
+        const social = await env.DB.prepare(
+          `SELECT platform, url, title, thumbnail_url, sort_ts FROM social_posts
+             ORDER BY sort_ts DESC LIMIT ?`,
+        ).bind(limit).all<{ platform: string; url: string; title: string | null; thumbnail_url: string | null; sort_ts: number }>();
+        const socialItems = (social.results ?? []).map(s => ({
+          platform:    s.platform,
+          videoId:     null as string | null,
+          title:       s.title ?? '',
+          thumbnail:   s.thumbnail_url,
+          publishedAt: s.sort_ts,
+          postedAt:    s.sort_ts,
+          url:         s.url,
+        }));
+        items = [...items, ...socialItems]
+          .sort((a, b) => (b.publishedAt ?? 0) - (a.publishedAt ?? 0))
+          .slice(0, limit);
+      } catch { /* social_posts table not created yet — YouTube-only */ }
+    }
+
     return json({
       ok:      true,
-      current: rows[0] ? map(rows[0]) : null,
-      recent:  rows.slice(1).map(map),
+      current: items[0] ?? null,
+      recent:  items.slice(1),
     });
   } catch (e: any) {
     console.error('[shorts/feed] error:', e?.message);
