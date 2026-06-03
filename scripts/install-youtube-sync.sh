@@ -20,14 +20,21 @@ PLIST_DST="${HOME}/Library/LaunchAgents/com.troublebaba.youtube-sync.plist"
 ENV_FILE="${HOME}/.troublebaba.env"
 LABEL="com.troublebaba.youtube-sync"
 
-mkdir -p "${HOME}/Library/LaunchAgents"
+# macOS Sonoma+ TCC blocks launchd agents from executing scripts under
+# protected dirs (Desktop, Documents, Downloads, iCloud Drive). The repo
+# typically lives in one of those, so we mirror the runtime script into
+# ~/Library/Application Support/troublebaba/ — that path is exempt from
+# TCC and the agent can run it without Full Disk Access prompts.
+RUNTIME_DIR="${HOME}/Library/Application Support/troublebaba"
+RUNTIME_SCRIPT="${RUNTIME_DIR}/youtube-sync.sh"
 
-# Substitute the repo path into the plist on copy.
-sed "s|__ABS_REPO_PATH__|${REPO_DIR}|g" "$PLIST_SRC" > "$PLIST_DST"
+mkdir -p "${HOME}/Library/LaunchAgents" "${RUNTIME_DIR}"
+cp -f "${REPO_DIR}/scripts/youtube-sync.sh" "$RUNTIME_SCRIPT"
+chmod +x "$RUNTIME_SCRIPT"
+
+# Substitute the runtime path into the plist on copy (not the repo path).
+sed "s|__ABS_REPO_PATH__/scripts/youtube-sync.sh|${RUNTIME_SCRIPT}|g" "$PLIST_SRC" > "$PLIST_DST"
 chmod 0644 "$PLIST_DST"
-
-# Make sure the runner script is executable.
-chmod +x "${REPO_DIR}/scripts/youtube-sync.sh"
 
 # Reload if already installed; otherwise just bootstrap.
 if launchctl print "gui/$(id -u)/${LABEL}" >/dev/null 2>&1; then
