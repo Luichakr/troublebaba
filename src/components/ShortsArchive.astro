@@ -61,7 +61,7 @@ const langPrefix = lang === 'uk' ? '' : '/' + lang;
 
       function escape(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
-      fetch('/api/shorts/feed?limit=50').then(r => r.ok ? r.json() : null).then(data => {
+      fetch('/api/shorts/feed?limit=50&all=1').then(r => r.ok ? r.json() : null).then(data => {
         if (!data || !data.ok) { grid.innerHTML = ''; if (empty) empty.classList.remove('hidden'); return; }
         const items = [];
         if (data.current) items.push(data.current);
