@@ -82,6 +82,38 @@ import Layout from '../../layouts/Layout.astro';
           <div id="wl-recent" class="font-mono text-[12px] text-espresso/70 overflow-x-auto"></div>
         </section>
 
+        <!-- Free-recipe leads -->
+        <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+          <div class="flex items-baseline justify-between mb-4">
+            <h2 class="font-cabinet text-espresso text-lg">Заявки на бесплатный рецепт</h2>
+            <div class="flex items-center gap-3">
+              <span class="font-cabinet text-espresso text-2xl tabular-nums" id="fr-total">—</span>
+              <button id="fr-export" class="font-outfit text-xs bg-mocha text-warm-white rounded-lg px-3 py-1.5 hover:bg-mocha-dark">Экспорт CSV</button>
+            </div>
+          </div>
+          <div id="fr-by-lang" class="font-outfit text-sm mb-4"></div>
+          <div id="fr-recent" class="font-mono text-[12px] text-espresso/70 overflow-x-auto"></div>
+        </section>
+
+        <!-- YouTube shorts sync status -->
+        <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
+          <h2 class="font-cabinet text-espresso text-lg mb-4">YouTube shorts</h2>
+          <div class="grid grid-cols-3 gap-4 font-outfit">
+            <div>
+              <div class="text-espresso/50 text-xs uppercase tracking-wide">Всего шортсов</div>
+              <div class="font-cabinet text-espresso text-2xl tabular-nums mt-1" id="yt-total">—</div>
+            </div>
+            <div>
+              <div class="text-espresso/50 text-xs uppercase tracking-wide">Опубликовано на сайте</div>
+              <div class="font-cabinet text-espresso text-2xl tabular-nums mt-1" id="yt-posted">—</div>
+            </div>
+            <div>
+              <div class="text-espresso/50 text-xs uppercase tracking-wide">Последняя синхронизация</div>
+              <div class="font-cabinet text-espresso text-base mt-1" id="yt-last">—</div>
+            </div>
+          </div>
+        </section>
+
         <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
           <h2 class="font-cabinet text-espresso text-lg mb-4">Клики «Купить» — по блокам</h2>
           <div id="by-source" class="font-outfit text-sm"></div>
@@ -285,6 +317,51 @@ import Layout from '../../layouts/Layout.astro';
       a.click();
     });
 
+    // Free-recipe leads — same rendering shape as waitlist (mirror table).
+    let FR_RECENT = [];
+    function renderFreeRecipe(total, byLang, recent) {
+      FR_RECENT = recent || [];
+      $('fr-total').textContent = fmtNum(total || 0);
+      const rows = byLang || [];
+      $('fr-by-lang').innerHTML = rows.length === 0
+        ? '<span class="text-espresso/45 italic">Пока никто не подписался</span>'
+        : rows.map(function(r){
+            return '<span class="inline-block bg-cream rounded-lg px-3 py-1.5 mr-2 mb-2">' +
+              '<b>' + (r.lang || '—') + '</b>: ' + fmtNum(r.n) + '</span>';
+          }).join('');
+      if (FR_RECENT.length === 0) { $('fr-recent').innerHTML = ''; return; }
+      $('fr-recent').innerHTML = '<table class="w-full text-left">' +
+        '<thead><tr class="text-espresso/45 border-b border-taupe/30">' +
+          '<th class="py-1 pr-4 font-normal">время</th><th class="py-1 pr-4 font-normal">email</th>' +
+          '<th class="py-1 pr-4 font-normal">язык</th><th class="py-1 font-normal">страна</th></tr></thead><tbody>' +
+        FR_RECENT.map(function(r){
+          var ts = new Date(r.ts).toISOString().replace('T',' ').slice(0,16);
+          return '<tr><td class="py-1 pr-4 text-espresso/55">' + ts + '</td>' +
+            '<td class="py-1 pr-4">' + (r.email || '') + '</td>' +
+            '<td class="py-1 pr-4">' + (r.lang || '') + '</td>' +
+            '<td class="py-1">' + (r.ip_country || '') + '</td></tr>';
+        }).join('') + '</tbody></table>';
+    }
+    document.getElementById('fr-export').addEventListener('click', function(){
+      if (!FR_RECENT.length) { alert('Заявок пока нет'); return; }
+      var csv = 'email,lang,country,date\n' + FR_RECENT.map(function(r){
+        return [r.email, r.lang || '', r.ip_country || '', new Date(r.ts).toISOString()].join(',');
+      }).join('\n');
+      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'free-recipe-leads-latest50.csv';
+      a.click();
+    });
+
+    function renderShorts(total, posted, lastSync) {
+      $('yt-total').textContent  = fmtNum(total || 0);
+      $('yt-posted').textContent = fmtNum(posted || 0);
+      $('yt-last').textContent   = lastSync
+        ? new Date(lastSync).toISOString().replace('T',' ').slice(0,16) + ' UTC'
+        : '—';
+    }
+
     async function load() {
       const token = sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY);
       if (!token) { showLogin(); return; }
@@ -311,6 +388,8 @@ import Layout from '../../layouts/Layout.astro';
 
         renderVisits(data.visitsByLang, data.visitsTotal);
         renderWaitlist(data.waitlistTotal, data.waitlistByLang, data.waitlistRecent);
+        renderFreeRecipe(data.freeRecipeTotal, data.freeRecipeByLang, data.freeRecipeRecent);
+        renderShorts(data.shortsTotal, data.shortsPosted, data.shortsLastSync);
         totals(data.total);
         renderBars('by-source', data.bySource, 'source');
         renderBars('by-lang',   data.byLang,   'page_lang');

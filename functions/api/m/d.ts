@@ -93,6 +93,38 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
       waitlistRecent = wRecent.results ?? [];
     } catch { /* waitlist table not created yet */ }
 
+    // Free-recipe leads — wrapped (table from migration 0005). Separate funnel
+    // from waitlist: these users asked for content, not just a launch reminder.
+    let freeRecipeTotal = 0;
+    let freeRecipeByLang: unknown[] = [];
+    let freeRecipeRecent: unknown[] = [];
+    try {
+      const [fTotal, fByLang, fRecent] = await Promise.all([
+        env.DB.prepare(`SELECT COUNT(*) AS n FROM free_recipe_leads`).first<{ n: number }>(),
+        env.DB.prepare(`SELECT lang, COUNT(*) AS n FROM free_recipe_leads GROUP BY lang ORDER BY n DESC`).all(),
+        env.DB.prepare(`SELECT email, lang, ip_country, ts FROM free_recipe_leads ORDER BY ts DESC LIMIT 50`).all(),
+      ]);
+      freeRecipeTotal  = fTotal?.n ?? 0;
+      freeRecipeByLang = fByLang.results ?? [];
+      freeRecipeRecent = fRecent.results ?? [];
+    } catch { /* free_recipe_leads table not created yet */ }
+
+    // YouTube shorts — wrapped (table from migration 0004).
+    let shortsTotal = 0;
+    let shortsPosted = 0;
+    let shortsLastSync: number | null = null;
+    try {
+      const sTotals = await env.DB.prepare(
+        `SELECT
+           (SELECT COUNT(*) FROM youtube_shorts WHERE is_short=1) AS total,
+           (SELECT COUNT(*) FROM youtube_shorts WHERE is_short=1 AND posted_at IS NOT NULL) AS posted,
+           (SELECT MAX(first_seen_at) FROM youtube_shorts) AS last_sync`,
+      ).first<{ total: number; posted: number; last_sync: number | null }>();
+      shortsTotal    = sTotals?.total    ?? 0;
+      shortsPosted   = sTotals?.posted   ?? 0;
+      shortsLastSync = sTotals?.last_sync ?? null;
+    } catch { /* youtube_shorts table not created yet */ }
+
     return json({
       ok: true,
       windowDays: days,
@@ -108,6 +140,12 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
       waitlistTotal,
       waitlistByLang,
       waitlistRecent,
+      freeRecipeTotal,
+      freeRecipeByLang,
+      freeRecipeRecent,
+      shortsTotal,
+      shortsPosted,
+      shortsLastSync,
     });
   } catch (e: any) {
     console.error('[admin/stats] error:', e?.message);

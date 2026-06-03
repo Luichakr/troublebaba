@@ -315,6 +315,29 @@ export const t = {
     shorts_all:      'Усі шорти',
     shorts_empty:    'Незабаром тут зʼявиться перший шорт.',
 
+    // === Free recipe (lead magnet) ===
+    fr_meta_title:   'Безкоштовний рецепт бенто-торта | TROUBLEBABA',
+    fr_meta_desc:    'Один рецепт бенто-торта зі збірника — безкоштовно. Лишіть пошту і отримайте PDF із покроковими фото та точними грамажами.',
+    fr_eyebrow:      'БЕЗКОШТОВНО',
+    fr_title:        'Один рецепт бенто-торта — у подарунок',
+    fr_sub:          'Спробуйте рівень нашого збірника без покупки. Ми надішлемо PDF із одним повним рецептом на вашу пошту — з фото, грамажами та технікою.',
+    fr_inside_title: 'Що буде у PDF',
+    fr_inside: [
+      'Покрокова рецептура з точними грамами',
+      'Список продуктів з варіантами заміни',
+      'Фото кожного етапу збирання',
+      'Поради щодо стабільності крему та зберігання',
+    ],
+    fr_email_label:  'Email для отримання',
+    fr_email_ph:     'your@email.com',
+    fr_btn_get:      'Отримати рецепт',
+    fr_btn_sending:  'Надсилаємо…',
+    fr_consent:      'Натискаючи кнопку, ви погоджуєтесь отримати листа з рецептом і кілька корисних матеріалів про бенто-торти. Відписатись можна одним кліком.',
+    fr_success_title:'Перевірте пошту',
+    fr_success_text: 'Лист із рецептом вже летить. Якщо за 10 хвилин не прийшов — гляньте у спам або напишіть нам на {EMAIL}.',
+    fr_cta_title:    'Сподобався рецепт? У збірнику ще 9.',
+    fr_cta_btn:      'Подивитись усі рецепти',
+
     // === Checkout result pages ===
     checkout_success_meta_title: 'Дякуємо за покупку! | TROUBLEBABA',
     checkout_success_meta_desc:  'Оплата успішна. PDF буде надіслано на вашу пошту.',
@@ -634,6 +657,29 @@ export const t = {
     shorts_recent:   'Предыдущие шортсы',
     shorts_all:      'Все шортсы',
     shorts_empty:    'Скоро здесь появится первый шортс.',
+
+    // === Free recipe (lead magnet) ===
+    fr_meta_title:   'Бесплатный рецепт бенто-торта | TROUBLEBABA',
+    fr_meta_desc:    'Один рецепт бенто-торта из сборника — бесплатно. Оставьте почту и получите PDF с пошаговыми фото и точными граммовками.',
+    fr_eyebrow:      'БЕСПЛАТНО',
+    fr_title:        'Один рецепт бенто-торта — в подарок',
+    fr_sub:          'Попробуйте уровень нашего сборника без покупки. Мы пришлём PDF с одним полным рецептом на вашу почту — с фото, граммовками и техникой.',
+    fr_inside_title: 'Что будет в PDF',
+    fr_inside: [
+      'Пошаговая рецептура с точными граммами',
+      'Список продуктов с вариантами замены',
+      'Фото каждого этапа сборки',
+      'Советы по стабильности крема и хранению',
+    ],
+    fr_email_label:  'Email для получения',
+    fr_email_ph:     'your@email.com',
+    fr_btn_get:      'Получить рецепт',
+    fr_btn_sending:  'Отправляем…',
+    fr_consent:      'Нажимая кнопку, вы соглашаетесь получить письмо с рецептом и несколько полезных материалов о бенто-тортах. Отписаться можно одним кликом.',
+    fr_success_title:'Проверьте почту',
+    fr_success_text: 'Письмо с рецептом уже летит. Если в течение 10 минут не пришло — гляньте в спам или напишите нам на {EMAIL}.',
+    fr_cta_title:    'Понравился рецепт? В сборнике ещё 9.',
+    fr_cta_btn:      'Посмотреть все рецепты',
 
     // === Checkout result pages ===
     checkout_success_meta_title: 'Спасибо за покупку! | TROUBLEBABA',
@@ -955,6 +1001,29 @@ export const t = {
     shorts_all:      'Wszystkie shortsy',
     shorts_empty:    'Wkrótce pojawi się tu pierwszy short.',
 
+    // === Free recipe (lead magnet) ===
+    fr_meta_title:   'Darmowy przepis na tort bento | TROUBLEBABA',
+    fr_meta_desc:    'Jeden przepis na tort bento ze zbiorku — za darmo. Zostaw email i otrzymaj PDF z krokowymi zdjęciami i dokładnymi gramaturami.',
+    fr_eyebrow:      'ZA DARMO',
+    fr_title:        'Jeden przepis na tort bento — w prezencie',
+    fr_sub:          'Sprawdź poziom naszego zbiorku bez zakupu. Wyślemy PDF z jednym pełnym przepisem na twojego maila — ze zdjęciami, gramami i techniką.',
+    fr_inside_title: 'Co będzie w PDF',
+    fr_inside: [
+      'Krokowy przepis z dokładnymi gramami',
+      'Lista produktów z opcjami zamiany',
+      'Zdjęcia każdego etapu składania',
+      'Porady dotyczące stabilności kremu i przechowywania',
+    ],
+    fr_email_label:  'Email do wysyłki',
+    fr_email_ph:     'twoj@email.com',
+    fr_btn_get:      'Otrzymaj przepis',
+    fr_btn_sending:  'Wysyłamy…',
+    fr_consent:      'Klikając przycisk, zgadzasz się otrzymać email z przepisem i kilka przydatnych materiałów o tortach bento. Wypisać się można jednym kliknięciem.',
+    fr_success_title:'Sprawdź pocztę',
+    fr_success_text: 'Email z przepisem już leci. Jeśli w ciągu 10 minut nie przyszedł — sprawdź spam lub napisz do nas na {EMAIL}.',
+    fr_cta_title:    'Podobał się przepis? W zbiorze jest jeszcze 9.',
+    fr_cta_btn:      'Zobacz wszystkie przepisy',
+
     // === Checkout result pages ===
     checkout_success_meta_title: 'Dziękujemy za zakup! | TROUBLEBABA',
     checkout_success_meta_desc:  'Płatność zakończona pomyślnie. PDF zostanie wysłany na twój email.',
@@ -1274,6 +1343,29 @@ export const t = {
     shorts_recent:   'Previous shorts',
     shorts_all:      'All shorts',
     shorts_empty:    'The first short will appear here soon.',
+
+    // === Free recipe (lead magnet) ===
+    fr_meta_title:   'Free bento cake recipe | TROUBLEBABA',
+    fr_meta_desc:    'One bento cake recipe from the collection — free. Drop your email and get a PDF with step-by-step photos and exact gram measurements.',
+    fr_eyebrow:      'FREE',
+    fr_title:        'One bento cake recipe — on the house',
+    fr_sub:          'Try the quality of our collection without buying. We send a PDF with one full recipe to your email — photos, grams, technique.',
+    fr_inside_title: 'What\'s in the PDF',
+    fr_inside: [
+      'Step-by-step recipe with exact gram amounts',
+      'Ingredient list with substitution options',
+      'Photo of every assembly step',
+      'Tips for cream stability and storage',
+    ],
+    fr_email_label:  'Email for delivery',
+    fr_email_ph:     'your@email.com',
+    fr_btn_get:      'Get the recipe',
+    fr_btn_sending:  'Sending…',
+    fr_consent:      'By clicking, you agree to receive the recipe email plus a few useful bento cake materials. One-click unsubscribe anytime.',
+    fr_success_title:'Check your inbox',
+    fr_success_text: 'Recipe email is on its way. If it doesn\'t arrive in 10 minutes — check spam or reach us at {EMAIL}.',
+    fr_cta_title:    'Liked the recipe? 9 more in the full collection.',
+    fr_cta_btn:      'See all recipes',
 
     // === Checkout result pages ===
     checkout_success_meta_title: 'Thank you for your purchase! | TROUBLEBABA',
