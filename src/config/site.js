@@ -21,6 +21,11 @@ export const SITE = {
   youtubeUrl:   'https://youtube.com/@troublebaba',
   facebookUrl:  'https://facebook.com/troublebaba',
 
+  // YouTube channel ID (UC…24-char) — used by the shorts cron to fetch RSS.
+  // The cron actually reads env.YOUTUBE_CHANNEL_ID (set in CF Pages settings);
+  // this constant is kept for reference and any future build-time use.
+  youtubeChannelId: 'UCGJX7K5IHIWmTPKjMLTXd8w',
+
   // Featured posts shown in the "Соцсети TROUBLEBABA" home section.
   // TODO: replace with REAL deep-links to specific Reels / TikTok video / YouTube video.
   // Until real URLs are provided, each falls back to the main profile.

@@ -1,0 +1,89 @@
+---
+// Full archive of surfaced YouTube shorts. Fetches /api/shorts/feed?limit=50
+// client-side and renders a thumbnail grid. SSR keeps SEO-friendly skeleton +
+// localized copy; JS hydrates the grid.
+
+import { t } from '../i18n/translations.js';
+import { SITE } from '../config/site.js';
+
+interface Props { lang: 'uk' | 'ru' | 'pl' | 'en' }
+const { lang } = Astro.props;
+const tr = (t as any)[lang];
+const langPrefix = lang === 'uk' ? '' : '/' + lang;
+---
+
+<section class="min-h-[100dvh] py-14 lg:py-20" style="background:#F5EFE8;" data-shorts-archive>
+  <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10">
+
+    <!-- Breadcrumb -->
+    <a href={langPrefix + '/'} class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-8">
+      <svg width="14" height="12" viewBox="0 0 16 14" fill="none" aria-hidden="true">
+        <path d="M14 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>TROUBLEBABA</span>
+    </a>
+
+    <!-- Header -->
+    <header class="max-w-[720px] mb-10 lg:mb-14">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="inline-block w-2 h-2 rounded-full" style="background:#B85959; box-shadow:0 0 0 4px rgba(184,89,89,0.18);"></span>
+        <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha">{tr.shorts_eyebrow}</span>
+      </div>
+      <h1 class="font-cabinet text-espresso mb-5" style="font-size:clamp(2.1rem,4.2vw,3.4rem);line-height:1.05;">{tr.shorts_title}</h1>
+      <p class="font-outfit text-espresso/70 text-[16px] lg:text-[17px] leading-relaxed">{tr.shorts_sub}</p>
+      <a href={SITE.youtubeUrl} target="_blank" rel="noopener noreferrer"
+         data-analytics="shorts_archive_youtube" data-platform="youtube"
+         class="inline-flex items-center gap-2 mt-6 bg-mocha hover:bg-mocha-dark text-warm-white transition-colors font-outfit font-semibold rounded-xl px-5 py-3 text-sm min-h-[44px]">
+        <svg width="18" height="13" viewBox="0 0 28 20" fill="none" aria-hidden="true">
+          <path d="M26.5 3.2C26.2 2.1 25.3 1.3 24.2 1C22.2 0.5 14 0.5 14 0.5C14 0.5 5.8 0.5 3.8 1C2.7 1.3 1.8 2.2 1.5 3.2C1 5.2 1 10 1 10C1 10 1 14.8 1.5 16.8C1.8 17.9 2.7 18.7 3.8 19C5.8 19.5 14 19.5 14 19.5C14 19.5 22.2 19.5 24.2 19C25.3 18.7 26.2 17.8 26.5 16.8C27 14.8 27 10 27 10C27 10 27 5.2 26.5 3.2Z" fill="currentColor"/>
+          <path d="M11.5 14L18 10L11.5 6V14Z" fill="#B85959"/>
+        </svg>
+        <span>{tr.shorts_watch}</span>
+      </a>
+    </header>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5" data-shorts-archive-grid>
+      {Array.from({length: 10}).map(() => (
+        <div class="rounded-xl bg-espresso/5" style="aspect-ratio:9/16;"></div>
+      ))}
+    </div>
+
+    <!-- Empty state (shown if API returns no items) -->
+    <p class="hidden font-outfit text-espresso/55 mt-10" data-shorts-archive-empty>{tr.shorts_empty}</p>
+  </div>
+
+  <script is:inline define:vars={{ watchLabel: tr.shorts_watch }}>
+    (function () {
+      const grid  = document.querySelector('[data-shorts-archive-grid]');
+      const empty = document.querySelector('[data-shorts-archive-empty]');
+      if (!grid) return;
+
+      function escape(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+      fetch('/api/shorts/feed?limit=50').then(r => r.ok ? r.json() : null).then(data => {
+        if (!data || !data.ok) { grid.innerHTML = ''; if (empty) empty.classList.remove('hidden'); return; }
+        const items = [];
+        if (data.current) items.push(data.current);
+        (data.recent || []).forEach(s => items.push(s));
+        if (!items.length) { grid.innerHTML = ''; if (empty) empty.classList.remove('hidden'); return; }
+
+        grid.innerHTML = items.map(function (s) {
+          return '<a href="' + escape(s.url) + '" target="_blank" rel="noopener noreferrer"' +
+            ' data-analytics="shorts_thumb_click" data-platform="youtube" data-location="shorts_archive"' +
+            ' class="group block rounded-xl overflow-hidden relative bg-espresso/5 hover:-translate-y-1 transition-transform duration-300"' +
+            ' style="aspect-ratio:9/16; box-shadow:0 4px 14px rgba(139,115,85,0.08);" title="' + escape(s.title) + '">' +
+            '<img src="https://i.ytimg.com/vi/' + escape(s.videoId) + '/hqdefault.jpg" alt="' + escape(s.title) + '"' +
+            ' width="360" height="640" loading="lazy" decoding="async"' +
+            ' class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"/>' +
+            '<span class="absolute inset-0 bg-gradient-to-t from-espresso/55 via-espresso/0 to-transparent"></span>' +
+            '<span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center" style="background:rgba(253,250,246,0.92);">' +
+            '<svg width="14" height="16" viewBox="0 0 22 24" fill="none"><path d="M3 2v20l17-10L3 2z" fill="#1A1A1A"/></svg>' +
+            '</span>' +
+            '<span class="absolute left-3 right-3 bottom-3 font-outfit text-[11px] text-warm-white/95 leading-snug line-clamp-2">' + escape(s.title) + '</span>' +
+            '</a>';
+        }).join('');
+      }).catch(() => { grid.innerHTML = ''; if (empty) empty.classList.remove('hidden'); });
+    })();
+  </script>
+</section>

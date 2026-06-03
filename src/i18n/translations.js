@@ -306,6 +306,15 @@ export const t = {
       { h: 'Бонуси для підписників',  p: 'Розіграші та ексклюзиви' },
     ],
 
+    // === Shorts feed (auto-pulled from YouTube channel) ===
+    shorts_eyebrow:  'СВІЖЕ З YOUTUBE',
+    shorts_title:    'Шорт дня від TROUBLEBABA',
+    shorts_sub:      'Щодня — новий короткий відеорецепт або процес із нашого YouTube-каналу. Автоматично оновлюється.',
+    shorts_watch:    'Дивитись на YouTube',
+    shorts_recent:   'Попередні шорти',
+    shorts_all:      'Усі шорти',
+    shorts_empty:    'Незабаром тут зʼявиться перший шорт.',
+
     // === Checkout result pages ===
     checkout_success_meta_title: 'Дякуємо за покупку! | TROUBLEBABA',
     checkout_success_meta_desc:  'Оплата успішна. PDF буде надіслано на вашу пошту.',
@@ -616,6 +625,15 @@ export const t = {
       { h: 'Полезные советы',         p: 'Лайфхаки и ответы на вопросы' },
       { h: 'Бонусы для подписчиков',  p: 'Розыгрыши и эксклюзивы' },
     ],
+
+    // === Shorts feed ===
+    shorts_eyebrow:  'СВЕЖЕЕ С YOUTUBE',
+    shorts_title:    'Шорт дня от TROUBLEBABA',
+    shorts_sub:      'Каждый день — новый короткий видеорецепт или процесс с нашего YouTube-канала. Обновляется автоматически.',
+    shorts_watch:    'Смотреть на YouTube',
+    shorts_recent:   'Предыдущие шортсы',
+    shorts_all:      'Все шортсы',
+    shorts_empty:    'Скоро здесь появится первый шортс.',
 
     // === Checkout result pages ===
     checkout_success_meta_title: 'Спасибо за покупку! | TROUBLEBABA',
@@ -928,6 +946,15 @@ export const t = {
       { h: 'Bonusy dla obserwujących', p: 'Losowania i ekskluzywne treści' },
     ],
 
+    // === Shorts feed ===
+    shorts_eyebrow:  'NOWE NA YOUTUBE',
+    shorts_title:    'Short dnia od TROUBLEBABA',
+    shorts_sub:      'Każdego dnia — nowy krótki przepis lub kulisy z naszego kanału YouTube. Aktualizuje się automatycznie.',
+    shorts_watch:    'Zobacz na YouTube',
+    shorts_recent:   'Poprzednie shortsy',
+    shorts_all:      'Wszystkie shortsy',
+    shorts_empty:    'Wkrótce pojawi się tu pierwszy short.',
+
     // === Checkout result pages ===
     checkout_success_meta_title: 'Dziękujemy za zakup! | TROUBLEBABA',
     checkout_success_meta_desc:  'Płatność zakończona pomyślnie. PDF zostanie wysłany na twój email.',
@@ -1238,6 +1265,15 @@ export const t = {
       { h: 'Useful tips',           p: 'Hacks and answers to questions' },
       { h: 'Bonuses for followers', p: 'Giveaways and exclusives' },
     ],
+
+    // === Shorts feed ===
+    shorts_eyebrow:  'FRESH FROM YOUTUBE',
+    shorts_title:    'Short of the day by TROUBLEBABA',
+    shorts_sub:      'Every day — a new short recipe or behind-the-scenes from our YouTube channel. Updates automatically.',
+    shorts_watch:    'Watch on YouTube',
+    shorts_recent:   'Previous shorts',
+    shorts_all:      'All shorts',
+    shorts_empty:    'The first short will appear here soon.',
 
     // === Checkout result pages ===
     checkout_success_meta_title: 'Thank you for your purchase! | TROUBLEBABA',

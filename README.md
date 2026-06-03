@@ -182,6 +182,34 @@ Cloudflare Pages picks up:
 
 To change the domain: update `SITE.url` in `src/config/site.js`, update `Sitemap:` URL in `public/robots.txt`, update sitemap.xml URLs, update Cloudflare Pages custom-domain settings.
 
+## YouTube Shorts auto-feed
+
+A daily cron pulls the channel's RSS, classifies new uploads as shorts vs long-form, and rotates one "short of the day" on the homepage + at `/shorts/`. If the channel publishes nothing new, the rotation falls back to the least-recently-surfaced short — the feed never goes empty.
+
+### How it works
+
+1. **GitHub Action** (`.github/workflows/youtube-sync.yml`, daily 09:00 UTC) POSTs to `/api/cron/youtube-sync` with a Bearer secret.
+2. The Pages Function fetches `youtube.com/feeds/videos.xml?channel_id=…`, detects shorts (canonical link contains `/shorts/`), upserts rows into the `youtube_shorts` D1 table, and picks the next pick.
+3. The homepage component fetches `/api/shorts/feed` (edge-cached 10 min) and renders the hero short + 6 thumbnails. `/shorts/` shows up to 50.
+
+### One-time setup
+
+1. **Run migration** in CF D1 Console (paste `migrations/0004_youtube_shorts.sql`).
+2. **Cloudflare Pages → Settings → Environment variables** (Production):
+   - `YOUTUBE_CHANNEL_ID` = `UCGJX7K5IHIWmTPKjMLTXd8w`
+   - `CRON_SECRET` = any long random string (encrypted)
+3. **GitHub → Settings → Secrets and variables → Actions**:
+   - `CRON_SECRET` = same value as above
+4. Trigger the workflow once manually (Actions → "YouTube shorts sync" → Run workflow) to seed the table before tomorrow's auto-run.
+
+### Manual ping
+
+```sh
+curl -X POST -H "Authorization: Bearer $CRON_SECRET" https://troublebaba.com/api/cron/youtube-sync
+```
+
+Returns `{ ok, feed_count, new_added, classified, surfaced, recycled }`.
+
 ## Outstanding TODOs
 
 Search the codebase for `TODO:` to see all. The big ones:

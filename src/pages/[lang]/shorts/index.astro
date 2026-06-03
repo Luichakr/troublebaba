@@ -1,0 +1,21 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ShortsArchive from '../../../components/ShortsArchive.astro';
+import { t } from '../../../i18n/translations.js';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'ru' } }, { params: { lang: 'pl' } }, { params: { lang: 'en' } }];
+}
+type Lang = 'ru' | 'pl' | 'en';
+const { lang } = Astro.params as { lang: Lang };
+const tr = (t as any)[lang];
+---
+<Layout
+  title={`${tr.shorts_title} | TROUBLEBABA`}
+  description={tr.shorts_sub}
+  lang={lang}
+  path={`${lang}/shorts`}
+  pageType="content"
+>
+  <ShortsArchive lang={lang} />
+</Layout>

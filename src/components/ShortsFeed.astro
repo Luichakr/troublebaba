@@ -1,0 +1,151 @@
+---
+// Shorts feed — auto-refreshing strip pulled from the YouTube channel.
+//
+// Server renders a skeleton; client fetches /api/shorts/feed and populates it.
+// The hero spot uses a click-to-play "lite" embed (thumbnail first, iframe is
+// only created after the user clicks Play) — keeps the page light and avoids
+// loading the YouTube iframe on every visit just to maybe play one video.
+//
+// Edge response is cached for 10 min so this section is essentially free.
+
+import { t } from '../i18n/translations.js';
+
+interface Props {
+  lang:     'uk' | 'ru' | 'pl' | 'en';
+  /** Show "see all" link to /shorts/ archive. Default true. */
+  showAll?: boolean;
+}
+
+const { lang, showAll = true } = Astro.props;
+const tr = (t as any)[lang];
+const archiveHref = lang === 'uk' ? '/shorts/' : `/${lang}/shorts/`;
+---
+
+<section id="shorts" class="py-16 lg:py-24" style="background:#FDFAF6;" aria-labelledby="shorts-title" data-shorts-feed>
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-16">
+
+    <!-- Header -->
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-10 lg:mb-12">
+      <div class="max-w-[640px]">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="inline-block w-2 h-2 rounded-full" style="background:#B85959; box-shadow:0 0 0 4px rgba(184,89,89,0.18);"></span>
+          <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha">{tr.shorts_eyebrow}</span>
+        </div>
+        <h2 id="shorts-title" class="font-cabinet text-espresso mb-3" style="font-size:clamp(1.8rem,3.2vw,2.8rem);line-height:1.06;">
+          {tr.shorts_title}
+        </h2>
+        <p class="font-outfit text-espresso/65 text-[15px] leading-relaxed">{tr.shorts_sub}</p>
+      </div>
+      {showAll && (
+        <a href={archiveHref}
+           class="font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm font-semibold inline-flex items-center gap-2 min-h-[44px]">
+          <span>{tr.shorts_all}</span>
+          <svg width="14" height="12" viewBox="0 0 16 14" fill="none" aria-hidden="true">
+            <path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      )}
+    </div>
+
+    <!-- Grid: hero short (left) + thumbnails (right) -->
+    <div class="grid lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] gap-6 lg:gap-10 items-start">
+
+      <!-- Hero short (9:16, click-to-play) -->
+      <div class="relative rounded-2xl overflow-hidden bg-espresso/5"
+           style="aspect-ratio:9/16; box-shadow:0 8px 32px rgba(139,115,85,0.14); border:1px solid rgba(200,184,162,0.30);"
+           data-shorts-hero
+           aria-live="polite">
+        <!-- Skeleton (visible until JS populates) -->
+        <div class="absolute inset-0 flex items-center justify-center text-espresso/35 font-outfit text-sm" data-shorts-skeleton>
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <circle cx="18" cy="18" r="16" stroke="#8B7355" stroke-width="2" stroke-dasharray="4 6" opacity="0.4"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Right column: title + recent thumbnails strip -->
+      <div class="flex flex-col gap-6">
+        <div data-shorts-meta class="min-h-[2rem]">
+          <h3 class="font-cabinet text-espresso text-xl lg:text-2xl leading-tight" data-shorts-title></h3>
+        </div>
+
+        <!-- Recent (6 thumbnails) -->
+        <div>
+          <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.18em] text-espresso/45 mb-4">{tr.shorts_recent}</div>
+          <div class="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-3" data-shorts-recent>
+            {/* Filled by JS. Show 6 placeholder boxes for skeleton. */}
+            {Array.from({length: 6}).map(() => (
+              <div class="rounded-lg bg-espresso/5" style="aspect-ratio:9/16;"></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline define:vars={{ watchLabel: tr.shorts_watch, emptyLabel: tr.shorts_empty }}>
+    (function () {
+      const root = document.querySelector('[data-shorts-feed]');
+      if (!root) return;
+      const hero      = root.querySelector('[data-shorts-hero]');
+      const skeleton  = root.querySelector('[data-shorts-skeleton]');
+      const titleEl   = root.querySelector('[data-shorts-title]');
+      const recentBox = root.querySelector('[data-shorts-recent]');
+
+      function escape(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+      function paintHero(s) {
+        if (!s) {
+          if (skeleton) skeleton.innerHTML = '<span class="font-outfit text-sm">' + escape(emptyLabel) + '</span>';
+          return;
+        }
+        if (titleEl) titleEl.textContent = s.title;
+        // Click-to-play lite embed: thumbnail with a play button. Iframe only mounts on click.
+        hero.innerHTML =
+          '<button type="button" data-play="' + escape(s.videoId) + '" aria-label="' + escape(watchLabel) + '"' +
+          '  class="absolute inset-0 w-full h-full group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mocha">' +
+          '  <img src="https://i.ytimg.com/vi/' + escape(s.videoId) + '/hqdefault.jpg" alt="' + escape(s.title) + '"' +
+          '       width="480" height="853" loading="lazy" decoding="async"' +
+          '       class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"/>' +
+          '  <span class="absolute inset-0 bg-gradient-to-t from-espresso/55 via-transparent to-transparent"></span>' +
+          '  <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110" style="background:rgba(253,250,246,0.92);">' +
+          '    <svg width="22" height="24" viewBox="0 0 22 24" fill="none"><path d="M3 2v20l17-10L3 2z" fill="#1A1A1A"/></svg>' +
+          '  </span>' +
+          '</button>';
+
+        hero.querySelector('[data-play]')?.addEventListener('click', function (e) {
+          e.preventDefault();
+          var id = this.getAttribute('data-play');
+          hero.innerHTML =
+            '<iframe src="https://www.youtube.com/embed/' + id + '?autoplay=1&playsinline=1&rel=0"' +
+            ' title="' + escape(s.title) + '" allow="autoplay; encrypted-media; picture-in-picture"' +
+            ' allowfullscreen loading="lazy"' +
+            ' class="absolute inset-0 w-full h-full border-0"></iframe>';
+          // GA event (best-effort)
+          if (typeof gtag === 'function') gtag('event', 'shorts_play', { videoId: id });
+        });
+      }
+
+      function paintRecent(list) {
+        if (!list || !list.length) { recentBox.innerHTML = ''; return; }
+        recentBox.innerHTML = list.slice(0, 6).map(function (s) {
+          return '<a href="' + escape(s.url) + '" target="_blank" rel="noopener noreferrer" data-analytics="shorts_thumb_click" data-platform="youtube"' +
+            ' class="group block rounded-lg overflow-hidden relative bg-espresso/5 hover:-translate-y-0.5 transition-transform" style="aspect-ratio:9/16;">' +
+            '<img src="https://i.ytimg.com/vi/' + escape(s.videoId) + '/hqdefault.jpg" alt="' + escape(s.title) + '"' +
+            '     width="240" height="426" loading="lazy" decoding="async"' +
+            '     class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"/>' +
+            '<span class="absolute inset-0 bg-gradient-to-t from-espresso/45 to-transparent"></span>' +
+            '<span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center" style="background:rgba(253,250,246,0.92);">' +
+            '<svg width="11" height="12" viewBox="0 0 22 24" fill="none"><path d="M3 2v20l17-10L3 2z" fill="#1A1A1A"/></svg>' +
+            '</span></a>';
+        }).join('');
+      }
+
+      fetch('/api/shorts/feed').then(r => r.ok ? r.json() : null).then(data => {
+        if (!data || !data.ok) { paintHero(null); recentBox.innerHTML = ''; return; }
+        paintHero(data.current);
+        paintRecent(data.recent || []);
+      }).catch(() => { paintHero(null); recentBox.innerHTML = ''; });
+    })();
+  </script>
+</section>
