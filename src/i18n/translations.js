@@ -314,6 +314,16 @@ export const t = {
     shorts_recent:   'Попередні шорти',
     shorts_all:      'Усі шорти',
     shorts_empty:    'Незабаром тут зʼявиться перший шорт.',
+    // Compact homepage promo → funnel to blog/shorts
+    shorts_promo_eyebrow: 'БЕЗКОШТОВНІ РЕЦЕПТИ',
+    shorts_promo_title:   'Десятки рецептів вже у нашій стрічці',
+    shorts_promo_sub:     'Короткі відеорецепти, лайфхаки і процеси — все безкоштовно, без email-форм. Щодня нове.',
+    shorts_promo_cta:     'Перейти у блог',
+    // Blog hub callout for the shorts archive
+    blog_videos_eyebrow:  'ВІДЕО',
+    blog_videos_title:    'Відеорецепти у коротких роликах',
+    blog_videos_sub:      'Більше 80 коротких відео з покроковими рецептами і прийомами — оновлюється щодня.',
+    blog_videos_cta:      'Відкрити стрічку шортів',
 
     // === Free recipe (lead magnet) ===
     fr_meta_title:   'Безкоштовний рецепт бенто-торта | TROUBLEBABA',
@@ -657,6 +667,14 @@ export const t = {
     shorts_recent:   'Предыдущие шортсы',
     shorts_all:      'Все шортсы',
     shorts_empty:    'Скоро здесь появится первый шортс.',
+    shorts_promo_eyebrow: 'БЕСПЛАТНЫЕ РЕЦЕПТЫ',
+    shorts_promo_title:   'Десятки рецептов уже в нашей ленте',
+    shorts_promo_sub:     'Короткие видеорецепты, лайфхаки и процессы — всё бесплатно, без email-форм. Каждый день — новое.',
+    shorts_promo_cta:     'Перейти в блог',
+    blog_videos_eyebrow:  'ВИДЕО',
+    blog_videos_title:    'Видеорецепты в коротких роликах',
+    blog_videos_sub:      'Более 80 коротких видео с пошаговыми рецептами и приёмами — обновляется каждый день.',
+    blog_videos_cta:      'Открыть ленту шортсов',
 
     // === Free recipe (lead magnet) ===
     fr_meta_title:   'Бесплатный рецепт бенто-торта | TROUBLEBABA',
@@ -1000,6 +1018,14 @@ export const t = {
     shorts_recent:   'Poprzednie shortsy',
     shorts_all:      'Wszystkie shortsy',
     shorts_empty:    'Wkrótce pojawi się tu pierwszy short.',
+    shorts_promo_eyebrow: 'DARMOWE PRZEPISY',
+    shorts_promo_title:   'Dziesiątki przepisów już w naszym feedzie',
+    shorts_promo_sub:     'Krótkie wideoprzepisy, triki i procesy — wszystko za darmo, bez formularzy email. Codziennie coś nowego.',
+    shorts_promo_cta:     'Przejdź na bloga',
+    blog_videos_eyebrow:  'WIDEO',
+    blog_videos_title:    'Wideoprzepisy w krótkich rolkach',
+    blog_videos_sub:      'Ponad 80 krótkich wideo z krokowymi przepisami i technikami — aktualizuje się codziennie.',
+    blog_videos_cta:      'Otwórz feed shortsów',
 
     // === Free recipe (lead magnet) ===
     fr_meta_title:   'Darmowy przepis na tort bento | TROUBLEBABA',
@@ -1343,6 +1369,14 @@ export const t = {
     shorts_recent:   'Previous shorts',
     shorts_all:      'All shorts',
     shorts_empty:    'The first short will appear here soon.',
+    shorts_promo_eyebrow: 'FREE RECIPES',
+    shorts_promo_title:   'Dozens of recipes already in our feed',
+    shorts_promo_sub:     'Short video recipes, hacks and processes — all free, no email gates. New every day.',
+    shorts_promo_cta:     'Open the blog',
+    blog_videos_eyebrow:  'VIDEO',
+    blog_videos_title:    'Video recipes in short clips',
+    blog_videos_sub:      'More than 80 short videos with step-by-step recipes and techniques — updated daily.',
+    blog_videos_cta:      'Open the shorts feed',
 
     // === Free recipe (lead magnet) ===
     fr_meta_title:   'Free bento cake recipe | TROUBLEBABA',

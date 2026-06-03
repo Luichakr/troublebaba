@@ -1,7 +1,7 @@
 ---
 import { t } from '../i18n/translations.js';
 import { SITE } from '../config/site.js';
-import ShortsFeed from './ShortsFeed.astro';
+import ShortsPromo from './ShortsPromo.astro';
 
 type Lang = 'uk' | 'ru' | 'pl' | 'en';
 interface Props { lang: Lang }
@@ -739,8 +739,8 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
     </div>
   </section>
 
-  <!-- ── SHORTS FEED (auto-pulled from YouTube channel, daily rotation) ── -->
-  <ShortsFeed lang={lang} />
+  <!-- ── SHORTS PROMO (compact funnel to /blog/, drives traffic to content) ── -->
+  <ShortsPromo lang={lang} />
 
   <!-- ── SOCIAL (links to Instagram / TikTok / YouTube content) ── -->
   <section id="social" class="py-16 lg:py-24" style="background:#F5EFE8;" aria-labelledby="social-title">

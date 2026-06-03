@@ -1,0 +1,86 @@
+---
+// Compact homepage promo for the shorts/blog feed. Replaces the big hero
+// "short of the day" section: we don't want one short to look like THE
+// content — we want to funnel the visitor toward the blog where dozens of
+// free video recipes live.
+//
+// Server renders a static promo card; client fetches /api/shorts/feed and
+// fills 4 thumbnail tiles next to the copy. If the API has nothing yet, the
+// promo still renders fine — the tiles just stay empty (skeleton boxes).
+
+import { t } from '../i18n/translations.js';
+
+interface Props { lang: 'uk' | 'ru' | 'pl' | 'en' }
+const { lang } = Astro.props;
+const tr = (t as any)[lang];
+const blogHref = lang === 'uk' ? '/blog/' : `/${lang}/blog/`;
+---
+
+<section id="free-recipes-promo" class="py-14 lg:py-20" style="background:#FDFAF6;" aria-labelledby="srp-title" data-shorts-promo>
+  <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10">
+
+    <div class="rounded-[1.5rem] lg:rounded-[2rem] bg-warm-white overflow-hidden"
+         style="box-shadow:0 8px 40px rgba(139,115,85,0.10), 0 32px 80px rgba(139,115,85,0.06); border:1px solid rgba(200,184,162,0.25);">
+      <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center">
+
+        <!-- Left: copy + CTA -->
+        <div class="px-6 sm:px-10 lg:px-14 py-10 lg:py-14">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="inline-block w-2 h-2 rounded-full" style="background:#B85959; box-shadow:0 0 0 4px rgba(184,89,89,0.18);"></span>
+            <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha">{tr.shorts_promo_eyebrow}</span>
+          </div>
+          <h2 id="srp-title" class="font-cabinet text-espresso mb-4" style="font-size:clamp(1.9rem,3.2vw,2.8rem);line-height:1.06;">
+            {tr.shorts_promo_title}
+          </h2>
+          <p class="font-outfit text-espresso/65 text-[15px] lg:text-[16px] leading-relaxed mb-8 max-w-[440px]">{tr.shorts_promo_sub}</p>
+          <a href={blogHref}
+             data-analytics="shorts_promo_to_blog" data-platform="blog"
+             class="inline-flex items-center gap-3 bg-mocha hover:bg-mocha-dark text-warm-white transition-colors font-outfit font-bold rounded-2xl px-7 py-4 text-[15px] min-h-[52px]">
+            <span>{tr.shorts_promo_cta}</span>
+            <svg width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true">
+              <path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Right: 4 thumbnail tiles (filled from /api/shorts/feed) -->
+        <div class="px-6 sm:px-10 lg:pr-14 lg:pl-0 pb-10 pt-2 lg:py-14">
+          <div class="grid grid-cols-4 gap-3" data-shorts-promo-tiles>
+            {Array.from({length: 4}).map(() => (
+              <div class="rounded-lg bg-espresso/5" style="aspect-ratio:9/16;"></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const root = document.querySelector('[data-shorts-promo]');
+      if (!root) return;
+      const tiles = root.querySelector('[data-shorts-promo-tiles]');
+      function escape(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+      fetch('/api/shorts/feed').then(r => r.ok ? r.json() : null).then(data => {
+        if (!data || !data.ok) return;
+        const items = [];
+        if (data.current) items.push(data.current);
+        (data.recent || []).forEach(s => items.push(s));
+        if (!items.length) return;
+        tiles.innerHTML = items.slice(0, 4).map(function (s) {
+          return '<a href="' + escape(s.url) + '" target="_blank" rel="noopener noreferrer"' +
+            ' data-analytics="shorts_promo_thumb_click" data-platform="youtube"' +
+            ' class="group block rounded-lg overflow-hidden relative bg-espresso/5 hover:-translate-y-0.5 transition-transform" style="aspect-ratio:9/16;" title="' + escape(s.title) + '">' +
+            '<img src="https://i.ytimg.com/vi/' + escape(s.videoId) + '/hqdefault.jpg" alt="' + escape(s.title) + '"' +
+            ' width="240" height="426" loading="lazy" decoding="async"' +
+            ' class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"/>' +
+            '<span class="absolute inset-0 bg-gradient-to-t from-espresso/45 to-transparent"></span>' +
+            '<span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center" style="background:rgba(253,250,246,0.92);">' +
+            '<svg width="11" height="12" viewBox="0 0 22 24" fill="none"><path d="M3 2v20l17-10L3 2z" fill="#1A1A1A"/></svg>' +
+            '</span></a>';
+        }).join('');
+      }).catch(function () {});
+    })();
+  </script>
+</section>

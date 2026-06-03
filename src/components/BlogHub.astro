@@ -20,10 +20,61 @@ const postUrl = (slug: string) => `${langPrefix}/blog/${slug}/`;
       <span>{tr.blog_back}</span>
     </a>
 
-    <header class="max-w-[640px] mb-12">
+    <header class="max-w-[640px] mb-10">
       <h1 class="font-cabinet text-espresso mb-5" style="font-size:clamp(2.4rem,5vw,4rem);line-height:1.02;">{tr.blog_heading}</h1>
       <p class="font-outfit text-espresso/60 text-base leading-relaxed">{tr.blog_intro}</p>
     </header>
+
+    {/* Видеорецепты — funnel from blog hub to /shorts/ archive */}
+    <a href={`${langPrefix}/shorts/`}
+       data-analytics="blog_videos_promo_click" data-platform="shorts"
+       class="group block mb-12 rounded-2xl bg-warm-white overflow-hidden hover:-translate-y-0.5 transition-transform duration-300"
+       style="box-shadow:0 8px 32px rgba(139,115,85,0.10), 0 24px 64px rgba(139,115,85,0.06); border:1px solid rgba(200,184,162,0.30);">
+      <div class="grid sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-stretch">
+        <div class="px-6 sm:px-8 lg:px-10 py-8 lg:py-10 flex flex-col justify-center">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="inline-block w-2 h-2 rounded-full" style="background:#B85959; box-shadow:0 0 0 4px rgba(184,89,89,0.18);"></span>
+            <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha">{tr.blog_videos_eyebrow}</span>
+          </div>
+          <h2 class="font-cabinet text-espresso mb-3 group-hover:text-mocha transition-colors" style="font-size:clamp(1.4rem,2.4vw,1.9rem);line-height:1.1;">{tr.blog_videos_title}</h2>
+          <p class="font-outfit text-espresso/65 text-[14px] leading-relaxed mb-5 max-w-[420px]">{tr.blog_videos_sub}</p>
+          <span class="inline-flex items-center gap-2 font-outfit text-mocha font-semibold text-sm">
+            <span>{tr.blog_videos_cta}</span>
+            <svg width="14" height="12" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+        <div class="px-6 sm:px-8 lg:pr-10 pb-8 pt-2 sm:pl-0 sm:py-8 lg:py-10">
+          <div class="grid grid-cols-4 gap-2.5" data-blog-videos-tiles>
+            {Array.from({length: 4}).map(() => (
+              <div class="rounded-md bg-espresso/5" style="aspect-ratio:9/16;"></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <script is:inline>
+      (function () {
+        const tiles = document.querySelector('[data-blog-videos-tiles]');
+        if (!tiles) return;
+        function escape(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+        fetch('/api/shorts/feed').then(r => r.ok ? r.json() : null).then(data => {
+          if (!data || !data.ok) return;
+          const items = [];
+          if (data.current) items.push(data.current);
+          (data.recent || []).forEach(s => items.push(s));
+          if (!items.length) return;
+          tiles.innerHTML = items.slice(0, 4).map(function (s) {
+            return '<div class="relative rounded-md overflow-hidden bg-espresso/5" style="aspect-ratio:9/16;">' +
+              '<img src="https://i.ytimg.com/vi/' + escape(s.videoId) + '/hqdefault.jpg" alt="' + escape(s.title) + '"' +
+              ' width="200" height="356" loading="lazy" decoding="async"' +
+              ' class="absolute inset-0 w-full h-full object-cover"/>' +
+              '<span class="absolute inset-0 bg-gradient-to-t from-espresso/35 to-transparent"></span>' +
+              '</div>';
+          }).join('');
+        }).catch(function () {});
+      })();
+    </script>
 
     {all.length === 0 ? (
       <p class="font-outfit text-espresso/45 italic py-10">{tr.blog_empty}</p>
