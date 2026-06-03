@@ -333,8 +333,8 @@ export const t = {
     fr_btn_get:      'Отримати рецепт',
     fr_btn_sending:  'Надсилаємо…',
     fr_consent:      'Натискаючи кнопку, ви погоджуєтесь отримати листа з рецептом і кілька корисних матеріалів про бенто-торти. Відписатись можна одним кліком.',
-    fr_success_title:'Перевірте пошту',
-    fr_success_text: 'Лист із рецептом вже летить. Якщо за 10 хвилин не прийшов — гляньте у спам або напишіть нам на {EMAIL}.',
+    fr_success_title:'Заявку отримали',
+    fr_success_text: 'Дякуємо! Ми готуємо безкоштовний рецепт у форматі PDF і надішлемо його на цю пошту, щойно він буде готовий. Якщо буде питання — пишіть на {EMAIL}.',
     fr_cta_title:    'Сподобався рецепт? У збірнику ще 9.',
     fr_cta_btn:      'Подивитись усі рецепти',
 
@@ -676,8 +676,8 @@ export const t = {
     fr_btn_get:      'Получить рецепт',
     fr_btn_sending:  'Отправляем…',
     fr_consent:      'Нажимая кнопку, вы соглашаетесь получить письмо с рецептом и несколько полезных материалов о бенто-тортах. Отписаться можно одним кликом.',
-    fr_success_title:'Проверьте почту',
-    fr_success_text: 'Письмо с рецептом уже летит. Если в течение 10 минут не пришло — гляньте в спам или напишите нам на {EMAIL}.',
+    fr_success_title:'Заявка принята',
+    fr_success_text: 'Спасибо! Мы готовим бесплатный рецепт в формате PDF и пришлём его на эту почту, как только он будет готов. Если будут вопросы — пишите на {EMAIL}.',
     fr_cta_title:    'Понравился рецепт? В сборнике ещё 9.',
     fr_cta_btn:      'Посмотреть все рецепты',
 
@@ -1019,8 +1019,8 @@ export const t = {
     fr_btn_get:      'Otrzymaj przepis',
     fr_btn_sending:  'Wysyłamy…',
     fr_consent:      'Klikając przycisk, zgadzasz się otrzymać email z przepisem i kilka przydatnych materiałów o tortach bento. Wypisać się można jednym kliknięciem.',
-    fr_success_title:'Sprawdź pocztę',
-    fr_success_text: 'Email z przepisem już leci. Jeśli w ciągu 10 minut nie przyszedł — sprawdź spam lub napisz do nas na {EMAIL}.',
+    fr_success_title:'Zgłoszenie przyjęte',
+    fr_success_text: 'Dziękujemy! Przygotowujemy darmowy przepis w formacie PDF i wyślemy go na ten adres, gdy tylko będzie gotowy. W razie pytań — pisz na {EMAIL}.',
     fr_cta_title:    'Podobał się przepis? W zbiorze jest jeszcze 9.',
     fr_cta_btn:      'Zobacz wszystkie przepisy',
 
@@ -1362,8 +1362,8 @@ export const t = {
     fr_btn_get:      'Get the recipe',
     fr_btn_sending:  'Sending…',
     fr_consent:      'By clicking, you agree to receive the recipe email plus a few useful bento cake materials. One-click unsubscribe anytime.',
-    fr_success_title:'Check your inbox',
-    fr_success_text: 'Recipe email is on its way. If it doesn\'t arrive in 10 minutes — check spam or reach us at {EMAIL}.',
+    fr_success_title:'You\'re on the list',
+    fr_success_text: 'Thank you! We\'re finalizing the free recipe PDF and will send it to this email as soon as it\'s ready. Any questions — drop us a line at {EMAIL}.',
     fr_cta_title:    'Liked the recipe? 9 more in the full collection.',
     fr_cta_btn:      'See all recipes',
 
