@@ -82,7 +82,7 @@ const postUrl = (slug: string) => `${langPrefix}/blog/${slug}/`;
         const tiles = document.querySelector('[data-blog-videos-tiles]');
         if (!tiles) return;
         function escape(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-        fetch('/api/shorts/feed').then(r => r.ok ? r.json() : null).then(data => {
+        fetch('/api/shorts/feed?all=1').then(r => r.ok ? r.json() : null).then(data => {
           if (!data || !data.ok) return;
           const items = [];
           if (data.current) items.push(data.current);

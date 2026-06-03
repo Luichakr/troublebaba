@@ -38,18 +38,22 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
     // ?all=1 → every known short (archive view). Default → only surfaced ones
     // (homepage "short of the day" rotation), newest-surfaced first.
     const all = url.searchParams.get('all') === '1';
+    // NB: we intentionally do NOT gate on is_short. The in-Worker shorts
+    // detector is unreliable (YouTube serves the consent wall to CF egress
+    // IPs, so the canonical /shorts/ rewrite often isn't visible). The channel
+    // is short-form anyway and every thumbnail renders inside a 9:16 frame,
+    // so we surface all known uploads.
     const { results } = all
       ? await env.DB.prepare(
           `SELECT video_id, title, thumbnail_url, published_at, posted_at
              FROM youtube_shorts
-             WHERE is_short = 1
              ORDER BY published_at DESC
              LIMIT ?`,
         ).bind(limit).all<Row>()
       : await env.DB.prepare(
           `SELECT video_id, title, thumbnail_url, published_at, posted_at
              FROM youtube_shorts
-             WHERE is_short = 1 AND posted_at IS NOT NULL
+             WHERE posted_at IS NOT NULL
              ORDER BY posted_at DESC
              LIMIT ?`,
         ).bind(limit).all<Row>();

@@ -89,9 +89,11 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     // 4) Rotate: pick the next short to surface today.
     //    Preference: never-surfaced (posted_at IS NULL), newest first.
     //    Fallback:    least-recently-surfaced.
+    // We don't gate on is_short — in-Worker detection is unreliable (consent
+    // wall on CF egress IPs). The channel is short-form; surface any upload.
     let pick = await env.DB.prepare(
       `SELECT video_id FROM youtube_shorts
-         WHERE is_short = 1 AND posted_at IS NULL
+         WHERE posted_at IS NULL
          ORDER BY published_at DESC LIMIT 1`,
     ).first<{ video_id: string }>();
 
@@ -99,7 +101,6 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     if (!pick) {
       pick = await env.DB.prepare(
         `SELECT video_id FROM youtube_shorts
-           WHERE is_short = 1
            ORDER BY posted_at ASC LIMIT 1`,
       ).first<{ video_id: string }>();
       recycled = !!pick;
