@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  launchd Agent — runs scripts/youtube-sync.sh once a day at 12:00 local time.
+
+  Why launchd (not crontab)?
+  - cron does NOT run missed jobs when the machine was asleep at the trigger
+    time. launchd's StartCalendarInterval will fire as soon as the laptop
+    wakes up if it missed the slot. For a daily content rotation that runs
+    while you're using the machine, this is what you want.
+
+  Install (one time, after editing __ABS_REPO_PATH__ below):
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.troublebaba.youtube-sync.plist
+
+  Trigger immediately to test:
+    launchctl kickstart -k gui/$(id -u)/com.troublebaba.youtube-sync
+
+  Uninstall:
+    launchctl bootout gui/$(id -u)/com.troublebaba.youtube-sync
+
+  Logs: ~/Library/Logs/troublebaba/youtube-sync.log
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.troublebaba.youtube-sync</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>__ABS_REPO_PATH__/scripts/youtube-sync.sh</string>
+  </array>
+
+  <!-- Fire at 12:00 local time daily. If the Mac is asleep, runs on next wake. -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>12</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+
+  <!-- Output goes through the script's own log file; keep these for crash dumps. -->
+  <key>StandardOutPath</key>
+  <string>/tmp/troublebaba-youtube-sync.out</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/troublebaba-youtube-sync.err</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+</dict>
+</plist>

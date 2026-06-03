@@ -184,11 +184,11 @@ To change the domain: update `SITE.url` in `src/config/site.js`, update `Sitemap
 
 ## YouTube Shorts auto-feed
 
-A daily cron pulls the channel's RSS, classifies new uploads as shorts vs long-form, and rotates one "short of the day" on the homepage + at `/shorts/`. If the channel publishes nothing new, the rotation falls back to the least-recently-surfaced short — the feed never goes empty.
+A daily job pulls the channel's RSS, classifies new uploads as shorts vs long-form, and rotates one "short of the day" on the homepage + at `/shorts/`. If the channel publishes nothing new, the rotation falls back to the least-recently-surfaced short — the feed never goes empty.
 
 ### How it works
 
-1. **GitHub Action** (`.github/workflows/youtube-sync.yml`, daily 09:00 UTC) POSTs to `/api/cron/youtube-sync` with a Bearer secret.
+1. **Local launchd Agent** (macOS, daily 12:00 local time) runs `scripts/youtube-sync.sh` which POSTs to `/api/cron/youtube-sync` with a Bearer secret. If the laptop was asleep at 12:00, launchd fires on next wake — no missed slots.
 2. The Pages Function fetches `youtube.com/feeds/videos.xml?channel_id=…`, detects shorts (canonical link contains `/shorts/`), upserts rows into the `youtube_shorts` D1 table, and picks the next pick.
 3. The homepage component fetches `/api/shorts/feed` (edge-cached 10 min) and renders the hero short + 6 thumbnails. `/shorts/` shows up to 50.
 
@@ -196,19 +196,37 @@ A daily cron pulls the channel's RSS, classifies new uploads as shorts vs long-f
 
 1. **Run migration** in CF D1 Console (paste `migrations/0004_youtube_shorts.sql`).
 2. **Cloudflare Pages → Settings → Environment variables** (Production):
-   - `YOUTUBE_CHANNEL_ID` = `UCGJX7K5IHIWmTPKjMLTXd8w`
-   - `CRON_SECRET` = any long random string (encrypted)
-3. **GitHub → Settings → Secrets and variables → Actions**:
-   - `CRON_SECRET` = same value as above
-4. Trigger the workflow once manually (Actions → "YouTube shorts sync" → Run workflow) to seed the table before tomorrow's auto-run.
+   - `YOUTUBE_CHANNEL_ID` = `UCGJX7K5IHIWmTPKjMLTXd8w` (Plain text)
+   - `CRON_SECRET` = any long random string, e.g. `openssl rand -hex 32` (Encrypted)
+3. **Install the local cron** (macOS):
+   ```sh
+   ./scripts/install-youtube-sync.sh
+   ```
+   This copies a launchd plist into `~/Library/LaunchAgents/`, loads it, and creates `~/.troublebaba.env` if missing. Paste the same `CRON_SECRET` into that env file:
+   ```sh
+   echo 'CRON_SECRET=<paste-here>' > ~/.troublebaba.env
+   chmod 600 ~/.troublebaba.env
+   ```
+4. Trigger once manually to seed the table:
+   ```sh
+   launchctl kickstart -k gui/$(id -u)/com.troublebaba.youtube-sync
+   tail -f ~/Library/Logs/troublebaba/youtube-sync.log
+   ```
 
-### Manual ping
+### Manual ping (any machine)
 
 ```sh
 curl -X POST -H "Authorization: Bearer $CRON_SECRET" https://troublebaba.com/api/cron/youtube-sync
 ```
 
 Returns `{ ok, feed_count, new_added, classified, surfaced, recycled }`.
+
+### Uninstall the local cron
+
+```sh
+launchctl bootout gui/$(id -u)/com.troublebaba.youtube-sync
+rm ~/Library/LaunchAgents/com.troublebaba.youtube-sync.plist
+```
 
 ## Outstanding TODOs
 
