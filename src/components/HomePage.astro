@@ -1,7 +1,6 @@
 ---
 import { t } from '../i18n/translations.js';
 import { SITE } from '../config/site.js';
-import ShortsPromo from './ShortsPromo.astro';
 
 type Lang = 'uk' | 'ru' | 'pl' | 'en';
 interface Props { lang: Lang }
@@ -11,6 +10,7 @@ const tr = t[lang] as Record<string, any>;
 // Helpers
 const isUk = lang === 'uk';
 const langUrl = (l: Lang) => l === 'uk' ? '/' : `/${l}/`;
+const blogHref = isUk ? '/blog/' : `/${lang}/blog/`;
 
 // Pre-launch mode: buy buttons collect e-mails instead of opening checkout.
 const presale = SITE.presaleMode === true;
@@ -739,10 +739,7 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
     </div>
   </section>
 
-  <!-- ── SHORTS PROMO (compact funnel to /blog/, drives traffic to content) ── -->
-  <ShortsPromo lang={lang} />
-
-  <!-- ── SOCIAL (links to Instagram / TikTok / YouTube content) ── -->
+  <!-- ── SOCIAL → BLOG (showcases content, funnels into the blog hub) ── -->
   <section id="social" class="py-16 lg:py-24" style="background:#F5EFE8;" aria-labelledby="social-title">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-16">
       <div class="reveal rounded-[1.5rem] lg:rounded-[2rem] bg-warm-white overflow-hidden"
@@ -772,34 +769,15 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
               {tr.social_sub}
             </p>
 
-            <!-- Platform pills (link to profiles, not posts) -->
+            <!-- Primary CTA → blog (the content hub) -->
             <div class="flex flex-wrap gap-2.5 mb-2">
-              <a href={SITE.instagramUrl} target="_blank" rel="noopener noreferrer"
-                 data-analytics="social_profile_click" data-platform="instagram" data-location="homepage_social_block"
-                 class="inline-flex items-center gap-2 bg-surface border border-taupe/30 hover:border-mocha/50 transition-colors rounded-full px-4 py-2.5 text-espresso/75 font-outfit text-sm font-medium min-h-[44px]">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <rect x="2" y="2" width="20" height="20" rx="6" stroke="#8B7355" stroke-width="1.6"/>
-                  <circle cx="12" cy="12" r="4.5" stroke="#8B7355" stroke-width="1.6"/>
-                  <circle cx="17.5" cy="6.5" r="1.2" fill="#8B7355"/>
+              <a href={blogHref}
+                 data-analytics="social_to_blog_click" data-location="homepage_social_block"
+                 class="inline-flex items-center gap-3 bg-mocha hover:bg-mocha-dark text-warm-white transition-colors rounded-2xl px-7 py-4 font-outfit font-bold text-[15px] min-h-[52px]">
+                <span>{tr.social_to_blog}</span>
+                <svg width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true">
+                  <path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <span>{tr.social_pill_ig}</span>
-              </a>
-              <a href={SITE.tiktokUrl} target="_blank" rel="noopener noreferrer"
-                 data-analytics="social_profile_click" data-platform="tiktok" data-location="homepage_social_block"
-                 class="inline-flex items-center gap-2 bg-surface border border-taupe/30 hover:border-mocha/50 transition-colors rounded-full px-4 py-2.5 text-espresso/75 font-outfit text-sm font-medium min-h-[44px]">
-                <svg width="14" height="16" viewBox="0 0 24 26" fill="none" aria-hidden="true">
-                  <path d="M17 1C17.3 4.5 19.3 6.8 23 7.1V11C21 10.8 19.2 10.1 17.7 9V17.5C17.7 21.9 14.4 25.5 10 25.5C5.6 25.5 2 22 2 17.6C2 13.1 5.5 9.8 10 9.8C10.4 9.8 10.7 9.8 11 9.9V14C10.7 13.9 10.4 13.9 10 13.9C7.8 13.9 6 15.6 6 17.8C6 20 7.8 21.6 10 21.6C12.2 21.6 14.1 19.9 14.1 17.7L14.2 1H17Z" stroke="#8B7355" stroke-width="1.6" stroke-linejoin="round"/>
-                </svg>
-                <span>{tr.social_pill_tt}</span>
-              </a>
-              <a href={SITE.youtubeUrl} target="_blank" rel="noopener noreferrer"
-                 data-analytics="social_profile_click" data-platform="youtube" data-location="homepage_social_block"
-                 class="inline-flex items-center gap-2 bg-surface border border-taupe/30 hover:border-mocha/50 transition-colors rounded-full px-4 py-2.5 text-espresso/75 font-outfit text-sm font-medium min-h-[44px]">
-                <svg width="18" height="13" viewBox="0 0 28 20" fill="none" aria-hidden="true">
-                  <path d="M26.5 3.2C26.2 2.1 25.3 1.3 24.2 1C22.2 0.5 14 0.5 14 0.5C14 0.5 5.8 0.5 3.8 1C2.7 1.3 1.8 2.2 1.5 3.2C1 5.2 1 10 1 10C1 10 1 14.8 1.5 16.8C1.8 17.9 2.7 18.7 3.8 19C5.8 19.5 14 19.5 14 19.5C14 19.5 22.2 19.5 24.2 19C25.3 18.7 26.2 17.8 26.5 16.8C27 14.8 27 10 27 10C27 10 27 5.2 26.5 3.2Z" stroke="#8B7355" stroke-width="1.6"/>
-                  <path d="M11.5 14L18 10L11.5 6V14Z" fill="#8B7355"/>
-                </svg>
-                <span>{tr.social_pill_yt}</span>
               </a>
             </div>
 
@@ -815,7 +793,7 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
                   title: tr.social_card_ig_title,
                   desc:  tr.social_card_ig_desc,
                   btn:   tr.social_btn_ig,
-                  url:   SITE.socialPosts?.instagram ?? SITE.instagramUrl,
+                  url:   blogHref,
                   img:   'images/social/instagram-bento-cover.webp',
                   alt:   tr.social_card_ig_title,
                   iconBg:'linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)',
@@ -829,7 +807,7 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
                   title: tr.social_card_tt_title,
                   desc:  tr.social_card_tt_desc,
                   btn:   tr.social_btn_tt,
-                  url:   SITE.socialPosts?.tiktok ?? SITE.tiktokUrl,
+                  url:   blogHref,
                   img:   'images/social/tiktok-bento-cover.webp',
                   alt:   tr.social_card_tt_title,
                   iconBg:'#000',
@@ -843,7 +821,7 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
                   title: tr.social_card_yt_title,
                   desc:  tr.social_card_yt_desc,
                   btn:   tr.social_btn_yt,
-                  url:   SITE.socialPosts?.youtube ?? SITE.youtubeUrl,
+                  url:   blogHref,
                   img:   'images/social/youtube-bento-cover.webp',
                   alt:   tr.social_card_yt_title,
                   iconBg:'#FF0000',
@@ -852,8 +830,8 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
                   btnTx: '#FDFAF6',
                 },
               ].map(c => (
-                <a href={c.url} target="_blank" rel="noopener noreferrer"
-                   data-analytics="social_card_click" data-platform={c.platform} data-location="homepage_social_block"
+                <a href={c.url}
+                   data-analytics="social_card_to_blog" data-platform={c.platform} data-location="homepage_social_block"
                    class="group block bg-warm-white rounded-2xl overflow-hidden flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mocha hover:-translate-y-1 transition-transform duration-300"
                    style="box-shadow:0 4px 18px rgba(139,115,85,0.10); border:1px solid rgba(200,184,162,0.30);">
                   <!-- Platform label row -->
