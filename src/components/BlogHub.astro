@@ -138,10 +138,14 @@ const postUrl = (slug: string) => `${langPrefix}/blog/${slug}/`;
           (data.recent || []).forEach(s => items.push(s));
           if (!items.length) return;
           tiles.innerHTML = items.slice(0, 4).map(function (s) {
+            var thumb = (s.platform === 'youtube' || !s.platform) && s.videoId
+              ? 'https://i.ytimg.com/vi/' + escape(s.videoId) + '/hqdefault.jpg'
+              : (s.thumbnail || '');
+            var inner = thumb
+              ? '<img src="' + escape(thumb) + '" alt="' + escape(s.title) + '" width="200" height="356" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover"/>'
+              : '<span class="absolute inset-0 flex items-center justify-center" style="background:linear-gradient(135deg,#C8B8A2,#8B7355);"></span>';
             return '<div class="relative rounded-md overflow-hidden bg-espresso/5" style="aspect-ratio:9/16;">' +
-              '<img src="https://i.ytimg.com/vi/' + escape(s.videoId) + '/hqdefault.jpg" alt="' + escape(s.title) + '"' +
-              ' width="200" height="356" loading="lazy" decoding="async"' +
-              ' class="absolute inset-0 w-full h-full object-cover"/>' +
+              inner +
               '<span class="absolute inset-0 bg-gradient-to-t from-espresso/35 to-transparent"></span>' +
               '</div>';
           }).join('');
