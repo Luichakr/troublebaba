@@ -23,6 +23,21 @@ const blog = defineCollection({
     tags:        z.array(z.string()).default([]),
     draft:       z.boolean().default(true),  // unpublished until author approves
     excerpt:     z.string().optional(),
+
+    // Optional structured recipe → drives Recipe JSON-LD (Google rich results).
+    // The human-readable recipe still lives in the markdown body; this is the
+    // machine-readable mirror for search engines.
+    recipe: z.object({
+      name:            z.string(),
+      yield:           z.string().optional(),   // e.g. "1200–1270 г"
+      category:        z.string().optional(),   // e.g. "Десерт"
+      cuisine:         z.string().optional(),
+      prepTime:        z.string().optional(),   // ISO 8601 duration, e.g. "PT30M"
+      totalTime:       z.string().optional(),
+      ingredients:     z.array(z.string()),     // flat list for schema
+      steps:           z.array(z.string()),     // ordered HowToStep texts
+      videoUrl:        z.string().optional(),    // source reel/short
+    }).optional(),
   }),
 });
 

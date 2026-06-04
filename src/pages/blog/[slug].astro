@@ -52,6 +52,29 @@ const { Content } = await render(post);
     "publisher": { "@type": "Organization", "name": SITE.name, "logo": SITE.url + '/favicon.svg' },
     ...(post.data.cover ? { "image": SITE.url + '/' + post.data.cover.replace(/^\//, '') } : {}),
   })} />
+
+  {/* Recipe JSON-LD (Google rich results) — when the post has structured recipe data */}
+  {post.data.recipe && (
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Recipe",
+      "name": post.data.recipe.name,
+      "description": post.data.description,
+      "inLanguage": lang,
+      "datePublished": post.data.publishedAt,
+      "author": { "@type": "Person", "name": "TROUBLEBABA", "url": SITE.url + '/about' },
+      ...(post.data.cover ? { "image": SITE.url + '/' + post.data.cover.replace(/^\//, '') } : {}),
+      ...(post.data.recipe.yield ? { "recipeYield": post.data.recipe.yield } : {}),
+      ...(post.data.recipe.category ? { "recipeCategory": post.data.recipe.category } : {}),
+      ...(post.data.recipe.cuisine ? { "recipeCuisine": post.data.recipe.cuisine } : {}),
+      ...(post.data.recipe.prepTime ? { "prepTime": post.data.recipe.prepTime } : {}),
+      ...(post.data.recipe.totalTime ? { "totalTime": post.data.recipe.totalTime } : {}),
+      "recipeIngredient": post.data.recipe.ingredients,
+      "recipeInstructions": post.data.recipe.steps.map((s: string, i: number) => ({
+        "@type": "HowToStep", "position": i + 1, "text": s,
+      })),
+    })} />
+  )}
 </Layout>
 
 <style is:global>
