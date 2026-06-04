@@ -38,6 +38,21 @@ function detectPlatform(url: string): string {
   return 'other';
 }
 
+// Follow redirects to canonical URL (vt.tiktok.com/XXX → tiktok.com/@user/video/ID)
+// and strip tracking query params so the stored URL + oEmbed key are clean.
+async function resolveUrl(url: string): Promise<string> {
+  try {
+    const r = await fetch(url, {
+      method: 'GET',
+      redirect: 'follow',
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; TroublebabaBot/1.0)' },
+      cf: { cacheTtl: 3600, cacheEverything: true },
+    } as RequestInit);
+    const final = r.url || url;
+    return final.split('?')[0];
+  } catch { return url.split('?')[0]; }
+}
+
 // TikTok exposes a public oEmbed (no auth) with thumbnail + title.
 async function tiktokOembed(url: string): Promise<{ thumbnail?: string; title?: string }> {
   try {
@@ -64,40 +79,66 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   }
 };
 
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-  if (!authed(request, env)) return json({ ok: false, error: 'unauthorized' }, 401);
-  if (!env.DB)              return json({ ok: false, error: 'db not configured' }, 500);
-
-  let body: { url?: string; title?: string; thumbnail?: string };
-  try { body = await request.json(); } catch { return json({ ok: false, error: 'bad body' }, 400); }
-
-  const url = String(body.url ?? '').trim();
-  if (!/^https?:\/\//i.test(url)) return json({ ok: false, error: 'invalid_url' }, 400);
-
+async function addOne(env: Env, rawUrl: string, manualTitle: string, manualThumb: string, baseTs: number) {
+  let url = rawUrl;
   const platform = detectPlatform(url);
-  let title     = String(body.title ?? '').trim() || null;
-  let thumbnail = String(body.thumbnail ?? '').trim() || null;
 
-  // Auto-enrich TikTok via oEmbed when fields not supplied.
+  // Resolve shortlinks (vt.tiktok.com, youtu.be) to canonical + strip tracking.
+  if (/vt\.tiktok\.com|\/t\/|youtu\.be|instagram\.com\/share/i.test(url)) {
+    url = await resolveUrl(url);
+  } else {
+    url = url.split('?')[0];
+  }
+
+  let title     = manualTitle || null;
+  let thumbnail = manualThumb || null;
   if (platform === 'tiktok' && (!thumbnail || !title)) {
     const o = await tiktokOembed(url);
     thumbnail = thumbnail || o.thumbnail || null;
     title     = title     || o.title     || null;
   }
 
-  const now = Date.now();
-  try {
-    await env.DB.prepare(
-      `INSERT INTO social_posts (platform, url, title, thumbnail_url, ts, sort_ts)
-       VALUES (?, ?, ?, ?, ?, ?)
-       ON CONFLICT(url) DO UPDATE SET
-         title = COALESCE(excluded.title, social_posts.title),
-         thumbnail_url = COALESCE(excluded.thumbnail_url, social_posts.thumbnail_url)`,
-    ).bind(platform, url, title, thumbnail, now, now).run();
-    return json({ ok: true, platform, title, thumbnail });
-  } catch (e: any) {
-    return json({ ok: false, error: e?.message ?? 'insert failed' }, 500);
+  await env.DB.prepare(
+    `INSERT INTO social_posts (platform, url, title, thumbnail_url, ts, sort_ts)
+     VALUES (?, ?, ?, ?, ?, ?)
+     ON CONFLICT(url) DO UPDATE SET
+       title = COALESCE(excluded.title, social_posts.title),
+       thumbnail_url = COALESCE(excluded.thumbnail_url, social_posts.thumbnail_url)`,
+  ).bind(platform, url, title, thumbnail, baseTs, baseTs).run();
+  return { url, platform, title, thumbnail };
+}
+
+export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
+  if (!authed(request, env)) return json({ ok: false, error: 'unauthorized' }, 401);
+  if (!env.DB)              return json({ ok: false, error: 'db not configured' }, 500);
+
+  let body: { url?: string; urls?: string; title?: string; thumbnail?: string };
+  try { body = await request.json(); } catch { return json({ ok: false, error: 'bad body' }, 400); }
+
+  // Bulk mode: `urls` is a newline/space-separated list. Single mode: `url`.
+  const list = (body.urls ?? body.url ?? '')
+    .split(/[\s\n]+/)
+    .map(s => s.trim())
+    .filter(s => /^https?:\/\//i.test(s));
+  if (!list.length) return json({ ok: false, error: 'no_valid_urls' }, 400);
+
+  const manualTitle = String(body.title ?? '').trim();
+  const manualThumb = String(body.thumbnail ?? '').trim();
+  const base = Date.now();
+
+  const results: any[] = [];
+  // Process sequentially; sort_ts decreases by index so paste order is preserved
+  // (first pasted = newest in the feed).
+  for (let i = 0; i < list.length; i++) {
+    try {
+      results.push(await addOne(env, list[i], list.length === 1 ? manualTitle : '', list.length === 1 ? manualThumb : '', base - i * 1000));
+    } catch (e: any) {
+      results.push({ url: list[i], error: e?.message ?? 'failed' });
+    }
   }
+
+  const added = results.filter(r => !r.error).length;
+  return json({ ok: true, added, total: list.length, results });
 };
 
 export const onRequestDelete: PagesFunction<Env> = async ({ request, env }) => {
