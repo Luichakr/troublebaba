@@ -89,8 +89,13 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
           postedAt:    s.sort_ts,
           url:         s.url,
         }));
+        // Order: YouTube shorts first (newest→oldest), then everything else
+        // (TikTok/IG) by date. Keeps the "shorts feed" identity up top.
+        const rank = (p: string) => (p === 'youtube' ? 0 : 1);
         items = [...items, ...socialItems]
-          .sort((a, b) => (b.publishedAt ?? 0) - (a.publishedAt ?? 0))
+          .sort((a, b) =>
+            rank(a.platform) - rank(b.platform) ||
+            (b.publishedAt ?? 0) - (a.publishedAt ?? 0))
           .slice(0, limit);
       } catch { /* social_posts table not created yet — YouTube-only */ }
     }
