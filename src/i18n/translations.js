@@ -327,6 +327,12 @@ export const t = {
     blog_videos_title:    'Відеорецепти у коротких роликах',
     blog_videos_sub:      'Більше 80 коротких відео з покроковими рецептами і прийомами — оновлюється щодня.',
     blog_videos_cta:      'Відкрити стрічку шортів',
+    blog_ig_title:        'Рецепти в Instagram',
+    blog_ig_sub:          'Покрокові процеси, дизайни та ідеї бенто-тортів — щодня у стрічці.',
+    blog_ig_cta:          'Відкрити Instagram',
+    blog_tt_title:        'Рецепти в TikTok',
+    blog_tt_sub:          'Короткі відеорецепти й лайфхаки — швидко й по суті.',
+    blog_tt_cta:          'Відкрити TikTok',
 
     // === Free recipe (lead magnet) ===
     fr_meta_title:   'Безкоштовний рецепт бенто-торта | TROUBLEBABA',
@@ -680,6 +686,12 @@ export const t = {
     blog_videos_title:    'Видеорецепты в коротких роликах',
     blog_videos_sub:      'Более 80 коротких видео с пошаговыми рецептами и приёмами — обновляется каждый день.',
     blog_videos_cta:      'Открыть ленту шортсов',
+    blog_ig_title:        'Рецепты в Instagram',
+    blog_ig_sub:          'Пошаговые процессы, дизайны и идеи бенто-тортов — каждый день в ленте.',
+    blog_ig_cta:          'Открыть Instagram',
+    blog_tt_title:        'Рецепты в TikTok',
+    blog_tt_sub:          'Короткие видеорецепты и лайфхаки — быстро и по делу.',
+    blog_tt_cta:          'Открыть TikTok',
 
     // === Free recipe (lead magnet) ===
     fr_meta_title:   'Бесплатный рецепт бенто-торта | TROUBLEBABA',
@@ -1033,6 +1045,12 @@ export const t = {
     blog_videos_title:    'Wideoprzepisy w krótkich rolkach',
     blog_videos_sub:      'Ponad 80 krótkich wideo z krokowymi przepisami i technikami — aktualizuje się codziennie.',
     blog_videos_cta:      'Otwórz feed shortsów',
+    blog_ig_title:        'Przepisy na Instagramie',
+    blog_ig_sub:          'Krokowe procesy, projekty i pomysły na torty bento — codziennie w feedzie.',
+    blog_ig_cta:          'Otwórz Instagram',
+    blog_tt_title:        'Przepisy na TikToku',
+    blog_tt_sub:          'Krótkie wideoprzepisy i triki — szybko i na temat.',
+    blog_tt_cta:          'Otwórz TikTok',
 
     // === Free recipe (lead magnet) ===
     fr_meta_title:   'Darmowy przepis na tort bento | TROUBLEBABA',
@@ -1386,6 +1404,12 @@ export const t = {
     blog_videos_title:    'Video recipes in short clips',
     blog_videos_sub:      'More than 80 short videos with step-by-step recipes and techniques — updated daily.',
     blog_videos_cta:      'Open the shorts feed',
+    blog_ig_title:        'Recipes on Instagram',
+    blog_ig_sub:          'Step-by-step processes, designs and bento cake ideas — daily in the feed.',
+    blog_ig_cta:          'Open Instagram',
+    blog_tt_title:        'Recipes on TikTok',
+    blog_tt_sub:          'Short video recipes and hacks — quick and to the point.',
+    blog_tt_cta:          'Open TikTok',
 
     // === Free recipe (lead magnet) ===
     fr_meta_title:   'Free bento cake recipe | TROUBLEBABA',

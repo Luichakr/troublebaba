@@ -54,6 +54,55 @@ const postUrl = (slug: string) => `${langPrefix}/blog/${slug}/`;
       </div>
     </a>
 
+    {/* Instagram + TikTok recipe blocks — mirror the video block, link to profiles */}
+    <div class="grid sm:grid-cols-2 gap-5 mb-8">
+      <a href={SITE.instagramUrl} target="_blank" rel="noopener noreferrer"
+         data-analytics="blog_platform_block" data-platform="instagram"
+         class="group block rounded-2xl bg-warm-white overflow-hidden hover:-translate-y-0.5 transition-transform duration-300"
+         style="box-shadow:0 8px 32px rgba(139,115,85,0.10); border:1px solid rgba(200,184,162,0.30);">
+        <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,150px)] items-stretch">
+          <div class="px-6 py-7 flex flex-col justify-center">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-6 h-6 rounded-md flex items-center justify-center" style="background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg></span>
+              <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.18em] text-mocha">Instagram</span>
+            </div>
+            <h2 class="font-cabinet text-espresso mb-2 group-hover:text-mocha transition-colors" style="font-size:clamp(1.2rem,2vw,1.5rem);line-height:1.12;">{tr.blog_ig_title}</h2>
+            <p class="font-outfit text-espresso/60 text-[13px] leading-relaxed mb-4">{tr.blog_ig_sub}</p>
+            <span class="inline-flex items-center gap-2 font-outfit text-mocha font-semibold text-[13px]">
+              <span>{tr.blog_ig_cta}</span>
+              <svg width="13" height="11" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+          <div class="relative overflow-hidden">
+            <img src="/images/social/instagram-bento-cover.webp" alt={tr.blog_ig_title} width="300" height="375" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-500" />
+          </div>
+        </div>
+      </a>
+
+      <a href={SITE.tiktokUrl} target="_blank" rel="noopener noreferrer"
+         data-analytics="blog_platform_block" data-platform="tiktok"
+         class="group block rounded-2xl bg-warm-white overflow-hidden hover:-translate-y-0.5 transition-transform duration-300"
+         style="box-shadow:0 8px 32px rgba(139,115,85,0.10); border:1px solid rgba(200,184,162,0.30);">
+        <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,150px)] items-stretch">
+          <div class="px-6 py-7 flex flex-col justify-center">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-6 h-6 rounded-md flex items-center justify-center" style="background:#000;"><svg width="11" height="13" viewBox="0 0 24 26" fill="none"><path d="M17 1C17.3 4.5 19.3 6.8 23 7.1V11C21 10.8 19.2 10.1 17.7 9V17.5C17.7 21.9 14.4 25.5 10 25.5C5.6 25.5 2 22 2 17.6C2 13.1 5.5 9.8 10 9.8C10.4 9.8 10.7 9.8 11 9.9V14C10.7 13.9 10.4 13.9 10 13.9C7.8 13.9 6 15.6 6 17.8C6 20 7.8 21.6 10 21.6C12.2 21.6 14.1 19.9 14.1 17.7L14.2 1H17Z" fill="white"/></svg></span>
+              <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.18em] text-mocha">TikTok</span>
+            </div>
+            <h2 class="font-cabinet text-espresso mb-2 group-hover:text-mocha transition-colors" style="font-size:clamp(1.2rem,2vw,1.5rem);line-height:1.12;">{tr.blog_tt_title}</h2>
+            <p class="font-outfit text-espresso/60 text-[13px] leading-relaxed mb-4">{tr.blog_tt_sub}</p>
+            <span class="inline-flex items-center gap-2 font-outfit text-mocha font-semibold text-[13px]">
+              <span>{tr.blog_tt_cta}</span>
+              <svg width="13" height="11" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+          <div class="relative overflow-hidden">
+            <img src="/images/social/tiktok-bento-cover.webp" alt={tr.blog_tt_title} width="300" height="375" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-500" />
+          </div>
+        </div>
+      </a>
+    </div>
+
     {/* Follow on social — blog → social funnel */}
     <div class="flex flex-wrap items-center gap-3 mb-12">
       <span class="font-outfit text-espresso/60 text-sm font-medium mr-1">{tr.blog_social_follow}</span>
