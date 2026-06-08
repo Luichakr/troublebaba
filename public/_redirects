@@ -6,3 +6,10 @@ https://www.troublebaba.com/*  https://troublebaba.com/:splat  301!
 
 # Legacy GitHub Pages URL → apex
 https://luichakr.github.io/troublebaba/*  https://troublebaba.com/:splat  301!
+
+# /free-recipe/ deprecated — the "free recipe" offer is the blog itself
+# (hundreds of free recipes from the channel). Redirect to the blog hub.
+/free-recipe/*      /blog/      301
+/ru/free-recipe/*   /ru/blog/   301
+/pl/free-recipe/*   /pl/blog/   301
+/en/free-recipe/*   /en/blog/   301
