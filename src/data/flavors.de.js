@@ -1,0 +1,95 @@
+// Deutsche Lokalisierung der Rezept-Vorschau-Inhalte für TROUBLEBABA.
+// NUR VORSCHAU — kein vollständiges Rezept (keine Grammangaben, keine Schritte, keine Mengen).
+
+export const FLAVORS_DE = {
+  'oreo-bento-cake': {
+    name: 'Oreo',
+    layers: 'Schokoladenbiskuit · Frischkäsecreme · Kirschcoulis',
+    lead: 'Die Oreo Bento-Torte verwöhnt mit tiefem Schokoladengeschmack und einer hellen Kirschnote. Knusprige Keksbrösel, seidige Frischkäsecreme und ein leuchtendes Coulis machen sie zum Dauerfavoriten auf Bestellung. Einer der meistverkauften Geschmäcker der Sammlung.',
+    learn: ['Verhältnis von Biskuit und Creme', 'So baust du gleichmäßige Schichten', 'Welche Kekse du wählen solltest', 'Stabilisieren und Anschneiden'],
+    metaTitle: 'Oreo Bento-Torte — Rezept in der Sammlung | TROUBLEBABA',
+    metaDesc: 'Oreo Bento-Torte: Schokolade, Frischkäse und Kirschcoulis. Das komplette Rezept mit Mengenangaben und Aufbau steckt im kostenpflichtigen TROUBLEBABA PDF.',
+  },
+  'red-velvet-bento-cake': {
+    name: 'Red Velvet',
+    layers: 'Red-Velvet-Biskuit · Mascarpone · Erdbeere',
+    lead: 'Die Red Velvet Bento-Torte erobert Herzen auf den ersten Blick — mit ihrer leuchtenden Farbe und der samtigen Krume. Mascarponecreme und saftige Erdbeere bringen Frische, während der zarte Biskuit auf der Zunge zergeht. Eine perfekte Wahl für romantische Anlässe.',
+    learn: ['So gelingt eine satte Farbe', 'Die Textur des samtigen Biskuits', 'Der Umgang mit Mascarpone', 'Aufbau und Finish'],
+    metaTitle: 'Red Velvet Bento-Torte — Rezept | TROUBLEBABA',
+    metaDesc: 'Red Velvet Bento-Torte mit Mascarpone und Erdbeere. Das komplette Rezept mit Mengenangaben und Tipps findest du im kostenpflichtigen TROUBLEBABA PDF.',
+  },
+  'poppy-seed-citrus-bento-cake': {
+    name: 'Mohn & Zitrus',
+    layers: 'Mohnbiskuit · Zitruscurd · Frischkäse',
+    lead: 'Die Mohn-Zitrus Bento-Torte bringt einen frischen, etwas erwachseneren Geschmack mit. Ein aromatischer Mohnbiskuit trifft auf ein leuchtendes Zitruscurd, während Frischkäse die Säure abrundet. Ein leichtes, überraschendes Dessert für alle, die etwas Besonderes suchen.',
+    learn: ['Mohn und Zitrus ausbalancieren', 'So kochst du das Curd', 'Die Textur des Mohnbiskuits', 'Aufbau und Servieren'],
+    metaTitle: 'Mohn & Zitrus Bento-Torte — Rezept | TROUBLEBABA',
+    metaDesc: 'Mohn-Zitrus Bento-Torte mit Zitruscurd und Frischkäse. Das komplette Rezept mit Mengenangaben steckt im kostenpflichtigen TROUBLEBABA PDF.',
+  },
+  'snickers-bento-cake': {
+    name: 'Snickers',
+    layers: 'Schokolade · Erdnüsse · Karamell · Frischkäse',
+    lead: 'Die Snickers Bento-Torte ist ein mutiger Mix aus Schokolade, gesalzenen Erdnüssen und zähem Karamell. Frischkäse gleicht die Fülle aus, während die Nüsse für Knusprigkeit sorgen. Die ideale Wahl für alle, die üppige, geschmacksintensive Desserts lieben.',
+    learn: ['So kochst du zähes Karamell', 'Die Erdnüsse vorbereiten', 'Süß und salzig ausbalancieren', 'Alles in Schichten aufbauen'],
+    metaTitle: 'Snickers Bento-Torte — Rezept in der Sammlung | TROUBLEBABA',
+    metaDesc: 'Snickers Bento-Torte: Schokolade, Erdnüsse und Karamell. Das komplette Rezept mit Mengenangaben und Aufbau steckt im kostenpflichtigen TROUBLEBABA PDF.',
+  },
+  'raffaello-bento-cake': {
+    name: 'Raffaello',
+    layers: 'Kokosbiskuit · Sahnecreme · Mandel',
+    lead: 'Die Raffaello Bento-Torte bietet einen zarten Kokosgeschmack mit einer feinen Mandelnote. Ein luftiger Biskuit und seidige Sahnecreme greifen die geliebte Praline auf — neu gedacht als festliches Dessert. Leicht, elegant und wunderbar fotogen.',
+    learn: ['So triffst du die Kokostextur', 'Der Umgang mit der Sahnecreme', 'Die Mandeln vorbereiten', 'Finish mit Kokosraspeln'],
+    metaTitle: 'Raffaello Bento-Torte — Rezept in der Sammlung | TROUBLEBABA',
+    metaDesc: 'Raffaello Bento-Torte: Kokos, Sahnecreme und Mandel. Das komplette Rezept mit Mengenangaben steckt im kostenpflichtigen TROUBLEBABA PDF.',
+  },
+  'ferrero-rocher-bento-cake': {
+    name: 'Ferrero Rocher',
+    layers: 'Schokolade · Haselnuss · Praliné',
+    lead: 'Die Ferrero Rocher Bento-Torte ist reine Glückseligkeit für Nuss- und Schokoladenliebhaber. Ein kräftiger Kakaobiskuit, aromatisches Praliné und knusprige Haselnuss lassen den luxuriösen Geschmack der berühmten Pralinen wieder aufleben. Ein raffiniertes Dessert für besondere Momente.',
+    learn: ['So gelingt das Praliné', 'Die Haselnüsse vorbereiten', 'Die Schokoladenschicht kräftig machen', 'Aufbau und Dekoration'],
+    metaTitle: 'Ferrero Rocher Bento-Torte — Rezept | TROUBLEBABA',
+    metaDesc: 'Ferrero Rocher Bento-Torte: Schokolade, Haselnuss und Praliné. Das komplette Rezept mit Mengenangaben steckt im kostenpflichtigen TROUBLEBABA PDF.',
+  },
+  'cinnabon-bento-cake': {
+    name: 'Cinnabon',
+    layers: 'Zimt-Nuss · Frischkäsecreme',
+    lead: 'Die Cinnabon Bento-Torte holt die gemütliche Wärme frischen Zimtgebäcks auf den Teller. Warme Würze, nussige Noten und ein zartes Frischkäse-Frosting erinnern an die berühmten Zimtschnecken. Ein aromatisches Dessert, das an kühlen Abenden besonders gut schmeckt.',
+    learn: ['Der Aufbau ist anders — separat beschrieben', 'So balancierst du den Zimt aus', 'Die Nüsse vorbereiten', 'Der Umgang mit Frischkäse'],
+    metaTitle: 'Cinnabon Bento-Torte — Rezept in der Sammlung | TROUBLEBABA',
+    metaDesc: 'Cinnabon Bento-Torte: Zimt, Nüsse und Frischkäse-Frosting. Das komplette Rezept mit Mengenangaben steckt im kostenpflichtigen TROUBLEBABA PDF.',
+  },
+  'pistachio-raspberry-bento-cake': {
+    name: 'Pistazie & Himbeere',
+    layers: 'Pistazienbiskuit · Himbeercoulis',
+    lead: 'Die Pistazie-Himbeere Bento-Torte ist ein schicker Klassiker der Patisserie-Trends. Ein weicher Pistazienbiskuit mit nussiger Tiefe spielt wunderbar mit der Säure des Himbeercoulis. Ein feiner Geschmack in der unverkennbaren grün-rosa Optik.',
+    learn: ['So bringst du die Pistazie zur Geltung', 'Das Himbeercoulis zubereiten', 'Kontrast aus Farbe und Geschmack', 'Aufbau und Anschneiden'],
+    metaTitle: 'Pistazie & Himbeere Bento-Torte — Rezept | TROUBLEBABA',
+    metaDesc: 'Pistazie-Himbeere Bento-Torte mit Pistazienbiskuit und Himbeercoulis. Das komplette Rezept mit Mengenangaben steckt im kostenpflichtigen TROUBLEBABA PDF.',
+  },
+  'pina-colada-bento-cake': {
+    name: 'Pina Colada',
+    layers: 'Kokos · Ananas · Rum · Sahne',
+    lead: 'Die Pina Colada Bento-Torte ist ein tropischer Kurzurlaub in jedem Bissen. Saftige Ananas, Kokos und eine sanfte Rumnote in zarter Sahne sorgen für festliche Cocktail-Stimmung. Ein erfrischendes Dessert für laue Sommerfeste.',
+    learn: ['So balancierst du den Rum aus', 'Der Umgang mit der Ananas', 'Die Kokos-Sahne-Textur', 'Aufbau und Servieren'],
+    metaTitle: 'Pina Colada Bento-Torte — Rezept | TROUBLEBABA',
+    metaDesc: 'Pina Colada Bento-Torte: Kokos, Ananas und Rum in Sahne. Das komplette Rezept mit Mengenangaben steckt im kostenpflichtigen TROUBLEBABA PDF.',
+  },
+  'cherry-chocolate-bento-cake': {
+    name: 'Kirsche in Schokolade',
+    layers: 'Schokoladenbiskuit · Kirschcoulis · Ganache',
+    lead: 'Die Kirsch-Schokolade Bento-Torte ist ein zeitloses Duo, das nie aus der Mode kommt. Ein kräftiger Schokoladenbiskuit, saftiges Kirschcoulis und samtige Ganache bauen einen tiefen, edlen Geschmack auf. Ein Dessert für echte Schokoladenliebhaber.',
+    learn: ['So bereitest du das Kirschcoulis zu', 'Der Umgang mit Ganache', 'Schokolade und Kirsche ausbalancieren', 'Aufbau und Anschneiden'],
+    metaTitle: 'Kirsche in Schokolade Bento-Torte — Rezept | TROUBLEBABA',
+    metaDesc: 'Kirsch-Schokolade Bento-Torte: Schokolade, Kirschcoulis und Ganache. Das komplette Rezept mit Mengenangaben steckt im kostenpflichtigen TROUBLEBABA PDF.',
+  },
+};
+
+export const HUB_DE = {
+  metaTitle: '10 Bento-Torten-Rezepte — Geschmäcker der Sammlung | TROUBLEBABA',
+  metaDesc: 'Eine Sammlung von 10 Bento-Torten-Rezepten als PDF: Oreo, Raffaello, Snickers und mehr. Genaue Mengenangaben, Aufbau und Tipps von TROUBLEBABA.',
+  heading: '10 Bento-Torten-Geschmäcker',
+  intro: 'Eine Sammlung von zehn eigenkreierten Bento-Torten — vom meistverkauften Oreo bis zur tropischen Pina Colada. Jedes Rezept ist in der Küche erprobt und Schritt für Schritt beschrieben. Wähle einen Geschmack, um mehr zu erfahren.',
+  cta: 'Sammlung kaufen — $20',
+  back: '← Zurück zur Startseite',
+  allLabel: 'Alle Geschmäcker',
+};

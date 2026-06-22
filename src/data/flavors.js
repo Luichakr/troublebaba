@@ -1,6 +1,14 @@
 // Per-flavor preview content for /recipes/<slug>/ SEO pages.
 // PREVIEW ONLY — no actual recipe (no grams, no steps, no quantities).
 
+// Localized flavor copy (es/de/fr/it/pt) lives in sibling files and is merged
+// into each flavor's `t` + RECIPES_HUB at the bottom of this module.
+import { FLAVORS_ES, HUB_ES } from './flavors.es.js';
+import { FLAVORS_DE, HUB_DE } from './flavors.de.js';
+import { FLAVORS_FR, HUB_FR } from './flavors.fr.js';
+import { FLAVORS_IT, HUB_IT } from './flavors.it.js';
+import { FLAVORS_PT, HUB_PT } from './flavors.pt.js';
+
 export const FLAVORS = [
   {
     slug: 'oreo-bento-cake',
@@ -426,3 +434,17 @@ export const RECIPES_HUB = {
     allLabel: 'All flavours',
   },
 };
+
+// --- Merge localized flavor copy (es/de/fr/it/pt) ---------------------------
+// FLAVOR_BY_SLUG references the same flavor objects, so mutating f.t here also
+// applies there. Falls back to en at render time if a slug is missing.
+const _LOCALE_FLAVORS = { es: FLAVORS_ES, de: FLAVORS_DE, fr: FLAVORS_FR, it: FLAVORS_IT, pt: FLAVORS_PT };
+const _LOCALE_HUBS    = { es: HUB_ES,     de: HUB_DE,     fr: HUB_FR,     it: HUB_IT,     pt: HUB_PT };
+for (const f of FLAVORS) {
+  for (const [lang, table] of Object.entries(_LOCALE_FLAVORS)) {
+    if (table && table[f.slug]) f.t[lang] = table[f.slug];
+  }
+}
+for (const [lang, hub] of Object.entries(_LOCALE_HUBS)) {
+  if (hub) RECIPES_HUB[lang] = hub;
+}
