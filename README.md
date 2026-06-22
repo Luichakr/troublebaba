@@ -88,12 +88,33 @@ bentocake-landing/
 | Google Analytics ID | `src/config/site.js` → `SITE.gaId` | Set to `''` to disable. Tag loads from Layout, hits every page. |
 | Hero / recipe photos | `public/images/` | Reference relatively in HTML: `images/foo.webp` |
 
-## Adding a new language
+## Languages (9)
 
-1. Add a new block in `src/i18n/translations.js` under `t.xx = { ... }` mirroring an existing one.
-2. Add `xx` to `SITE.supportedLangs` in `src/config/site.js`.
-3. Add `xx: { html: 'xx', og: 'xx_XX' }` to `LOCALES` in `src/config/site.js`.
-4. Add the new code to the language dropdown markup in `src/pages/index.astro` (`#lang-menu`, mobile menu).
+Active: `uk` (root), `ru`, `pl`, `en`, `es`, `de`, `fr`, `it`, `pt`. UK is served at `/`; the rest under `/<lang>/`.
+
+What's localized where:
+- **UI** — `src/i18n/translations.js` (`t.<lang>` block, 362 keys each; `meta.<lang>`; `langNames`).
+- **Recipe flavor pages + hub** — `src/data/flavors.<lang>.js` (merged into `FLAVORS[].t` + `RECIPES_HUB` at load).
+- **Blog posts** — per-language markdown under `src/content/blog/<lang>/<slug>.md`.
+
+### Adding another UI language
+
+1. Add a `t.<lang>` block in `src/i18n/translations.js` (mirror `t.en`, same keys) + a `meta.<lang>` entry + a `langNames.<lang>` label.
+2. Add `<lang>` to `SITE.supportedLangs` and a `LOCALES.<lang>` entry (`html` + `og`) in `src/config/site.js`.
+3. Add `<lang>` to every `getStaticPaths` array in `src/pages/[lang]/**` (the route fan-out).
+4. Add `flavors.<lang>.js` (mirror `flavors.es.js`) and import+merge it in `flavors.js`.
+5. Add a `{ c, l, full }` row to `LANGS` in `src/components/HomePage.astro` (the switcher).
+
+### Translating a blog post into another language
+
+Each post is `src/content/blog/<lang>/<slug>.md`. To translate an existing post:
+
+1. Copy the source file to `src/content/blog/<targetLang>/<same-slug>.md` (keep the **same `slug`** — that's what links the translations for hreflang).
+2. Translate front-matter `title`, `description`, `excerpt`, and the markdown body. Set `lang: "<targetLang>"`, keep `slug`, `publishedAt`, `cover`, `tags`, `draft: false`.
+3. If the post has a `recipe:` block, translate `name`/`yield`/`ingredients`/`steps` too (drives the localized Recipe rich-result).
+4. Build — the post auto-appears at `/<targetLang>/blog/<slug>/`, and hreflang between language versions is wired automatically (the route computes which languages a slug exists in).
+
+Tip: this is well-suited to parallel AI translation — one agent per target language, each given the source `.md` and told to keep front-matter keys, `slug`, image paths and internal links intact.
 
 ## Bonus counter
 

@@ -15,7 +15,7 @@ const blog = defineCollection({
   schema: z.object({
     title:       z.string(),
     description: z.string(),
-    lang:        z.enum(['uk', 'ru', 'pl', 'en']),
+    lang:        z.enum(['uk', 'ru', 'pl', 'en', 'es', 'de', 'fr', 'it', 'pt']),
     slug:        z.string(),                 // shared URL slug across languages
     publishedAt: z.string(),                 // ISO date
     updatedAt:   z.string().optional(),
