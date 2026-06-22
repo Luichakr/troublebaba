@@ -20,6 +20,11 @@ export default defineConfig({
           ru: 'ru',
           pl: 'pl',
           en: 'en',
+          es: 'es',
+          de: 'de',
+          fr: 'fr',
+          it: 'it',
+          pt: 'pt',
         },
       },
       // Skip noindex / utility pages from the public sitemap.
