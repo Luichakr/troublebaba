@@ -7,8 +7,8 @@ interface Props { lang: Lang; slug: string; homeUrl: string; recipesUrl: string 
 const { lang, slug, homeUrl, recipesUrl } = Astro.props;
 
 const flavor = (FLAVOR_BY_SLUG as any)[slug];
-const f = flavor.t[lang];
-const hub = (RECIPES_HUB as any)[lang];
+const f = flavor.t[lang] ?? flavor.t.en;
+const hub = (RECIPES_HUB as any)[lang] ?? (RECIPES_HUB as any).en;
 
 // Other flavors for internal linking (exclude current).
 const others = (FLAVORS as any[]).filter(x => x.slug !== slug).slice(0, 6);
@@ -74,10 +74,10 @@ const flavorUrl = (s: string) => `${langPrefix}/recipes/${s}/`;
         {others.map((o: any) => (
           <a href={flavorUrl(o.slug)} class="group block">
             <div class="relative rounded-xl overflow-hidden mb-2" style="aspect-ratio:4/5;">
-              <img src={o.image} alt={o.t[lang].name} width="1122" height="1402" loading="lazy" decoding="async"
+              <img src={o.image} alt={(o.t[lang] ?? o.t.en).name} width="1122" height="1402" loading="lazy" decoding="async"
                    class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.style.display='none'" />
             </div>
-            <div class="font-cabinet text-espresso text-[14px] group-hover:text-mocha transition-colors">{o.t[lang].name}</div>
+            <div class="font-cabinet text-espresso text-[14px] group-hover:text-mocha transition-colors">{(o.t[lang] ?? o.t.en).name}</div>
           </a>
         ))}
       </div>

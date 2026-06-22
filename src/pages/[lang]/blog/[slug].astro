@@ -5,7 +5,7 @@ import { t } from '../../../i18n/translations.js';
 import { SITE } from '../../../config/site.js';
 
 export async function getStaticPaths() {
-  const langs = ['ru', 'pl', 'en'] as const;
+  const langs = ['ru', 'pl', 'en', 'es', 'de', 'fr', 'it', 'pt'] as const;
   const published = await getCollection('blog', (e: any) => e.data.draft === false);
   const nonUk = published.filter((e: any) => langs.includes(e.data.lang));
   return nonUk.map((post: any) => ({

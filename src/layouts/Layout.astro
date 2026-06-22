@@ -45,7 +45,7 @@ const BASE     = import.meta.env.BASE_URL;
 const SITE_URL = SITE.url;
 
 // Helpers ---------------------------------------------------------------
-const SUPPORTED: Lang[] = ['uk', 'ru', 'pl', 'en'];
+const SUPPORTED: Lang[] = SITE.supportedLangs as Lang[];
 
 // Build absolute URL: home for lang, with trailing slash. UK home is at root.
 function homePathFor(l: Lang): string {

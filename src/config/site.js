@@ -51,7 +51,7 @@ export const SITE = {
 
   // i18n
   defaultLang:    'uk',
-  supportedLangs: ['uk', 'ru', 'pl', 'en'],
+  supportedLangs: ['uk', 'ru', 'pl', 'en', 'es', 'de', 'fr', 'it', 'pt'],
 
   // Open Graph — 1200×630 horizontal cover composited via scripts/build-og-cover.mjs
   // (run `npm run og:rebuild` to regenerate from public/images/hero-cake.webp).
@@ -81,6 +81,11 @@ export const LOCALES = {
   ru: { html: 'ru',    og: 'ru_RU' },
   pl: { html: 'pl',    og: 'pl_PL' },
   en: { html: 'en',    og: 'en_US' },
+  es: { html: 'es',    og: 'es_ES' },
+  de: { html: 'de',    og: 'de_DE' },
+  fr: { html: 'fr',    og: 'fr_FR' },
+  it: { html: 'it',    og: 'it_IT' },
+  pt: { html: 'pt',    og: 'pt_BR' },
 };
 
 // Build a canonical/absolute URL for a given pathname (no leading slash handling needed).

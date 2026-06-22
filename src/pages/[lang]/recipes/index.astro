@@ -4,11 +4,11 @@ import RecipesHub from '../../../components/RecipesHub.astro';
 import { RECIPES_HUB } from '../../../data/flavors.js';
 
 export function getStaticPaths() {
-  return [{ params: { lang: 'ru' } }, { params: { lang: 'pl' } }, { params: { lang: 'en' } }];
+  return [{ params: { lang: 'ru' } }, { params: { lang: 'pl' } }, { params: { lang: 'en' } }, { params: { lang: 'es' } }, { params: { lang: 'de' } }, { params: { lang: 'fr' } }, { params: { lang: 'it' } }, { params: { lang: 'pt' } }];
 }
 type Lang = 'ru' | 'pl' | 'en';
 const { lang } = Astro.params as { lang: Lang };
-const hub = (RECIPES_HUB as any)[lang];
+const hub = (RECIPES_HUB as any)[lang] ?? (RECIPES_HUB as any).en;
 ---
 <Layout title={hub.metaTitle} description={hub.metaDesc} lang={lang} path={`${lang}/recipes`} pageType="content">
   <RecipesHub lang={lang} homeUrl={`/${lang}/`} />

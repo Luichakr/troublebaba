@@ -4,7 +4,7 @@ import FlavorPage from '../../../components/FlavorPage.astro';
 import { FLAVORS, FLAVOR_BY_SLUG } from '../../../data/flavors.js';
 
 export function getStaticPaths() {
-  const langs = ['ru', 'pl', 'en'] as const;
+  const langs = ['ru', 'pl', 'en', 'es', 'de', 'fr', 'it', 'pt'] as const;
   const paths: { params: { lang: string; slug: string } }[] = [];
   for (const lang of langs) {
     for (const f of FLAVORS as any[]) {
@@ -15,7 +15,7 @@ export function getStaticPaths() {
 }
 type Lang = 'ru' | 'pl' | 'en';
 const { lang, slug } = Astro.params as { lang: Lang; slug: string };
-const f = (FLAVOR_BY_SLUG as any)[slug].t[lang];
+const f = (FLAVOR_BY_SLUG as any)[slug].t[lang] ?? (FLAVOR_BY_SLUG as any)[slug].t.en;
 ---
 <Layout title={f.metaTitle} description={f.metaDesc} lang={lang} path={`${lang}/recipes/${slug}`} pageType="content">
   <FlavorPage lang={lang} slug={slug} homeUrl={`/${lang}/`} recipesUrl={`/${lang}/recipes/`} />
