@@ -9,6 +9,12 @@ name                    = "bentocake-landing"
 compatibility_date      = "2024-09-01"
 pages_build_output_dir  = "dist"
 
+# Non-secret env vars (plaintext). Secrets (PADDLE_API_KEY, PADDLE_WEBHOOK_SECRET,
+# RESEND_API_KEY, MONOBANK_*, ADMIN_PASS) live in the dashboard as Encrypted.
+[vars]
+PADDLE_ENV  = "sandbox"
+RESEND_FROM = "Bento Cake <onboarding@resend.dev>"
+
 # D1 database for click + funnel event tracking.
 # Read by functions/api/track.ts (write side) and functions/api/admin/stats.ts (read side).
 [[d1_databases]]
