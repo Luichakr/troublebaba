@@ -23,3 +23,10 @@ RESEND_FROM = "Bento Cake by TROUBLEBABA <hello@troublebaba.com>"
 binding       = "DB"
 database_name = "troublebaba-events"
 database_id   = "a19ec210-0b18-48ba-8325-47ee8a351620"
+
+# Private storage for the paid PDF + per-link download counters (served only
+# via /d/<token>). Create bucket "troublebaba-files" in R2 and upload the PDF
+# as key "bento-cake-troublebaba.pdf".
+[[r2_buckets]]
+binding     = "PDF_BUCKET"
+bucket_name = "troublebaba-files"

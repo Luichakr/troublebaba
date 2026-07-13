@@ -14,10 +14,12 @@ import { verifyPaddleSignature, getCustomerEmail } from '../../_lib/paddle';
 import type { PaddleEnv } from '../../_lib/paddle';
 import { sendEmail } from '../../_lib/resend';
 import type { ResendEnv } from '../../_lib/resend';
+import { signDownloadToken } from '../../_lib/dl';
 
-type Env = PaddleEnv & ResendEnv & { SITE_URL?: string };
+type Env = PaddleEnv & ResendEnv & { SITE_URL?: string; CRON_SECRET?: string };
 
-const DELIVER_PATH = '/files/bento-cake-troublebaba-9f3a71c2.pdf';
+const EXPIRY_DAYS = 7;
+const MAX_DOWNLOADS = 3;
 
 function deliverEmailHtml(link: string): string {
   return `
@@ -30,6 +32,9 @@ function deliverEmailHtml(link: string): string {
       </a>
     </p>
     <p style="font-size:13px;color:#6b6257">Якщо кнопка не працює, скопіюйте посилання:<br>${link}</p>
+    <p style="font-size:13px;color:#8a6d3b;background:#fbf6ec;border:1px solid #ecdcc0;border-radius:10px;padding:12px 14px">
+      ⏳ Посилання персональне: діє <b>${EXPIRY_DAYS} днів</b> і розраховане на <b>${MAX_DOWNLOADS} завантаження</b>. Будь ласка, збережіть файл на свій пристрій одразу.
+    </p>
     <p style="font-size:13px;color:#6b6257">Питання? Напишіть у Instagram @troublebaba.</p>
   </div>`;
 }
@@ -55,7 +60,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
     if (email) {
       const origin = env.SITE_URL?.replace(/\/$/, '') || new URL(request.url).origin;
-      const link = origin + DELIVER_PATH;
+      const exp = Math.floor(Date.now() / 1000) + EXPIRY_DAYS * 86400;
+      const token = await signDownloadToken(env.CRON_SECRET || '', String(data.id || 'txn'), exp);
+      const link = `${origin}/d/${token}`;
       await sendEmail(env, {
         to: email,
         subject: 'Ваш PDF — Bento Cake by TROUBLEBABA',

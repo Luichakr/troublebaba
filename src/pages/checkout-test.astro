@@ -5,7 +5,7 @@
 import { SITE } from '../config/site.js';
 
 const P = SITE.paddle;
-const DELIVER = SITE.deliverPath;
+const DL = SITE.download;
 ---
 <!doctype html>
 <html lang="uk">
@@ -43,6 +43,8 @@ const DELIVER = SITE.deliverPath;
     <label for="email">Ваш email (сюди прийде файл)</label>
     <input id="email" type="email" placeholder="you@example.com" autocomplete="email" />
 
+    <p class="note" style="margin:0 0 14px">⏳ Після оплати ви отримаєте персональне посилання на PDF: діє <b>{DL.expiryDays} днів</b>, до <b>{DL.maxDownloads} завантажень</b>. Збережіть файл на свій пристрій одразу.</p>
+
     <button id="buy" type="button">Купити за ${SITE.price}</button>
 
     <div id="status"></div>
@@ -50,7 +52,7 @@ const DELIVER = SITE.deliverPath;
   </div>
 
   <script src="https://cdn.paddle.com/paddle/v2/paddle.js" is:inline></script>
-  <script define:vars={{ P, DELIVER }} is:inline>
+  <script define:vars={{ P, DL }} is:inline>
     const statusEl = document.getElementById('status');
     const show = (msg, ok) => { statusEl.textContent = msg; statusEl.className = ok ? 'ok' : 'err'; };
     let ready = false;
@@ -64,9 +66,8 @@ const DELIVER = SITE.deliverPath;
           eventCallback: (e) => {
             if (e.name === 'checkout.completed') {
               statusEl.className = 'ok';
-              statusEl.innerHTML = '✓ Оплата успішна! Завантажте збірник прямо зараз:<br><br>' +
-                '<a href="' + DELIVER + '" style="display:inline-block;background:#8B7355;color:#fff;text-decoration:none;padding:12px 24px;border-radius:10px;font-weight:700" download>Завантажити PDF</a>' +
-                '<br><br><span style="font-size:.85rem;color:#6b6257">Дублікат посилання ми також надіслали вам на пошту.</span>';
+              statusEl.innerHTML = '✓ Оплата успішна! Персональне посилання на PDF надіслано вам на пошту.<br><br>' +
+                '<span style="font-size:.85rem;color:#6b6257">Посилання діє ' + DL.expiryDays + ' днів і розраховане на ' + DL.maxDownloads + ' завантаження — збережіть файл одразу.</span>';
             }
           },
         });

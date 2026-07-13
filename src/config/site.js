@@ -56,8 +56,8 @@ export const SITE = {
     priceBundle: 'pri_01kxe47ghn2jy5eream7989qqz', // $20 — all 10 recipes (one-time)
     priceSingle: '',                              // filled once per-recipe prices exist
   },
-  // Obscure path to the deliverable served after purchase (test file for now).
-  deliverPath: '/files/bento-cake-troublebaba-9f3a71c2.pdf',
+  // Download link policy (shown to buyers + enforced by /d/<token>).
+  download: { expiryDays: 7, maxDownloads: 3 },
 
   // === Pre-launch mode ===
   // While true: "Buy" buttons collect e-mails for a launch reminder instead of
