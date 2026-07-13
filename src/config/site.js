@@ -46,6 +46,19 @@ export const SITE = {
   // 10 singles = $50 → bundle $20 saves $30. Used for the price-anchor on recipe pages.
   get bundleSaving() { return this.priceSingle * 10 - this.price; },
 
+  // === Paddle (Merchant of Record) ===
+  // Client-side token is PUBLIC by design (embedded in Paddle.js on the frontend).
+  // Secrets (PADDLE_API_KEY, PADDLE_WEBHOOK_SECRET, RESEND_API_KEY) live in
+  // Cloudflare Pages env vars — never in this file.
+  paddle: {
+    environment: 'sandbox',                       // 'sandbox' | 'production'
+    clientToken: 'test_6b6f239298644d456e6a612754e',
+    priceBundle: 'pri_01kxe47ghn2jy5eream7989qqz', // $20 — all 10 recipes (one-time)
+    priceSingle: '',                              // filled once per-recipe prices exist
+  },
+  // Obscure path to the deliverable served after purchase (test file for now).
+  deliverPath: '/files/bento-cake-troublebaba-9f3a71c2.pdf',
+
   // === Pre-launch mode ===
   // While true: "Buy" buttons collect e-mails for a launch reminder instead of
   // opening checkout. On launch day flip to false → buttons go live (Monobank).

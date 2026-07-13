@@ -1,0 +1,88 @@
+---
+// Isolated Paddle sandbox test page — NOT linked anywhere, noindex.
+// Lets the owner run the full purchase flow (test card) without touching the
+// live presale homepage. Remove or gate before production launch.
+import { SITE } from '../config/site.js';
+
+const P = SITE.paddle;
+---
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Checkout test — Bento Cake</title>
+  <style>
+    :root { --cream:#F5EFE8; --espresso:#1A1A1A; --mocha:#8B7355; --taupe:#C8B8A2; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, sans-serif; background:var(--cream); color:var(--espresso); display:flex; min-height:100vh; align-items:center; justify-content:center; padding:24px; }
+    .card { background:#fff; border:1px solid rgba(200,184,162,.4); border-radius:24px; padding:40px; max-width:440px; width:100%; box-shadow:0 20px 60px rgba(139,115,85,.15); }
+    h1 { font-size:1.5rem; margin:0 0 6px; }
+    p.sub { color:#6b6257; font-size:.92rem; margin:0 0 24px; line-height:1.6; }
+    label { display:block; font-size:.8rem; font-weight:600; text-transform:uppercase; letter-spacing:.08em; color:var(--mocha); margin:0 0 6px; }
+    input { width:100%; padding:12px 14px; border:1px solid var(--taupe); border-radius:12px; font-size:1rem; margin:0 0 18px; }
+    button { width:100%; background:var(--mocha); color:#fff; border:0; border-radius:14px; padding:15px; font-size:1.05rem; font-weight:700; cursor:pointer; }
+    button:hover { background:#6f5c43; }
+    button:disabled { opacity:.6; cursor:default; }
+    .note { margin-top:18px; font-size:.78rem; color:#8a8175; line-height:1.6; }
+    .price { font-size:2rem; font-weight:800; margin:0 0 2px; }
+    #status { margin-top:18px; font-size:.9rem; padding:12px 14px; border-radius:12px; display:none; }
+    #status.ok { display:block; background:#e6f4ea; color:#1e7a3d; }
+    #status.err { display:block; background:#fbeaea; color:#a12b2b; }
+    code { background:#f0ece5; padding:2px 6px; border-radius:5px; font-size:.8rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="price">${SITE.price}</div>
+    <h1>Bento Cake — 10 рецептів (PDF)</h1>
+    <p class="sub">Тестова покупка через Paddle Sandbox. Реальні гроші не проходять — використовуйте тестову картку <code>4242 4242 4242 4242</code>, будь-яку майбутню дату та CVC.</p>
+
+    <label for="email">Ваш email (сюди прийде файл)</label>
+    <input id="email" type="email" placeholder="you@example.com" autocomplete="email" />
+
+    <button id="buy" type="button">Купити за ${SITE.price}</button>
+
+    <div id="status"></div>
+    <p class="note">Sandbox · price <code>{P.priceBundle}</code>. Після оплати вебхук надішле лист із посиланням на PDF.</p>
+  </div>
+
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js" is:inline></script>
+  <script define:vars={{ P }} is:inline>
+    const statusEl = document.getElementById('status');
+    const show = (msg, ok) => { statusEl.textContent = msg; statusEl.className = ok ? 'ok' : 'err'; };
+    let ready = false;
+
+    function boot() {
+      if (!window.Paddle) { show('Paddle.js не завантажився (перевірте CSP/мережу).', false); return; }
+      try {
+        window.Paddle.Environment.set(P.environment);
+        window.Paddle.Initialize({
+          token: P.clientToken,
+          eventCallback: (e) => {
+            if (e.name === 'checkout.completed') {
+              show('✓ Оплата успішна (тест). Перевірте пошту — має прийти лист із посиланням на PDF.', true);
+            }
+          },
+        });
+        ready = true;
+      } catch (err) { show('Помилка ініціалізації Paddle: ' + err, false); }
+    }
+
+    const buy = document.getElementById('buy');
+    buy.addEventListener('click', () => {
+      if (!ready) boot();
+      if (!ready) return;
+      const email = (document.getElementById('email').value || '').trim();
+      const items = [{ priceId: P.priceBundle, quantity: 1 }];
+      const opts = { items, settings: { displayMode: 'overlay', theme: 'light' } };
+      if (email) opts.customer = { email };
+      try { window.Paddle.Checkout.open(opts); }
+      catch (err) { show('Не вдалося відкрити чекаут: ' + err, false); }
+    });
+
+    if (document.readyState !== 'loading') boot(); else document.addEventListener('DOMContentLoaded', boot);
+  </script>
+</body>
+</html>
