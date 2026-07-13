@@ -5,6 +5,7 @@
 import { SITE } from '../config/site.js';
 
 const P = SITE.paddle;
+const DELIVER = SITE.deliverPath;
 ---
 <!doctype html>
 <html lang="uk">
@@ -49,7 +50,7 @@ const P = SITE.paddle;
   </div>
 
   <script src="https://cdn.paddle.com/paddle/v2/paddle.js" is:inline></script>
-  <script define:vars={{ P }} is:inline>
+  <script define:vars={{ P, DELIVER }} is:inline>
     const statusEl = document.getElementById('status');
     const show = (msg, ok) => { statusEl.textContent = msg; statusEl.className = ok ? 'ok' : 'err'; };
     let ready = false;
@@ -62,7 +63,10 @@ const P = SITE.paddle;
           token: P.clientToken,
           eventCallback: (e) => {
             if (e.name === 'checkout.completed') {
-              show('✓ Оплата успішна (тест). Перевірте пошту — має прийти лист із посиланням на PDF.', true);
+              statusEl.className = 'ok';
+              statusEl.innerHTML = '✓ Оплата успішна! Завантажте збірник прямо зараз:<br><br>' +
+                '<a href="' + DELIVER + '" style="display:inline-block;background:#8B7355;color:#fff;text-decoration:none;padding:12px 24px;border-radius:10px;font-weight:700" download>Завантажити PDF</a>' +
+                '<br><br><span style="font-size:.85rem;color:#6b6257">Дублікат посилання ми також надіслали вам на пошту.</span>';
             }
           },
         });

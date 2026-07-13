@@ -13,7 +13,9 @@ pages_build_output_dir  = "dist"
 # RESEND_API_KEY, MONOBANK_*, ADMIN_PASS) live in the dashboard as Encrypted.
 [vars]
 PADDLE_ENV  = "sandbox"
-RESEND_FROM = "Bento Cake <onboarding@resend.dev>"
+# Sends from the verified troublebaba.com domain (DKIM/SPF added via Resend →
+# Cloudflare Domain Connect) so delivery emails land in inbox, not spam.
+RESEND_FROM = "Bento Cake by TROUBLEBABA <hello@troublebaba.com>"
 
 # D1 database for click + funnel event tracking.
 # Read by functions/api/track.ts (write side) and functions/api/admin/stats.ts (read side).
