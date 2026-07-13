@@ -744,6 +744,57 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
     </div>
   </section>
 
+  <!-- ── WHO IT'S FOR ── -->
+  <section id="who" class="bg-warm-white py-24 lg:py-32">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
+
+      <!-- Header -->
+      <div class="reveal text-center max-w-[720px] mx-auto mb-14 lg:mb-20">
+        <div class="flex items-center justify-center gap-3 mb-6">
+          <div class="h-px w-10 bg-mocha/40"></div>
+          <span class="font-outfit text-xs font-semibold tracking-[0.14em] uppercase text-mocha">{tr.who_label}</span>
+          <div class="h-px w-10 bg-mocha/40"></div>
+        </div>
+        <h2 class="font-cabinet text-espresso mb-6" style="font-size:clamp(2.4rem,4.6vw,4rem);line-height:1.0;">
+          {tr.who_title}
+        </h2>
+        <p class="font-outfit text-espresso/55 leading-relaxed mx-auto max-w-[520px]" style="font-size:0.98rem;line-height:1.7;white-space:pre-line;">
+          {tr.who_sub}
+        </p>
+      </div>
+
+      <!-- Segmentation cards -->
+      <div class="grid md:grid-cols-3 gap-5 lg:gap-6 mb-12 lg:mb-16">
+        {(tr.who_items as { title: string; text: string }[]).map((item, i) => (
+          <div class={`reveal reveal-d${Math.min(i+1,3)} bg-cream rounded-3xl p-7 lg:p-8 flex flex-col`} style="box-shadow:0 1px 6px rgba(139,115,85,0.05);border:1px solid rgba(200,184,162,0.22);">
+            <div class="w-11 h-11 rounded-full bg-mocha/10 flex items-center justify-center mb-5">
+              <svg width="20" height="18" viewBox="0 0 13 12" fill="none"><path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="#8B7355" stroke-width="1.2" fill="none" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="font-outfit font-bold text-espresso text-[17px] leading-snug mb-2.5">{item.title}</h3>
+            <p class="font-outfit text-espresso/55 text-[13.5px] leading-relaxed" style="white-space:pre-line;">{item.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Trust stats -->
+      <div class="reveal grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
+        <div class="bg-espresso rounded-3xl px-6 py-8 text-center flex flex-col items-center justify-center">
+          <div class="font-stat text-warm-white leading-none mb-2" style="font-size:2.6rem;">{tr.who_stat1_num}</div>
+          <div class="font-outfit text-warm-white/70 text-[13px] leading-relaxed" style="white-space:pre-line;">{tr.who_stat1_text}</div>
+        </div>
+        <div class="bg-cream rounded-3xl px-6 py-8 text-center flex flex-col items-center justify-center" style="border:1px solid rgba(200,184,162,0.22);">
+          <div class="font-cabinet text-mocha leading-none mb-2" style="font-size:2rem;">{tr.who_stat2_title}</div>
+          <div class="font-outfit text-espresso/55 text-[13px] leading-relaxed" style="white-space:pre-line;">{tr.who_stat2_text}</div>
+        </div>
+        <div class="bg-cream rounded-3xl px-6 py-8 text-center flex flex-col items-center justify-center" style="border:1px solid rgba(200,184,162,0.22);">
+          <div class="font-cabinet text-mocha leading-none mb-2" style="font-size:2rem;">{tr.who_stat3_title}</div>
+          <div class="font-outfit text-espresso/55 text-[13px] leading-relaxed" style="white-space:pre-line;">{tr.who_stat3_text}</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ── SOCIAL → BLOG (showcases content, funnels into the blog hub) ── -->
   <section id="social" class="py-16 lg:py-24" style="background:#F5EFE8;" aria-labelledby="social-title">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-16">
