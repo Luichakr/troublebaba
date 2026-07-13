@@ -40,8 +40,11 @@ export const SITE = {
   paymentUrl:   'https://gumroad.com/l/bentocake',
 
   // Commerce
-  price:    20,
-  currency: 'USD',
+  price:       20,            // full bundle — all 10 recipes
+  priceSingle: 5,             // one recipe bought separately (ladder entry point)
+  currency:    'USD',
+  // 10 singles = $50 → bundle $20 saves $30. Used for the price-anchor on recipe pages.
+  get bundleSaving() { return this.priceSingle * 10 - this.price; },
 
   // === Pre-launch mode ===
   // While true: "Buy" buttons collect e-mails for a launch reminder instead of

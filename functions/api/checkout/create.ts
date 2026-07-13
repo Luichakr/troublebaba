@@ -10,11 +10,33 @@ interface RequestBody {
   lang?: 'uk' | 'ru' | 'pl' | 'en';
   /** Optional email — passed to Monobank as customerEmails for receipt. */
   email?: string;
+  /** Product to buy: 'bundle' (all 10, default) or a single recipe slug. */
+  product?: string;
+  /** Recipe slug when product === 'single' (kept separate for clarity). */
+  slug?: string;
 }
 
-/** Bento Cake price in UAH kopecks. Tweak via repo edit (no env-var needed). */
-const PRICE_UAH_KOPECKS = 85000;   // 850 UAH ≈ $20 at rate 42.5 (edit if FX moves a lot)
-const PRODUCT_NAME      = 'Bento Cake by TROUBLEBABA — 10 рецептів (PDF)';
+/** Prices in UAH kopecks. Tweak via repo edit (no env-var needed). */
+const BUNDLE_UAH_KOPECKS = 85000;   // 850 UAH ≈ $20 at rate 42.5 (edit if FX moves a lot)
+const SINGLE_UAH_KOPECKS = 21000;   // 210 UAH ≈ $5  — one recipe (ladder entry point)
+const BUNDLE_NAME        = 'Bento Cake by TROUBLEBABA — 10 рецептів (PDF)';
+
+/** Resolve the order from the request: bundle (default) or a single recipe.
+ *  A single-recipe order is only accepted when a non-empty slug is supplied;
+ *  anything else falls back to the bundle so checkout can never break. */
+function resolveProduct(body: RequestBody): { price: number; name: string; code: string; kind: 'bundle' | 'single' } {
+  const slug = typeof body.slug === 'string' ? body.slug.trim().toLowerCase().replace(/[^a-z0-9-]/g, '') : '';
+  const wantsSingle = (body.product === 'single' || body.product === slug) && slug.length > 0;
+  if (wantsSingle) {
+    return {
+      price: SINGLE_UAH_KOPECKS,
+      name:  `Bento Cake by TROUBLEBABA — рецепт «${slug}» (PDF)`,
+      code:  `troublebaba-recipe-${slug}`,
+      kind:  'single',
+    };
+  }
+  return { price: BUNDLE_UAH_KOPECKS, name: BUNDLE_NAME, code: 'troublebaba-bento-cake-pdf', kind: 'bundle' };
+}
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
@@ -36,11 +58,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     : `${origin}/${lang}/thank-you?invoiceId={invoiceId}`;
   const webHookUrl = `${origin}/api/checkout/webhook`;
 
+  const item = resolveProduct(body);
+
   // Generate our own reference for matching the invoice to our internal record.
-  const reference = `tbb-${Date.now()}-${Math.floor(Math.random() * 1e6).toString(36)}`;
+  // Prefix encodes the product kind so the webhook/delivery can route correctly.
+  const reference = `tbb-${item.kind}-${Date.now()}-${Math.floor(Math.random() * 1e6).toString(36)}`;
 
   const payload: InvoiceCreateRequest = {
-    amount: PRICE_UAH_KOPECKS,
+    amount: item.price,
     ccy: 980,                                    // UAH
     paymentType: 'debit',
     validity: 3600,                              // 1 hour to pay
@@ -48,14 +73,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     webHookUrl,
     merchantPaymInfo: {
       reference,
-      destination: PRODUCT_NAME,
+      destination: item.name,
       basketOrder: [
         {
-          name: PRODUCT_NAME,
+          name: item.name,
           qty:  1,
-          sum:  PRICE_UAH_KOPECKS,
+          sum:  item.price,
           unit: 'шт.',
-          code: 'troublebaba-bento-cake-pdf',
+          code: item.code,
         },
       ],
       ...(body.email ? { customerEmails: [body.email] } : {}),

@@ -40,6 +40,20 @@ const LANGS: { c: Lang; l: string; full: string }[] = [
   { c: 'pt', l: 'POR', full: 'Português' },
 ];
 const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
+
+// Soft guarantee / reassurance — honest support promise (not money-back), 9 langs, EN fallback.
+const GUAR: Record<string, { title: string; text: string }> = {
+  uk: { title: 'Купуй спокійно', text: 'Не вийшло з першого разу? Напиши в директ @troublebaba — розберемо разом, крок за кроком, поки не вийде.' },
+  ru: { title: 'Покупай спокойно', text: 'Не получилось с первого раза? Напиши в директ @troublebaba — разберём вместе, шаг за шагом, пока не получится.' },
+  pl: { title: 'Kupuj spokojnie', text: 'Nie wyszło za pierwszym razem? Napisz na @troublebaba — przejdziemy przez to razem, krok po kroku.' },
+  en: { title: 'Buy with confidence', text: 'Didn’t work the first time? Message @troublebaba — we’ll walk through it together, step by step.' },
+  es: { title: 'Compra con confianza', text: '¿No salió a la primera? Escríbenos a @troublebaba y lo resolvemos juntos, paso a paso.' },
+  de: { title: 'Kauf mit Vertrauen', text: 'Beim ersten Mal nicht geklappt? Schreib an @troublebaba — wir gehen es gemeinsam durch, Schritt für Schritt.' },
+  fr: { title: 'Achetez en confiance', text: 'Ça n’a pas marché du premier coup ? Écris à @troublebaba — on résout ça ensemble, étape par étape.' },
+  it: { title: 'Acquista con serenità', text: 'Non è venuto al primo tentativo? Scrivici su @troublebaba — lo risolviamo insieme, passo dopo passo.' },
+  pt: { title: 'Compre com confiança', text: 'Não deu certo de primeira? Escreve para @troublebaba — resolvemos juntos, passo a passo.' },
+};
+const guar = GUAR[lang] ?? GUAR.en;
 ---
 
   <!-- ── HEADER ── -->
@@ -1311,6 +1325,25 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
         <div class="h-px w-14 bg-taupe/35"></div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ── GUARANTEE / REASSURANCE ── -->
+  <section class="pb-8 lg:pb-12" style="background:#F5EFE8;">
+    <div class="max-w-[760px] mx-auto px-6 lg:px-10">
+      <div class="reveal flex flex-col sm:flex-row items-center gap-5 bg-warm-white rounded-3xl px-7 py-7 lg:px-9"
+           style="box-shadow:0 8px 32px rgba(139,115,85,0.10); border:1px solid rgba(200,184,162,0.25);">
+        <div class="flex-shrink-0 w-14 h-14 rounded-full bg-mocha/10 flex items-center justify-center">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <path d="M14 2.5 4.5 6.2v7c0 5.6 4 9.2 9.5 11 5.5-1.8 9.5-5.4 9.5-11v-7L14 2.5Z" stroke="#8B7355" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M9.8 13.8 12.6 16.6 18.4 10.8" stroke="#8B7355" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="text-center sm:text-left">
+          <div class="font-cabinet text-espresso text-[1.35rem] mb-1.5">{guar.title}</div>
+          <p class="font-outfit text-espresso/60 text-[14px] leading-relaxed">{guar.text}</p>
+        </div>
+      </div>
     </div>
   </section>
 

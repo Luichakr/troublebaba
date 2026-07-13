@@ -14,6 +14,16 @@ const hub = (RECIPES_HUB as any)[lang] ?? (RECIPES_HUB as any).en;
 const others = (FLAVORS as any[]).filter(x => x.slug !== slug).slice(0, 6);
 const langPrefix = lang === 'uk' ? '' : '/' + lang;
 const flavorUrl = (s: string) => `${langPrefix}/recipes/${s}/`;
+
+// Price ladder (single recipe vs full bundle) — localized copy with EN fallback.
+const P = { single: SITE.priceSingle, bundle: SITE.price, save: SITE.bundleSaving };
+const LADDER: Record<string, { single: string; bundle: string; save: string; hint: string }> = {
+  uk: { single: 'Цей рецепт окремо', bundle: 'Весь збірник · 10 рецептів', save: `вигідніше на $${P.save}`, hint: `10 рецептів окремо — $${P.single * 10}. Збірник — лише $${P.bundle}.` },
+  ru: { single: 'Этот рецепт отдельно', bundle: 'Весь сборник · 10 рецептов', save: `выгоднее на $${P.save}`, hint: `10 рецептов по отдельности — $${P.single * 10}. Сборник — всего $${P.bundle}.` },
+  pl: { single: 'Ten przepis osobno', bundle: 'Cały zbiór · 10 przepisów', save: `taniej o $${P.save}`, hint: `10 przepisów osobno — $${P.single * 10}. Zbiór — tylko $${P.bundle}.` },
+  en: { single: 'This recipe alone', bundle: 'Full bundle · 10 recipes', save: `save $${P.save}`, hint: `10 recipes separately — $${P.single * 10}. The bundle — just $${P.bundle}.` },
+};
+const L = LADDER[lang] ?? LADDER.en;
 ---
 <main class="min-h-[100dvh]" style="background:#F5EFE8;">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16 py-12 lg:py-20">
@@ -58,6 +68,24 @@ const flavorUrl = (s: string) => `${langPrefix}/recipes/${s}/`;
               </li>
             ))}
           </ul>
+        </div>
+
+        <!-- Price ladder: single recipe vs full bundle (bundle wins) -->
+        <div class="rounded-2xl overflow-hidden mb-6" style="border:1px solid rgba(200,184,162,0.4);">
+          <div class="flex items-center justify-between gap-4 px-5 py-4 bg-warm-white">
+            <span class="font-outfit text-espresso/70 text-[14px]">{L.single}</span>
+            <span class="font-cabinet text-espresso text-[20px]">${P.single}</span>
+          </div>
+          <div class="flex items-center justify-between gap-4 px-5 py-4 bg-espresso relative">
+            <div>
+              <div class="font-outfit font-bold text-warm-white text-[14px]">{L.bundle}</div>
+              <div class="font-outfit text-warm-white/60 text-[12px] mt-0.5">{L.hint}</div>
+            </div>
+            <div class="text-right flex-shrink-0">
+              <div class="font-cabinet text-warm-white text-[22px] leading-none">${P.bundle}</div>
+              <div class="font-outfit font-semibold text-mocha-light text-[11px] uppercase tracking-wide mt-1" style="color:#C8B8A2;">{L.save}</div>
+            </div>
+          </div>
         </div>
 
         <a href={homeUrl + '#price'} class="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-mocha text-warm-white font-outfit font-bold px-8 py-4 rounded-2xl hover:bg-mocha-dark transition-colors btn-pulse">
