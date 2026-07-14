@@ -19,6 +19,7 @@ const langPrefix = lang === 'uk' ? '' : '/' + lang;
 const recipesHref = langPrefix + '/recipes/';
 const homeHref    = langPrefix + '/';
 const successText = (tr.fr_success_text as string).replace('{EMAIL}', SITE.contactEmail);
+const turnstileKey = SITE.turnstile?.siteKey || '';
 ---
 
 <section class="min-h-[100dvh] py-14 lg:py-20" style="background:#F5EFE8;">
@@ -76,6 +77,8 @@ const successText = (tr.fr_success_text as string).replace('{EMAIL}', SITE.conta
                      class="w-full bg-surface border border-taupe/40 focus:border-mocha rounded-xl px-4 py-3.5 font-outfit text-espresso text-[15px] min-h-[48px] outline-none transition-colors"/>
             </label>
 
+            {turnstileKey && <div class="cf-turnstile" data-sitekey={turnstileKey}></div>}
+
             <button type="submit"
                     data-analytics="free_recipe_submit" data-lang={lang}
                     class="w-full inline-flex items-center justify-center gap-2 bg-mocha hover:bg-mocha-dark text-warm-white transition-colors font-outfit font-bold rounded-xl px-6 py-4 text-[15px] min-h-[52px]">
@@ -118,7 +121,8 @@ const successText = (tr.fr_success_text as string).replace('{EMAIL}', SITE.conta
     </div>
   </div>
 
-  <script is:inline define:vars={{ lang, busyLabel: tr.fr_btn_sending, defaultLabel: tr.fr_btn_get }}>
+  {turnstileKey && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>}
+  <script is:inline define:vars={{ lang, busyLabel: tr.fr_btn_sending, defaultLabel: tr.fr_btn_get, turnstileKey }}>
     (function () {
       const form    = document.querySelector('[data-free-recipe-form]');
       const success = document.querySelector('[data-free-recipe-success]');
@@ -133,6 +137,8 @@ const successText = (tr.fr_success_text as string).replace('{EMAIL}', SITE.conta
           input?.focus();
           return;
         }
+        const turnstileToken = (form.querySelector('[name="cf-turnstile-response"]') || {}).value || '';
+        if (turnstileKey && !turnstileToken) { input?.focus(); return; }
         btn.disabled = true;
         if (btnLabel) btnLabel.textContent = busyLabel;
 
@@ -140,7 +146,7 @@ const successText = (tr.fr_success_text as string).replace('{EMAIL}', SITE.conta
           const r = await fetch('/api/free-recipe', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: input.value.trim(), lang, source: 'free_recipe_page' }),
+            body: JSON.stringify({ email: input.value.trim(), lang, source: 'free_recipe_page', turnstileToken }),
           });
           const data = await r.json().catch(function () { return { ok: false }; });
           if (r.ok && data && data.ok) {

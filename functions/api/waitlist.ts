@@ -2,9 +2,11 @@
 // Stores a pre-launch email in D1. Used while SITE.presaleMode is true.
 // Public endpoint (low-value writes). Dedupes by unique email.
 
-interface Env { DB?: D1Database }
+import { verifyTurnstile } from '../_lib/turnstile';
 
-interface Body { email?: string; lang?: string; source?: string }
+interface Env { DB?: D1Database; TURNSTILE_SECRET?: string }
+
+interface Body { email?: string; lang?: string; source?: string; turnstileToken?: string }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -20,6 +22,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
   const email = String(body.email ?? '').trim().toLowerCase().slice(0, 254);
   if (!EMAIL_RE.test(email)) return json({ ok: false, error: 'invalid_email' }, 400);
+
+  const cfIp = request.headers.get('CF-Connecting-IP');
+  if (!(await verifyTurnstile(env.TURNSTILE_SECRET, body.turnstileToken, cfIp)))
+    return json({ ok: false, error: 'bot_check_failed' }, 403);
 
   if (!env.DB) {
     // Don't 500 the user — log and accept gracefully.

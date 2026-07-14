@@ -7,9 +7,11 @@
 // Returns 200 with { ok: true, stored } even when DB is missing, so the form
 // UX never breaks. Real failures (invalid email) return 400.
 
-interface Env { DB?: D1Database }
+import { verifyTurnstile } from '../_lib/turnstile';
 
-interface Body { email?: string; lang?: string; source?: string }
+interface Env { DB?: D1Database; TURNSTILE_SECRET?: string }
+
+interface Body { email?: string; lang?: string; source?: string; turnstileToken?: string }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -26,6 +28,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
   const email = String(body.email ?? '').trim().toLowerCase().slice(0, 254);
   if (!EMAIL_RE.test(email)) return json({ ok: false, error: 'invalid_email' }, 400);
+
+  const cfIp = request.headers.get('CF-Connecting-IP');
+  if (!(await verifyTurnstile(env.TURNSTILE_SECRET, body.turnstileToken, cfIp)))
+    return json({ ok: false, error: 'bot_check_failed' }, 403);
 
   if (!env.DB) {
     console.warn('[free-recipe] DB binding missing — email dropped:',

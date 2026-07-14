@@ -59,6 +59,11 @@ export const SITE = {
   // Download link policy (shown to buyers + enforced by /d/<token>).
   download: { expiryDays: 7, maxDownloads: 3 },
 
+  // Cloudflare Turnstile (bot protection on public forms). siteKey is PUBLIC.
+  // The secret lives in CF Pages env as TURNSTILE_SECRET. Empty siteKey =
+  // widget off (forms still work; server verify is skipped until secret is set).
+  turnstile: { siteKey: '' },
+
   // === Pre-launch mode ===
   // While true: "Buy" buttons collect e-mails for a launch reminder instead of
   // opening checkout. On launch day flip to false → buttons go live (Monobank).

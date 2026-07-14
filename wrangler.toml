@@ -9,7 +9,7 @@ name                    = "bentocake-landing"
 compatibility_date      = "2024-09-01"
 pages_build_output_dir  = "dist"
 
-# Non-secret env vars (plaintext). Secrets (PADDLE_API_KEY, PADDLE_WEBHOOK_SECRET,
+# Non-secret env vars (plaintext). Secrets (PADDLE_API_KEY, PADDLE_WEBHOOK_SECRET, TURNSTILE_SECRET,
 # RESEND_API_KEY, MONOBANK_*, ADMIN_PASS) live in the dashboard as Encrypted.
 [vars]
 PADDLE_ENV  = "sandbox"

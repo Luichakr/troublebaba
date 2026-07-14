@@ -14,6 +14,7 @@ const blogHref = isUk ? '/blog/' : `/${lang}/blog/`;
 
 // Pre-launch mode: buy buttons collect e-mails instead of opening checkout.
 const presale = SITE.presaleMode === true;
+const turnstileKey = SITE.turnstile?.siteKey || '';
 
 const RECIPE_IMAGES = [
   'images/q9.webp',   // 0: Oreo
@@ -1357,7 +1358,7 @@ const guar = GUAR[lang] ?? GUAR.en;
           <h2 class="font-cabinet text-warm-white mb-4" style="font-size:clamp(2rem,4vw,3rem);line-height:1.05;">{tr.notify_heading}</h2>
           <p class="font-outfit text-warm-white/60 text-[15px] leading-relaxed mb-8 max-w-[460px] mx-auto">{tr.notify_sub}</p>
 
-          <form id="notify-form" class="flex flex-col sm:flex-row gap-3 max-w-[460px] mx-auto" novalidate>
+          <form id="notify-form" class="flex flex-col sm:flex-row flex-wrap gap-3 max-w-[460px] mx-auto" novalidate>
             <input id="notify-email" type="email" required autocomplete="email"
                    placeholder={tr.notify_placeholder}
                    class="flex-1 font-outfit text-base bg-warm-white/10 border border-white/15 rounded-xl px-4 py-3.5 text-warm-white placeholder:text-warm-white/40 outline-none focus:border-mocha min-h-[48px]" />
@@ -1365,6 +1366,7 @@ const guar = GUAR[lang] ?? GUAR.en;
                     class="font-outfit font-bold text-[15px] bg-warm-white text-espresso rounded-xl px-6 py-3.5 hover:bg-cream transition-colors whitespace-nowrap min-h-[48px]">
               {tr.notify_btn}
             </button>
+            {turnstileKey && <div class="cf-turnstile basis-full flex justify-center" data-sitekey={turnstileKey} data-theme="dark"></div>}
           </form>
           <p id="notify-msg" class="hidden font-outfit text-sm mt-4"></p>
           <p class="font-outfit text-warm-white/35 text-xs mt-5">{tr.notify_privacy}</p>
@@ -1684,14 +1686,16 @@ const guar = GUAR[lang] ?? GUAR.en;
   </a>
 
 <!-- Expose translated buy-button states + presale flag to the bundled script. -->
-<script is:inline define:vars={{ buyLoading: tr.buy_loading, buyError: tr.buy_error, presale, notifySuccess: tr.notify_success, notifyError: tr.notify_error, pageLang: lang }}>
+<script is:inline define:vars={{ buyLoading: tr.buy_loading, buyError: tr.buy_error, presale, notifySuccess: tr.notify_success, notifyError: tr.notify_error, pageLang: lang, turnstileKey }}>
   window.TR_BUY_LOADING  = buyLoading;
   window.TR_BUY_ERROR    = buyError;
   window.TR_PRESALE      = presale;
   window.TR_NOTIFY_OK    = notifySuccess;
   window.TR_NOTIFY_ERR   = notifyError;
   window.TR_PAGE_LANG    = pageLang;
+  window.TR_TURNSTILE    = turnstileKey;
 </script>
+{turnstileKey && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>}
 
 <script>
 import { BONUS_TOTAL, BONUS_REMAINING } from '../i18n/translations.js';
@@ -1964,13 +1968,18 @@ if (notifyForm) {
       input.focus();
       return;
     }
+    const turnstileToken = (notifyForm.querySelector('[name="cf-turnstile-response"]') as HTMLInputElement | null)?.value || '';
+    if ((window as any).TR_TURNSTILE && !turnstileToken) {
+      showMsg((window as any).TR_NOTIFY_ERR || 'Please wait a moment and try again', false);
+      return;
+    }
     submit.disabled = true;
     submit.style.opacity = '0.7';
     try {
       const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, lang: (window as any).TR_PAGE_LANG || 'uk', source: 'homepage_notify' }),
+        body: JSON.stringify({ email, lang: (window as any).TR_PAGE_LANG || 'uk', source: 'homepage_notify', turnstileToken }),
       });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error('failed');
