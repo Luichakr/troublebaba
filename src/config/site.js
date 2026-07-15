@@ -62,7 +62,7 @@ export const SITE = {
   // Cloudflare Turnstile (bot protection on public forms). siteKey is PUBLIC.
   // The secret lives in CF Pages env as TURNSTILE_SECRET. Empty siteKey =
   // widget off (forms still work; server verify is skipped until secret is set).
-  turnstile: { siteKey: '' },
+  turnstile: { siteKey: '0x4AAAAAAD2eDZRgRtekKm70' },
 
   // === Pre-launch mode ===
   // While true: "Buy" buttons collect e-mails for a launch reminder instead of
