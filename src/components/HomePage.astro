@@ -1178,7 +1178,7 @@ const guar = GUAR[lang] ?? GUAR.en;
       <div class="reveal grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
         {[1,2,3,4,5,6].map((n) => (
           <div class="rounded-2xl overflow-hidden bg-warm-white" style="box-shadow:0 4px 18px rgba(139,115,85,0.10);border:1px solid rgba(200,184,162,0.30);">
-            <img src={`/images/pdf-preview/spread-${n}-p${['01','03','10','20','30','45'][n-1]}.jpg`}
+            <img src={`/images/pdf-preview/spread-${n}-p${['01','02','03','04','06','07'][n-1]}.jpg`}
                  alt={`Bento Cake PDF — preview ${n}`}
                  width="800" height="1131" loading="lazy" decoding="async"
                  class="block w-full h-auto" />
@@ -1940,42 +1940,18 @@ document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
       return;
     }
 
-    // Only buttons flagged with data-checkout-trigger="1" go through the Monobank flow.
+    // Only buttons flagged with data-checkout-trigger="1" open checkout.
     // (Footer / non-CTA links pass through normally.)
     if (a.dataset.checkoutTrigger !== '1') return;
 
+    // ponytail: during Paddle-sandbox live-test the buy flow lives on
+    // /checkout-test (language picker + acknowledgement + Paddle overlay).
+    // When production Paddle is live we swap this for the overlay directly.
     e.preventDefault();
-    if (a.dataset.loading === '1') return;       // block double-click
-    a.dataset.loading = '1';
-
-    const original = a.innerHTML;
-    const loadingLabel = (window as any).TR_BUY_LOADING || 'Loading…';
-    a.innerHTML = '<span>' + loadingLabel + '</span>';
-    a.style.pointerEvents = 'none';
-    a.style.opacity = '0.7';
-
-    try {
-      const res = await fetch('/api/checkout/create', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ lang: pageLang }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data?.pageUrl) {
-        throw new Error(data?.error || 'create_failed');
-      }
-      window.location.href = data.pageUrl;
-    } catch (err) {
-      console.error('[checkout]', err);
-      const errLabel = (window as any).TR_BUY_ERROR || 'Try again in a minute.';
-      a.innerHTML = '<span>⚠ ' + errLabel + '</span>';
-      a.style.opacity = '1';
-      setTimeout(() => {
-        a.innerHTML = original;
-        a.style.pointerEvents = '';
-        delete a.dataset.loading;
-      }, 4000);
-    }
+    const params = new URLSearchParams();
+    if (pageLang && pageLang !== 'uk') params.set('ui', pageLang);
+    const qs = params.toString();
+    window.location.href = '/checkout-test' + (qs ? '?' + qs : '');
   });
 });
 
