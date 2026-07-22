@@ -43,6 +43,14 @@ const DL = SITE.download;
     <label for="email">Ваш email (сюди прийде файл)</label>
     <input id="email" type="email" placeholder="you@example.com" autocomplete="email" />
 
+    <label for="lang">Мова PDF</label>
+    <select id="lang" style="width:100%;padding:12px 14px;border:1px solid var(--taupe);border-radius:12px;font-size:1rem;margin:0 0 18px;background:#fff;">
+      <option value="uk">Українська</option>
+      <option value="ru">Русский</option>
+      <option value="en">English</option>
+      <option value="pl">Polski</option>
+    </select>
+
     <p class="note" style="margin:0 0 14px">⏳ Після оплати ви отримаєте персональне посилання на PDF: діє <b>{DL.expiryDays} днів</b>, до <b>{DL.maxDownloads} завантажень</b>. Збережіть файл на свій пристрій одразу.</p>
 
     <button id="buy" type="button">Купити за ${SITE.price}</button>
@@ -81,7 +89,8 @@ const DL = SITE.download;
       if (!ready) return;
       const email = (document.getElementById('email').value || '').trim();
       const items = [{ priceId: P.priceBundle, quantity: 1 }];
-      const opts = { items, settings: { displayMode: 'overlay', theme: 'light' } };
+      const langSel = document.getElementById('lang') as HTMLSelectElement | null;
+      const opts = { items, settings: { displayMode: 'overlay', theme: 'light' }, customData: { lang: langSel?.value || 'uk' } };
       if (email) opts.customer = { email };
       try { window.Paddle.Checkout.open(opts); }
       catch (err) { show('Не вдалося відкрити чекаут: ' + err, false); }

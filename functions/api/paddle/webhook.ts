@@ -61,7 +61,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     if (email) {
       const origin = env.SITE_URL?.replace(/\/$/, '') || new URL(request.url).origin;
       const exp = Math.floor(Date.now() / 1000) + EXPIRY_DAYS * 86400;
-      const token = await signDownloadToken(env.CRON_SECRET || '', String(data.id || 'txn'), exp);
+      const lang = String(data?.custom_data?.lang ?? '').toLowerCase().slice(0, 4) || undefined;
+      const token = await signDownloadToken(env.CRON_SECRET || '', String(data.id || 'txn'), exp, lang);
       const link = `${origin}/d/${token}`;
       await sendEmail(env, {
         to: email,

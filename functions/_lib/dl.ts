@@ -26,13 +26,15 @@ function safeEqual(a: string, b: string): boolean {
   return o === 0;
 }
 
-/** token = <b64url(JSON{t,e})>.<hmac>  where t=txnId, e=expiry epoch seconds. */
-export async function signDownloadToken(secret: string, txnId: string, expiresAtSec: number): Promise<string> {
-  const payload = b64url(enc.encode(JSON.stringify({ t: txnId, e: expiresAtSec })));
+/** token = <b64url(JSON{t,e,l?})>.<hmac>  t=txnId, e=expiry epoch s, l=buyer lang. */
+export async function signDownloadToken(secret: string, txnId: string, expiresAtSec: number, lang?: string): Promise<string> {
+  const data: Record<string, unknown> = { t: txnId, e: expiresAtSec };
+  if (lang) data.l = lang;
+  const payload = b64url(enc.encode(JSON.stringify(data)));
   return `${payload}.${await hmac(secret, payload)}`;
 }
 
-export async function verifyDownloadToken(secret: string, token: string): Promise<{ ok: boolean; txnId?: string; sig?: string; reason?: string }> {
+export async function verifyDownloadToken(secret: string, token: string): Promise<{ ok: boolean; txnId?: string; lang?: string; sig?: string; reason?: string }> {
   const dot = token.lastIndexOf('.');
   if (dot < 0) return { ok: false, reason: 'malformed' };
   const payload = token.slice(0, dot), sig = token.slice(dot + 1);
@@ -40,5 +42,5 @@ export async function verifyDownloadToken(secret: string, token: string): Promis
   let data: any;
   try { data = JSON.parse(b64urlDecode(payload)); } catch { return { ok: false, reason: 'malformed' }; }
   if (typeof data.e !== 'number' || Date.now() / 1000 > data.e) return { ok: false, reason: 'expired' };
-  return { ok: true, txnId: String(data.t), sig };
+  return { ok: true, txnId: String(data.t), lang: typeof data.l === 'string' ? data.l : undefined, sig };
 }

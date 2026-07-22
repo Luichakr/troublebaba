@@ -4,7 +4,17 @@
 
 import { verifyDownloadToken } from '../_lib/dl';
 
-const FILE_KEY = 'bento-cake-troublebaba.pdf';
+// Language-specific PDFs live in R2 as bento-cake-<lang>.pdf. Buyer's lang is
+// embedded in the signed token; missing/unknown → uk (Ukrainian original).
+const SUPPORTED_LANGS = new Set(['uk', 'ru', 'en', 'pl']);
+const DEFAULT_LANG = 'uk';
+const fileKey = (lang: string) => `bento-cake-${SUPPORTED_LANGS.has(lang) ? lang : DEFAULT_LANG}.pdf`;
+const DL_NAME_BY_LANG: Record<string, string> = {
+  uk: 'Bento Cake by TROUBLEBABA — UA.pdf',
+  ru: 'Bento Cake by TROUBLEBABA — RU.pdf',
+  en: 'Bento Cake by TROUBLEBABA — EN.pdf',
+  pl: 'Bento Cake by TROUBLEBABA — PL.pdf',
+};
 const MAX_DOWNLOADS = 3;
 
 interface Env {
@@ -32,13 +42,15 @@ export const onRequestGet: PagesFunction<Env> = async ({ params, env }) => {
   if (n >= MAX_DOWNLOADS) return gone(`Ліміт завантажень вичерпано (${MAX_DOWNLOADS}). Напишіть у Instagram @troublebaba.`);
   await env.PDF_BUCKET.put(counterKey, String(n + 1));
 
-  const obj = await env.PDF_BUCKET.get(FILE_KEY);
+  const lang = (v.lang || DEFAULT_LANG).toLowerCase();
+  const obj = await env.PDF_BUCKET.get(fileKey(lang));
   if (!obj) return new Response('Файл тимчасово недоступний.', { status: 503 });
 
+  const dlName = DL_NAME_BY_LANG[lang] || DL_NAME_BY_LANG[DEFAULT_LANG];
   return new Response(obj.body, {
     headers: {
       'content-type': 'application/pdf',
-      'content-disposition': 'attachment; filename="Bento Cake by TROUBLEBABA.pdf"',
+      'content-disposition': `attachment; filename="${dlName}"`,
       'cache-control': 'no-store',
     },
   });
