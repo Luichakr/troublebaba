@@ -204,6 +204,7 @@ export const t = {
     price_title:  'Одна ціна. Все включено.',
     price_plan:   'Повний збірник',
     price_once:   '/ один раз',
+    price_display:'800 ₴',
     price_items: [
       '10 авторських рецептів бенто-тортів',
       'Точні грами для кожного інгредієнта',
@@ -575,6 +576,7 @@ export const t = {
     price_title:  'Одна цена. Всё включено.',
     price_plan:   'Полный сборник',
     price_once:   '/ один раз',
+    price_display:'$20',
     price_items: [
       '10 авторских рецептов бенто-тортов',
       'Точные граммы для каждого ингредиента',
@@ -935,6 +937,7 @@ export const t = {
     price_title:  'Jedna cena. Wszystko wliczone.',
     price_plan:   'Pełny zbiór',
     price_once:   '/ jednorazowo',
+    price_display:'80 zł',
     price_items: [
       '10 autorskich przepisów na torty bento',
       'Dokładne gramy dla każdego składnika',
@@ -1295,6 +1298,7 @@ export const t = {
     price_title:  'One price. Everything included.',
     price_plan:   'Full collection',
     price_once:   '/ one time',
+    price_display:'€18',
     price_items: [
       '10 original bento cake recipes',
       'Exact grams for every ingredient',
@@ -1654,6 +1658,7 @@ export const t = {
     price_title:  'Un solo precio. Todo incluido.',
     price_plan:   'Colección completa',
     price_once:   '/ pago único',
+    price_display:'€18',
     price_items: [
       '10 recetas originales de Bento Cake',
       'Gramos exactos para cada ingrediente',
@@ -2013,6 +2018,7 @@ export const t = {
     price_title:  'Ein Preis. Alles inklusive.',
     price_plan:   'Vollständige Kollektion',
     price_once:   '/ einmalig',
+    price_display:'€18',
     price_items: [
       '10 originale Bento-Cake-Rezepte',
       'Exakte Grammangaben für jede Zutat',
@@ -2372,6 +2378,7 @@ export const t = {
     price_title:  'Un seul prix. Tout est inclus.',
     price_plan:   'Collection complète',
     price_once:   '/ paiement unique',
+    price_display:'€18',
     price_items: [
       '10 recettes originales de Bento Cake',
       'Les grammes exacts de chaque ingrédient',
@@ -2731,6 +2738,7 @@ export const t = {
     price_title:  'Un solo prezzo. Tutto incluso.',
     price_plan:   'Raccolta completa',
     price_once:   '/ una tantum',
+    price_display:'€18',
     price_items: [
       '10 ricette originali di bento cake',
       'Grammi esatti per ogni ingrediente',
@@ -3090,6 +3098,7 @@ export const t = {
     price_title:  'Um preço. Tudo incluído.',
     price_plan:   'Coleção completa',
     price_once:   '/ pagamento único',
+    price_display:'€18',
     price_items: [
       '10 receitas originais de Bento Cake',
       'Gramaturas exatas de cada ingrediente',
