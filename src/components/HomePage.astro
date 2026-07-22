@@ -15,6 +15,7 @@ const blogHref = isUk ? '/blog/' : `/${lang}/blog/`;
 // Pre-launch mode: buy buttons collect e-mails instead of opening checkout.
 const presale = SITE.presaleMode === true;
 const turnstileKey = SITE.turnstile?.siteKey || '';
+const communityBonus = SITE.community?.enabled === true;
 
 const RECIPE_IMAGES = [
   'images/q9.webp',   // 0: Oreo
@@ -1264,6 +1265,16 @@ const guar = GUAR[lang] ?? GUAR.en;
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 0.5L9.4 4.3L13.5 4.7L10.4 7.5L11.3 11.5L8 9.4L4.7 11.5L5.6 7.5L2.5 4.7L6.6 4.3L8 0.5Z" fill="#F5EFE8" opacity="0.92"/></svg>
                 {tr.price_cta}
               </a>
+
+              {communityBonus && (
+                <div class="mt-4 rounded-lg px-4 py-3" style="background:linear-gradient(135deg,#f0e6d2 0%,#e8dcc4 100%);border:1px solid rgba(200,184,162,0.6);">
+                  <div class="flex items-center gap-2 mb-1">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 4L11 15l-4-4-5 9 20-16z" fill="#8B7355"/></svg>
+                    <span class="font-outfit text-espresso font-bold text-[13px] uppercase tracking-[0.06em]">{tr.bonus_tg_title}</span>
+                  </div>
+                  <p class="font-outfit text-espresso/70 text-[12.5px] leading-snug">{tr.bonus_tg_body}</p>
+                </div>
+              )}
 
               <p class="font-outfit text-espresso/70 text-[13px] leading-snug text-center mt-4 px-3 py-2.5 rounded-lg" style="background:#fbf6ec;border:1px solid rgba(200,184,162,0.55);">{tr.price_guarantee_result}</p>
 

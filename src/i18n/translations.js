@@ -209,6 +209,8 @@ export const t = {
     price_discount:    '-33%',
     price_guarantee_result: 'Точні грами та таблиця перерахунку — навіть якщо печеш вперше, результат передбачуваний.',
     price_peek_inside: 'Загляни всередину',
+    bonus_tg_title:    'Бонус після оплати',
+    bonus_tg_body:     'Доступ до закритого Telegram-чату покупців TROUBLEBABA — питання авторці, фото твоїх робіт, оновлення збірника.',
     price_items: [
       '10 авторських рецептів бенто-тортів',
       'Точні грами для кожного інгредієнта',
@@ -585,6 +587,8 @@ export const t = {
     price_discount:    '-33%',
     price_guarantee_result: 'Точные граммы и таблица пересчёта — даже если печёшь впервые, результат предсказуемый.',
     price_peek_inside: 'Заглянь внутрь',
+    bonus_tg_title:    'Бонус после оплаты',
+    bonus_tg_body:     'Доступ в закрытый Telegram-чат покупателей TROUBLEBABA — вопросы автору, фото твоих работ, обновления сборника.',
     price_items: [
       '10 авторских рецептов бенто-тортов',
       'Точные граммы для каждого ингредиента',
@@ -950,6 +954,8 @@ export const t = {
     price_discount:    '-33%',
     price_guarantee_result: 'Dokładne gramatury i tabela przeliczeń — nawet jeśli pieczesz pierwszy raz, wynik będzie przewidywalny.',
     price_peek_inside: 'Zajrzyj do środka',
+    bonus_tg_title:    'Bonus po zakupie',
+    bonus_tg_body:     'Dostęp do zamkniętego czatu Telegram dla kupujących TROUBLEBABA — pytania do autorki, zdjęcia twoich prac, aktualizacje zbioru.',
     price_items: [
       '10 autorskich przepisów na torty bento',
       'Dokładne gramy dla każdego składnika',
@@ -1315,6 +1321,8 @@ export const t = {
     price_discount:    '-33%',
     price_guarantee_result: 'Exact grams and a scaling table — even if it\'s your first time baking, the result is predictable.',
     price_peek_inside: 'Take a look inside',
+    bonus_tg_title:    'Bonus after purchase',
+    bonus_tg_body:     'Access to the closed TROUBLEBABA buyers-only Telegram chat — ask the author, share your bakes, get collection updates.',
     price_items: [
       '10 original bento cake recipes',
       'Exact grams for every ingredient',
@@ -1679,6 +1687,8 @@ export const t = {
     price_discount:    '-33%',
     price_guarantee_result: 'Gramajes exactos y tabla de conversión — incluso si es la primera vez que horneas, el resultado es predecible.',
     price_peek_inside: 'Mira dentro',
+    bonus_tg_title:    'Bono después de la compra',
+    bonus_tg_body:     'Acceso al chat privado de Telegram para compradores TROUBLEBABA — preguntas a la autora, fotos de tus tartas, actualizaciones del set.',
     price_items: [
       '10 recetas originales de Bento Cake',
       'Gramos exactos para cada ingrediente',
@@ -2043,6 +2053,8 @@ export const t = {
     price_discount:    '-33%',
     price_guarantee_result: 'Genaue Grammangaben und Umrechnungstabelle — auch wenn du zum ersten Mal backst, ist das Ergebnis vorhersehbar.',
     price_peek_inside: 'Blick ins Innere',
+    bonus_tg_title:    'Bonus nach dem Kauf',
+    bonus_tg_body:     'Zugang zum geschlossenen Telegram-Chat für TROUBLEBABA-Käuferinnen — Fragen an die Autorin, Fotos deiner Torten, Updates zur Sammlung.',
     price_items: [
       '10 originale Bento-Cake-Rezepte',
       'Exakte Grammangaben für jede Zutat',
@@ -2407,6 +2419,8 @@ export const t = {
     price_discount:    '-33%',
     price_guarantee_result: 'Grammes précis et tableau de conversion — même si tu débutes, le résultat est prévisible.',
     price_peek_inside: 'Regarde à l\'intérieur',
+    bonus_tg_title:    'Bonus après achat',
+    bonus_tg_body:     'Accès au chat Telegram privé des acheteurs TROUBLEBABA — questions à l\'autrice, photos de tes gâteaux, mises à jour du recueil.',
     price_items: [
       '10 recettes originales de Bento Cake',
       'Les grammes exacts de chaque ingrédient',
@@ -2771,6 +2785,8 @@ export const t = {
     price_discount:    '-33%',
     price_guarantee_result: 'Grammature esatte e tabella di conversione — anche se cuoci per la prima volta, il risultato è prevedibile.',
     price_peek_inside: 'Sbircia dentro',
+    bonus_tg_title:    'Bonus dopo l\'acquisto',
+    bonus_tg_body:     'Accesso alla chat Telegram privata per chi acquista TROUBLEBABA — domande all\'autrice, foto dei tuoi lavori, aggiornamenti della raccolta.',
     price_items: [
       '10 ricette originali di bento cake',
       'Grammi esatti per ogni ingrediente',
@@ -3135,6 +3151,8 @@ export const t = {
     price_discount:    '-33%',
     price_guarantee_result: 'Gramaturas exatas e tabela de conversão — mesmo se você nunca assou antes, o resultado é previsível.',
     price_peek_inside: 'Espie lá dentro',
+    bonus_tg_title:    'Bônus após a compra',
+    bonus_tg_body:     'Acesso ao chat privado no Telegram para compradores TROUBLEBABA — perguntas à autora, fotos dos seus bolos, atualizações da coleção.',
     price_items: [
       '10 receitas originais de Bento Cake',
       'Gramaturas exatas de cada ingrediente',

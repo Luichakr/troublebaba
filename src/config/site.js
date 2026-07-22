@@ -64,6 +64,12 @@ export const SITE = {
   // languages they can pick at checkout.
   pdfLanguages: ['uk', 'ru', 'en', 'pl'],
 
+  // Post-purchase bonus: closed Telegram community for buyers. Owner creates
+  // the chat/channel; when the invite URL is stored in Pages env as
+  // TELEGRAM_COMMUNITY_URL, flip `community.enabled` to true and the bonus
+  // card appears on the site AND the link is included in the delivery email.
+  community: { enabled: false },
+
   // Cloudflare Turnstile (bot protection on public forms). siteKey is PUBLIC.
   // The secret lives in CF Pages env as TURNSTILE_SECRET. Empty siteKey =
   // widget off (forms still work; server verify is skipped until secret is set).
