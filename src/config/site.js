@@ -59,6 +59,11 @@ export const SITE = {
   // Download link policy (shown to buyers + enforced by /d/<token>).
   download: { expiryDays: 7, maxDownloads: 3 },
 
+  // Languages the PDF is actually translated into. Other UI locales still get
+  // full-site SEO, but the "PDF available in ..." notice tells buyers which
+  // languages they can pick at checkout.
+  pdfLanguages: ['uk', 'ru', 'en', 'pl'],
+
   // Cloudflare Turnstile (bot protection on public forms). siteKey is PUBLIC.
   // The secret lives in CF Pages env as TURNSTILE_SECRET. Empty siteKey =
   // widget off (forms still work; server verify is skipped until secret is set).
