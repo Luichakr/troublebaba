@@ -1169,6 +1169,24 @@ const guar = GUAR[lang] ?? GUAR.en;
     </div>
   </section>
 
+  <!-- ── PDF PREVIEW SPREADS ── -->
+  <section id="preview" class="py-16 lg:py-20" style="background:#F5EFE8;">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+      <h2 class="reveal font-cabinet font-black text-espresso text-center mb-3" style="font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.1;">{tr.price_peek_inside}</h2>
+      <p class="reveal font-outfit text-espresso/50 text-center text-[15px] mb-10 max-w-xl mx-auto">{tr.price_langs}</p>
+      <div class="reveal grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
+        {[1,2,3,4,5,6].map((n) => (
+          <div class="rounded-2xl overflow-hidden bg-warm-white" style="box-shadow:0 4px 18px rgba(139,115,85,0.10);border:1px solid rgba(200,184,162,0.30);">
+            <img src={`/images/pdf-preview/spread-${n}-p${['01','03','10','20','30','45'][n-1]}.jpg`}
+                 alt={`Bento Cake PDF — preview ${n}`}
+                 width="800" height="1131" loading="lazy" decoding="async"
+                 class="block w-full h-auto" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- ── PRICING ── -->
   <section id="price" class="py-24 lg:py-32">
     <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
@@ -1205,9 +1223,15 @@ const guar = GUAR[lang] ?? GUAR.en;
             </svg>
 
             <div class="font-outfit text-warm-white/45 text-xs uppercase tracking-[0.18em] mb-3">{tr.price_plan}</div>
-            <div class="flex items-end gap-3">
+            <div class="flex items-end gap-4 flex-wrap">
               <span class="font-cabinet font-black text-warm-white" style="font-size:5.5rem;line-height:0.9;letter-spacing:-0.02em;">{tr.price_display}</span>
-              <span class="font-outfit text-warm-white/40 text-[15px] mb-3">{tr.price_once}</span>
+              <div class="flex flex-col gap-1.5 mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="font-outfit text-warm-white/35 text-[18px] line-through">{tr.price_display_old}</span>
+                  <span class="inline-block font-outfit text-[10px] font-bold uppercase tracking-[0.12em] text-warm-white bg-mocha/70 rounded px-2 py-0.5">{tr.price_discount}</span>
+                </div>
+                <span class="font-outfit text-warm-white/40 text-[15px]">{tr.price_once}</span>
+              </div>
             </div>
           </div>
 
@@ -1241,7 +1265,9 @@ const guar = GUAR[lang] ?? GUAR.en;
                 {tr.price_cta}
               </a>
 
-              <p class="font-outfit text-warm-white/55 text-[11px] leading-snug text-center mt-4 px-2">{tr.price_langs}</p>
+              <p class="font-outfit text-espresso/70 text-[13px] leading-snug text-center mt-4 px-3 py-2.5 rounded-lg" style="background:#fbf6ec;border:1px solid rgba(200,184,162,0.55);">{tr.price_guarantee_result}</p>
+
+              <p class="font-outfit text-warm-white/55 text-[11px] leading-snug text-center mt-3 px-2">{tr.price_langs}</p>
 
               <div class="flex items-center justify-center gap-3 mt-5 text-espresso/40">
                 <span class="flex items-center gap-1.5 font-outfit text-[11px]">
