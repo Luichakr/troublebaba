@@ -1,6 +1,6 @@
 ---
 import { t } from '../i18n/translations.js';
-import { SITE } from '../config/site.js';
+import { SITE, BONUS_TOTAL } from '../config/site.js';
 
 type Lang = 'uk' | 'ru' | 'pl' | 'en';
 interface Props { lang: Lang }
@@ -1034,7 +1034,7 @@ const guar = GUAR[lang] ?? GUAR.en;
 
             <div id="bonus-counter" class="mb-8 max-w-[460px] bg-white/[0.04] border border-white/10 rounded-2xl px-5 py-5">
               <div class="flex items-end gap-4 mb-3">
-                <div id="bonus-counter-num" class="font-stat text-warm-white leading-none tracking-tight" style="font-size:clamp(3.5rem,6vw,4.5rem);">20</div>
+                <div id="bonus-counter-num" class="font-stat text-warm-white leading-none tracking-tight" style="font-size:clamp(3.5rem,6vw,4.5rem);">{BONUS_TOTAL}</div>
                 <div class="pb-2 flex-1">
                   <div id="bonus-counter-label" class="font-outfit text-warm-white text-[15px] font-semibold leading-tight">{tr.bonus_spots_left}</div>
                   <div class="font-outfit text-warm-white/45 text-[12px] mt-0.5">{tr.bonus_of_total}</div>
@@ -1777,7 +1777,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 // FAQ accordion
 attachFaqListeners();
 
-// ── Bonus counter: animate 20 → BONUS_REMAINING on viewport enter ──
+// ── Bonus counter: LIVE. Reads /api/bonus/count, animates TOTAL → remaining ──
 (() => {
   const counterEl = document.getElementById('bonus-counter');
   if (!counterEl) return;
@@ -1787,45 +1787,51 @@ attachFaqListeners();
   const takenEl   = document.getElementById('bonus-counter-taken');
   const soldBadge = document.getElementById('bonus-soldout-badge');
   const ctaBtn    = document.getElementById('bonus-cta-btn') as HTMLElement | null;
-  const isSoldOut = BONUS_REMAINING <= 0;
 
-  if (isSoldOut) {
-    counterEl.style.opacity = '0.6';
-    counterEl.style.filter  = 'grayscale(0.4)';
-    if (soldBadge) soldBadge.classList.remove('hidden');
-    if (ctaBtn) {
-      ctaBtn.style.opacity = '0.55';
-      ctaBtn.style.pointerEvents = 'none';
-      ctaBtn.classList.remove('btn-pulse');
-    }
-  }
+  // Initial paint — everything full, animation waits for the API + viewport.
+  if (numEl) numEl.textContent = String(BONUS_TOTAL);
+  if (takenEl) takenEl.textContent = '0';
+  if (barEl) barEl.style.width = '100%';
 
-  const target = Math.max(0, BONUS_REMAINING);
+  let live = { total: BONUS_TOTAL, remaining: BONUS_TOTAL };
+  fetch('/api/bonus/count')
+    .then(r => r.ok ? r.json() : null)
+    .then(d => { if (d && typeof d.total === 'number' && typeof d.remaining === 'number') live = d; })
+    .catch(() => { /* fall back to defaults above */ });
 
   const animate = () => {
+    const target   = Math.max(0, live.remaining);
+    const total    = Math.max(1, live.total);
+    if (target <= 0) {
+      counterEl.style.opacity = '0.6';
+      counterEl.style.filter  = 'grayscale(0.4)';
+      if (soldBadge) soldBadge.classList.remove('hidden');
+      if (ctaBtn) {
+        ctaBtn.style.opacity = '0.55';
+        ctaBtn.style.pointerEvents = 'none';
+        ctaBtn.classList.remove('btn-pulse');
+      }
+    }
     const duration = 1800;
     const startTime = performance.now();
     const tick = (now: number) => {
       const p = Math.min(1, (now - startTime) / duration);
       const eased = 1 - Math.pow(1 - p, 3);
-      const cur = Math.round(BONUS_TOTAL - (BONUS_TOTAL - target) * eased);
-      const takenCur = BONUS_TOTAL - cur;
+      const cur = Math.round(total - (total - target) * eased);
+      const takenCur = total - cur;
       if (numEl) numEl.textContent = String(cur);
       if (takenEl) takenEl.textContent = String(takenCur);
-      if (barEl) barEl.style.width = (cur / BONUS_TOTAL * 100) + '%';
+      if (barEl) barEl.style.width = (cur / total * 100) + '%';
       if (p < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
   };
 
-  if (numEl) numEl.textContent = String(BONUS_TOTAL);
-  if (takenEl) takenEl.textContent = '0';
-  if (barEl) barEl.style.width = '100%';
-
   const bonusObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        animate();
+        // Give the fetch a tick to settle if it's already in-flight.
+        setTimeout(animate, 150);
         bonusObs.unobserve(e.target);
       }
     });

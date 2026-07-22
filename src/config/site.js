@@ -101,11 +101,13 @@ export const SITE = {
 };
 
 // === Bonus counter ===
-// Меняй это число вручную когда продаются места.
-// Стартует с BONUS_TOTAL, на странице анимацией откручивается до BONUS_REMAINING.
-// Когда станет 0 — блок становится серым, кнопка → "Бонус закончился".
-export const BONUS_TOTAL     = 20;
-export const BONUS_REMAINING = 15;
+// BONUS_TOTAL is the launch-bonus slots (first-N promo). The counter is now
+// LIVE: the client fetches /api/bonus/count on load and animates from TOTAL
+// down to (TOTAL − sold). BONUS_REMAINING below is the SSR/no-JS fallback
+// only — real value comes from the endpoint. Server side lives in
+// functions/api/bonus/count.ts (keep TOTAL there in sync).
+export const BONUS_TOTAL     = 50;
+export const BONUS_REMAINING = 50;
 
 // Locale → BCP 47 + OG locale mapping
 export const LOCALES = {

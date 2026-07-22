@@ -16,7 +16,19 @@ import { sendEmail } from '../../_lib/resend';
 import type { ResendEnv } from '../../_lib/resend';
 import { signDownloadToken } from '../../_lib/dl';
 
-type Env = PaddleEnv & ResendEnv & { SITE_URL?: string; CRON_SECRET?: string; TELEGRAM_COMMUNITY_URL?: string };
+type Env = PaddleEnv & ResendEnv & { SITE_URL?: string; CRON_SECRET?: string; TELEGRAM_COMMUNITY_URL?: string; PDF_BUCKET?: R2Bucket };
+
+// Launch-bonus counter (first-50 promo). Increments idempotently — the same
+// Paddle transaction id can arrive twice and we count it once.
+const BONUS_COUNT_KEY = 'bonus/count';
+async function bumpBonusCount(bucket: R2Bucket, txnId: string): Promise<void> {
+  const seenKey = `bonus/txn/${txnId}`;
+  if (await bucket.head(seenKey)) return;
+  await bucket.put(seenKey, '1');
+  const cur = await bucket.get(BONUS_COUNT_KEY);
+  const n = cur ? parseInt(await cur.text(), 10) || 0 : 0;
+  await bucket.put(BONUS_COUNT_KEY, String(n + 1));
+}
 
 const EXPIRY_DAYS = 7;
 const MAX_DOWNLOADS = 3;
@@ -78,6 +90,12 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
         subject: 'Ваш PDF — Bento Cake by TROUBLEBABA',
         html: deliverEmailHtml(link, env.TELEGRAM_COMMUNITY_URL),
       });
+    }
+
+    // Fire-and-forget bonus counter bump. Failure must not break checkout.
+    if (env.PDF_BUCKET && data?.id) {
+      try { await bumpBonusCount(env.PDF_BUCKET, String(data.id)); }
+      catch (e: any) { console.warn('[bonus] bump failed:', e?.message); }
     }
   }
 
