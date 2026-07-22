@@ -2,6 +2,7 @@
 // Isolated Paddle sandbox test page — NOT linked anywhere, noindex.
 // Lets the owner run the full purchase flow (test card) without touching the
 // live presale homepage. Remove or gate before production launch.
+// UI language switch (top-right flags) is client-side; ?ui=xx picks it.
 import { SITE } from '../config/site.js';
 
 const P = SITE.paddle;
@@ -18,8 +19,12 @@ const DL = SITE.download;
     :root { --cream:#F5EFE8; --espresso:#1A1A1A; --mocha:#8B7355; --taupe:#C8B8A2; }
     * { box-sizing: border-box; }
     body { margin:0; font-family: system-ui, -apple-system, sans-serif; background:var(--cream); color:var(--espresso); display:flex; min-height:100vh; align-items:center; justify-content:center; padding:24px; }
-    .card { background:#fff; border:1px solid rgba(200,184,162,.4); border-radius:24px; padding:40px 48px; max-width:720px; width:100%; box-shadow:0 20px 60px rgba(139,115,85,.15); }
+    .card { position:relative; background:#fff; border:1px solid rgba(200,184,162,.4); border-radius:24px; padding:40px 48px; max-width:720px; width:100%; box-shadow:0 20px 60px rgba(139,115,85,.15); }
     @media (max-width: 600px) { .card { padding:28px 24px; } }
+    .lang-bar { display:flex; gap:6px; justify-content:flex-end; margin:-16px -16px 20px 0; }
+    .lang-bar button { width:auto; background:transparent; color:#6b6257; padding:6px 10px; font-size:.78rem; font-weight:600; border:1px solid rgba(200,184,162,.5); border-radius:8px; letter-spacing:.02em; cursor:pointer; }
+    .lang-bar button:hover { background:#f5efe8; }
+    .lang-bar button.active { background:var(--mocha); color:#fff; border-color:var(--mocha); }
     h1 { font-size:1.5rem; margin:0 0 6px; }
     p.sub { color:#6b6257; font-size:.92rem; margin:0 0 24px; line-height:1.6; }
     label.field { display:block; font-size:.8rem; font-weight:600; text-transform:uppercase; letter-spacing:.08em; color:var(--mocha); margin:0 0 6px; }
@@ -42,16 +47,23 @@ const DL = SITE.download;
 </head>
 <body>
   <div class="card">
-    <div class="price">${SITE.price}</div>
-    <h1>Bento Cake — 10 рецептів (PDF)</h1>
-    <p class="sub">Тестова покупка через Paddle Sandbox. Реальні гроші не проходять — використовуйте тестову картку <code>4242 4242 4242 4242</code>, будь-яку майбутню дату та CVC.</p>
+    <div class="lang-bar" role="group" aria-label="UI language">
+      <button type="button" data-ui="uk">🇺🇦 UA</button>
+      <button type="button" data-ui="ru">🇷🇺 RU</button>
+      <button type="button" data-ui="en">🇬🇧 EN</button>
+      <button type="button" data-ui="pl">🇵🇱 PL</button>
+    </div>
 
-    <label class="field" for="email">Ваш email (сюди прийде файл)</label>
+    <div class="price">${SITE.price}</div>
+    <h1 data-i18n="title"></h1>
+    <p class="sub" data-i18n="sub"></p>
+
+    <label class="field" for="email" data-i18n="email_label"></label>
     <input id="email" type="email" placeholder="you@example.com" autocomplete="email" required />
 
-    <label class="field" for="lang">Мова PDF <span style="color:#c04040">*</span></label>
+    <label class="field" for="lang"><span data-i18n="lang_label"></span> <span style="color:#c04040">*</span></label>
     <select id="lang" required autocomplete="off">
-      <option value="" disabled selected>— Оберіть мову —</option>
+      <option value="" disabled selected data-i18n="lang_placeholder"></option>
       <option value="uk">Українська</option>
       <option value="ru">Русский</option>
       <option value="en">English</option>
@@ -61,32 +73,132 @@ const DL = SITE.download;
     <div class="ack">
       <input type="checkbox" id="ack" autocomplete="off" />
       <label for="ack">
-        Я підтверджую, що обрав(-ла) PDF мовою <b id="ack-lang">—</b>. Розумію, що це фінальний вибір; після оплати доступ до файлу відкривається одразу. Повернення коштів через «не та мова» не здійснюється (цифровий товар).
+        <span data-i18n="ack_prefix"></span> <b id="ack-lang">—</b><span data-i18n="ack_suffix"></span>
       </label>
     </div>
 
-    <p class="note" style="margin:0 0 14px">⏳ Після оплати ви отримаєте персональне посилання на PDF: діє <b>{DL.expiryDays} днів</b>, до <b>{DL.maxDownloads} завантажень</b>. Збережіть файл одразу.</p>
+    <p class="note" style="margin:0 0 14px" data-i18n="delivery_note"></p>
 
-    <button id="buy" type="button" disabled>Купити за ${SITE.price}</button>
+    <button id="buy" type="button" disabled data-i18n="buy_cta"></button>
 
     <div id="status"></div>
-    <p class="note">Sandbox · price <code>{P.priceBundle}</code>. Після оплати вебхук надішле лист із посиланням на PDF обраною мовою.</p>
+    <p class="note" data-i18n="sandbox_note"></p>
   </div>
 
   <script src="https://cdn.paddle.com/paddle/v2/paddle.js" is:inline></script>
-  <script define:vars={{ P, DL }} is:inline>
+  <script define:vars={{ P, DL, PRICE: SITE.price, BUNDLE_ID: P.priceBundle }} is:inline>
     const LANG_NAMES = { uk: 'Українська', ru: 'Русский', en: 'English', pl: 'Polski' };
+    const TEXTS = {
+      uk: {
+        title:        'Bento Cake — 10 рецептів (PDF)',
+        sub:          'Тестова покупка через Paddle Sandbox. Реальні гроші не проходять — використовуйте тестову картку 4242 4242 4242 4242, будь-яку майбутню дату та CVC.',
+        email_label:  'Ваш email (сюди прийде файл)',
+        lang_label:   'Мова PDF',
+        lang_placeholder: '— Оберіть мову —',
+        ack_prefix:   'Я підтверджую, що обрав(-ла) PDF мовою',
+        ack_suffix:   '. Розумію, що це фінальний вибір; після оплати доступ до файлу відкривається одразу. Повернення коштів через «не та мова» не здійснюється (цифровий товар).',
+        delivery_note:'⏳ Після оплати ви отримаєте персональне посилання на PDF: діє ' + DL.expiryDays + ' днів, до ' + DL.maxDownloads + ' завантажень. Збережіть файл одразу.',
+        buy_cta:      'Купити за $' + PRICE,
+        sandbox_note: 'Sandbox · price ' + BUNDLE_ID + '. Після оплати вебхук надішле лист із посиланням на PDF обраною мовою.',
+        success:      lang => '✓ Оплата успішна! Персональне посилання на PDF (' + lang + ') надіслано вам на пошту.',
+        success_sub:  '<span style="font-size:.85rem;color:#6b6257">Посилання діє ' + DL.expiryDays + ' днів і розраховане на ' + DL.maxDownloads + ' завантаження — збережіть файл одразу.</span>',
+        err_fill:     'Заповніть email, оберіть мову та підтвердіть вибір.',
+        err_paddle:   'Paddle.js не завантажився (перевірте CSP/мережу).',
+        err_init:     'Помилка ініціалізації Paddle: ',
+        err_open:     'Не вдалося відкрити чекаут: ',
+      },
+      ru: {
+        title:        'Bento Cake — 10 рецептов (PDF)',
+        sub:          'Тестовая покупка через Paddle Sandbox. Реальные деньги не проходят — используйте тестовую карту 4242 4242 4242 4242, любую будущую дату и CVC.',
+        email_label:  'Ваш email (сюда придёт файл)',
+        lang_label:   'Язык PDF',
+        lang_placeholder: '— Выберите язык —',
+        ack_prefix:   'Я подтверждаю, что выбрал(-а) PDF на языке',
+        ack_suffix:   '. Понимаю, что это окончательный выбор; после оплаты доступ к файлу открывается сразу. Возврат средств по причине «не тот язык» не производится (цифровой товар).',
+        delivery_note:'⏳ После оплаты вы получите персональную ссылку на PDF: действует ' + DL.expiryDays + ' дней, до ' + DL.maxDownloads + ' скачиваний. Сохраните файл сразу.',
+        buy_cta:      'Купить за $' + PRICE,
+        sandbox_note: 'Sandbox · price ' + BUNDLE_ID + '. После оплаты вебхук отправит письмо со ссылкой на PDF на выбранном языке.',
+        success:      lang => '✓ Оплата успешна! Персональная ссылка на PDF (' + lang + ') отправлена вам на почту.',
+        success_sub:  '<span style="font-size:.85rem;color:#6b6257">Ссылка действует ' + DL.expiryDays + ' дней и рассчитана на ' + DL.maxDownloads + ' скачивания — сохраните файл сразу.</span>',
+        err_fill:     'Заполните email, выберите язык и подтвердите выбор.',
+        err_paddle:   'Paddle.js не загрузился (проверьте CSP/сеть).',
+        err_init:     'Ошибка инициализации Paddle: ',
+        err_open:     'Не удалось открыть чекаут: ',
+      },
+      en: {
+        title:        'Bento Cake — 10 recipes (PDF)',
+        sub:          'Sandbox purchase via Paddle. No real money is charged — use test card 4242 4242 4242 4242, any future date and CVC.',
+        email_label:  'Your email (the file will be sent here)',
+        lang_label:   'PDF language',
+        lang_placeholder: '— Pick a language —',
+        ack_prefix:   'I confirm I have picked the PDF in',
+        ack_suffix:   '. I understand this is final; access opens immediately after payment. No refunds for "wrong language" claims (digital product).',
+        delivery_note:'⏳ After payment you\'ll get a personal PDF link: valid for ' + DL.expiryDays + ' days, up to ' + DL.maxDownloads + ' downloads. Save the file right away.',
+        buy_cta:      'Buy for $' + PRICE,
+        sandbox_note: 'Sandbox · price ' + BUNDLE_ID + '. After payment the webhook sends an email with the PDF in the chosen language.',
+        success:      lang => '✓ Payment successful! A personal PDF link (' + lang + ') has been sent to your email.',
+        success_sub:  '<span style="font-size:.85rem;color:#6b6257">The link is valid for ' + DL.expiryDays + ' days and allows ' + DL.maxDownloads + ' downloads — save the file right away.</span>',
+        err_fill:     'Fill in email, pick a language, and confirm your choice.',
+        err_paddle:   'Paddle.js failed to load (check CSP/network).',
+        err_init:     'Paddle init error: ',
+        err_open:     'Could not open checkout: ',
+      },
+      pl: {
+        title:        'Bento Cake — 10 przepisów (PDF)',
+        sub:          'Zakup testowy przez Paddle Sandbox. Prawdziwe pieniądze nie są pobierane — użyj karty testowej 4242 4242 4242 4242, dowolnej przyszłej daty i CVC.',
+        email_label:  'Twój email (tu przyjdzie plik)',
+        lang_label:   'Język PDF',
+        lang_placeholder: '— Wybierz język —',
+        ack_prefix:   'Potwierdzam, że wybrałem(-am) PDF w języku',
+        ack_suffix:   '. Rozumiem, że to wybór ostateczny; dostęp otwiera się natychmiast po opłacie. Nie zwracamy pieniędzy z powodu „nie ten język" (produkt cyfrowy).',
+        delivery_note:'⏳ Po opłaceniu otrzymasz osobisty link do PDF: ważny ' + DL.expiryDays + ' dni, do ' + DL.maxDownloads + ' pobrań. Zapisz plik od razu.',
+        buy_cta:      'Kup za $' + PRICE,
+        sandbox_note: 'Sandbox · price ' + BUNDLE_ID + '. Po opłacie webhook wyśle e-mail z linkiem do PDF w wybranym języku.',
+        success:      lang => '✓ Płatność udana! Osobisty link do PDF (' + lang + ') został wysłany na Twój e-mail.',
+        success_sub:  '<span style="font-size:.85rem;color:#6b6257">Link jest ważny ' + DL.expiryDays + ' dni i pozwala na ' + DL.maxDownloads + ' pobrania — zapisz plik od razu.</span>',
+        err_fill:     'Wpisz e-mail, wybierz język i potwierdź wybór.',
+        err_paddle:   'Paddle.js nie załadował się (sprawdź CSP/sieć).',
+        err_init:     'Błąd inicjalizacji Paddle: ',
+        err_open:     'Nie udało się otworzyć czekautu: ',
+      },
+    };
+
     const statusEl = document.getElementById('status');
     const emailEl  = document.getElementById('email');
     const langEl   = document.getElementById('lang');
     const ackEl    = document.getElementById('ack');
     const ackLang  = document.getElementById('ack-lang');
     const buy      = document.getElementById('buy');
-    const show = (msg, ok) => { statusEl.textContent = msg; statusEl.className = ok ? 'ok' : 'err'; };
     let ready = false;
+    let ui = 'uk';
+    let T = TEXTS.uk;
+
+    function applyTexts() {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (T[k] !== undefined) el.textContent = T[k];
+      });
+      document.documentElement.lang = ui;
+      document.title = T.title + ' — Checkout test';
+      document.querySelectorAll('.lang-bar button').forEach(b => {
+        b.classList.toggle('active', b.dataset.ui === ui);
+      });
+    }
+    function setUi(next) {
+      if (!TEXTS[next]) next = 'uk';
+      ui = next;
+      T = TEXTS[next];
+      const url = new URL(window.location.href);
+      if (next === 'uk') url.searchParams.delete('ui'); else url.searchParams.set('ui', next);
+      history.replaceState(null, '', url.toString());
+      applyTexts();
+      refreshAck();
+    }
+
+    const show = (msg, ok) => { statusEl.textContent = msg; statusEl.className = ok ? 'ok' : 'err'; };
 
     function boot() {
-      if (!window.Paddle) { show('Paddle.js не завантажився (перевірте CSP/мережу).', false); return; }
+      if (!window.Paddle) { show(T.err_paddle, false); return; }
       try {
         window.Paddle.Environment.set(P.environment);
         window.Paddle.Initialize({
@@ -94,22 +206,17 @@ const DL = SITE.download;
           eventCallback: (e) => {
             if (e.name === 'checkout.completed') {
               statusEl.className = 'ok';
-              statusEl.innerHTML = '✓ Оплата успішна! Персональне посилання на PDF (' + (LANG_NAMES[langEl.value] || '—') +
-                ') надіслано вам на пошту.<br><br>' +
-                '<span style="font-size:.85rem;color:#6b6257">Посилання діє ' + DL.expiryDays +
-                ' днів і розраховане на ' + DL.maxDownloads + ' завантаження — збережіть файл одразу.</span>';
+              statusEl.innerHTML = T.success(LANG_NAMES[langEl.value] || '—') + '<br><br>' + T.success_sub;
             }
           },
         });
         ready = true;
-      } catch (err) { show('Помилка ініціалізації Paddle: ' + err, false); }
+      } catch (err) { show(T.err_init + err, false); }
     }
 
     function refreshAck() {
       const lang = langEl.value;
       ackLang.textContent = LANG_NAMES[lang] || '—';
-      // Reset acknowledgement any time the language changes — buyer must
-      // re-confirm the specific language they're locking in.
       if (!lang) { ackEl.checked = false; ackEl.disabled = true; }
       else       { ackEl.disabled = false; }
       validate();
@@ -124,8 +231,14 @@ const DL = SITE.download;
     langEl.addEventListener('change', refreshAck);
     ackEl.addEventListener('change', validate);
     emailEl.addEventListener('input', validate);
-    // Force a clean slate every page load — Firefox/Safari otherwise restore
-    // the previous submission and the buyer's language "choice" looks pre-made.
+    document.querySelectorAll('.lang-bar button').forEach(b => {
+      b.addEventListener('click', () => setUi(b.dataset.ui));
+    });
+
+    // Init UI language: ?ui=xx, else browser lang, else uk.
+    const qs = new URLSearchParams(window.location.search);
+    const wanted = qs.get('ui') || (navigator.language || '').slice(0,2).toLowerCase();
+    setUi(TEXTS[wanted] ? wanted : 'uk');
     langEl.value = '';
     ackEl.checked = false;
     refreshAck();
@@ -133,16 +246,16 @@ const DL = SITE.download;
     buy.addEventListener('click', () => {
       if (!ready) boot();
       if (!ready) return;
-      if (buy.disabled) { show('Заповніть email, оберіть мову та підтвердіть вибір.', false); return; }
+      if (buy.disabled) { show(T.err_fill, false); return; }
       const items = [{ priceId: P.priceBundle, quantity: 1 }];
       const opts = {
         items,
         settings: { displayMode: 'overlay', theme: 'light' },
-        customData: { lang: langEl.value, lang_ack: 1 },
+        customData: { lang: langEl.value, lang_ack: 1, ui_lang: ui },
         customer:   { email: emailEl.value.trim() },
       };
       try { window.Paddle.Checkout.open(opts); }
-      catch (err) { show('Не вдалося відкрити чекаут: ' + err, false); }
+      catch (err) { show(T.err_open + err, false); }
     });
 
     if (document.readyState !== 'loading') boot(); else document.addEventListener('DOMContentLoaded', boot);
