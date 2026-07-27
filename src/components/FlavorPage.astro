@@ -21,15 +21,15 @@ const others = (FLAVORS as any[]).filter(x => x.slug !== slug).slice(0, 6);
 const langPrefix = lang === 'uk' ? '' : '/' + lang;
 const flavorUrl = (s: string) => `${langPrefix}/recipes/${s}/`;
 
-// Price ladder (single recipe vs full bundle) — localized copy with EN fallback.
-const P = { single: SITE.priceSingle, bundle: SITE.price, save: SITE.bundleSaving };
-const LADDER: Record<string, { single: string; bundle: string; save: string; hint: string }> = {
-  uk: { single: 'Цей рецепт окремо', bundle: 'Весь збірник · 10 рецептів', save: `вигідніше на $${P.save}`, hint: `10 рецептів окремо — $${P.single * 10}. Збірник — лише $${P.bundle}.` },
-  ru: { single: 'Этот рецепт отдельно', bundle: 'Весь сборник · 10 рецептов', save: `выгоднее на $${P.save}`, hint: `10 рецептов по отдельности — $${P.single * 10}. Сборник — всего $${P.bundle}.` },
-  pl: { single: 'Ten przepis osobno', bundle: 'Cały zbiór · 10 przepisów', save: `taniej o $${P.save}`, hint: `10 przepisów osobno — $${P.single * 10}. Zbiór — tylko $${P.bundle}.` },
-  en: { single: 'This recipe alone', bundle: 'Full bundle · 10 recipes', save: `save $${P.save}`, hint: `10 recipes separately — $${P.single * 10}. The bundle — just $${P.bundle}.` },
+// Bundle-only pricing card (single-recipe sale removed by owner ask —
+// we only sell the full 10-recipe collection). Localized per lang.
+const BUNDLE_CARD: Record<string, { title: string; hint: string; price: string }> = {
+  uk: { title: 'Весь збірник · 10 рецептів', hint: 'Один платіж — усі 10 рецептів у PDF назавжди.', price: '800 ₴' },
+  ru: { title: 'Весь сборник · 10 рецептов', hint: 'Один платёж — все 10 рецептов в PDF навсегда.', price: '$20' },
+  pl: { title: 'Cały zbiór · 10 przepisów',  hint: 'Jedna płatność — wszystkie 10 przepisów w PDF na zawsze.', price: '80 zł' },
+  en: { title: 'Full bundle · 10 recipes',   hint: 'One payment — all 10 recipes in PDF, yours forever.', price: '€18' },
 };
-const L = LADDER[lang] ?? LADDER.en;
+const B = BUNDLE_CARD[lang] ?? BUNDLE_CARD.en;
 ---
 <main class="min-h-[100dvh]" style="background:#F5EFE8;">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16 py-12 lg:py-20">
@@ -95,20 +95,15 @@ const L = LADDER[lang] ?? LADDER.en;
           </div>
         )}
 
-        <!-- Price ladder: single recipe vs full bundle (bundle wins) -->
+        <!-- Bundle-only price card (we sell the full collection, no per-recipe sales) -->
         <div class="rounded-2xl overflow-hidden mb-6" style="border:1px solid rgba(200,184,162,0.4);">
-          <div class="flex items-center justify-between gap-4 px-5 py-4 bg-warm-white">
-            <span class="font-outfit text-espresso/70 text-[14px]">{L.single}</span>
-            <span class="font-cabinet text-espresso text-[20px]">${P.single}</span>
-          </div>
           <div class="flex items-center justify-between gap-4 px-5 py-4 bg-espresso relative">
             <div>
-              <div class="font-outfit font-bold text-warm-white text-[14px]">{L.bundle}</div>
-              <div class="font-outfit text-warm-white/60 text-[12px] mt-0.5">{L.hint}</div>
+              <div class="font-outfit font-bold text-warm-white text-[14px]">{B.title}</div>
+              <div class="font-outfit text-warm-white/60 text-[12px] mt-0.5">{B.hint}</div>
             </div>
             <div class="text-right flex-shrink-0">
-              <div class="font-cabinet text-warm-white text-[22px] leading-none">${P.bundle}</div>
-              <div class="font-outfit font-semibold text-mocha-light text-[11px] uppercase tracking-wide mt-1" style="color:#C8B8A2;">{L.save}</div>
+              <div class="font-cabinet text-warm-white text-[22px] leading-none">{B.price}</div>
             </div>
           </div>
         </div>

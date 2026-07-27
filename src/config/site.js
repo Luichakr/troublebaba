@@ -40,10 +40,13 @@ export const SITE = {
   paymentUrl:   'https://gumroad.com/l/bentocake',
 
   // Commerce
+  // We only sell the full 10-recipe bundle. Per-recipe / mini-bundle sales
+  // are OFF (owner decision). `priceSingle` + `bundleSaving` are kept as
+  // constants for legacy backend code paths that are no longer wired to any
+  // customer CTA; do not surface them in UI.
   price:       20,            // full bundle — all 10 recipes
-  priceSingle: 5,             // one recipe bought separately (ladder entry point)
+  priceSingle: 5,             // legacy — not sold, unused in UI
   currency:    'USD',
-  // 10 singles = $50 → bundle $20 saves $30. Used for the price-anchor on recipe pages.
   get bundleSaving() { return this.priceSingle * 10 - this.price; },
 
   // === Paddle (Merchant of Record) ===
