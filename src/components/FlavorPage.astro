@@ -17,7 +17,7 @@ const ingCopy = (INGREDIENTS_COPY as any)[lang];
 const hub = (RECIPES_HUB as any)[lang] ?? (RECIPES_HUB as any).en;
 
 // Other flavors for internal linking (exclude current).
-const others = (FLAVORS as any[]).filter(x => x.slug !== slug).slice(0, 6);
+const others = (FLAVORS as any[]).filter(x => x.slug !== slug);
 const langPrefix = lang === 'uk' ? '' : '/' + lang;
 const flavorUrl = (s: string) => `${langPrefix}/recipes/${s}/`;
 
@@ -115,12 +115,13 @@ const B = BUNDLE_CARD[lang] ?? BUNDLE_CARD.en;
       </div>
     </div>
 
-    <!-- Other flavors -->
+    <!-- Other flavors — horizontal scroller so all 9 stay reachable -->
     <section class="mt-20">
       <h2 class="font-cabinet text-espresso text-2xl mb-8">{hub.allLabel}</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 lg:gap-4">
+      <div class="flex gap-3 lg:gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth"
+           style="scrollbar-width:thin;-webkit-overflow-scrolling:touch;">
         {others.map((o: any) => (
-          <a href={flavorUrl(o.slug)} class="group block">
+          <a href={flavorUrl(o.slug)} class="group block flex-shrink-0 snap-start w-[42vw] sm:w-[220px] lg:w-[200px]">
             <div class="relative rounded-xl overflow-hidden mb-2" style="aspect-ratio:4/5;">
               <img src={o.image} alt={(o.t[lang] ?? o.t.en).name} width="1122" height="1402" loading="lazy" decoding="async"
                    class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.style.display='none'" />
