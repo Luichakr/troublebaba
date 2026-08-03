@@ -156,7 +156,7 @@ const postUrl = (slug: string) => `${langPrefix}/blog/${slug}/`;
     {all.length === 0 ? (
       <p class="font-outfit text-espresso/45 italic py-10">{tr.blog_empty}</p>
     ) : (
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {all.map((post: any) => (
           <a href={postUrl(post.data.slug)} class="group block bg-warm-white rounded-2xl overflow-hidden" style="box-shadow:0 4px 18px rgba(139,115,85,0.10);">
             {post.data.cover && (
