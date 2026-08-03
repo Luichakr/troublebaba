@@ -27,13 +27,13 @@ const postUrl = (slug: string) => `${langPrefix}/blog/${slug}/`;
     </header>
 
     {/* 3-in-a-row social/video cards — Instagram · Video · TikTok, same size */}
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
+    <div class="grid grid-cols-1 gap-5 mb-8">
 
       <a href={SITE.instagramUrl} target="_blank" rel="noopener noreferrer"
          data-analytics="blog_platform_block" data-platform="instagram"
          class="group block rounded-2xl bg-warm-white overflow-hidden hover:-translate-y-0.5 transition-transform duration-300"
          style="box-shadow:0 8px 32px rgba(139,115,85,0.10); border:1px solid rgba(200,184,162,0.30);">
-        <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,140px)] items-stretch">
+        <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,260px)] items-stretch">
           <div class="px-5 py-6 flex flex-col justify-center">
             <div class="flex items-center gap-2 mb-3">
               <span class="w-6 h-6 rounded-md flex items-center justify-center" style="background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg></span>
@@ -56,7 +56,7 @@ const postUrl = (slug: string) => `${langPrefix}/blog/${slug}/`;
          data-analytics="blog_videos_promo_click" data-platform="shorts"
          class="group block rounded-2xl bg-warm-white overflow-hidden hover:-translate-y-0.5 transition-transform duration-300"
          style="box-shadow:0 8px 32px rgba(139,115,85,0.10); border:1px solid rgba(200,184,162,0.30);">
-        <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,140px)] items-stretch">
+        <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,260px)] items-stretch">
           <div class="px-5 py-6 flex flex-col justify-center">
             <div class="flex items-center gap-2 mb-3">
               <span class="w-6 h-6 rounded-md flex items-center justify-center" style="background:#B85959;"><svg width="10" height="12" viewBox="0 0 22 24" fill="none"><path d="M3 2v20l17-10L3 2z" fill="white"/></svg></span>
@@ -79,7 +79,7 @@ const postUrl = (slug: string) => `${langPrefix}/blog/${slug}/`;
          data-analytics="blog_platform_block" data-platform="tiktok"
          class="group block rounded-2xl bg-warm-white overflow-hidden hover:-translate-y-0.5 transition-transform duration-300"
          style="box-shadow:0 8px 32px rgba(139,115,85,0.10); border:1px solid rgba(200,184,162,0.30);">
-        <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,140px)] items-stretch">
+        <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,260px)] items-stretch">
           <div class="px-5 py-6 flex flex-col justify-center">
             <div class="flex items-center gap-2 mb-3">
               <span class="w-6 h-6 rounded-md flex items-center justify-center" style="background:#000;"><svg width="11" height="13" viewBox="0 0 24 26" fill="none"><path d="M17 1C17.3 4.5 19.3 6.8 23 7.1V11C21 10.8 19.2 10.1 17.7 9V17.5C17.7 21.9 14.4 25.5 10 25.5C5.6 25.5 2 22 2 17.6C2 13.1 5.5 9.8 10 9.8C10.4 9.8 10.7 9.8 11 9.9V14C10.7 13.9 10.4 13.9 10 13.9C7.8 13.9 6 15.6 6 17.8C6 20 7.8 21.6 10 21.6C12.2 21.6 14.1 19.9 14.1 17.7L14.2 1H17Z" fill="white"/></svg></span>
