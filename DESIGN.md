@@ -229,8 +229,14 @@ Banned motion:
 
 ## 7. Layout Principles (project-specific)
 
-- **Hero:** left-aligned copy column (60% width on desktop), right-aligned
-  hero image (40%). No centered hero. Copy stack order: eyebrow +
+- **Hero:** two acceptable asymmetric splits — never 50:50, never centered:
+  - *Copy-forward* 60:40 (copy : image), or
+  - *Image-forward* 40:60 (copy : image) — used on the homepage, where the
+    styled product photo is the primary emotional hook. The copy column is
+    capped at `max-width: 520px` and vertically centered; the image fills the
+    remaining width full-bleed to the viewport edge on desktop.
+  Left-aligned copy column, right-aligned hero image. Copy stack order:
+  eyebrow +
   decorative motif → display headline → sub-paragraph → feature chip
   cluster → primary CTA + ghost CTA row → stats strip.
 - **Primary CTA sits under the chip cluster**, aligned to the left column
