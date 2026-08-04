@@ -54,9 +54,19 @@ export const SITE = {
   // Secrets (PADDLE_API_KEY, PADDLE_WEBHOOK_SECRET, RESEND_API_KEY) live in
   // Cloudflare Pages env vars — never in this file.
   paddle: {
+    // Flip to 'production' AFTER: (1) Paddle KYC done, (2) PADDLE_API_KEY /
+    // PADDLE_WEBHOOK_SECRET live keys set in CF Pages env, (3) LIVE
+    // clientToken swapped in below, (4) LIVE webhook destination added in
+    // Paddle → Notifications → https://troublebaba.com/api/paddle/webhook.
     environment: 'sandbox',                       // 'sandbox' | 'production'
     clientToken: 'test_6b6f239298644d456e6a612754e',
-    priceBundle: 'pri_01kxe47ghn2jy5eream7989qqz', // $20 — all 10 recipes (one-time)
+    // Sandbox price (kept for reference — used when environment='sandbox'):
+    //   priceBundle: 'pri_01kxe47ghn2jy5eream7989qqz'  // $20
+    // LIVE price (used when environment='production'):
+    //   pro_01kz6tacby2h5y54q0khk6cx0n — Bento Cake — 10 recipes (PDF)
+    //   base $20 USD + overrides: UA 800 UAH, PL 80 PLN, DE/FR €18
+    priceBundle: 'pri_01kxe47ghn2jy5eream7989qqz', // swap to LIVE below when going live
+    priceBundleLive: 'pri_01kz6tq6zt1jk79g9197shxcz1',
     priceSingle: '',                              // filled once per-recipe prices exist
   },
   // Download link policy (shown to buyers + enforced by /d/<token>).
