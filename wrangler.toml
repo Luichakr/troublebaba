@@ -12,7 +12,7 @@ pages_build_output_dir  = "dist"
 # Non-secret env vars (plaintext). Secrets (PADDLE_API_KEY, PADDLE_WEBHOOK_SECRET, TURNSTILE_SECRET,
 # RESEND_API_KEY, MONOBANK_*, ADMIN_PASS) live in the dashboard as Encrypted.
 [vars]
-PADDLE_ENV  = "sandbox"
+PADDLE_ENV  = "production"
 # Sends from the verified troublebaba.com domain (DKIM/SPF added via Resend →
 # Cloudflare Domain Connect) so delivery emails land in inbox, not spam.
 RESEND_FROM = "Bento Cake by TROUBLEBABA <hello@troublebaba.com>"
