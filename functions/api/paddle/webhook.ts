@@ -33,7 +33,7 @@ async function bumpBonusCount(bucket: R2Bucket, txnId: string): Promise<void> {
 const EXPIRY_DAYS = 7;
 const MAX_DOWNLOADS = 3;
 
-function deliverEmailHtml(link: string, receiptUrl?: string, communityUrl?: string): string {
+function deliverEmailHtml(link: string, _receiptUrl?: string, communityUrl?: string): string {
   const communityBlock = communityUrl
     ? `<p style="margin:24px 0 0">
          <a href="${communityUrl}" style="background:#f0e6d2;color:#1A1A1A;text-decoration:none;padding:12px 22px;border-radius:10px;font-weight:700;display:inline-block;border:1px solid #d9c7a3">
@@ -42,13 +42,13 @@ function deliverEmailHtml(link: string, receiptUrl?: string, communityUrl?: stri
        </p>
        <p style="font-size:12px;color:#8a8175;margin-top:8px">Закритий чат TROUBLEBABA: питання авторці, фото ваших робіт, оновлення збірника.</p>`
     : '';
-  const receiptBlock = receiptUrl
-    ? `<p style="font-size:13px;color:#6b6257;margin-top:20px">
-         Чек / інвойс за покупку: <a href="${receiptUrl}" style="color:#8B7355">переглянути</a>.
-       </p>`
-    : `<p style="font-size:13px;color:#6b6257;margin-top:20px">
-         Окремим листом від Paddle прийде офіційний чек за покупку — це нормально, зберігайте його.
-       </p>`;
+  // Paddle sends the official receipt as a separate email (enable it in
+  // Paddle Dashboard → Notifications → Buyer emails). We don't build a
+  // receipt URL ourselves — webhook payload doesn't carry a stable public
+  // one, so any link we invent leads to a wrong place.
+  const receiptBlock = `<p style="font-size:13px;color:#6b6257;margin-top:20px">
+       Окремим листом від Paddle прийде офіційний чек за покупку — це нормально, зберігайте його.
+     </p>`;
   return `
   <div style="font-family:system-ui,-apple-system,sans-serif;max-width:520px;margin:0 auto;color:#1A1A1A">
     <h2 style="color:#8B7355">Дякуємо за покупку! 🍰</h2>
