@@ -1366,7 +1366,7 @@ const guar = GUAR[lang] ?? GUAR.en;
           <div class="bg-warm-white rounded-[2rem] overflow-hidden h-full" style="box-shadow:0 4px 28px rgba(139,115,85,0.08);" id="faq-list">
             {(tr.faq_items as {q:string;a:string}[]).map((faq, i) => (
               <div class={`faq-item ${i === 0 ? 'open' : ''} cursor-pointer ${i > 0 ? 'border-t border-taupe/15' : ''}`} data-index={i} role="button" tabindex="0" aria-expanded={i === 0 ? 'true' : 'false'}>
-                <div class="flex items-center gap-6 px-8 py-7">
+                <div class="flex items-center gap-6 px-7 py-4">
                   <span class="font-outfit text-[11px] font-bold text-mocha/45 tracking-[0.2em] flex-shrink-0 w-7">
                     {String(i + 1).padStart(2, '0')}
                   </span>
@@ -1374,7 +1374,7 @@ const guar = GUAR[lang] ?? GUAR.en;
                   <span class="faq-icon w-9 h-9 rounded-full border border-taupe/30 flex items-center justify-center text-mocha text-xl leading-none font-light flex-shrink-0 select-none">+</span>
                 </div>
                 <div class="faq-content">
-                  <div class="mx-8 mb-7 px-6 py-5 rounded-2xl" style="background:#EFE6DA;">
+                  <div class="mx-7 mb-4 px-5 py-4 rounded-2xl" style="background:#EFE6DA;">
                     <p class="font-outfit text-espresso/65 text-[0.9rem] leading-relaxed whitespace-pre-line">{faq.a}</p>
                   </div>
                 </div>
