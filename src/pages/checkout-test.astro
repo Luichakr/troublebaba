@@ -54,7 +54,7 @@ const DL = SITE.download;
       <button type="button" data-ui="pl">PL</button>
     </div>
 
-    <div class="price">${SITE.price}</div>
+    <div class="price" id="price-display">${SITE.price}</div>
     <h1 data-i18n="title"></h1>
     <p class="sub" data-i18n="sub"></p>
 
@@ -98,7 +98,7 @@ const DL = SITE.download;
         ack_prefix:   'Я підтверджую, що обрав(-ла) PDF мовою',
         ack_suffix:   '. Розумію, що це фінальний вибір; після оплати доступ до файлу відкривається одразу. Повернення коштів через «не та мова» не здійснюється (цифровий товар).',
         delivery_note:'⏳ Після оплати ви отримаєте персональне посилання на PDF: діє ' + DL.expiryDays + ' днів, до ' + DL.maxDownloads + ' завантажень. Збережіть файл одразу.',
-        buy_cta:      'Купити за $' + PRICE,
+        buy_cta:      'Купити за 800 ₴',
         sandbox_note: 'Sandbox · price ' + BUNDLE_ID + '. Після оплати вебхук надішле лист із посиланням на PDF обраною мовою.',
         success:      lang => '✓ Оплата успішна! Персональне посилання на PDF (' + lang + ') надіслано вам на пошту.',
         success_sub:  '<span style="font-size:.85rem;color:#6b6257">Посилання діє ' + DL.expiryDays + ' днів і розраховане на ' + DL.maxDownloads + ' завантаження — збережіть файл одразу.</span>',
@@ -116,7 +116,7 @@ const DL = SITE.download;
         ack_prefix:   'Я подтверждаю, что выбрал(-а) PDF на языке',
         ack_suffix:   '. Понимаю, что это окончательный выбор; после оплаты доступ к файлу открывается сразу. Возврат средств по причине «не тот язык» не производится (цифровой товар).',
         delivery_note:'⏳ После оплаты вы получите персональную ссылку на PDF: действует ' + DL.expiryDays + ' дней, до ' + DL.maxDownloads + ' скачиваний. Сохраните файл сразу.',
-        buy_cta:      'Купить за $' + PRICE,
+        buy_cta:      'Купить за $20',
         sandbox_note: 'Sandbox · price ' + BUNDLE_ID + '. После оплаты вебхук отправит письмо со ссылкой на PDF на выбранном языке.',
         success:      lang => '✓ Оплата успешна! Персональная ссылка на PDF (' + lang + ') отправлена вам на почту.',
         success_sub:  '<span style="font-size:.85rem;color:#6b6257">Ссылка действует ' + DL.expiryDays + ' дней и рассчитана на ' + DL.maxDownloads + ' скачивания — сохраните файл сразу.</span>',
@@ -134,7 +134,7 @@ const DL = SITE.download;
         ack_prefix:   'I confirm I have picked the PDF in',
         ack_suffix:   '. I understand this is final; access opens immediately after payment. No refunds for "wrong language" claims (digital product).',
         delivery_note:'⏳ After payment you\'ll get a personal PDF link: valid for ' + DL.expiryDays + ' days, up to ' + DL.maxDownloads + ' downloads. Save the file right away.',
-        buy_cta:      'Buy for $' + PRICE,
+        buy_cta:      'Buy for $20',
         sandbox_note: 'Sandbox · price ' + BUNDLE_ID + '. After payment the webhook sends an email with the PDF in the chosen language.',
         success:      lang => '✓ Payment successful! A personal PDF link (' + lang + ') has been sent to your email.',
         success_sub:  '<span style="font-size:.85rem;color:#6b6257">The link is valid for ' + DL.expiryDays + ' days and allows ' + DL.maxDownloads + ' downloads — save the file right away.</span>',
@@ -152,7 +152,7 @@ const DL = SITE.download;
         ack_prefix:   'Potwierdzam, że wybrałem(-am) PDF w języku',
         ack_suffix:   '. Rozumiem, że to wybór ostateczny; dostęp otwiera się natychmiast po opłacie. Nie zwracamy pieniędzy z powodu „nie ten język" (produkt cyfrowy).',
         delivery_note:'⏳ Po opłaceniu otrzymasz osobisty link do PDF: ważny ' + DL.expiryDays + ' dni, do ' + DL.maxDownloads + ' pobrań. Zapisz plik od razu.',
-        buy_cta:      'Kup za $' + PRICE,
+        buy_cta:      'Kup za 80 zł',
         sandbox_note: 'Sandbox · price ' + BUNDLE_ID + '. Po opłacie webhook wyśle e-mail z linkiem do PDF w wybranym języku.',
         success:      lang => '✓ Płatność udana! Osobisty link do PDF (' + lang + ') został wysłany na Twój e-mail.',
         success_sub:  '<span style="font-size:.85rem;color:#6b6257">Link jest ważny ' + DL.expiryDays + ' dni i pozwala na ' + DL.maxDownloads + ' pobrania — zapisz plik od razu.</span>',
@@ -173,11 +173,14 @@ const DL = SITE.download;
     let ui = 'uk';
     let T = TEXTS.uk;
 
+    const DISPLAY_PRICE = { uk: '800 ₴', ru: '$20', en: '$20', pl: '80 zł' };
     function applyTexts() {
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const k = el.getAttribute('data-i18n');
         if (T[k] !== undefined) el.textContent = T[k];
       });
+      const pd = document.getElementById('price-display');
+      if (pd) pd.textContent = DISPLAY_PRICE[ui] || ('$' + PRICE);
       document.documentElement.lang = ui;
       document.title = T.title + ' — Checkout test';
       document.querySelectorAll('.lang-bar button').forEach(b => {
