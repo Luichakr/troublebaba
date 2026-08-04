@@ -1483,30 +1483,12 @@ const guar = GUAR[lang] ?? GUAR.en;
         style="background:linear-gradient(120deg, #2e2219 0%, #241a13 40%, #1A1A1A 100%); box-shadow:0 32px 80px rgba(26,26,26,0.28);">
         <div class="grid lg:grid-cols-[42%_minmax(0,1fr)] items-center">
 
-          <div class="relative flex items-center justify-center py-10 px-6 lg:py-16 lg:px-12 min-h-[420px] lg:min-h-[560px]">
-            <div class="absolute inset-0 pointer-events-none"
-              style="background:radial-gradient(ellipse 55% 55% at 50% 55%, rgba(200,160,110,0.15) 0%, transparent 70%);"></div>
+          <div class="relative overflow-hidden min-h-[380px] lg:min-h-[560px] h-full">
+            <img src="images/cta-book.webp" alt={tr.cta_img_alt || 'Bento Cake book'}
+              width="1254" height="1254" loading="lazy" decoding="async"
+              class="absolute inset-0 w-full h-full object-cover"
+              onerror="this.style.display='none'" />
 
-            <div class="relative" style="width:min(144%, 720px);">
-              <img src="images/cta-book.webp" alt={tr.cta_img_alt || 'Bento Cake book'}
-                width="1110" height="1052" loading="lazy" decoding="async"
-                class="block w-full h-auto"
-                style="filter:drop-shadow(0 28px 48px rgba(0,0,0,0.55));"
-                onerror="this.style.display='none'" />
-
-              <div class="absolute z-10" style="bottom:calc(-3% + 95px); right:calc(-12% + 120px);">
-                <div class="relative w-[88px] h-[88px] lg:w-[130px] lg:h-[130px] flex items-center justify-center">
-                  <svg class="absolute inset-0 w-full h-full" viewBox="0 0 100 100" fill="none">
-                    <circle cx="50" cy="50" r="48" fill="#8B7355"/>
-                    <circle cx="50" cy="50" r="43" stroke="#D4C19E" stroke-width="0.8" fill="none" opacity="0.5"/>
-                  </svg>
-                  <div class="relative z-10 text-center">
-                    <div class="font-stat text-warm-white leading-none text-[1.85rem] lg:text-[2.6rem]">10</div>
-                    <div class="font-outfit font-semibold text-warm-white/85 text-[8px] lg:text-[10px] tracking-[0.22em] uppercase mt-1 lg:mt-1.5">{tr.cta_book_badge}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div class="flex flex-col px-6 sm:px-10 lg:px-14 pb-10 pt-2 lg:py-16">
