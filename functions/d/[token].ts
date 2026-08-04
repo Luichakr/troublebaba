@@ -30,7 +30,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ params, env }) => {
   const token = String((params as any).token || '');
   const v = await verifyDownloadToken(env.CRON_SECRET || '', token);
   if (!v.ok) {
-    if (v.reason === 'expired') return gone('Термін дії посилання минув (7 днів). Напишіть у Instagram @troublebaba.');
+    if (v.reason === 'expired') return gone('Термін дії посилання минув (7 днів). Напишіть на pr.troublebaba@gmail.com.');
     return new Response('Недійсне посилання.', { status: 403 });
   }
 
@@ -39,7 +39,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ params, env }) => {
   const counterKey = `dl-count/${v.sig}`;
   const cur = await env.PDF_BUCKET.get(counterKey);
   const n = cur ? parseInt(await cur.text(), 10) || 0 : 0;
-  if (n >= MAX_DOWNLOADS) return gone(`Ліміт завантажень вичерпано (${MAX_DOWNLOADS}). Напишіть у Instagram @troublebaba.`);
+  if (n >= MAX_DOWNLOADS) return gone(`Ліміт завантажень вичерпано (${MAX_DOWNLOADS}). Напишіть на pr.troublebaba@gmail.com.`);
   await env.PDF_BUCKET.put(counterKey, String(n + 1));
 
   const lang = (v.lang || DEFAULT_LANG).toLowerCase();

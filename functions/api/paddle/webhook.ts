@@ -33,7 +33,7 @@ async function bumpBonusCount(bucket: R2Bucket, txnId: string): Promise<void> {
 const EXPIRY_DAYS = 7;
 const MAX_DOWNLOADS = 3;
 
-function deliverEmailHtml(link: string, communityUrl?: string): string {
+function deliverEmailHtml(link: string, receiptUrl?: string, communityUrl?: string): string {
   const communityBlock = communityUrl
     ? `<p style="margin:24px 0 0">
          <a href="${communityUrl}" style="background:#f0e6d2;color:#1A1A1A;text-decoration:none;padding:12px 22px;border-radius:10px;font-weight:700;display:inline-block;border:1px solid #d9c7a3">
@@ -42,6 +42,13 @@ function deliverEmailHtml(link: string, communityUrl?: string): string {
        </p>
        <p style="font-size:12px;color:#8a8175;margin-top:8px">Закритий чат TROUBLEBABA: питання авторці, фото ваших робіт, оновлення збірника.</p>`
     : '';
+  const receiptBlock = receiptUrl
+    ? `<p style="font-size:13px;color:#6b6257;margin-top:20px">
+         Чек / інвойс за покупку: <a href="${receiptUrl}" style="color:#8B7355">переглянути</a>.
+       </p>`
+    : `<p style="font-size:13px;color:#6b6257;margin-top:20px">
+         Окремим листом від Paddle прийде офіційний чек за покупку — це нормально, зберігайте його.
+       </p>`;
   return `
   <div style="font-family:system-ui,-apple-system,sans-serif;max-width:520px;margin:0 auto;color:#1A1A1A">
     <h2 style="color:#8B7355">Дякуємо за покупку! 🍰</h2>
@@ -55,8 +62,9 @@ function deliverEmailHtml(link: string, communityUrl?: string): string {
     <p style="font-size:13px;color:#8a6d3b;background:#fbf6ec;border:1px solid #ecdcc0;border-radius:10px;padding:12px 14px">
       ⏳ Посилання персональне: діє <b>${EXPIRY_DAYS} днів</b> і розраховане на <b>${MAX_DOWNLOADS} завантаження</b>. Будь ласка, збережіть файл на свій пристрій одразу.
     </p>
+    ${receiptBlock}
     ${communityBlock}
-    <p style="font-size:13px;color:#6b6257">Питання? Напишіть у Instagram @troublebaba.</p>
+    <p style="font-size:13px;color:#6b6257">Питання? Напишіть на <a href="mailto:pr.troublebaba@gmail.com" style="color:#8B7355">pr.troublebaba@gmail.com</a>.</p>
   </div>`;
 }
 
@@ -85,10 +93,14 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       const lang = String(data?.custom_data?.lang ?? '').toLowerCase().slice(0, 4) || undefined;
       const token = await signDownloadToken(env.CRON_SECRET || '', String(data.id || 'txn'), exp, lang);
       const link = `${origin}/d/${token}`;
+      const receiptUrl: string | undefined =
+        data?.checkout?.url ??
+        data?.receipt_data?.url ??
+        (data?.invoice_id ? `https://receipt.paddle.com/receipt/${data.invoice_id}` : undefined);
       await sendEmail(env, {
         to: email,
         subject: 'Ваш PDF — Bento Cake by TROUBLEBABA',
-        html: deliverEmailHtml(link, env.TELEGRAM_COMMUNITY_URL),
+        html: deliverEmailHtml(link, receiptUrl, env.TELEGRAM_COMMUNITY_URL),
       });
     }
 
