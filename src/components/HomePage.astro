@@ -123,7 +123,7 @@ const guar = GUAR[lang] ?? GUAR.en;
        browser bookmarks bar visible — never crowds the eyebrow under the fixed
        header. pt clears the 68px header; generous lg padding gives breathing
        room top and bottom. -->
-  <section class="pt-[84px] lg:pt-[100px] pb-12 lg:pb-20">
+  <section class="pt-[80px] lg:pt-[92px] pb-12 lg:pb-16">
     <div class="max-w-[1440px] mx-auto lg:px-16 flex flex-col-reverse lg:flex-row lg:items-center gap-8 lg:gap-12">
 
     <!-- Left: text -->
@@ -145,20 +145,22 @@ const guar = GUAR[lang] ?? GUAR.en;
         </div>
       </div>
 
-      <!-- Main heading (desktop only — on mobile shown over photo) -->
-      <h1 class="animate-fade-up animate-fade-up-d1 font-cabinet text-espresso leading-[0.92] mb-6 hidden lg:block" style="font-size:clamp(3.8rem,9.5vw,8.5rem);">
+      <!-- Main heading (desktop only — on mobile shown over photo).
+           Capped smaller so the full hero (headline → chips → CTA → stats)
+           fits above the fold on a 13" laptop even with a bookmarks bar. -->
+      <h1 class="animate-fade-up animate-fade-up-d1 font-cabinet text-espresso leading-[0.9] mb-5 hidden lg:block" style="font-size:clamp(3.4rem,6.5vw,6.4rem);">
         BENTO<br/>CAKE
       </h1>
 
       <!-- Sub (desktop only — on mobile shown over photo) -->
-      <p class="animate-fade-up animate-fade-up-d2 font-outfit text-espresso/65 leading-relaxed mb-8 max-w-[440px] hidden lg:block" style="font-size:clamp(0.95rem,1.2vw,1.1rem);">
+      <p class="animate-fade-up animate-fade-up-d2 font-outfit text-espresso/65 leading-relaxed mb-6 max-w-[440px] hidden lg:block" style="font-size:clamp(0.95rem,1.2vw,1.05rem);">
         {tr.hero_sub}
       </p>
 
       <!-- Feature chips — DESIGN.md §5.2/§7: single flex-wrap row, left-aligned,
            content-sized, identical padding + radius + shadow on every chip.
            Ordered longest-first so natural wrap reads cleanly. -->
-      <div class="animate-fade-up animate-fade-up-d2 flex flex-wrap justify-start gap-2.5 mb-7 lg:mb-9">
+      <div class="animate-fade-up animate-fade-up-d2 flex flex-wrap justify-start gap-2.5 mb-6 lg:mb-7">
         <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3.5 py-2.5 shadow-sm">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="flex-shrink-0">
             <rect x="2" y="1" width="10" height="13" rx="2" stroke="#8B7355" stroke-width="1.4"/>
@@ -205,7 +207,7 @@ const guar = GUAR[lang] ?? GUAR.en;
       )}
 
       <!-- CTA buttons -->
-      <div class="animate-fade-up animate-fade-up-d3 flex flex-col lg:flex-row gap-3 items-stretch lg:items-start mb-3.5 lg:mb-10">
+      <div class="animate-fade-up animate-fade-up-d3 flex flex-col lg:flex-row gap-3 items-stretch lg:items-center mb-3.5 lg:mb-7">
         <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="hero"
            class="btn-pulse inline-flex items-center justify-center gap-3 bg-mocha text-warm-white font-outfit font-semibold text-base px-7 py-3 lg:py-4 rounded-xl hover:bg-mocha-dark transition-colors shadow-md w-full lg:w-auto lg:self-start whitespace-nowrap">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="flex-shrink-0">

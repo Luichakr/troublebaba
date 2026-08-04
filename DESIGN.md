@@ -70,7 +70,7 @@ Type scale (`clamp()` for hero, static rem for the rest):
 
 | Role                | Size (desktop → mobile) | Weight | Track      |
 |---------------------|-------------------------|--------|-----------|
-| Hero display        | `clamp(3.8rem, 9.5vw, 8.5rem)` | 800 | `-0.02em` |
+| Hero display        | `clamp(3.4rem, 6.5vw, 6.4rem)` | 800 | `-0.02em` |
 | Section H2          | `clamp(2.4rem, 5vw, 4rem)` | 800 | `-0.01em` |
 | Sub-section H3      | `clamp(1.4rem, 2.4vw, 1.9rem)` | 700 | 0 |
 | Card / block title  | `clamp(1.1rem, 1.7vw, 1.35rem)` | 700 | 0 |
