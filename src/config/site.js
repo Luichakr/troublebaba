@@ -54,18 +54,20 @@ export const SITE = {
   // Secrets (PADDLE_API_KEY, PADDLE_WEBHOOK_SECRET, RESEND_API_KEY) live in
   // Cloudflare Pages env vars — never in this file.
   paddle: {
-    // LIVE.
-    // Product: pro_01kz6tacby2h5y54q0khk6cx0n (Bento Cake — 10 recipes (PDF))
-    // Price:   pri_01kz6tq6zt1jk79g9197shxcz1
-    //          base $20 USD + overrides UA 800 UAH, PL 80 PLN, DE/FR €18
-    // Sandbox kept commented below for quick revert if needed.
-    environment: 'production',                     // 'sandbox' | 'production'
-    clientToken: 'live_ce46dcadd5e72f0a4253adbbe91',
-    priceBundle: 'pri_01kz6tq6zt1jk79g9197shxcz1',
-    // Sandbox fallback (do not delete — reference for regression testing):
-    //   environment: 'sandbox'
-    //   clientToken: 'test_6b6f239298644d456e6a612754e'
-    //   priceBundle: 'pri_01kxe47ghn2jy5eream7989qqz'
+    // BACK ON SANDBOX until Paddle KYC (Verify your account) is completed by
+    // owner in vendors.paddle.com. Live checkout errors out ("Something went
+    // wrong") for any transaction — even 100%-off — while KYC is Not started.
+    //
+    // LIVE values ready to flip once KYC is Complete:
+    //   environment: 'production'
+    //   clientToken: 'live_ce46dcadd5e72f0a4253adbbe91'
+    //   priceBundle: 'pri_01kz6tq6zt1jk79g9197shxcz1'
+    //   (Product pro_01kz6tacby2h5y54q0khk6cx0n, prices UA 800 / PL 80 / DE-FR €18 / base $20)
+    // Plus set PADDLE_ENV=production in wrangler.toml and rotate the CF Pages
+    // secrets PADDLE_API_KEY + PADDLE_WEBHOOK_SECRET to the live values.
+    environment: 'sandbox',                       // 'sandbox' | 'production'
+    clientToken: 'test_6b6f239298644d456e6a612754e',
+    priceBundle: 'pri_01kxe47ghn2jy5eream7989qqz',
     priceSingle: '',                              // filled once per-recipe prices exist
   },
   // Download link policy (shown to buyers + enforced by /d/<token>).
