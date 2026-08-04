@@ -248,7 +248,7 @@ export const t = {
     faq_trust2_sub:   'Файл ваш назавжди. Без обмежень',
     faq_trust3_title: 'Оплата карткою /\nApple Pay / Google Pay',
     faq_trust3_sub:   'Безпечно та швидко',
-    faq_handwrite:    'Готуйте\nз любов\'ю ♡',
+    faq_handwrite:    'Готуйте\nз любов\'ю ♥',
     faq_items: [
       { q: 'Як я отримаю PDF після оплати?', a: 'Відразу після оплати на вашу пошту надійде лист із посиланням для завантаження. Файл доступний одразу — ніяких затримок.' },
       { q: 'Чи підходить збірник для початківців?', a: 'Так. Кожен рецепт містить точні грами, температури та детальний опис кожного кроку. Навіть якщо ви ще не пекли бенто-торти — все вийде.' },
@@ -626,7 +626,7 @@ export const t = {
     faq_trust2_sub:   'Файл ваш навсегда. Без ограничений',
     faq_trust3_title: 'Оплата картой /\nApple Pay / Google Pay',
     faq_trust3_sub:   'Безопасно и быстро',
-    faq_handwrite:    'Готовьте\nс любовью ♡',
+    faq_handwrite:    'Готовьте\nс любовью ♥',
     faq_items: [
       { q: 'Как я получу PDF после оплаты?', a: 'Сразу после оплаты на вашу почту придёт письмо со ссылкой для скачивания. Файл доступен сразу — никаких задержек.' },
       { q: 'Подходит ли сборник для начинающих?', a: 'Да. Каждый рецепт содержит точные граммы, температуры и детальное описание каждого шага. Даже если вы ещё не пекли бенто-торты — всё получится.' },
@@ -993,7 +993,7 @@ export const t = {
     faq_trust2_sub:   'Plik Twój na zawsze. Bez ograniczeń',
     faq_trust3_title: 'Płatność kartą /\nApple Pay / Google Pay',
     faq_trust3_sub:   'Bezpiecznie i szybko',
-    faq_handwrite:    'Gotuj\nz miłością ♡',
+    faq_handwrite:    'Gotuj\nz miłością ♥',
     faq_items: [
       { q: 'Jak otrzymam PDF po płatności?', a: 'Zaraz po płatności na Twój e-mail przyjdzie link do pobrania. Plik dostępny od razu — bez opóźnień.' },
       { q: 'Czy zbiór jest odpowiedni dla początkujących?', a: 'Tak. Każdy przepis zawiera dokładne gramy, temperatury i szczegółowy opis każdego kroku. Nawet jeśli nigdy nie robiłaś tortów bento — wszystko się uda.' },
@@ -1360,7 +1360,7 @@ export const t = {
     faq_trust2_sub:   'No limits, no expiry',
     faq_trust3_title: 'Card / Apple Pay /\nGoogle Pay',
     faq_trust3_sub:   'Safe and fast',
-    faq_handwrite:    'Made with\nlove ♡',
+    faq_handwrite:    'Made with\nlove ♥',
     faq_items: [
       { q: 'How will I get the PDF after payment?', a: 'Immediately after payment you\'ll receive an email with a download link. The file is available instantly — no delays.' },
       { q: 'Is the collection suitable for beginners?', a: 'Yes. Every recipe includes exact grams, temperatures and a detailed step-by-step description. Even if you\'ve never made a bento cake — you\'ll succeed.' },
@@ -1726,7 +1726,7 @@ export const t = {
     faq_trust2_sub:   'Sin límites, sin caducidad',
     faq_trust3_title: 'Tarjeta / Apple Pay /\nGoogle Pay',
     faq_trust3_sub:   'Seguro y rápido',
-    faq_handwrite:    'Hecho con\namor ♡',
+    faq_handwrite:    'Hecho con\namor ♥',
     faq_items: [
       { q: '¿Cómo recibiré el PDF tras el pago?', a: 'Inmediatamente después del pago recibirás un correo con un enlace de descarga. El archivo está disponible al instante — sin esperas.' },
       { q: '¿La colección es apta para principiantes?', a: 'Sí. Cada receta incluye gramos exactos, temperaturas y una descripción detallada paso a paso. Aunque nunca hayas hecho un Bento Cake — lo lograrás.' },
@@ -2092,7 +2092,7 @@ export const t = {
     faq_trust2_sub:   'Keine Limits, kein Ablaufdatum',
     faq_trust3_title: 'Karte / Apple Pay /\nGoogle Pay',
     faq_trust3_sub:   'Sicher und schnell',
-    faq_handwrite:    'Mit Liebe\ngemacht ♡',
+    faq_handwrite:    'Mit Liebe\ngemacht ♥',
     faq_items: [
       { q: 'Wie erhalte ich das PDF nach der Zahlung?', a: 'Direkt nach der Zahlung erhältst du eine E-Mail mit einem Download-Link. Die Datei ist sofort verfügbar — ohne Verzögerung.' },
       { q: 'Ist die Kollektion für Anfängerinnen geeignet?', a: 'Ja. Jedes Rezept enthält exakte Grammangaben, Temperaturen und eine ausführliche Schritt-für-Schritt-Beschreibung. Selbst wenn du noch nie einen Bento Cake gemacht hast — du wirst es schaffen.' },
@@ -2458,7 +2458,7 @@ export const t = {
     faq_trust2_sub:   'Sans limites, sans expiration',
     faq_trust3_title: 'Carte / Apple Pay /\nGoogle Pay',
     faq_trust3_sub:   'Sûr et rapide',
-    faq_handwrite:    'Fait avec\namour ♡',
+    faq_handwrite:    'Fait avec\namour ♥',
     faq_items: [
       { q: 'Comment vais-je recevoir le PDF après le paiement ?', a: 'Immédiatement après le paiement, vous recevrez un e-mail avec un lien de téléchargement. Le fichier est disponible instantanément — sans délai.' },
       { q: 'La collection convient-elle aux débutants ?', a: 'Oui. Chaque recette comprend les grammes exacts, les températures et une description détaillée étape par étape. Même si vous n\'avez jamais réalisé de Bento Cake — vous réussirez.' },
@@ -2824,7 +2824,7 @@ export const t = {
     faq_trust2_sub:   'Nessun limite, nessuna scadenza',
     faq_trust3_title: 'Carta / Apple Pay /\nGoogle Pay',
     faq_trust3_sub:   'Sicuro e veloce',
-    faq_handwrite:    'Fatto con\namore ♡',
+    faq_handwrite:    'Fatto con\namore ♥',
     faq_items: [
       { q: 'Come riceverò il PDF dopo il pagamento?', a: 'Subito dopo il pagamento riceverai un\'email con il link per il download. Il file è disponibile immediatamente — senza attese.' },
       { q: 'La raccolta è adatta ai principianti?', a: 'Sì. Ogni ricetta include grammi esatti, temperature e una descrizione dettagliata passo passo. Anche se non hai mai fatto un bento cake — ci riuscirai.' },
@@ -3190,7 +3190,7 @@ export const t = {
     faq_trust2_sub:   'Sem limites, sem validade',
     faq_trust3_title: 'Cartão / Apple Pay /\nGoogle Pay',
     faq_trust3_sub:   'Seguro e rápido',
-    faq_handwrite:    'Feito com\namor ♡',
+    faq_handwrite:    'Feito com\namor ♥',
     faq_items: [
       { q: 'Como vou receber o PDF após o pagamento?', a: 'Logo após o pagamento você recebe um e-mail com o link de download. O arquivo fica disponível na hora — sem atrasos.' },
       { q: 'A coleção é indicada para iniciantes?', a: 'Sim. Cada receita traz gramaturas exatas, temperaturas e uma descrição detalhada passo a passo. Mesmo que você nunca tenha feito um Bento Cake — vai conseguir.' },
