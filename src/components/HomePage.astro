@@ -66,6 +66,7 @@ const guar = GUAR[lang] ?? GUAR.en;
       <nav class="hidden md:flex items-center gap-10 font-outfit text-[12px] font-semibold tracking-[0.16em] uppercase text-espresso/65">
         <a href={anchor('recipes')} class="hover:text-espresso transition-colors">{tr.nav_recipes}</a>
         <a href={anchor('about')} class="hover:text-espresso transition-colors">{tr.nav_author}</a>
+        <a href={blogHref} class="hover:text-espresso transition-colors">{['uk','ru'].includes(lang) ? 'Блог' : 'Blog'}</a>
         <a href={anchor('price')} class="hover:text-espresso transition-colors">{tr.nav_price}</a>
         <a href={anchor('faq')} class="hover:text-espresso transition-colors">FAQ</a>
       </nav>
