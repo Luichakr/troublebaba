@@ -205,6 +205,8 @@ export const t = {
     price_label:  'Ціна',
     price_title:  'Одна ціна. Все включено.',
     price_plan:   'Повний збірник',
+    price_card_title: 'Бенто-торти, які виходять з першого разу',
+    price_card_sub:   '10 рецептів, точні грами та зрозумілий результат без зайвих помилок',
     price_once:   '/ один раз',
     price_display:'800 ₴',
     price_display_old: '1200 ₴',

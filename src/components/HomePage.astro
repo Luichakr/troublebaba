@@ -1189,121 +1189,76 @@ const guar = GUAR[lang] ?? GUAR.en;
         <p class="font-outfit text-espresso/50 text-[15px] leading-relaxed max-w-xl mx-auto">{tr.price_sub}</p>
       </div>
 
-      <div class="max-w-[1320px] mx-auto reveal reveal-d1">
-        <div class="bg-warm-white rounded-[2rem] overflow-hidden" style="box-shadow:0 28px 80px rgba(139,115,85,0.18);">
+      <div class="max-w-[1200px] mx-auto reveal reveal-d1">
+        <div class="bg-warm-white rounded-[2rem] overflow-hidden grid sm:grid-cols-[46%_minmax(0,1fr)]" style="box-shadow:0 28px 80px rgba(139,115,85,0.18);">
 
-          <div class="bg-espresso px-8 lg:px-10 pt-5 pb-5 relative overflow-hidden">
-            <svg class="absolute right-10 top-1/2 -translate-y-1/2 opacity-25 pointer-events-none" width="155" height="120" viewBox="0 0 155 120" fill="none">
-              <path d="M30 38 C30 35 27 33 24 35 C21 33 18 35 18 38 C18 43 24 48 24 48 C24 48 30 43 30 38Z" stroke="#C8B8A2" stroke-width="1" fill="none"/>
-              <path d="M48 22 C48 19.5 45.5 17.5 43 19.5 C40.5 17.5 38 19.5 38 22 C38 26 43 30 43 30 C43 30 48 26 48 22Z" stroke="#C8B8A2" stroke-width="1" fill="none"/>
-              <ellipse cx="105" cy="92" rx="48" ry="10" stroke="#C8B8A2" stroke-width="1.2"/>
-              <path d="M57 92 V58 M153 92 V58" stroke="#C8B8A2" stroke-width="1.2"/>
-              <ellipse cx="105" cy="58" rx="48" ry="10" stroke="#C8B8A2" stroke-width="1.2"/>
-              <ellipse cx="92" cy="48" rx="8" ry="6" stroke="#C8B8A2" stroke-width="1.1" fill="none"/>
-              <ellipse cx="118" cy="48" rx="8" ry="6" stroke="#C8B8A2" stroke-width="1.1" fill="none"/>
-              <rect x="102" y="44" width="6" height="9" rx="1" stroke="#C8B8A2" stroke-width="1.1" fill="none"/>
-              <path d="M102 53 Q98 60 96 66" stroke="#C8B8A2" stroke-width="1.1" stroke-linecap="round" fill="none"/>
-              <path d="M108 53 Q112 60 114 66" stroke="#C8B8A2" stroke-width="1.1" stroke-linecap="round" fill="none"/>
-            </svg>
-
-            <div class="font-outfit text-warm-white/45 text-xs uppercase tracking-[0.18em] mb-2">{tr.price_plan}</div>
-            <div class="flex items-end gap-4 flex-wrap">
-              <span class="font-cabinet font-black text-warm-white" style="font-size:4.4rem;line-height:0.9;letter-spacing:-0.02em;">{tr.price_display}</span>
-              <div class="flex flex-col gap-1.5 mb-3">
-                <div class="flex items-center gap-2">
-                  <span class="font-outfit text-warm-white/35 text-[18px] line-through">{tr.price_display_old}</span>
-                  <span class="inline-block font-outfit text-[10px] font-bold uppercase tracking-[0.12em] text-warm-white bg-mocha/70 rounded px-2 py-0.5">{tr.price_discount}</span>
-                </div>
-                <span class="font-outfit text-warm-white/40 text-[15px]">{tr.price_once}</span>
-              </div>
+          <div class="relative img-skeleton min-h-[320px] sm:min-h-0">
+            <div class="absolute inset-0 flex flex-col items-center justify-center gap-1.5 pointer-events-none">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="3" y="7" width="22" height="17" rx="3" stroke="#C8B8A2" stroke-width="1.3"/><circle cx="10" cy="14" r="3" stroke="#C8B8A2" stroke-width="1.3"/><path d="M3 19l5-4 4 4 4-5 6 6" stroke="#C8B8A2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 7V5a5 5 0 0 1 10 0v2" stroke="#C8B8A2" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <span class="font-mono text-[10px] text-mocha/40 tracking-wider">560 × 720 px</span>
             </div>
+            <img src="images/bento-you-can.webp" alt={tr.price_img_alt || 'Bento cake'} width="1254" height="1254" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
           </div>
 
-          <div class="grid sm:grid-cols-[42%_minmax(0,1fr)]">
+          <div class="px-7 lg:px-10 py-7 lg:py-9 flex flex-col">
+            <span class="self-start inline-block font-outfit font-bold text-[10px] tracking-[0.16em] uppercase text-warm-white bg-mocha rounded-full px-3.5 py-1.5 mb-4">{tr.price_plan}</span>
 
-            <div class="relative img-skeleton min-h-[260px] sm:min-h-0">
-              <div class="absolute inset-0 flex flex-col items-center justify-center gap-1.5 pointer-events-none">
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="3" y="7" width="22" height="17" rx="3" stroke="#C8B8A2" stroke-width="1.3"/><circle cx="10" cy="14" r="3" stroke="#C8B8A2" stroke-width="1.3"/><path d="M3 19l5-4 4 4 4-5 6 6" stroke="#C8B8A2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 7V5a5 5 0 0 1 10 0v2" stroke="#C8B8A2" stroke-width="1.3" stroke-linecap="round"/></svg>
-                <span class="font-mono text-[10px] text-mocha/40 tracking-wider">560 × 720 px</span>
+            <h3 class="font-cabinet font-black text-espresso mb-2.5" style="font-size:clamp(1.5rem,2vw,1.85rem);line-height:1.15;letter-spacing:-0.01em;">{tr.price_card_title || tr.price_title}</h3>
+            <p class="font-outfit text-espresso/55 text-[14px] leading-relaxed mb-5">{tr.price_card_sub || tr.price_sub}</p>
+
+            <ul class="space-y-2 mb-5" id="price-items">
+              {(tr.price_items as string[]).slice(0, 5).map(item => (
+                <li class="flex items-start gap-2.5 font-outfit text-espresso/80 text-[14px] leading-snug">
+                  <svg class="w-[17px] h-[17px] flex-shrink-0 mt-[2px]" viewBox="0 0 19 19" fill="none">
+                    <circle cx="9.5" cy="9.5" r="8.5" stroke="#8B7355" stroke-width="1.2"/>
+                    <path d="M5.8 9.5l2.6 2.6 4.8-4.8" stroke="#8B7355" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <div class="flex items-end gap-3 mb-4">
+              <span class="font-cabinet font-black text-espresso leading-none" style="font-size:3rem;letter-spacing:-0.02em;">{tr.price_display}</span>
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="font-outfit text-espresso/35 text-[17px] line-through">{tr.price_display_old}</span>
+                <span class="font-outfit text-[10px] font-bold uppercase tracking-[0.08em] text-mocha bg-mocha/12 rounded px-2 py-0.5" style="background:rgba(139,115,85,0.14);">{tr.price_discount}</span>
               </div>
-              <img src="images/bento-you-can.webp" alt={tr.price_img_alt || 'Bento cake'} width="1254" height="1254" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
             </div>
 
-            <div class="px-7 lg:px-8 py-6 flex flex-col">
-              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-2 mb-5" id="price-items">
-                {(tr.price_items as string[]).map(item => (
-                  <li class="flex items-start gap-2.5 font-outfit text-espresso/75 text-[0.86rem] leading-snug">
-                    <svg class="w-[17px] h-[17px] flex-shrink-0 mt-[1px]" viewBox="0 0 19 19" fill="none">
-                      <circle cx="9.5" cy="9.5" r="8.5" stroke="#8B7355" stroke-width="1.2"/>
-                      <path d="M5.8 9.5l2.6 2.6 4.8-4.8" stroke="#8B7355" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    {item}
-                  </li>
-                ))}
-              </ul>
+            <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="price"
+              class="flex items-center justify-center gap-2 w-full text-warm-white font-outfit font-semibold text-base py-[17px] rounded-2xl transition-colors btn-pulse mb-3"
+              style="background:linear-gradient(180deg,#8B7355 0%,#7A6448 100%);box-shadow:0 8px 24px rgba(139,115,85,0.35);">
+              {tr.price_cta}
+            </a>
 
-              <!-- Price anchor co-located with the CTA so 'was 1200 → now 800 → -33% → Buy'
-                   reads as one unit even when the top dark price-bar is off-screen. -->
-              <div class="flex items-baseline gap-3 mb-3">
-                <span class="font-cabinet font-black text-espresso leading-none" style="font-size:2.3rem;">{tr.price_display}</span>
-                <span class="font-outfit text-espresso/40 text-[17px] line-through">{tr.price_display_old}</span>
-                <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.1em] text-warm-white bg-mocha rounded px-2 py-1">{tr.price_discount}</span>
-              </div>
+            <div class="grid grid-cols-2 gap-2 mb-3">
+              <span class="flex items-center justify-center gap-1.5 font-outfit text-[12px] text-espresso/60 py-2 px-3 rounded-lg" style="border:1px solid rgba(200,184,162,0.55);">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v8M3.5 6l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 10v1a1.5 1.5 0 0 0 1.5 1.5h6A1.5 1.5 0 0 0 11 11v-1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                {tr.price_instant}
+              </span>
+              <span class="flex items-center justify-center gap-1.5 font-outfit text-[12px] text-espresso/60 py-2 px-3 rounded-lg" style="border:1px solid rgba(200,184,162,0.55);">
+                <svg width="11" height="13" viewBox="0 0 11 13" fill="none"><rect x="1" y="5.5" width="9" height="7" rx="1.6" stroke="currentColor" stroke-width="1.3"/><path d="M3 5.5V3.5a2.5 2.5 0 0 1 5 0v2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                {tr.price_secure}
+              </span>
+            </div>
 
-              <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="price"
-                class="flex items-center justify-center gap-2 w-full text-warm-white font-outfit font-semibold text-base py-[18px] rounded-2xl transition-colors btn-pulse"
-                style="background:linear-gradient(180deg,#8B7355 0%,#7A6448 100%);box-shadow:0 8px 24px rgba(139,115,85,0.35);">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 0.5L9.4 4.3L13.5 4.7L10.4 7.5L11.3 11.5L8 9.4L4.7 11.5L5.6 7.5L2.5 4.7L6.6 4.3L8 0.5Z" fill="#F5EFE8" opacity="0.92"/></svg>
-                {tr.price_cta}
-              </a>
-
-              {communityBonus && (
-                <div class="mt-4 rounded-lg px-4 py-3" style="background:linear-gradient(135deg,#f0e6d2 0%,#e8dcc4 100%);border:1px solid rgba(200,184,162,0.6);">
-                  <div class="flex items-center gap-2 mb-1">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 4L11 15l-4-4-5 9 20-16z" fill="#8B7355"/></svg>
-                    <span class="font-outfit text-espresso font-bold text-[13px] uppercase tracking-[0.06em]">{tr.bonus_tg_title}</span>
-                  </div>
-                  <p class="font-outfit text-espresso/70 text-[12.5px] leading-snug">{tr.bonus_tg_body}</p>
-                </div>
-              )}
-
-              <p class="font-outfit text-espresso/70 text-[12.5px] leading-snug text-center mt-3 px-3 py-2 rounded-lg" style="background:#fbf6ec;border:1px solid rgba(200,184,162,0.55);">{tr.price_guarantee_result}</p>
-
-              <p class="font-outfit text-espresso/45 text-[11px] leading-snug text-center mt-2.5 px-2">{tr.price_langs}</p>
-
-              <div class="flex items-center justify-center gap-3 mt-3 text-espresso/40">
-                <span class="flex items-center gap-1.5 font-outfit text-[11px]">
-                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v8M3.5 6l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 10v1a1.5 1.5 0 0 0 1.5 1.5h6A1.5 1.5 0 0 0 11 11v-1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-                  <span>{tr.price_instant}</span>
-                </span>
-                <span class="text-espresso/15 font-light text-base">|</span>
-                <span class="flex items-center gap-1.5 font-outfit text-[11px]">
-                  <svg width="11" height="13" viewBox="0 0 11 13" fill="none"><rect x="1" y="5.5" width="9" height="7" rx="1.6" stroke="currentColor" stroke-width="1.2"/><path d="M3 5.5V3.5a2.5 2.5 0 0 1 5 0v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-                  <span>{tr.price_secure}</span>
-                </span>
-              </div>
-
-              <div class="flex items-center justify-center gap-2 mt-3 flex-wrap">
-                <span class="bg-warm-white rounded-lg px-2.5 py-1.5 flex items-center justify-center"
-                  style="box-shadow:0 1px 4px rgba(139,115,85,0.12);border:1px solid rgba(200,184,162,0.4);">
-                  <span class="font-outfit font-black text-[10px] tracking-[0.06em]" style="color:#1A1F71;">VISA</span>
-                </span>
-                <span class="bg-warm-white rounded-lg px-2.5 py-1.5 flex items-center"
-                  style="box-shadow:0 1px 4px rgba(139,115,85,0.12);border:1px solid rgba(200,184,162,0.4);">
-                  <span class="inline-block w-3.5 h-3.5 rounded-full" style="background:#EB001B;"></span>
-                  <span class="inline-block w-3.5 h-3.5 rounded-full -ml-1.5 mix-blend-multiply" style="background:#F79E1B;"></span>
-                </span>
-                <span class="bg-warm-white rounded-lg px-2.5 py-1.5 flex items-center gap-0.5"
-                  style="box-shadow:0 1px 4px rgba(139,115,85,0.12);border:1px solid rgba(200,184,162,0.4);">
-                  <svg width="9" height="11" viewBox="0 0 9 11" fill="#1A1A1A"><path d="M7.3 5.9c0-.85.39-1.5 1.16-1.97-.43-.62-1.08-.96-1.94-1.02-.81-.06-1.7.48-2.02.48-.34 0-1.12-.46-1.74-.46-1.3.02-2.69 1.02-2.69 3.04 0 .6.11 1.22.33 1.86.29.85 1.34 2.94 2.43 2.91.57-.01.97-.4 1.71-.4.72 0 1.09.4 1.72.4 1.1-.02 2.05-1.92 2.33-2.77-1.49-.7-1.29-2.06-1.29-2.07ZM5.96 1.94c.65-.77.59-1.47.57-1.72-.57.03-1.23.39-1.6.83-.41.47-.66 1.06-.6 1.7.62.05 1.18-.27 1.63-.81Z"/></svg>
-                  <span class="font-outfit font-semibold text-[10px] text-espresso">Pay</span>
-                </span>
-                <span class="bg-warm-white rounded-lg px-2.5 py-1.5 flex items-center gap-0.5"
-                  style="box-shadow:0 1px 4px rgba(139,115,85,0.12);border:1px solid rgba(200,184,162,0.4);">
-                  <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M10.85 5.62c0-.4-.04-.8-.1-1.17H5.5v2.22h3c-.13.7-.52 1.3-1.12 1.7v1.4h1.8c1.07-.98 1.67-2.44 1.67-4.15Z" fill="#4285F4"/><path d="M5.5 11c1.5 0 2.77-.5 3.69-1.35l-1.8-1.4c-.5.33-1.13.53-1.89.53-1.45 0-2.68-.98-3.12-2.3H.5v1.45A5.5 5.5 0 0 0 5.5 11Z" fill="#34A853"/><path d="M2.38 6.48a3.3 3.3 0 0 1 0-2.1V2.94H.5a5.5 5.5 0 0 0 0 4.97l1.88-1.43Z" fill="#FBBC04"/><path d="M5.5 2.18c.82 0 1.55.28 2.12.83l1.6-1.6A5.27 5.27 0 0 0 5.5 0 5.5 5.5 0 0 0 .5 2.94l1.88 1.44C2.82 3.16 4.05 2.18 5.5 2.18Z" fill="#EA4335"/></svg>
-                  <span class="font-outfit font-semibold text-[10px] text-espresso">Pay</span>
-                </span>
-              </div>
+            <div class="flex items-center justify-center gap-2 flex-wrap">
+              <span class="bg-warm-white rounded-lg px-2.5 py-1.5 flex items-center justify-center" style="box-shadow:0 1px 4px rgba(139,115,85,0.12);border:1px solid rgba(200,184,162,0.4);">
+                <span class="font-outfit font-black text-[10px] tracking-[0.06em]" style="color:#1A1F71;">VISA</span>
+              </span>
+              <span class="bg-warm-white rounded-lg px-2.5 py-1.5 flex items-center" style="box-shadow:0 1px 4px rgba(139,115,85,0.12);border:1px solid rgba(200,184,162,0.4);">
+                <span class="inline-block w-3.5 h-3.5 rounded-full" style="background:#EB001B;"></span>
+                <span class="inline-block w-3.5 h-3.5 rounded-full -ml-1.5 mix-blend-multiply" style="background:#F79E1B;"></span>
+              </span>
+              <span class="bg-warm-white rounded-lg px-2.5 py-1.5 flex items-center gap-0.5" style="box-shadow:0 1px 4px rgba(139,115,85,0.12);border:1px solid rgba(200,184,162,0.4);">
+                <svg width="9" height="11" viewBox="0 0 9 11" fill="#1A1A1A"><path d="M7.3 5.9c0-.85.39-1.5 1.16-1.97-.43-.62-1.08-.96-1.94-1.02-.81-.06-1.7.48-2.02.48-.34 0-1.12-.46-1.74-.46-1.3.02-2.69 1.02-2.69 3.04 0 .6.11 1.22.33 1.86.29.85 1.34 2.94 2.43 2.91.57-.01.97-.4 1.71-.4.72 0 1.09.4 1.72.4 1.1-.02 2.05-1.92 2.33-2.77-1.49-.7-1.29-2.06-1.29-2.07ZM5.96 1.94c.65-.77.59-1.47.57-1.72-.57.03-1.23.39-1.6.83-.41.47-.66 1.06-.6 1.7.62.05 1.18-.27 1.63-.81Z"/></svg>
+                <span class="font-outfit font-semibold text-[10px] text-espresso">Pay</span>
+              </span>
+              <span class="bg-warm-white rounded-lg px-2.5 py-1.5 flex items-center gap-0.5" style="box-shadow:0 1px 4px rgba(139,115,85,0.12);border:1px solid rgba(200,184,162,0.4);">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M10.85 5.62c0-.4-.04-.8-.1-1.17H5.5v2.22h3c-.13.7-.52 1.3-1.12 1.7v1.4h1.8c1.07-.98 1.67-2.44 1.67-4.15Z" fill="#4285F4"/><path d="M5.5 11c1.5 0 2.77-.5 3.69-1.35l-1.8-1.4c-.5.33-1.13.53-1.89.53-1.45 0-2.68-.98-3.12-2.3H.5v1.45A5.5 5.5 0 0 0 5.5 11Z" fill="#34A853"/><path d="M2.38 6.48a3.3 3.3 0 0 1 0-2.1V2.94H.5a5.5 5.5 0 0 0 0 4.97l1.88-1.43Z" fill="#FBBC04"/><path d="M5.5 2.18c.82 0 1.55.28 2.12.83l1.6-1.6A5.27 5.27 0 0 0 5.5 0 5.5 5.5 0 0 0 .5 2.94l1.88 1.44C2.82 3.16 4.05 2.18 5.5 2.18Z" fill="#EA4335"/></svg>
+                <span class="font-outfit font-semibold text-[10px] text-espresso">Pay</span>
+              </span>
             </div>
           </div>
         </div>
