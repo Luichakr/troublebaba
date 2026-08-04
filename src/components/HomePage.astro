@@ -151,49 +151,47 @@ const guar = GUAR[lang] ?? GUAR.en;
         {tr.hero_sub}
       </p>
 
-      <!-- Feature chips — 2 longer on top row, 3 shorter forced into one bottom row -->
-      <div class="animate-fade-up animate-fade-up-d2 flex flex-col gap-2 lg:gap-2.5 mb-7 lg:mb-9 items-stretch">
-        <!-- Row 1: 2 longer chips -->
-        <div class="grid grid-cols-2 gap-2 lg:gap-2.5">
-          <div class="flex items-center justify-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-2 lg:px-3 py-2 lg:py-2.5 shadow-sm">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 lg:w-4 lg:h-4">
-              <rect x="2" y="1" width="10" height="13" rx="2" stroke="#8B7355" stroke-width="1.4"/>
-              <path d="M5 5h5M5 8h5M5 11h3" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round"/>
-            </svg>
-            <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 text-center leading-tight whitespace-nowrap">{tr.hero_chip1}</span>
-          </div>
-          <div class="flex items-center justify-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-2 lg:px-3 py-2 lg:py-2.5 shadow-sm">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 lg:w-4 lg:h-4">
-              <path d="M8 1.5 L14.5 5 L14.5 11 L8 14.5 L1.5 11 L1.5 5 Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round"/>
-              <path d="M8 5.5v3M6.5 7h3" stroke="#8B7355" stroke-width="1.2" stroke-linecap="round"/>
-            </svg>
-            <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 text-center leading-tight whitespace-nowrap">{tr.hero_chip5}</span>
-          </div>
+      <!-- Feature chips — content-sized, wrap naturally, each row centered
+           so the layout is visually balanced regardless of chip count fitting
+           per row. basis-full break keeps the two longer chips on top. -->
+      <div class="animate-fade-up animate-fade-up-d2 flex flex-wrap justify-center gap-2 lg:gap-2.5 mb-7 lg:mb-9">
+        <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3 lg:px-4 py-2 lg:py-2.5 shadow-sm">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 lg:w-4 lg:h-4">
+            <rect x="2" y="1" width="10" height="13" rx="2" stroke="#8B7355" stroke-width="1.4"/>
+            <path d="M5 5h5M5 8h5M5 11h3" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 leading-tight whitespace-nowrap">{tr.hero_chip1}</span>
         </div>
-        <!-- Row 2: 3 shorter chips -->
-        <div class="grid grid-cols-3 gap-2 lg:gap-2.5">
-          <div class="flex items-center justify-center gap-1.5 bg-warm-white border border-taupe/30 rounded-xl px-1.5 lg:px-2 py-2 lg:py-2.5 shadow-sm">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 lg:w-4 lg:h-4">
-              <rect x="1" y="1" width="14" height="14" rx="3" stroke="#8B7355" stroke-width="1.4"/>
-              <circle cx="5.5" cy="5.5" r="1.5" stroke="#8B7355" stroke-width="1.2"/>
-              <path d="M1 11l4-3 3 2.5 2.5-2 4.5 3.5" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span class="font-outfit text-[10.5px] lg:text-[13px] font-medium text-espresso/75 text-center leading-tight whitespace-nowrap">{tr.hero_chip2}</span>
-          </div>
-          <div class="flex items-center justify-center gap-1.5 bg-warm-white border border-taupe/30 rounded-xl px-1.5 lg:px-2 py-2 lg:py-2.5 shadow-sm">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 lg:w-4 lg:h-4">
-              <rect x="1" y="1" width="14" height="14" rx="2.5" stroke="#8B7355" stroke-width="1.4"/>
-              <path d="M1 5.5h14M1 10h14M5.5 1v14" stroke="#8B7355" stroke-width="1.2"/>
-            </svg>
-            <span class="font-outfit text-[10.5px] lg:text-[13px] font-medium text-espresso/75 text-center leading-tight whitespace-nowrap">{tr.hero_chip3}</span>
-          </div>
-          <div class="flex items-center justify-center gap-1.5 bg-warm-white border border-taupe/30 rounded-xl px-1.5 lg:px-2 py-2 lg:py-2.5 shadow-sm">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 lg:w-4 lg:h-4">
-              <path d="M2 4h12M2 8h12M2 12h8" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round"/>
-              <circle cx="12.5" cy="12" r="1" fill="#8B7355"/>
-            </svg>
-            <span class="font-outfit text-[10.5px] lg:text-[13px] font-medium text-espresso/75 text-center leading-tight whitespace-nowrap">{tr.hero_chip4}</span>
-          </div>
+        <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3 lg:px-4 py-2 lg:py-2.5 shadow-sm">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 lg:w-4 lg:h-4">
+            <path d="M8 1.5 L14.5 5 L14.5 11 L8 14.5 L1.5 11 L1.5 5 Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round"/>
+            <path d="M8 5.5v3M6.5 7h3" stroke="#8B7355" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 leading-tight whitespace-nowrap">{tr.hero_chip5}</span>
+        </div>
+        <!-- Row break: pushes the next chip onto a new line. -->
+        <div class="basis-full h-0" aria-hidden="true"></div>
+        <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3 lg:px-4 py-2 lg:py-2.5 shadow-sm">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 lg:w-4 lg:h-4">
+            <rect x="1" y="1" width="14" height="14" rx="3" stroke="#8B7355" stroke-width="1.4"/>
+            <circle cx="5.5" cy="5.5" r="1.5" stroke="#8B7355" stroke-width="1.2"/>
+            <path d="M1 11l4-3 3 2.5 2.5-2 4.5 3.5" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 leading-tight whitespace-nowrap">{tr.hero_chip2}</span>
+        </div>
+        <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3 lg:px-4 py-2 lg:py-2.5 shadow-sm">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 lg:w-4 lg:h-4">
+            <rect x="1" y="1" width="14" height="14" rx="2.5" stroke="#8B7355" stroke-width="1.4"/>
+            <path d="M1 5.5h14M1 10h14M5.5 1v14" stroke="#8B7355" stroke-width="1.2"/>
+          </svg>
+          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 leading-tight whitespace-nowrap">{tr.hero_chip3}</span>
+        </div>
+        <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3 lg:px-4 py-2 lg:py-2.5 shadow-sm">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 lg:w-4 lg:h-4">
+            <path d="M2 4h12M2 8h12M2 12h8" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round"/>
+            <circle cx="12.5" cy="12" r="1" fill="#8B7355"/>
+          </svg>
+          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 leading-tight whitespace-nowrap">{tr.hero_chip4}</span>
         </div>
       </div>
 
@@ -207,12 +205,12 @@ const guar = GUAR[lang] ?? GUAR.en;
       <!-- CTA buttons -->
       <div class="animate-fade-up animate-fade-up-d3 flex flex-col lg:flex-row gap-3 items-stretch lg:items-start mb-3.5 lg:mb-10">
         <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="hero"
-           class="btn-pulse flex items-center justify-center gap-3 bg-mocha text-warm-white font-outfit font-semibold text-base px-7 py-2.5 lg:py-4 rounded-xl hover:bg-mocha-dark transition-colors shadow-md">
+           class="btn-pulse inline-flex items-center justify-center gap-3 bg-mocha text-warm-white font-outfit font-semibold text-base px-7 py-3 lg:py-4 rounded-xl hover:bg-mocha-dark transition-colors shadow-md w-full lg:w-auto lg:self-start whitespace-nowrap">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="flex-shrink-0">
             <path d="M9 1v10M5 8l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M2 13v2a1 1 0 001 1h12a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
           </svg>
-          {presale ? tr.notify_cta_short : tr.hero_cta}
+          <span>{presale ? tr.notify_cta_short : tr.hero_cta}</span>
         </a>
         <a href={anchor('recipes')}
            class="font-outfit font-medium text-espresso/60 text-base py-2 lg:py-4 px-2 hover:text-mocha transition-colors text-center lg:text-left">
@@ -1940,10 +1938,13 @@ document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
     // /checkout-test (language picker + acknowledgement + Paddle overlay).
     // When production Paddle is live we swap this for the overlay directly.
     e.preventDefault();
-    const params = new URLSearchParams();
-    if (pageLang && pageLang !== 'uk') params.set('ui', pageLang);
-    const qs = params.toString();
-    window.location.href = '/checkout-test' + (qs ? '?' + qs : '');
+    // Always pass ui= explicitly. Without it, checkout-test would fall back to
+    // navigator.language — a Russian-browser visitor on the UK page would land
+    // on a Russian checkout, which is the wrong page for that buyer.
+    // Checkout-test only speaks the 4 languages the PDF is translated into.
+    // Visitors from es/de/fr/it/pt homepages fall through to English there.
+    const validUi = ['uk','ru','en','pl'].includes(pageLang) ? pageLang : 'en';
+    window.location.href = '/checkout-test?ui=' + validUi;
   });
 });
 
