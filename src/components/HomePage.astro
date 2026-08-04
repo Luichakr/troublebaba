@@ -1176,10 +1176,10 @@ const guar = GUAR[lang] ?? GUAR.en;
   </section>
 
   <!-- ── PRICING ── -->
-  <section id="price" class="py-24 lg:py-32">
+  <section id="price" class="py-14 lg:py-20">
     <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
 
-      <div class="reveal mb-14 text-center">
+      <div class="reveal mb-8 lg:mb-10 text-center">
         <div class="flex items-center justify-center gap-3 mb-4">
           <span class="font-outfit text-xs font-semibold tracking-[0.14em] uppercase text-mocha">{tr.price_label}</span>
           <div class="flex items-center gap-2">
@@ -1197,7 +1197,7 @@ const guar = GUAR[lang] ?? GUAR.en;
       <div class="max-w-[1320px] mx-auto reveal reveal-d1">
         <div class="bg-warm-white rounded-[2rem] overflow-hidden" style="box-shadow:0 28px 80px rgba(139,115,85,0.18);">
 
-          <div class="bg-espresso px-10 pt-9 pb-9 relative overflow-hidden">
+          <div class="bg-espresso px-8 lg:px-10 pt-6 pb-6 relative overflow-hidden">
             <svg class="absolute right-10 top-1/2 -translate-y-1/2 opacity-25 pointer-events-none" width="155" height="120" viewBox="0 0 155 120" fill="none">
               <path d="M30 38 C30 35 27 33 24 35 C21 33 18 35 18 38 C18 43 24 48 24 48 C24 48 30 43 30 38Z" stroke="#C8B8A2" stroke-width="1" fill="none"/>
               <path d="M48 22 C48 19.5 45.5 17.5 43 19.5 C40.5 17.5 38 19.5 38 22 C38 26 43 30 43 30 C43 30 48 26 48 22Z" stroke="#C8B8A2" stroke-width="1" fill="none"/>
@@ -1234,8 +1234,8 @@ const guar = GUAR[lang] ?? GUAR.en;
               <img src="images/bento-you-can.webp" alt={tr.price_img_alt || 'Bento cake'} width="1254" height="1254" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
             </div>
 
-            <div class="px-9 py-9 flex flex-col">
-              <ul class="space-y-3.5 mb-7" id="price-items">
+            <div class="px-8 lg:px-9 py-7 lg:py-8 flex flex-col">
+              <ul class="space-y-2.5 mb-5" id="price-items">
                 {(tr.price_items as string[]).map(item => (
                   <li class="flex items-start gap-3 font-outfit text-espresso/75 text-[0.92rem] leading-snug">
                     <svg class="w-[19px] h-[19px] flex-shrink-0 mt-[1px]" viewBox="0 0 19 19" fill="none">
@@ -1246,6 +1246,14 @@ const guar = GUAR[lang] ?? GUAR.en;
                   </li>
                 ))}
               </ul>
+
+              <!-- Price anchor co-located with the CTA so 'was 1200 → now 800 → -33% → Buy'
+                   reads as one unit even when the top dark price-bar is off-screen. -->
+              <div class="flex items-baseline gap-3 mb-3">
+                <span class="font-cabinet font-black text-espresso leading-none" style="font-size:2.3rem;">{tr.price_display}</span>
+                <span class="font-outfit text-espresso/40 text-[17px] line-through">{tr.price_display_old}</span>
+                <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.1em] text-warm-white bg-mocha rounded px-2 py-1">{tr.price_discount}</span>
+              </div>
 
               <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="price"
                 class="flex items-center justify-center gap-2 w-full text-warm-white font-outfit font-semibold text-base py-[18px] rounded-2xl transition-colors btn-pulse"
