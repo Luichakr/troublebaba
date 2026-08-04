@@ -134,7 +134,7 @@ const DL = SITE.download;
         ack_prefix:   'I confirm I have picked the PDF in',
         ack_suffix:   '. I understand this is final; access opens immediately after payment. No refunds for "wrong language" claims (digital product).',
         delivery_note:'⏳ After payment you\'ll get a personal PDF link: valid for ' + DL.expiryDays + ' days, up to ' + DL.maxDownloads + ' downloads. Save the file right away.',
-        buy_cta:      'Buy for $20',
+        buy_cta:      'Buy for €18',
         sandbox_note: 'Sandbox · price ' + BUNDLE_ID + '. After payment the webhook sends an email with the PDF in the chosen language.',
         success:      lang => '✓ Payment successful! A personal PDF link (' + lang + ') has been sent to your email.',
         success_sub:  '<span style="font-size:.85rem;color:#6b6257">The link is valid for ' + DL.expiryDays + ' days and allows ' + DL.maxDownloads + ' downloads — save the file right away.</span>',
@@ -173,7 +173,7 @@ const DL = SITE.download;
     let ui = 'uk';
     let T = TEXTS.uk;
 
-    const DISPLAY_PRICE = { uk: '800 ₴', ru: '$20', en: '$20', pl: '80 zł' };
+    const DISPLAY_PRICE = { uk: '800 ₴', ru: '$20', en: '€18', pl: '80 zł' };
     function applyTexts() {
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const k = el.getAttribute('data-i18n');
