@@ -151,47 +151,45 @@ const guar = GUAR[lang] ?? GUAR.en;
         {tr.hero_sub}
       </p>
 
-      <!-- Feature chips — content-sized, wrap naturally, each row centered
-           so the layout is visually balanced regardless of chip count fitting
-           per row. basis-full break keeps the two longer chips on top. -->
-      <div class="animate-fade-up animate-fade-up-d2 flex flex-wrap justify-center gap-2 lg:gap-2.5 mb-7 lg:mb-9">
-        <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3 lg:px-4 py-2 lg:py-2.5 shadow-sm">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 lg:w-4 lg:h-4">
+      <!-- Feature chips — DESIGN.md §5.2/§7: single flex-wrap row, left-aligned,
+           content-sized, identical padding + radius + shadow on every chip.
+           Ordered longest-first so natural wrap reads cleanly. -->
+      <div class="animate-fade-up animate-fade-up-d2 flex flex-wrap justify-start gap-2.5 mb-7 lg:mb-9">
+        <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3.5 py-2.5 shadow-sm">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="flex-shrink-0">
             <rect x="2" y="1" width="10" height="13" rx="2" stroke="#8B7355" stroke-width="1.4"/>
             <path d="M5 5h5M5 8h5M5 11h3" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round"/>
           </svg>
-          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 leading-tight whitespace-nowrap">{tr.hero_chip1}</span>
+          <span class="font-outfit text-[13px] lg:text-sm font-medium text-espresso/75 leading-none whitespace-nowrap">{tr.hero_chip1}</span>
         </div>
-        <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3 lg:px-4 py-2 lg:py-2.5 shadow-sm">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 lg:w-4 lg:h-4">
+        <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3.5 py-2.5 shadow-sm">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="flex-shrink-0">
             <path d="M8 1.5 L14.5 5 L14.5 11 L8 14.5 L1.5 11 L1.5 5 Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round"/>
             <path d="M8 5.5v3M6.5 7h3" stroke="#8B7355" stroke-width="1.2" stroke-linecap="round"/>
           </svg>
-          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 leading-tight whitespace-nowrap">{tr.hero_chip5}</span>
+          <span class="font-outfit text-[13px] lg:text-sm font-medium text-espresso/75 leading-none whitespace-nowrap">{tr.hero_chip5}</span>
         </div>
-        <!-- Row break: pushes the next chip onto a new line. -->
-        <div class="basis-full h-0" aria-hidden="true"></div>
-        <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3 lg:px-4 py-2 lg:py-2.5 shadow-sm">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 lg:w-4 lg:h-4">
+        <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3.5 py-2.5 shadow-sm">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="flex-shrink-0">
+            <path d="M2 4h12M2 8h12M2 12h8" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round"/>
+            <circle cx="12.5" cy="12" r="1" fill="#8B7355"/>
+          </svg>
+          <span class="font-outfit text-[13px] lg:text-sm font-medium text-espresso/75 leading-none whitespace-nowrap">{tr.hero_chip4}</span>
+        </div>
+        <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3.5 py-2.5 shadow-sm">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="flex-shrink-0">
             <rect x="1" y="1" width="14" height="14" rx="3" stroke="#8B7355" stroke-width="1.4"/>
             <circle cx="5.5" cy="5.5" r="1.5" stroke="#8B7355" stroke-width="1.2"/>
             <path d="M1 11l4-3 3 2.5 2.5-2 4.5 3.5" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 leading-tight whitespace-nowrap">{tr.hero_chip2}</span>
+          <span class="font-outfit text-[13px] lg:text-sm font-medium text-espresso/75 leading-none whitespace-nowrap">{tr.hero_chip2}</span>
         </div>
-        <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3 lg:px-4 py-2 lg:py-2.5 shadow-sm">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 lg:w-4 lg:h-4">
+        <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3.5 py-2.5 shadow-sm">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="flex-shrink-0">
             <rect x="1" y="1" width="14" height="14" rx="2.5" stroke="#8B7355" stroke-width="1.4"/>
             <path d="M1 5.5h14M1 10h14M5.5 1v14" stroke="#8B7355" stroke-width="1.2"/>
           </svg>
-          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 leading-tight whitespace-nowrap">{tr.hero_chip3}</span>
-        </div>
-        <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3 lg:px-4 py-2 lg:py-2.5 shadow-sm">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-shrink-0 lg:w-4 lg:h-4">
-            <path d="M2 4h12M2 8h12M2 12h8" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round"/>
-            <circle cx="12.5" cy="12" r="1" fill="#8B7355"/>
-          </svg>
-          <span class="font-outfit text-[11px] lg:text-sm font-medium text-espresso/75 leading-tight whitespace-nowrap">{tr.hero_chip4}</span>
+          <span class="font-outfit text-[13px] lg:text-sm font-medium text-espresso/75 leading-none whitespace-nowrap">{tr.hero_chip3}</span>
         </div>
       </div>
 
