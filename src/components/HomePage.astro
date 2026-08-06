@@ -1872,17 +1872,10 @@ document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
     // (Footer / non-CTA links pass through normally.)
     if (a.dataset.checkoutTrigger !== '1') return;
 
-    // ponytail: during Paddle-sandbox live-test the buy flow lives on
-    // /checkout-test (language picker + acknowledgement + Paddle overlay).
-    // When production Paddle is live we swap this for the overlay directly.
-    e.preventDefault();
-    // Always pass ui= explicitly. Without it, checkout-test would fall back to
-    // navigator.language — a Russian-browser visitor on the UK page would land
-    // on a Russian checkout, which is the wrong page for that buyer.
-    // Checkout-test only speaks the 4 languages the PDF is translated into.
-    // Visitors from es/de/fr/it/pt homepages fall through to English there.
-    const validUi = ['uk','ru','en','pl'].includes(pageLang) ? pageLang : 'en';
-    window.location.href = '/checkout-test?ui=' + validUi;
+    // Transition: LemonSqueezy store is under review — no payment provider
+    // is wired to Buy buttons yet. Fire GA event, then let the anchor's
+    // default #price scroll happen (no preventDefault, no redirect).
+    // Once LS is approved we plug the overlay open here.
   });
 });
 
