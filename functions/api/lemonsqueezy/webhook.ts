@@ -107,11 +107,21 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       const exp = Math.floor(Date.now() / 1000) + EXPIRY_DAYS * 86400;
       const token = await signDownloadToken(env.CRON_SECRET || '', `ls_${orderId}`, exp, lang);
       const link = `${origin}/d/${token}`;
-      await sendEmail(env, {
+      const emailRes = await sendEmail(env, {
         to: email,
         subject: 'Ваш PDF — Bento Cake by TROUBLEBABA',
         html: deliverEmailHtml(link, env.TELEGRAM_COMMUNITY_URL),
       });
+      // Surface Resend failures in CF Pages real-time logs so we notice a
+      // silent misconfiguration (missing API key, unverified domain, etc.)
+      // instead of returning 200 while no email actually goes out.
+      if (!emailRes.ok) {
+        console.error('[ls-webhook] sendEmail failed', { orderId, to: email, error: emailRes.error });
+      } else {
+        console.log('[ls-webhook] email queued', { orderId, id: emailRes.id });
+      }
+    } else {
+      console.warn('[ls-webhook] missing email or orderId', { hasEmail: !!email, orderId });
     }
 
     // Fire-and-forget bonus counter bump. Failure must not break the webhook.
