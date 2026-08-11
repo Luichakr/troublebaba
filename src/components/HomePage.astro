@@ -1646,8 +1646,8 @@ const guar = GUAR[lang] ?? GUAR.en;
     {tr.nav_buy}
   </a>
 
-<!-- Expose translated buy-button states + presale flag to the bundled script. -->
-<script is:inline define:vars={{ buyLoading: tr.buy_loading, buyError: tr.buy_error, presale, notifySuccess: tr.notify_success, notifyError: tr.notify_error, pageLang: lang, turnstileKey }}>
+<!-- Expose translated buy-button states + presale flag + LS checkout to the bundled script. -->
+<script is:inline define:vars={{ buyLoading: tr.buy_loading, buyError: tr.buy_error, presale, notifySuccess: tr.notify_success, notifyError: tr.notify_error, pageLang: lang, turnstileKey, lsCheckoutUrl: SITE.lemonsqueezy?.enabled ? SITE.lemonsqueezy.checkoutUrl : '' }}>
   window.TR_BUY_LOADING  = buyLoading;
   window.TR_BUY_ERROR    = buyError;
   window.TR_PRESALE      = presale;
@@ -1655,6 +1655,7 @@ const guar = GUAR[lang] ?? GUAR.en;
   window.TR_NOTIFY_ERR   = notifyError;
   window.TR_PAGE_LANG    = pageLang;
   window.TR_TURNSTILE    = turnstileKey;
+  window.TR_LS_CHECKOUT  = lsCheckoutUrl;
 </script>
 {turnstileKey && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>}
 
@@ -1872,10 +1873,17 @@ document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
     // (Footer / non-CTA links pass through normally.)
     if (a.dataset.checkoutTrigger !== '1') return;
 
-    // Transition: LemonSqueezy store is under review — no payment provider
-    // is wired to Buy buttons yet. Fire GA event, then let the anchor's
-    // default #price scroll happen (no preventDefault, no redirect).
-    // Once LS is approved we plug the overlay open here.
+    const lsUrl = (window as any).TR_LS_CHECKOUT as string;
+    if (!lsUrl) return; // no payment provider wired — fall through to #price scroll
+
+    // Redirect to the Lemon Squeezy hosted checkout. Buyer's PDF language
+    // travels as ?checkout[custom][lang]=… → LS forwards it to our webhook
+    // as meta.custom_data.lang → we sign the download token for that lang.
+    e.preventDefault();
+    const validLang = ['uk','ru','en','pl'].includes(pageLang) ? pageLang : 'en';
+    const sep = lsUrl.includes('?') ? '&' : '?';
+    const url = lsUrl + sep + 'checkout[custom][lang]=' + encodeURIComponent(validLang);
+    window.location.href = url;
   });
 });
 

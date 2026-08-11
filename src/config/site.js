@@ -49,10 +49,21 @@ export const SITE = {
   currency:    'USD',
   get bundleSaving() { return this.priceSingle * 10 - this.price; },
 
-  // === Paddle (Merchant of Record) ===
-  // Client-side token is PUBLIC by design (embedded in Paddle.js on the frontend).
-  // Secrets (PADDLE_API_KEY, PADDLE_WEBHOOK_SECRET, RESEND_API_KEY) live in
+  // === Lemon Squeezy (active Merchant of Record) ===
+  // Store approved 2026-08-04. Buy CTAs open the checkout URL below directly.
+  // Server-side secrets (LS_API_KEY, LS_WEBHOOK_SECRET, RESEND_API_KEY) live in
   // Cloudflare Pages env vars — never in this file.
+  lemonsqueezy: {
+    enabled:     true,
+    storeId:     '446675',
+    productId:   '1283593',
+    // Public checkout URL — variant UUID is embedded here. On buy the client
+    // appends ?checkout[email]=…&checkout[custom][lang]=… so LS pre-fills
+    // buyer fields and forwards `lang` to our webhook via meta.custom_data.
+    checkoutUrl: 'https://troublebaba.lemonsqueezy.com/checkout/buy/0c20be2a-c143-4f30-82e1-37eebe889365',
+  },
+
+  // === Paddle (deprecated — kept for one-line revert if ever needed) ===
   paddle: {
     // BACK ON SANDBOX until Paddle KYC (Verify your account) is completed by
     // owner in vendors.paddle.com. Live checkout errors out ("Something went
