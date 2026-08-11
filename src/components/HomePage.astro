@@ -1646,6 +1646,25 @@ const guar = GUAR[lang] ?? GUAR.en;
     {tr.nav_buy}
   </a>
 
+<!-- PDF-language modal shown after a Buy click, before the LS redirect. -->
+<div id="pdf-lang-modal" role="dialog" aria-modal="true" aria-labelledby="pdf-lang-title"
+     class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+  <div class="w-full max-w-sm bg-cream rounded-3xl shadow-2xl p-6 relative">
+    <button type="button" id="pdf-lang-close" aria-label="Close"
+            class="absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center text-espresso/60 hover:text-espresso hover:bg-espresso/5 transition">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l10 10M14 4L4 14"/></svg>
+    </button>
+    <h3 id="pdf-lang-title" class="font-cabinet font-bold text-[22px] text-espresso leading-tight pr-6">{tr.pdf_lang_title}</h3>
+    <p class="mt-1 text-[13px] text-espresso/60">{tr.pdf_lang_hint}</p>
+    <div class="mt-5 grid grid-cols-2 gap-2.5">
+      <button type="button" data-pdf-lang="uk" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">Українська</button>
+      <button type="button" data-pdf-lang="ru" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">Русский</button>
+      <button type="button" data-pdf-lang="en" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">English</button>
+      <button type="button" data-pdf-lang="pl" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">Polski</button>
+    </div>
+  </div>
+</div>
+
 <!-- Expose translated buy-button states + presale flag + LS checkout to the bundled script. -->
 <script is:inline define:vars={{ buyLoading: tr.buy_loading, buyError: tr.buy_error, presale, notifySuccess: tr.notify_success, notifyError: tr.notify_error, pageLang: lang, turnstileKey, lsCheckoutUrl: SITE.lemonsqueezy?.enabled ? SITE.lemonsqueezy.checkoutUrl : '' }}>
   window.TR_BUY_LOADING  = buyLoading;
@@ -1876,16 +1895,49 @@ document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
     const lsUrl = (window as any).TR_LS_CHECKOUT as string;
     if (!lsUrl) return; // no payment provider wired — fall through to #price scroll
 
-    // Redirect to the Lemon Squeezy hosted checkout. Buyer's PDF language
-    // travels as ?checkout[custom][lang]=… → LS forwards it to our webhook
-    // as meta.custom_data.lang → we sign the download token for that lang.
+    // Open the PDF-language modal instead of redirecting straight to LS. Buyer
+    // picks a language → we append ?checkout[custom][lang]=… → LS forwards it
+    // to our webhook as meta.custom_data.lang → we sign the download token
+    // for that language.
     e.preventDefault();
-    const validLang = ['uk','ru','en','pl'].includes(pageLang) ? pageLang : 'en';
-    const sep = lsUrl.includes('?') ? '&' : '?';
-    const url = lsUrl + sep + 'checkout[custom][lang]=' + encodeURIComponent(validLang);
-    window.location.href = url;
+    const modal = document.getElementById('pdf-lang-modal');
+    if (!modal) {
+      // fallback: no modal in DOM — use page language
+      const validLang = ['uk','ru','en','pl'].includes(pageLang) ? pageLang : 'en';
+      const sep = lsUrl.includes('?') ? '&' : '?';
+      window.location.href = lsUrl + sep + 'checkout[custom][lang]=' + encodeURIComponent(validLang);
+      return;
+    }
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.documentElement.style.overflow = 'hidden';
   });
 });
+
+// PDF-language modal: close on backdrop / X, redirect on option click.
+const pdfModal = document.getElementById('pdf-lang-modal');
+if (pdfModal) {
+  const closeModal = () => {
+    pdfModal.classList.add('hidden');
+    pdfModal.classList.remove('flex');
+    document.documentElement.style.overflow = '';
+  };
+  pdfModal.addEventListener('click', (e) => { if (e.target === pdfModal) closeModal(); });
+  document.getElementById('pdf-lang-close')?.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !pdfModal.classList.contains('hidden')) closeModal();
+  });
+  pdfModal.querySelectorAll<HTMLButtonElement>('.pdf-lang-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const chosen = btn.dataset.pdfLang || 'uk';
+      const lsUrl  = (window as any).TR_LS_CHECKOUT as string;
+      if (!lsUrl) { closeModal(); return; }
+      send('pdf_lang_pick', { lang: chosen });
+      const sep = lsUrl.includes('?') ? '&' : '?';
+      window.location.href = lsUrl + sep + 'checkout[custom][lang]=' + encodeURIComponent(chosen);
+    });
+  });
+}
 
 document.querySelectorAll<HTMLAnchorElement>('.lang-btn').forEach(a => {
   a.addEventListener('click', () => {

@@ -429,6 +429,8 @@ export const t = {
     // === Buy button states (used during /api/checkout/create roundtrip) ===
     buy_loading:                 'Створюємо оплату…',
     buy_error:                   'Не вдалося створити оплату. Спробуйте за хвилину.',
+    pdf_lang_title:              'Оберіть мову PDF',
+    pdf_lang_hint:               'На цій мові ми надішлемо вам збірник',
 
     // === About page ===
     about_meta_title:  'Про авторку — TROUBLEBABA | Bento Cake',
@@ -798,6 +800,8 @@ export const t = {
     // === Buy button states (used during /api/checkout/create roundtrip) ===
     buy_loading:                 'Создаём оплату…',
     buy_error:                   'Не удалось создать оплату. Попробуйте через минуту.',
+    pdf_lang_title:              'Выберите язык PDF',
+    pdf_lang_hint:               'На этом языке мы пришлём вам сборник',
 
     // === About page ===
     about_meta_title:  'Об авторе — TROUBLEBABA | Bento Cake',
@@ -1165,6 +1169,8 @@ export const t = {
     // === Buy button states (used during /api/checkout/create roundtrip) ===
     buy_loading:                 'Tworzymy płatność…',
     buy_error:                   'Nie udało się utworzyć płatności. Spróbuj za minutę.',
+    pdf_lang_title:              'Wybierz język PDF',
+    pdf_lang_hint:               'W tym języku wyślemy Ci zbiór przepisów',
 
     // === About page ===
     about_meta_title:  'O autorce — TROUBLEBABA | Bento Cake',
@@ -1532,6 +1538,8 @@ export const t = {
     // === Buy button states (used during /api/checkout/create roundtrip) ===
     buy_loading:                 'Creating payment…',
     buy_error:                   'Couldn\'t create the payment. Try again in a minute.',
+    pdf_lang_title:              'Choose PDF language',
+    pdf_lang_hint:               'We\'ll send the collection in this language',
 
     // === About page ===
     about_meta_title:  'About the author — TROUBLEBABA | Bento Cake',
@@ -1898,6 +1906,8 @@ export const t = {
     // === Buy button states (used during /api/checkout/create roundtrip) ===
     buy_loading:                 'Creando el pago…',
     buy_error:                   'No se pudo crear el pago. Inténtalo de nuevo en un minuto.',
+    pdf_lang_title:              'Elige el idioma del PDF',
+    pdf_lang_hint:               'Te enviaremos la colección en este idioma',
 
     // === About page ===
     about_meta_title:  'Sobre la autora — TROUBLEBABA | Bento Cake',
@@ -2264,6 +2274,8 @@ export const t = {
     // === Buy button states (used during /api/checkout/create roundtrip) ===
     buy_loading:                 'Zahlung wird erstellt …',
     buy_error:                   'Zahlung konnte nicht erstellt werden. Versuche es in einer Minute erneut.',
+    pdf_lang_title:              'PDF-Sprache wählen',
+    pdf_lang_hint:               'In dieser Sprache senden wir dir die Sammlung',
 
     // === About page ===
     about_meta_title:  'Über die Autorin — TROUBLEBABA | Bento Cake',
@@ -2630,6 +2642,8 @@ export const t = {
     // === Buy button states (used during /api/checkout/create roundtrip) ===
     buy_loading:                 'Création du paiement…',
     buy_error:                   'Impossible de créer le paiement. Réessayez dans une minute.',
+    pdf_lang_title:              'Choisir la langue du PDF',
+    pdf_lang_hint:               'Nous vous enverrons le recueil dans cette langue',
 
     // === About page ===
     about_meta_title:  'À propos de l\'autrice — TROUBLEBABA | Bento Cake',
@@ -2996,6 +3010,8 @@ export const t = {
     // === Buy button states (used during /api/checkout/create roundtrip) ===
     buy_loading:                 'Creazione del pagamento…',
     buy_error:                   'Non è stato possibile creare il pagamento. Riprova tra un minuto.',
+    pdf_lang_title:              'Scegli la lingua del PDF',
+    pdf_lang_hint:               'Ti invieremo la raccolta in questa lingua',
 
     // === About page ===
     about_meta_title:  'Chi è l\'autrice — TROUBLEBABA | Bento Cake',
@@ -3362,6 +3378,8 @@ export const t = {
     // === Buy button states (used during /api/checkout/create roundtrip) ===
     buy_loading:                 'Criando o pagamento…',
     buy_error:                   'Não foi possível criar o pagamento. Tente de novo em um minuto.',
+    pdf_lang_title:              'Escolha o idioma do PDF',
+    pdf_lang_hint:               'Enviaremos a coleção neste idioma',
 
     // === About page ===
     about_meta_title:  'Sobre a autora — TROUBLEBABA | Bento Cake',
