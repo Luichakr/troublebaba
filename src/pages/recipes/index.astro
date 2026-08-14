@@ -1,10 +1,25 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import RecipesHub from '../../components/RecipesHub.astro';
-import { RECIPES_HUB } from '../../data/flavors.js';
+import { RECIPES_HUB, FLAVORS } from '../../data/flavors.js';
+import { SITE } from '../../config/site.js';
 const lang = 'uk' as const;
 const hub = (RECIPES_HUB as any)[lang];
+
+// ItemList JSON-LD — surfaces the 10 flavor pages to Google as a curated
+// collection and can trigger the "10 recipes" carousel in SERP.
+const itemListJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": hub.metaTitle,
+  "itemListElement": (FLAVORS as any[]).map((f, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "url": SITE.url + '/recipes/' + f.slug + '/',
+    "name": f.t[lang]?.name ?? f.t.en?.name,
+  })),
+};
 ---
-<Layout title={hub.metaTitle} description={hub.metaDesc} lang={lang} path="recipes" pageType="content">
+<Layout title={hub.metaTitle} description={hub.metaDesc} lang={lang} path="recipes" pageType="content" jsonLd={itemListJsonLd}>
   <RecipesHub lang={lang} homeUrl="/" />
 </Layout>

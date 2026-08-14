@@ -34,6 +34,14 @@ interface Props {
   /** Extra JSON-LD blocks (Recipe, Article, ItemList, etc.) rendered after the
    *  standard Organization / WebSite / Breadcrumb graph. Pass an object or array. */
   jsonLd?: object | object[];
+  /** Intermediate breadcrumb between Home and the current page — turns the
+   *  default 2-level trail into 3 levels. Example on a recipe page:
+   *  { name: 'Рецепти', url: '/recipes/' } → Home / Recipes / Cake. */
+  breadcrumb?: { name: string; url: string };
+  /** Article metadata — when set, emits og:type=article + article:published_time
+   *  / article:modified_time / article:author for better share previews and
+   *  Google News eligibility on blog posts. */
+  articleMeta?: { publishedAt?: string; updatedAt?: string; author?: string };
 }
 
 const {
@@ -47,6 +55,8 @@ const {
   hreflangLangs,
   ogImage,
   jsonLd,
+  breadcrumb,
+  articleMeta,
 } = Astro.props;
 
 const BASE     = import.meta.env.BASE_URL;
@@ -149,7 +159,16 @@ const loadGA = (loadGAOverride ?? pageType === 'home') && !!SITE.gaId;
   )}
 
   <!-- Open Graph (Facebook, Telegram, WhatsApp, LinkedIn) -->
-  <meta property="og:type"             content={pageType === 'home' ? 'product' : 'website'} />
+  <meta property="og:type"             content={articleMeta ? 'article' : pageType === 'home' ? 'product' : 'website'} />
+  {articleMeta && articleMeta.publishedAt && (
+    <meta property="article:published_time" content={articleMeta.publishedAt} />
+  )}
+  {articleMeta && articleMeta.updatedAt && (
+    <meta property="article:modified_time" content={articleMeta.updatedAt} />
+  )}
+  {articleMeta && articleMeta.author && (
+    <meta property="article:author" content={articleMeta.author} />
+  )}
   <meta property="og:site_name"        content={SITE.name} />
   <meta property="og:title"            content={title} />
   <meta property="og:description"      content={description} />
@@ -175,6 +194,8 @@ const loadGA = (loadGAOverride ?? pageType === 'home') && !!SITE.gaId;
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@troublebaba" />
+  <meta name="twitter:creator"     content="@troublebaba" />
   <meta name="twitter:title"       content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image"       content={OG_IMAGE} />
@@ -277,7 +298,12 @@ const loadGA = (loadGAOverride ?? pageType === 'home') && !!SITE.gaId;
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
-      "itemListElement": [
+      "itemListElement": breadcrumb ? [
+        { "@type": "ListItem", "position": 1, "name": homeLabel, "item": SITE_URL + homePathFor(lang) },
+        { "@type": "ListItem", "position": 2, "name": breadcrumb.name,
+          "item": /^https?:\/\//.test(breadcrumb.url) ? breadcrumb.url : SITE_URL + (breadcrumb.url.startsWith('/') ? breadcrumb.url : '/' + breadcrumb.url) },
+        { "@type": "ListItem", "position": 3, "name": title.split(' | ')[0], "item": CANONICAL },
+      ] : [
         { "@type": "ListItem", "position": 1, "name": homeLabel, "item": SITE_URL + homePathFor(lang) },
         { "@type": "ListItem", "position": 2, "name": title.split(' | ')[0], "item": CANONICAL },
       ],
