@@ -1,15 +1,55 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import FlavorPage from '../../components/FlavorPage.astro';
-import { FLAVORS, FLAVOR_BY_SLUG } from '../../data/flavors.js';
+import { FLAVORS, FLAVOR_BY_SLUG, INGREDIENTS_BY_SLUG } from '../../data/flavors.js';
+import { SITE } from '../../config/site.js';
 
 export function getStaticPaths() {
   return (FLAVORS as any[]).map(f => ({ params: { slug: f.slug } }));
 }
 const lang = 'uk' as const;
 const { slug } = Astro.params as { slug: string };
-const f = (FLAVOR_BY_SLUG as any)[slug].t[lang];
+const flavor = (FLAVOR_BY_SLUG as any)[slug];
+const f = flavor.t[lang];
+const ingredients: string[] | undefined = (INGREDIENTS_BY_SLUG as any)[slug]?.[lang];
+const heroImage = SITE.url + '/' + flavor.image.replace(/^\/+/, '');
+
+// Recipe JSON-LD — targets Google's Recipe rich result. Ingredients list is
+// shown in the SERP card; recipeInstructions stays intentionally minimal
+// because full step-by-step is inside the paid PDF (schema requires at least
+// a placeholder for the rich-result to trigger, so we point to the PDF).
+const recipeJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": f.name,
+  "description": f.lead,
+  "image": [heroImage],
+  "author": { "@type": "Person", "name": "Yevgeniya Golitsyna", "url": SITE.url + '/about/' },
+  "publisher": { "@type": "Organization", "name": SITE.name, "url": SITE.url + '/' },
+  "inLanguage": lang,
+  "recipeCategory": "Dessert",
+  "recipeCuisine": "Modern",
+  "keywords": ["bento cake", "bento-cake", f.name.toLowerCase(), "recipe", "pdf recipe book"].join(", "),
+  "recipeYield": "1 bento cake (~200 g)",
+  ...(ingredients && ingredients.length ? { "recipeIngredient": ingredients } : {}),
+  "recipeInstructions": [
+    {
+      "@type": "HowToStep",
+      "name": "Full step-by-step recipe",
+      "text": `Detailed step-by-step method with exact grams, timings and photos is inside the Bento Cake PDF collection by TROUBLEBABA.`,
+      "url": SITE.url + '/#price',
+    },
+  ],
+};
 ---
-<Layout title={f.metaTitle} description={f.metaDesc} lang={lang} path={`recipes/${slug}`} pageType="content">
+<Layout
+  title={f.metaTitle}
+  description={f.metaDesc}
+  lang={lang}
+  path={`recipes/${slug}`}
+  pageType="content"
+  ogImage={flavor.image}
+  jsonLd={recipeJsonLd}
+>
   <FlavorPage lang={lang} slug={slug} homeUrl="/" recipesUrl="/recipes/" />
 </Layout>

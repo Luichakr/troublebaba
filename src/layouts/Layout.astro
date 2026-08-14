@@ -28,6 +28,12 @@ interface Props {
   /** Restrict hreflang alternates to the languages this page actually has
    *  (e.g. a blog post in ru+uk only). Defaults to all supported languages. */
   hreflangLangs?: Array<'uk' | 'ru' | 'pl' | 'en'>;
+  /** Per-page OG/Twitter image (absolute URL or root-relative). Falls back
+   *  to SITE.ogImage. Used by blog posts and recipe pages for better social CTR. */
+  ogImage?: string;
+  /** Extra JSON-LD blocks (Recipe, Article, ItemList, etc.) rendered after the
+   *  standard Organization / WebSite / Breadcrumb graph. Pass an object or array. */
+  jsonLd?: object | object[];
 }
 
 const {
@@ -39,6 +45,8 @@ const {
   noindex     = false,
   loadGA: loadGAOverride,
   hreflangLangs,
+  ogImage,
+  jsonLd,
 } = Astro.props;
 
 const BASE     = import.meta.env.BASE_URL;
@@ -71,7 +79,13 @@ const CANONICAL = SITE_URL + (path
   ? '/' + path.replace(/^\/+/, '').replace(/\/+$/, '') + (pageType === 'home' ? '/' : '')
   : '/');
 
-const OG_IMAGE  = SITE_URL + SITE.ogImage;
+// Per-page OG image override — accept absolute URL or root-relative path.
+const OG_IMAGE  = ogImage
+  ? (/^https?:\/\//.test(ogImage) ? ogImage : SITE_URL + (ogImage.startsWith('/') ? ogImage : '/' + ogImage))
+  : SITE_URL + SITE.ogImage;
+const extraJsonLd: object[] = jsonLd
+  ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd])
+  : [];
 const OG_LOCALE = LOCALES[lang]?.og || 'uk_UA';
 
 // Hreflang alternates — emit for home and legal pages (skip 404/error).
@@ -283,6 +297,10 @@ const loadGA = (loadGAOverride ?? pageType === 'home') && !!SITE.gaId;
       "worksFor": { "@type": "Organization", "name": SITE.name, "url": SITE_URL + '/' },
     })} />
   )}
+
+  {extraJsonLd.map(block => (
+    <script type="application/ld+json" set:html={JSON.stringify(block)} />
+  ))}
 </head>
 <body>
   <slot />

@@ -21,7 +21,7 @@ const tr = (t as any)[lang];
 const { Content } = await render(post);
 const langPrefix = '/' + lang;
 ---
-<Layout title={`${post.data.title} | TROUBLEBABA`} description={post.data.description} lang={lang} path={`${lang}/blog/${post.data.slug}`} pageType="content" hreflangLangs={slugLangs}>
+<Layout title={`${post.data.title} | TROUBLEBABA`} description={post.data.description} lang={lang} path={`${lang}/blog/${post.data.slug}`} pageType="content" hreflangLangs={slugLangs} ogImage={post.data.cover}>
   <article class="min-h-[100dvh] py-12 lg:py-20" style="background:#F5EFE8;">
     <div class="max-w-2xl mx-auto px-6 lg:px-10">
       <a href={`${langPrefix}/blog/`} class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10">
