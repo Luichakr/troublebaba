@@ -1666,15 +1666,16 @@ const guar = GUAR[lang] ?? GUAR.en;
 </div>
 
 <!-- Expose translated buy-button states + presale flag + LS checkout to the bundled script. -->
-<script is:inline define:vars={{ buyLoading: tr.buy_loading, buyError: tr.buy_error, presale, notifySuccess: tr.notify_success, notifyError: tr.notify_error, pageLang: lang, turnstileKey, lsCheckoutUrl: SITE.lemonsqueezy?.enabled ? SITE.lemonsqueezy.checkoutUrl : '' }}>
-  window.TR_BUY_LOADING  = buyLoading;
-  window.TR_BUY_ERROR    = buyError;
-  window.TR_PRESALE      = presale;
-  window.TR_NOTIFY_OK    = notifySuccess;
-  window.TR_NOTIFY_ERR   = notifyError;
-  window.TR_PAGE_LANG    = pageLang;
-  window.TR_TURNSTILE    = turnstileKey;
-  window.TR_LS_CHECKOUT  = lsCheckoutUrl;
+<script is:inline define:vars={{ buyLoading: tr.buy_loading, buyError: tr.buy_error, presale, notifySuccess: tr.notify_success, notifyError: tr.notify_error, pageLang: lang, turnstileKey, lsCheckoutUrl: SITE.lemonsqueezy?.enabled ? SITE.lemonsqueezy.checkoutUrl : '', lsCheckoutByLang: SITE.lemonsqueezy?.enabled ? (SITE.lemonsqueezy.checkoutByLang || {}) : {} }}>
+  window.TR_BUY_LOADING     = buyLoading;
+  window.TR_BUY_ERROR       = buyError;
+  window.TR_PRESALE         = presale;
+  window.TR_NOTIFY_OK       = notifySuccess;
+  window.TR_NOTIFY_ERR      = notifyError;
+  window.TR_PAGE_LANG       = pageLang;
+  window.TR_TURNSTILE       = turnstileKey;
+  window.TR_LS_CHECKOUT     = lsCheckoutUrl;
+  window.TR_LS_BY_LANG      = lsCheckoutByLang;
 </script>
 {turnstileKey && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>}
 
@@ -1911,6 +1912,9 @@ document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
     modal.classList.remove('hidden');
     modal.classList.add('flex');
     document.documentElement.style.overflow = 'hidden';
+    // stash the buyer's page-language so the modal handler can pick the
+    // right store URL (no need to read documentElement.lang twice)
+    modal.dataset.siteLang = pageLang;
   });
 });
 
@@ -1930,9 +1934,14 @@ if (pdfModal) {
   pdfModal.querySelectorAll<HTMLButtonElement>('.pdf-lang-opt').forEach(btn => {
     btn.addEventListener('click', () => {
       const chosen = btn.dataset.pdfLang || 'uk';
-      const lsUrl  = (window as any).TR_LS_CHECKOUT as string;
+      // Store URL is chosen by the SITE language the buyer clicked from
+      // (uk site → UAH store, ru site → USD store, pl → PLN, en/de/… → EUR).
+      // The PDF language they picked is independent and travels as custom_data.
+      const pageLang = (document.documentElement.lang || 'uk').slice(0, 2);
+      const byLang   = ((window as any).TR_LS_BY_LANG || {}) as Record<string, string>;
+      const lsUrl    = byLang[pageLang] || (window as any).TR_LS_CHECKOUT as string;
       if (!lsUrl) { closeModal(); return; }
-      send('pdf_lang_pick', { lang: chosen });
+      send('pdf_lang_pick', { lang: chosen, site_lang: pageLang });
       const sep = lsUrl.includes('?') ? '&' : '?';
       window.location.href = lsUrl + sep + 'checkout[custom][lang]=' + encodeURIComponent(chosen);
     });

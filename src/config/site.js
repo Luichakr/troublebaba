@@ -50,17 +50,34 @@ export const SITE = {
   get bundleSaving() { return this.priceSingle * 10 - this.price; },
 
   // === Lemon Squeezy (active Merchant of Record) ===
-  // Store approved 2026-08-04. Buy CTAs open the checkout URL below directly.
-  // Server-side secrets (LS_API_KEY, LS_WEBHOOK_SECRET, RESEND_API_KEY) live in
-  // Cloudflare Pages env vars — never in this file.
+  // Four verified stores — one per display currency. The buy handler picks
+  // the store by the page language the buyer clicked from, so a UA-language
+  // visitor sees a 800 ₴ checkout, a Polish visitor 80 zł, etc.
+  // Server-side secrets (LS_API_KEY, LS_WEBHOOK_SECRET, RESEND_API_KEY) live
+  // in Cloudflare Pages env vars — never in this file. Our webhook handler
+  // is store-agnostic: any of the 4 stores can POST to /api/lemonsqueezy/webhook
+  // with the shared LS_WEBHOOK_SECRET.
   lemonsqueezy: {
     enabled:     true,
+    // Default fallback (used when no per-lang store matches). Keeps the main
+    // UAH storefront as a safe default for unmapped/unknown languages.
     storeId:     '446675',
     productId:   '1283593',
-    // Public checkout URL — variant UUID is embedded here. On buy the client
-    // appends ?checkout[email]=…&checkout[custom][lang]=… so LS pre-fills
-    // buyer fields and forwards `lang` to our webhook via meta.custom_data.
     checkoutUrl: 'https://troublebaba.lemonsqueezy.com/checkout/buy/0c20be2a-c143-4f30-82e1-37eebe889365',
+    // Per-language checkout URLs. The HomePage handler picks by the page's
+    // `document.documentElement.lang`. Languages not listed here fall back
+    // to the default UAH store above (uk, ru).
+    checkoutByLang: {
+      uk: 'https://troublebaba.lemonsqueezy.com/checkout/buy/0c20be2a-c143-4f30-82e1-37eebe889365',    // UAH 800
+      ru: 'https://troublebaba-ru.lemonsqueezy.com/checkout/buy/f57fc42e-59f0-4221-9db8-82dc348fc5c1', // USD 20
+      pl: 'https://troublebaba-pl.lemonsqueezy.com/checkout/buy/69b77821-f0c5-4827-baae-69173e1d4398', // PLN 80
+      en: 'https://troublebaba-en.lemonsqueezy.com/checkout/buy/e614fe72-adce-45d0-a0e6-3dda08564de4', // EUR 18
+      de: 'https://troublebaba-en.lemonsqueezy.com/checkout/buy/e614fe72-adce-45d0-a0e6-3dda08564de4', // EUR (shared EN store)
+      fr: 'https://troublebaba-en.lemonsqueezy.com/checkout/buy/e614fe72-adce-45d0-a0e6-3dda08564de4',
+      it: 'https://troublebaba-en.lemonsqueezy.com/checkout/buy/e614fe72-adce-45d0-a0e6-3dda08564de4',
+      es: 'https://troublebaba-en.lemonsqueezy.com/checkout/buy/e614fe72-adce-45d0-a0e6-3dda08564de4',
+      pt: 'https://troublebaba-en.lemonsqueezy.com/checkout/buy/e614fe72-adce-45d0-a0e6-3dda08564de4',
+    },
   },
 
   // === Paddle (deprecated — kept for one-line revert if ever needed) ===
