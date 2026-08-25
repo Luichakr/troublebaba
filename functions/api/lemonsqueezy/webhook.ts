@@ -14,13 +14,26 @@
 import { sendEmail } from '../../_lib/resend';
 import type { ResendEnv } from '../../_lib/resend';
 import { signDownloadToken } from '../../_lib/dl';
+import { sendMessage, tgEscape } from '../../_lib/telegram';
+import type { TGEnv } from '../../_lib/telegram';
 
-type Env = ResendEnv & {
+type Env = ResendEnv & TGEnv & {
   LS_WEBHOOK_SECRET?: string;
   SITE_URL?: string;
   CRON_SECRET?: string;
   TELEGRAM_COMMUNITY_URL?: string;
+  /** Comma-separated Telegram chat ids that get a "new sale" ping. */
+  TELEGRAM_ADMIN_CHAT_IDS?: string;
   PDF_BUCKET?: R2Bucket;
+};
+
+// Human-readable names for the four per-currency stores, so the Telegram
+// ping says "troublebaba PL · PLN" instead of a bare numeric store id.
+const STORE_NAMES: Record<string, string> = {
+  '446675': 'troublebaba · UAH',
+  '450343': 'troublebaba EN · EUR',
+  '452188': 'troublebaba PL · PLN',
+  '452190': 'troublebaba RU · USD',
 };
 
 const EXPIRY_DAYS = 7;
@@ -128,6 +141,28 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     if (env.PDF_BUCKET && orderId) {
       try { await bumpBonusCount(env.PDF_BUCKET, orderId); }
       catch (e: any) { console.warn('[bonus] bump failed:', e?.message); }
+    }
+
+    // Telegram "new sale" ping to the owner's group. Best-effort: a Telegram
+    // outage must never affect PDF delivery, so every send is wrapped.
+    if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_ADMIN_CHAT_IDS) {
+      const chatIds = env.TELEGRAM_ADMIN_CHAT_IDS.split(',').map(s => s.trim()).filter(Boolean);
+      const storeId   = String(attrs.store_id ?? '');
+      const storeName = STORE_NAMES[storeId] || `store ${storeId}`;
+      // LS sends money as integer minor units (800.00 UAH → 80000).
+      const total    = (Number(attrs.total ?? 0) / 100).toFixed(2);
+      const currency = String(attrs.currency ?? '');
+      const text =
+        `💰 <b>Новая продажа</b>\n\n` +
+        `Магазин: ${tgEscape(storeName)}\n` +
+        `Сумма: <b>${tgEscape(total)} ${tgEscape(currency)}</b>\n` +
+        `Покупатель: ${tgEscape(email || '—')}\n` +
+        `PDF-язык: ${tgEscape(lang || '—')}\n` +
+        `Order: #${tgEscape(orderId)}`;
+      for (const chatId of chatIds) {
+        try { await sendMessage(env, chatId, text, { parse_mode: 'HTML' }); }
+        catch (e: any) { console.warn('[tg] sale notify failed', chatId, e?.message); }
+      }
     }
   }
 
