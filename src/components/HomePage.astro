@@ -9,7 +9,18 @@ const tr = t[lang] as Record<string, any>;
 
 // Helpers
 const isUk = lang === 'uk';
-const langUrl = (l: Lang) => l === 'uk' ? '/' : `/${l}/`;
+// Preserve the current path when switching language. E.g. on
+// /ru/recipes/red-velvet-bento-cake/ switching to en → /en/recipes/red-velvet-bento-cake/.
+// Falls back to home when no path is available.
+const SUPPORTED = new Set(['uk','ru','pl','en','es','de','fr','it','pt']);
+const rawPath   = (Astro.url && Astro.url.pathname) || '/';
+const _parts    = rawPath.replace(/^\/+/, '').replace(/\/+$/, '').split('/');
+const _headIsLang = _parts.length > 0 && SUPPORTED.has(_parts[0]);
+const subPath   = _headIsLang ? _parts.slice(1).join('/') : _parts.join('/');
+const langUrl  = (l) => {
+  const base = l === 'uk' ? '/' : `/${l}/`;
+  return subPath ? base + subPath + '/' : base;
+};
 const blogHref = isUk ? '/blog/' : `/${lang}/blog/`;
 const anchor = (id: string) => (isUk ? '/' : `/${lang}/`) + '#' + id;
 
