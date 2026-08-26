@@ -82,7 +82,7 @@ export const FLAVORS_FR = {
 };
 
 export const HUB_FR = {
-  metaTitle: '10 recettes de bento cakes — les parfums de la collection | TROUBLEBABA',
+  metaTitle: '10 recettes de bento cakes | TROUBLEBABA',
   metaDesc: 'Une collection de 10 recettes de bento cakes en PDF : Oreo, Raffaello, Snickers et bien d\'autres. Proportions exactes, montage et astuces de TROUBLEBABA.',
   heading: '10 parfums de bento cakes',
   intro: 'Une collection de dix bento cakes signature — du best-seller Oreo à une Pina Colada tropicale. Chaque recette est testée en cuisine et détaillée étape par étape. Choisissez un parfum pour en savoir plus.',

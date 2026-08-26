@@ -82,7 +82,7 @@ export const FLAVORS_ES = {
 };
 
 export const HUB_ES = {
-  metaTitle: '10 recetas de tartas bento — sabores de la colección | TROUBLEBABA',
+  metaTitle: '10 recetas de tartas bento | TROUBLEBABA',
   metaDesc: 'Una colección de 10 recetas de tartas bento en PDF: Oreo, Raffaello, Snickers y más. Proporciones exactas, montaje y consejos de TROUBLEBABA.',
   heading: '10 sabores de tartas bento',
   intro: 'Una colección de diez tartas bento de autor — desde la superventas Oreo hasta una tropical Pina Colada. Cada receta está probada en cocina y explicada paso a paso. Elige un sabor para saber más.',

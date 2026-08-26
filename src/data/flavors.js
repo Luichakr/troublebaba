@@ -12,7 +12,7 @@ import { FLAVORS_PT, HUB_PT } from './flavors.pt.js';
 export const FLAVORS = [
   {
     slug: 'oreo-bento-cake',
-    image: 'images/q9.webp',
+    image: '/images/q9.webp',
     bestseller: true,
     t: {
       uk: {
@@ -51,7 +51,7 @@ export const FLAVORS = [
   },
   {
     slug: 'red-velvet-bento-cake',
-    image: 'images/q10.webp',
+    image: '/images/q10.webp',
     t: {
       uk: {
         name: 'Червоний оксамит',
@@ -89,7 +89,7 @@ export const FLAVORS = [
   },
   {
     slug: 'poppy-seed-citrus-bento-cake',
-    image: 'images/q3.webp',
+    image: '/images/q3.webp',
     t: {
       uk: {
         name: 'Мак-цитрус',
@@ -127,7 +127,7 @@ export const FLAVORS = [
   },
   {
     slug: 'snickers-bento-cake',
-    image: 'images/q8.webp',
+    image: '/images/q8.webp',
     t: {
       uk: {
         name: 'Snickers',
@@ -165,7 +165,7 @@ export const FLAVORS = [
   },
   {
     slug: 'raffaello-bento-cake',
-    image: 'images/q1.webp',
+    image: '/images/q1.webp',
     t: {
       uk: {
         name: 'Raffaello',
@@ -203,7 +203,7 @@ export const FLAVORS = [
   },
   {
     slug: 'ferrero-rocher-bento-cake',
-    image: 'images/q5.webp',
+    image: '/images/q5.webp',
     t: {
       uk: {
         name: 'Ferrero Rocher',
@@ -241,7 +241,7 @@ export const FLAVORS = [
   },
   {
     slug: 'cinnabon-bento-cake',
-    image: 'images/q6.webp',
+    image: '/images/q6.webp',
     t: {
       uk: {
         name: 'Cinnabon',
@@ -279,7 +279,7 @@ export const FLAVORS = [
   },
   {
     slug: 'pistachio-raspberry-bento-cake',
-    image: 'images/q2.webp',
+    image: '/images/q2.webp',
     t: {
       uk: {
         name: 'Фісташка-малина',
@@ -317,7 +317,7 @@ export const FLAVORS = [
   },
   {
     slug: 'pina-colada-bento-cake',
-    image: 'images/q7.webp',
+    image: '/images/q7.webp',
     t: {
       uk: {
         name: 'Pina Colada',
@@ -355,7 +355,7 @@ export const FLAVORS = [
   },
   {
     slug: 'cherry-chocolate-bento-cake',
-    image: 'images/q4.webp',
+    image: '/images/q4.webp',
     t: {
       uk: {
         name: 'Вишня в шоколаді',
@@ -402,44 +402,115 @@ export const INGREDIENTS_BY_SLUG = {
   'oreo-bento-cake': {
     uk: ['борошно', 'цукор', 'ванільний цукор', 'розпушувач', 'сіль', 'яйце', 'молоко', 'вершкове масло', 'соняшникова олія', 'цукрова пудра', 'крохмаль'],
     ru: ['мука', 'сахар', 'ванильный сахар', 'разрыхлитель', 'соль', 'яйцо', 'молоко', 'сливочное масло', 'подсолнечное масло', 'сахарная пудра', 'крахмал'],
+    pl: ['mąka', 'cukier', 'cukier wanilinowy', 'proszek do pieczenia', 'sól', 'jajko', 'mleko', 'masło', 'olej słonecznikowy', 'cukier puder', 'skrobia'],
+    en: ['flour', 'sugar', 'vanilla sugar', 'baking powder', 'salt', 'egg', 'milk', 'butter', 'sunflower oil', 'powdered sugar', 'starch'],
+    es: ['harina', 'azúcar', 'azúcar vanillado', 'polvo de hornear', 'sal', 'huevo', 'leche', 'mantequilla', 'aceite de girasol', 'azúcar glas', 'almidón'],
+    de: ['Mehl', 'Zucker', 'Vanillezucker', 'Backpulver', 'Salz', 'Ei', 'Milch', 'Butter', 'Sonnenblumenöl', 'Puderzucker', 'Speisestärke'],
+    fr: ['farine', 'sucre', 'sucre vanillé', 'levure chimique', 'sel', 'œuf', 'lait', 'beurre', 'huile de tournesol', 'sucre glace', 'fécule'],
+    it: ['farina', 'zucchero', 'zucchero vanigliato', 'lievito per dolci', 'sale', 'uovo', 'latte', 'burro', 'olio di girasole', 'zucchero a velo', 'amido'],
+    pt: ['farinha', 'açúcar', 'açúcar de baunilha', 'fermento em pó', 'sal', 'ovo', 'leite', 'manteiga', 'óleo de girassol', 'açúcar de confeiteiro', 'amido'],
   },
   'red-velvet-bento-cake': {
     uk: ['борошно', 'цукор', 'розпушувач', 'сода', 'сіль', 'яйце', 'молоко', 'рослинна олія', 'оцет', 'ванільний цукор', 'цукрова пудра'],
     ru: ['мука', 'сахар', 'разрыхлитель', 'сода', 'соль', 'яйцо', 'молоко', 'растительное масло', 'уксус', 'ванильный сахар', 'сахарная пудра'],
+    pl: ['mąka', 'cukier', 'proszek do pieczenia', 'soda', 'sól', 'jajko', 'mleko', 'olej roślinny', 'ocet', 'cukier wanilinowy', 'cukier puder'],
+    en: ['flour', 'sugar', 'baking powder', 'baking soda', 'salt', 'egg', 'milk', 'vegetable oil', 'vinegar', 'vanilla sugar', 'powdered sugar'],
+    es: ['harina', 'azúcar', 'polvo de hornear', 'bicarbonato', 'sal', 'huevo', 'leche', 'aceite vegetal', 'vinagre', 'azúcar vanillado', 'azúcar glas'],
+    de: ['Mehl', 'Zucker', 'Backpulver', 'Natron', 'Salz', 'Ei', 'Milch', 'Pflanzenöl', 'Essig', 'Vanillezucker', 'Puderzucker'],
+    fr: ['farine', 'sucre', 'levure chimique', 'bicarbonate de soude', 'sel', 'œuf', 'lait', 'huile végétale', 'vinaigre', 'sucre vanillé', 'sucre glace'],
+    it: ['farina', 'zucchero', 'lievito per dolci', 'bicarbonato', 'sale', 'uovo', 'latte', 'olio vegetale', 'aceto', 'zucchero vanigliato', 'zucchero a velo'],
+    pt: ['farinha', 'açúcar', 'fermento em pó', 'bicarbonato de sódio', 'sal', 'ovo', 'leite', 'óleo vegetal', 'vinagre', 'açúcar de baunilha', 'açúcar de confeiteiro'],
   },
   'poppy-seed-citrus-bento-cake': {
     uk: ['борошно', 'цукор', 'розпушувач', 'яйце', 'молоко', 'рослинна олія', 'вершкове масло', 'цукрова пудра'],
     ru: ['мука', 'сахар', 'разрыхлитель', 'яйцо', 'молоко', 'растительное масло', 'сливочное масло', 'сахарная пудра'],
+    pl: ['mąka', 'cukier', 'proszek do pieczenia', 'jajko', 'mleko', 'olej roślinny', 'masło', 'cukier puder'],
+    en: ['flour', 'sugar', 'baking powder', 'egg', 'milk', 'vegetable oil', 'butter', 'powdered sugar'],
+    es: ['harina', 'azúcar', 'polvo de hornear', 'huevo', 'leche', 'aceite vegetal', 'mantequilla', 'azúcar glas'],
+    de: ['Mehl', 'Zucker', 'Backpulver', 'Ei', 'Milch', 'Pflanzenöl', 'Butter', 'Puderzucker'],
+    fr: ['farine', 'sucre', 'levure chimique', 'œuf', 'lait', 'huile végétale', 'beurre', 'sucre glace'],
+    it: ['farina', 'zucchero', 'lievito per dolci', 'uovo', 'latte', 'olio vegetale', 'burro', 'zucchero a velo'],
+    pt: ['farinha', 'açúcar', 'fermento em pó', 'ovo', 'leite', 'óleo vegetal', 'manteiga', 'açúcar de confeiteiro'],
   },
   'snickers-bento-cake': {
     uk: ['борошно', 'цукор', 'ванільний цукор', 'розпушувач', 'сіль', 'яйце', 'молоко', 'соняшникова олія', 'вершкове масло', 'цукрова пудра'],
     ru: ['мука', 'сахар', 'ванильный сахар', 'разрыхлитель', 'соль', 'яйцо', 'молоко', 'подсолнечное масло', 'сливочное масло', 'сахарная пудра'],
+    pl: ['mąka', 'cukier', 'cukier wanilinowy', 'proszek do pieczenia', 'sól', 'jajko', 'mleko', 'olej słonecznikowy', 'masło', 'cukier puder'],
+    en: ['flour', 'sugar', 'vanilla sugar', 'baking powder', 'salt', 'egg', 'milk', 'sunflower oil', 'butter', 'powdered sugar'],
+    es: ['harina', 'azúcar', 'azúcar vanillado', 'polvo de hornear', 'sal', 'huevo', 'leche', 'aceite de girasol', 'mantequilla', 'azúcar glas'],
+    de: ['Mehl', 'Zucker', 'Vanillezucker', 'Backpulver', 'Salz', 'Ei', 'Milch', 'Sonnenblumenöl', 'Butter', 'Puderzucker'],
+    fr: ['farine', 'sucre', 'sucre vanillé', 'levure chimique', 'sel', 'œuf', 'lait', 'huile de tournesol', 'beurre', 'sucre glace'],
+    it: ['farina', 'zucchero', 'zucchero vanigliato', 'lievito per dolci', 'sale', 'uovo', 'latte', 'olio di girasole', 'burro', 'zucchero a velo'],
+    pt: ['farinha', 'açúcar', 'açúcar de baunilha', 'fermento em pó', 'sal', 'ovo', 'leite', 'óleo de girassol', 'manteiga', 'açúcar de confeiteiro'],
   },
   'raffaello-bento-cake': {
     uk: ['яйце', 'цукор', 'ванільний або кокосовий цукор', 'борошно', 'рослинна олія', 'розпушувач'],
     ru: ['яйцо', 'сахар', 'ванильный или кокосовый сахар', 'мука', 'растительное масло', 'разрыхлитель'],
+    pl: ['jajko', 'cukier', 'cukier wanilinowy lub kokosowy', 'mąka', 'olej roślinny', 'proszek do pieczenia'],
+    en: ['egg', 'sugar', 'vanilla or coconut sugar', 'flour', 'vegetable oil', 'baking powder'],
+    es: ['huevo', 'azúcar', 'azúcar vanillado o de coco', 'harina', 'aceite vegetal', 'polvo de hornear'],
+    de: ['Ei', 'Zucker', 'Vanille- oder Kokoszucker', 'Mehl', 'Pflanzenöl', 'Backpulver'],
+    fr: ['œuf', 'sucre', 'sucre vanillé ou de coco', 'farine', 'huile végétale', 'levure chimique'],
+    it: ['uovo', 'zucchero', 'zucchero vanigliato o di cocco', 'farina', 'olio vegetale', 'lievito per dolci'],
+    pt: ['ovo', 'açúcar', 'açúcar de baunilha ou de coco', 'farinha', 'óleo vegetal', 'fermento em pó'],
   },
   'ferrero-rocher-bento-cake': {
     uk: ['борошно', 'цукор', 'ванільний цукор', 'розпушувач', 'сіль', 'яйце', 'молоко', 'соняшникова олія', 'вершкове масло'],
     ru: ['мука', 'сахар', 'ванильный сахар', 'разрыхлитель', 'соль', 'яйцо', 'молоко', 'подсолнечное масло', 'сливочное масло'],
+    pl: ['mąka', 'cukier', 'cukier wanilinowy', 'proszek do pieczenia', 'sól', 'jajko', 'mleko', 'olej słonecznikowy', 'masło'],
+    en: ['flour', 'sugar', 'vanilla sugar', 'baking powder', 'salt', 'egg', 'milk', 'sunflower oil', 'butter'],
+    es: ['harina', 'azúcar', 'azúcar vanillado', 'polvo de hornear', 'sal', 'huevo', 'leche', 'aceite de girasol', 'mantequilla'],
+    de: ['Mehl', 'Zucker', 'Vanillezucker', 'Backpulver', 'Salz', 'Ei', 'Milch', 'Sonnenblumenöl', 'Butter'],
+    fr: ['farine', 'sucre', 'sucre vanillé', 'levure chimique', 'sel', 'œuf', 'lait', 'huile de tournesol', 'beurre'],
+    it: ['farina', 'zucchero', 'zucchero vanigliato', 'lievito per dolci', 'sale', 'uovo', 'latte', 'olio di girasole', 'burro'],
+    pt: ['farinha', 'açúcar', 'açúcar de baunilha', 'fermento em pó', 'sal', 'ovo', 'leite', 'óleo de girassol', 'manteiga'],
   },
   'cinnabon-bento-cake': {
     uk: ['борошно', 'цукор', 'розпушувач', 'сіль', 'яйце', 'молоко', 'рослинна олія', 'вершкове масло', 'цукрова пудра'],
     ru: ['мука', 'сахар', 'разрыхлитель', 'соль', 'яйцо', 'молоко', 'растительное масло', 'сливочное масло', 'сахарная пудра'],
+    pl: ['mąka', 'cukier', 'proszek do pieczenia', 'sól', 'jajko', 'mleko', 'olej roślinny', 'masło', 'cukier puder'],
+    en: ['flour', 'sugar', 'baking powder', 'salt', 'egg', 'milk', 'vegetable oil', 'butter', 'powdered sugar'],
+    es: ['harina', 'azúcar', 'polvo de hornear', 'sal', 'huevo', 'leche', 'aceite vegetal', 'mantequilla', 'azúcar glas'],
+    de: ['Mehl', 'Zucker', 'Backpulver', 'Salz', 'Ei', 'Milch', 'Pflanzenöl', 'Butter', 'Puderzucker'],
+    fr: ['farine', 'sucre', 'levure chimique', 'sel', 'œuf', 'lait', 'huile végétale', 'beurre', 'sucre glace'],
+    it: ['farina', 'zucchero', 'lievito per dolci', 'sale', 'uovo', 'latte', 'olio vegetale', 'burro', 'zucchero a velo'],
+    pt: ['farinha', 'açúcar', 'fermento em pó', 'sal', 'ovo', 'leite', 'óleo vegetal', 'manteiga', 'açúcar de confeiteiro'],
   },
   'pistachio-raspberry-bento-cake': {
     uk: ['борошно', 'цукор', 'розпушувач', 'яйце', 'молоко', 'рослинна олія', 'крохмаль'],
     ru: ['мука', 'сахар', 'разрыхлитель', 'яйцо', 'молоко', 'растительное масло', 'крахмал'],
+    pl: ['mąka', 'cukier', 'proszek do pieczenia', 'jajko', 'mleko', 'olej roślinny', 'skrobia'],
+    en: ['flour', 'sugar', 'baking powder', 'egg', 'milk', 'vegetable oil', 'starch'],
+    es: ['harina', 'azúcar', 'polvo de hornear', 'huevo', 'leche', 'aceite vegetal', 'almidón'],
+    de: ['Mehl', 'Zucker', 'Backpulver', 'Ei', 'Milch', 'Pflanzenöl', 'Speisestärke'],
+    fr: ['farine', 'sucre', 'levure chimique', 'œuf', 'lait', 'huile végétale', 'fécule'],
+    it: ['farina', 'zucchero', 'lievito per dolci', 'uovo', 'latte', 'olio vegetale', 'amido'],
+    pt: ['farinha', 'açúcar', 'fermento em pó', 'ovo', 'leite', 'óleo vegetal', 'amido'],
   },
   'pina-colada-bento-cake': {
     uk: ['борошно', 'цукор', 'розпушувач', 'яйце', 'молоко', 'рослинна олія'],
     ru: ['мука', 'сахар', 'разрыхлитель', 'яйцо', 'молоко', 'растительное масло'],
+    pl: ['mąka', 'cukier', 'proszek do pieczenia', 'jajko', 'mleko', 'olej roślinny'],
+    en: ['flour', 'sugar', 'baking powder', 'egg', 'milk', 'vegetable oil'],
+    es: ['harina', 'azúcar', 'polvo de hornear', 'huevo', 'leche', 'aceite vegetal'],
+    de: ['Mehl', 'Zucker', 'Backpulver', 'Ei', 'Milch', 'Pflanzenöl'],
+    fr: ['farine', 'sucre', 'levure chimique', 'œuf', 'lait', 'huile végétale'],
+    it: ['farina', 'zucchero', 'lievito per dolci', 'uovo', 'latte', 'olio vegetale'],
+    pt: ['farinha', 'açúcar', 'fermento em pó', 'ovo', 'leite', 'óleo vegetal'],
   },
   'cherry-chocolate-bento-cake': {
     uk: ['борошно', 'цукор', 'ванільний цукор', 'розпушувач', 'сіль', 'яйце', 'молоко', 'вершкове масло', 'соняшникова олія', 'крохмаль'],
     ru: ['мука', 'сахар', 'ванильный сахар', 'разрыхлитель', 'соль', 'яйцо', 'молоко', 'сливочное масло', 'подсолнечное масло', 'крахмал'],
+    pl: ['mąka', 'cukier', 'cukier wanilinowy', 'proszek do pieczenia', 'sól', 'jajko', 'mleko', 'masło', 'olej słonecznikowy', 'skrobia'],
+    en: ['flour', 'sugar', 'vanilla sugar', 'baking powder', 'salt', 'egg', 'milk', 'butter', 'sunflower oil', 'starch'],
+    es: ['harina', 'azúcar', 'azúcar vanillado', 'polvo de hornear', 'sal', 'huevo', 'leche', 'mantequilla', 'aceite de girasol', 'almidón'],
+    de: ['Mehl', 'Zucker', 'Vanillezucker', 'Backpulver', 'Salz', 'Ei', 'Milch', 'Butter', 'Sonnenblumenöl', 'Speisestärke'],
+    fr: ['farine', 'sucre', 'sucre vanillé', 'levure chimique', 'sel', 'œuf', 'lait', 'beurre', 'huile de tournesol', 'fécule'],
+    it: ['farina', 'zucchero', 'zucchero vanigliato', 'lievito per dolci', 'sale', 'uovo', 'latte', 'burro', 'olio di girasole', 'amido'],
+    pt: ['farinha', 'açúcar', 'açúcar de baunilha', 'fermento em pó', 'sal', 'ovo', 'leite', 'manteiga', 'óleo de girassol', 'amido'],
   },
 };
+
 
 // Copy for the ingredients section on each flavor page (uk + ru only —
 // requested first). Other locales silently skip the section for now.
@@ -455,6 +526,48 @@ export const INGREDIENTS_COPY = {
     subline:  'Показаны только базовые продукты. Ключевые ингредиенты и точные граммовки — в PDF-сборнике.',
     pdfNote:  'В PDF-сборнике ты получишь: точные граммовки каждого ингредиента, рекомендации по брендам (мука, шоколад, сливки, крем-сыр), таблицу пересчёта на любой диаметр формы, а также список кухонных приборов, которые понадобятся. Плюс подробная сборка с фото — шаг за шагом.',
     ctaHint:  'Хочешь приготовить этот торт? Забирай полный рецепт с точными граммами в сборнике.',
+  },
+  pl: {
+    heading:  'Z czego pieczemy',
+    subline:  'Pokazane są tylko podstawowe produkty. Kluczowe składniki i dokładne gramatury — w PDF.',
+    pdfNote:  'W zbiorze PDF otrzymasz: dokładne gramatury każdego składnika, rekomendacje marek (mąka, czekolada, śmietana, serek), tabelę przeliczeń na dowolną średnicę formy oraz listę potrzebnych akcesoriów. Plus szczegółowy montaż ze zdjęciami — krok po kroku.',
+    ctaHint:  'Chcesz upiec ten tort? Odbierz pełny przepis z dokładnymi gramaturami w zbiorze.',
+  },
+  en: {
+    heading:  'What goes in',
+    subline:  'Only the basics are listed. Key ingredients and exact grams are in the PDF.',
+    pdfNote:  'In the PDF collection you get: exact grams for every ingredient, brand recommendations (flour, chocolate, cream, cream cheese), a scaling table for any pan diameter, and a list of the tools you will need. Plus a detailed photo walkthrough — step by step.',
+    ctaHint:  'Want to bake this cake? Get the full recipe with exact grams in the collection.',
+  },
+  es: {
+    heading:  'Con qué lo hacemos',
+    subline:  'Solo se muestran los productos básicos. Los ingredientes clave y los gramajes exactos están en el PDF.',
+    pdfNote:  'En la colección PDF obtienes: gramajes exactos de cada ingrediente, recomendaciones de marcas (harina, chocolate, nata, queso crema), una tabla de conversión para cualquier diámetro de molde y la lista de utensilios necesarios. Además, el montaje detallado con fotos — paso a paso.',
+    ctaHint:  '¿Quieres hacer esta tarta? Consigue la receta completa con gramajes exactos en la colección.',
+  },
+  de: {
+    heading:  'Woraus wir backen',
+    subline:  'Gezeigt werden nur die Grundprodukte. Die wichtigsten Zutaten und exakte Grammangaben stehen im PDF.',
+    pdfNote:  'In der PDF-Sammlung bekommst du: exakte Grammangaben für jede Zutat, Markenempfehlungen (Mehl, Schokolade, Sahne, Frischkäse), eine Umrechnungstabelle für jeden Formdurchmesser sowie die Liste der benötigten Geräte. Dazu der ausführliche Aufbau mit Fotos — Schritt für Schritt.',
+    ctaHint:  'Willst du diese Torte backen? Hol dir das komplette Rezept mit exakten Grammangaben in der Sammlung.',
+  },
+  fr: {
+    heading:  'Avec quoi on le fait',
+    subline:  'Seuls les produits de base sont affichés. Les ingrédients clés et les grammages exacts sont dans le PDF.',
+    pdfNote:  'Dans le recueil PDF vous obtenez : les grammages exacts de chaque ingrédient, des recommandations de marques (farine, chocolat, crème, cream cheese), un tableau de conversion pour tout diamètre de moule, ainsi que la liste du matériel nécessaire. Plus le montage détaillé en photos — étape par étape.',
+    ctaHint:  'Envie de réaliser ce gâteau ? Récupérez la recette complète avec les grammages exacts dans le recueil.',
+  },
+  it: {
+    heading:  'Con cosa la prepariamo',
+    subline:  'Sono elencati solo i prodotti base. Gli ingredienti chiave e le grammature esatte sono nel PDF.',
+    pdfNote:  'Nella raccolta PDF trovi: le grammature esatte di ogni ingrediente, i consigli sulle marche (farina, cioccolato, panna, formaggio fresco), una tabella di conversione per qualsiasi diametro di teglia e l\'elenco degli attrezzi necessari. Più il montaggio dettagliato con foto — passo per passo.',
+    ctaHint:  'Vuoi preparare questa torta? Prendi la ricetta completa con le grammature esatte nella raccolta.',
+  },
+  pt: {
+    heading:  'Com o que fazemos',
+    subline:  'Só aparecem os produtos básicos. Os ingredientes principais e as gramaturas exatas estão no PDF.',
+    pdfNote:  'Na coleção em PDF você recebe: gramaturas exatas de cada ingrediente, recomendações de marcas (farinha, chocolate, creme de leite, cream cheese), uma tabela de conversão para qualquer diâmetro de forma e a lista de utensílios necessários. Além da montagem detalhada com fotos — passo a passo.',
+    ctaHint:  'Quer fazer este bolo? Pegue a receita completa com gramaturas exatas na coleção.',
   },
 };
 

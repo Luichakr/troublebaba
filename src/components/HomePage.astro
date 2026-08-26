@@ -77,7 +77,7 @@ const guar = GUAR[lang] ?? GUAR.en;
       <nav class="hidden md:flex items-center gap-10 font-outfit text-[12px] font-semibold tracking-[0.16em] uppercase text-espresso/65">
         <a href={anchor('recipes')} class="hover:text-espresso transition-colors">{tr.nav_recipes}</a>
         <a href={anchor('about')} class="hover:text-espresso transition-colors">{tr.nav_author}</a>
-        <a href={blogHref} class="hover:text-espresso transition-colors">{['uk','ru'].includes(lang) ? 'Блог' : 'Blog'}</a>
+        <a href={blogHref} class="hover:text-espresso transition-colors">{tr.nav_blog}</a>
         <a href={anchor('price')} class="hover:text-espresso transition-colors">{tr.nav_price}</a>
         <a href={anchor('faq')} class="hover:text-espresso transition-colors">FAQ</a>
       </nav>
@@ -118,6 +118,7 @@ const guar = GUAR[lang] ?? GUAR.en;
       <div class="px-6 py-4 flex flex-col gap-1">
         <a href={anchor('recipes')} class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 transition-colors mobile-menu-link">{tr.nav_recipes}</a>
         <a href={anchor('about')} class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 transition-colors mobile-menu-link">{tr.nav_author}</a>
+        <a href={blogHref} class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 transition-colors mobile-menu-link">{tr.nav_blog}</a>
         <a href={anchor('price')} class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 transition-colors mobile-menu-link">{tr.nav_price}</a>
         <a href={anchor('faq')} class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 last:border-b-0 transition-colors mobile-menu-link">FAQ</a>
         <!-- Language switcher in mobile menu -->
@@ -511,7 +512,7 @@ const guar = GUAR[lang] ?? GUAR.en;
                   <circle cx="43" cy="43" r="33" stroke="rgba(200,184,162,0.2)" stroke-width="0.6"/>
                   <path id="circ-path" d="M43 6 A37 37 0 1 1 42.99 6" fill="none"/>
                   <text font-family="Outfit, sans-serif" font-size="6.5" font-weight="600" fill="rgba(200,184,162,0.8)" letter-spacing="2.5">
-                    <textPath href="#circ-path">TROUBLEBABA · АВТОРКА РЕЦЕПТІВ ·</textPath>
+                    <textPath href="#circ-path">TROUBLEBABA · {tr.author_tag_role} ·</textPath>
                   </text>
                   <path d="M37 32 Q39 28 41 30 Q43 28 43 30 Q43 28 45 30 Q47 28 49 32" stroke="rgba(200,184,162,0.7)" stroke-width="0.9" fill="none" stroke-linecap="round"/>
                   <text x="43" y="52" text-anchor="middle" font-family="Fraunces, serif" font-size="20" font-weight="600" font-style="italic" fill="rgba(200,184,162,0.95)" letter-spacing="-0.02em">TB</text>
