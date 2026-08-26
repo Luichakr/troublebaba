@@ -466,7 +466,7 @@ export const RECIPES_HUB = {
     heading: '10 смаків бенто-тортів',
     intro: 'Колекція з десяти авторських бенто-тортів — від хітового Oreo до тропічної Pina Colada. Кожен рецепт перевірений на практиці й описаний крок за кроком. Оберіть смак, щоб дізнатися більше.',
     cta: 'Купити збірник — 800 ₴',
-    back: '← На головну',
+    back: 'На головну',
     allLabel: 'Усі смаки',
   },
   ru: {
@@ -475,7 +475,7 @@ export const RECIPES_HUB = {
     heading: '10 вкусов бенто-тортов',
     intro: 'Коллекция из десяти авторских бенто-тортов — от хитового Oreo до тропической Pina Colada. Каждый рецепт проверен на практике и расписан шаг за шагом. Выберите вкус, чтобы узнать больше.',
     cta: 'Купить сборник — $20',
-    back: '← На главную',
+    back: 'На главную',
     allLabel: 'Все вкусы',
   },
   pl: {
@@ -484,7 +484,7 @@ export const RECIPES_HUB = {
     heading: '10 smaków tortów bento',
     intro: 'Kolekcja dziesięciu autorskich tortów bento — od hitowego Oreo po tropikalną Pina Coladę. Każdy przepis sprawdzony w praktyce i opisany krok po kroku. Wybierz smak, aby dowiedzieć się więcej.',
     cta: 'Kup zbiór — 80 zł',
-    back: '← Strona główna',
+    back: 'Strona główna',
     allLabel: 'Wszystkie smaki',
   },
   en: {
@@ -493,7 +493,7 @@ export const RECIPES_HUB = {
     heading: '10 bento cake flavours',
     intro: 'A collection of ten signature bento cakes — from the best-selling Oreo to a tropical Pina Colada. Every recipe is kitchen-tested and laid out step by step. Pick a flavour to learn more.',
     cta: 'Buy the collection — €18',
-    back: '← Back home',
+    back: 'Back home',
     allLabel: 'All flavours',
   },
 };
