@@ -1,4 +1,5 @@
 ---
+import SiteHeader from './SiteHeader.astro';
 import { t } from '../i18n/translations.js';
 import { SITE } from '../config/site.js';
 
@@ -22,6 +23,7 @@ const supportEmail = SITE.contactEmail;
 const isSuccess = kind === 'success';
 const accent    = isSuccess ? '#8B7355' : '#A14848';
 ---
+<SiteHeader lang={lang} />
 <main class="min-h-[100dvh] flex items-center justify-center px-6 py-20" style="background:#F5EFE8;">
   <div class="max-w-xl text-center">
     <a href={homeUrl} class="inline-block font-cabinet text-espresso text-3xl mb-12 tracking-tight" aria-label="TROUBLEBABA">TROUBLEBABA</a>

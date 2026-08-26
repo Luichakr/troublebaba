@@ -1,4 +1,5 @@
 ---
+import SiteHeader from './SiteHeader.astro';
 import { t } from '../i18n/translations.js';
 import { SITE } from '../config/site.js';
 
@@ -24,6 +25,7 @@ function fmt(text: string): string {
   return text.replace(/\{EMAIL\}/g, emailLinkHtml).replace(/\n/g, '<br/>');
 }
 ---
+<SiteHeader lang={lang} />
 <main class="min-h-[100dvh] py-16 lg:py-24" style="background:#F5EFE8;">
   <div class="max-w-3xl mx-auto px-6 lg:px-10">
 

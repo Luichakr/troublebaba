@@ -1,4 +1,5 @@
 ---
+import SiteHeader from './SiteHeader.astro';
 // Free recipe lead-magnet landing.
 //
 // Hero with copy, a benefits list, an email form that POSTs to /api/free-recipe,
@@ -21,6 +22,7 @@ const homeHref    = langPrefix + '/';
 const successText = (tr.fr_success_text as string).replace('{EMAIL}', SITE.contactEmail);
 const turnstileKey = SITE.turnstile?.siteKey || '';
 ---
+<SiteHeader lang={lang} />
 
 <section class="min-h-[100dvh] py-14 lg:py-20" style="background:#F5EFE8;">
   <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
