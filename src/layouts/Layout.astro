@@ -181,13 +181,29 @@ const PRODUCT_CATEGORY: Record<Lang, string> = {
 // Customer reviews — count per language, used for the visible badge in the
 // reviews section. NOT fed into structured data: see the note at the Product
 // schema below for why AggregateRating was removed.
-const REVIEW_FILES = import.meta.glob('../data/reviews/*.json', { eager: true }) as Record<string, { default: { text: string }[] }>;
+const REVIEW_FILES = import.meta.glob('../data/reviews/*.json', { eager: true }) as Record<string, { default: { text: string; name?: string; rating?: number }[] }>;
 const reviewCount = (
   REVIEW_FILES[`../data/reviews/${lang}.json`]?.default
   ?? REVIEW_FILES['../data/reviews/en.json']?.default
   ?? REVIEW_FILES['../data/reviews/ru.json']?.default
   ?? []
 ).length;
+
+// Средний рейтинг для AggregateRating — считается из оценок в отзывах.
+// Если ни одного `rating` нет, схема рейтинга не выводится вовсе:
+// заявлять рейтинг без собранных оценок нельзя ни по правилам Google
+// Structured Data, ни по Omnibus Directive в ЕС.
+const _reviewList = (
+  REVIEW_FILES[`../data/reviews/${lang}.json`]?.default
+  ?? REVIEW_FILES['../data/reviews/en.json']?.default
+  ?? REVIEW_FILES['../data/reviews/ru.json']?.default
+  ?? []
+);
+const _scored = _reviewList.filter(r => typeof r.rating === 'number' && r.rating >= 1 && r.rating <= 5);
+const ratingValue = _scored.length
+  ? Math.round((_scored.reduce((a, r) => a + (r.rating as number), 0) / _scored.length) * 10) / 10
+  : null;
+const ratingCount = _scored.length;
 
 // Load GA4 on every real page (home, content, about, legal) so organic
 // landing pages (recipes, blog posts) actually count. Explicit `loadGA` prop
@@ -360,13 +376,20 @@ const loadGA = (loadGAOverride ?? (pageType !== 'error')) && !!SITE.gaId;
       "image": OG_IMAGE,
       "category": PRODUCT_CATEGORY[lang] || PRODUCT_CATEGORY.en,
       "sku": "troublebaba-bento-cake-pdf",
-      // AggregateRating убран 7 сентября 2026. ratingValue было жёстко зашито
-      // как "4.9", хотя отзывы не содержат числовых оценок 1–5 — то есть
-      // рейтинг ниоткуда не выводился. Для Google это нарушение Structured
-      // Data guidelines (rating обязан основываться на реальных оценках),
-      // наказание — снятие rich results со всего домена. Вернуть можно
-      // только когда покупатели начнут ставить оценки: тогда ratingValue
-      // считается из данных, а не проставляется руками.
+      // AggregateRating выводится ТОЛЬКО если у отзывов есть числовые оценки:
+      // ratingValue вычисляется как среднее (см. выше), reviewCount — это
+      // количество оценённых отзывов, а не всех подряд. До 7 сентября 2026
+      // здесь стояла захардкоженная «4.9» без собранных оценок, что нарушало
+      // Structured Data guidelines Google.
+      ...(ratingValue !== null ? {
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": String(ratingValue),
+          "reviewCount": String(ratingCount),
+          "bestRating": "5",
+          "worstRating": "1",
+        }
+      } : {}),
       "offers": {
         "@type": "Offer",
         "price": priceMeta.amount,

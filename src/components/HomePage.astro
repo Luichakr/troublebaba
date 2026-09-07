@@ -134,12 +134,48 @@ const previewPages = PREVIEW_PAGES[previewLang];
 
 // Customer reviews — one JSON file per language in src/data/reviews/.
 // Falls back to EN, then RU, if a locale file is missing at build time.
-const REVIEW_FILES = import.meta.glob<{ default: { text: string; name?: string }[] }>(
+const REVIEW_FILES = import.meta.glob<{ default: { text: string; name?: string; rating?: number }[] }>(
   '../data/reviews/*.json',
   { eager: true },
 );
-const reviewsFor = (l: string): { text: string; name?: string }[] =>
+const reviewsFor = (l: string): { text: string; name?: string; rating?: number }[] =>
   REVIEW_FILES[`../data/reviews/${l}.json`]?.default ?? [];
+// Средний рейтинг — ВЫЧИСЛЯЕТСЯ из оценок в самих отзывах, не проставляется
+// руками. Если ни у одного отзыва нет поля `rating`, блок звёзд и разметка
+// AggregateRating не выводятся вообще: рейтинг без собранных оценок — это
+// нарушение Structured Data guidelines Google и потенциальная проблема
+// с законом о защите потребителей (Omnibus Directive в ЕС).
+// Чтобы звёзды появились, достаточно добавить "rating": 5 в записи
+// src/data/reviews/<lang>.json — среднее пересчитается само.
+function averageRating(list: { rating?: number }[]): number | null {
+  const scored = list.filter(r => typeof r.rating === 'number' && r.rating >= 1 && r.rating <= 5);
+  if (!scored.length) return null;
+  const sum = scored.reduce((a, r) => a + (r.rating as number), 0);
+  return Math.round((sum / scored.length) * 10) / 10;
+}
+
+// Подпись под рейтингом: «на основі 51 відгуку». Отдельно от pluralReviews,
+// потому что там счётчик стоит вместо рейтинга и формулировка другая.
+function ratingBasis(n: number, l: string): string {
+  const slavic = (one: string, few: string, many: string) => {
+    const m10 = n % 10, m100 = n % 100;
+    if (m10 === 1 && m100 !== 11) return one;
+    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+    return many;
+  };
+  switch (l) {
+    case 'uk': return slavic(`на основі\n${n} відгуку`, `на основі\n${n} відгуків`, `на основі\n${n} відгуків`);
+    case 'ru': return slavic(`на основе\n${n} отзыва`, `на основе\n${n} отзывов`, `на основе\n${n} отзывов`);
+    case 'pl': return slavic(`na podstawie\n${n} opinii`, `na podstawie\n${n} opinii`, `na podstawie\n${n} opinii`);
+    case 'de': return `basierend auf\n${n} Bewertungen`;
+    case 'fr': return `sur la base de\n${n} avis`;
+    case 'it': return `basato su\n${n} recensioni`;
+    case 'es': return `basado en\n${n} opiniones`;
+    case 'pt': return `com base em\n${n} avaliações`;
+    default:   return `based on\n${n} reviews`;
+  }
+}
+
 // Плюрализация счётчика отзывов. «51 відгуків» — неграмотно: при числах,
 // що закінчуються на 1 (крім 11), потрібна однина. Те саме російською
 // та польською, у кожної мови свої правила.
@@ -168,6 +204,8 @@ const reviews = (
   : reviewsFor('en').length ? reviewsFor('en')
   : reviewsFor('ru')
 );
+const ratingValue = averageRating(reviews);
+const ratedCount = reviews.filter(r => typeof r.rating === 'number').length;
 const REVIEWS_INITIAL = 9; // shown before "show more"
 ---
 
@@ -1215,16 +1253,35 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
         <h2 class="font-cabinet text-espresso mb-6" style="font-size:clamp(2.4rem,4.6vw,4rem);line-height:1.0;">
           {tr.testi_title}
         </h2>
-        <!-- Reviews count badge.
-             До 7 сентября 2026 здесь стояли пять звёзд и «4.9». Цифра была
-             захардкожена, а отзывы не содержат числовых оценок 1–5 — то есть
-             рейтинг ниоткуда не выводился. Убрано вместе с AggregateRating
-             в Layout.astro. Вернуть звёзды можно, когда покупатели начнут
-             ставить оценки и ratingValue будет считаться из данных. -->
+        <!-- Rating badge. Звёзды и число показываются ТОЛЬКО когда у отзывов
+             есть поле `rating` — тогда ratingValue вычисляется как среднее
+             (см. averageRating выше). Если оценок нет, остаётся честный
+             счётчик отзывов без рейтинга. До 7 сентября 2026 здесь стояла
+             захардкоженная «4.9», за которой не было собранных оценок. -->
         <div class="inline-flex items-center gap-2.5 bg-warm-white rounded-full px-5 py-2.5" style="border:1px solid rgba(200,184,162,0.3);box-shadow:0 1px 6px rgba(139,115,85,0.05);">
-          <Icon name="ph:chat-circle-text" class="w-[17px] h-[17px]" />
-          <span class="font-outfit font-bold text-espresso text-[15px]">{reviews.length}</span>
-          <span class="font-outfit text-espresso/65 text-[12.5px] leading-tight">{pluralReviews(reviews.length, lang)}</span>
+          {ratingValue !== null ? (
+            <>
+              <div class="flex items-center gap-0.5">
+                {[1,2,3,4,5].map((i) => (
+                  <Icon
+                    name={i <= Math.round(ratingValue) ? 'ph:star-fill' : 'ph:star'}
+                    class="w-[17px] h-[17px]"
+                  />
+                ))}
+              </div>
+              <span class="font-outfit font-bold text-espresso text-[15px]">
+                {ratingValue.toLocaleString(lang === 'en' ? 'en' : lang, { minimumFractionDigits: 1 })}
+              </span>
+            </>
+          ) : (
+            <>
+              <Icon name="ph:chat-circle-text" class="w-[17px] h-[17px]" />
+              <span class="font-outfit font-bold text-espresso text-[15px]">{reviews.length}</span>
+            </>
+          )}
+          <span class="font-outfit text-espresso/65 text-[12.5px] leading-tight" style="white-space:pre-line;">
+            {ratingValue !== null ? ratingBasis(ratedCount, lang) : pluralReviews(reviews.length, lang)}
+          </span>
         </div>
       </div>
 
@@ -1237,6 +1294,13 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
             hidden={i >= REVIEWS_INITIAL}
             style="box-shadow:0 1px 6px rgba(139,115,85,0.05);border:1px solid rgba(200,184,162,0.22);"
           >
+            {typeof r.rating === 'number' && (
+              <div class="flex items-center gap-0.5 mb-3" aria-label={`${r.rating} / 5`}>
+                {[1,2,3,4,5].map((i) => (
+                  <Icon name={i <= (r.rating as number) ? 'ph:star-fill' : 'ph:star'} class="w-[14px] h-[14px]" />
+                ))}
+              </div>
+            )}
             <p class="font-outfit text-espresso/75 text-[15px] leading-relaxed mb-4">{r.text}</p>
             <div class="flex items-center gap-2 flex-wrap">
               {r.name && (
