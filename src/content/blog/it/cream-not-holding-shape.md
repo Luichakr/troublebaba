@@ -4,7 +4,7 @@ description: "Analizziamo le cause più frequenti per cui la crema di una bento 
 lang: "it"
 slug: "cream-not-holding-shape"
 publishedAt: "2026-06-04"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["crema", "errori", "tecnica"]
 draft: false
 excerpt: "Sei cause per cui la crema cola, e cosa fare al riguardo."

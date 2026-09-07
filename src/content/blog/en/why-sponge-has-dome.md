@@ -4,7 +4,7 @@ description: "The main reason a bento cake sponge rises into a dome, and simple 
 lang: "en"
 slug: "why-sponge-has-dome"
 publishedAt: "2026-06-03"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["sponge", "mistakes", "technique"]
 draft: false
 excerpt: "The main cause of the dome on a sponge — and what to do about it."

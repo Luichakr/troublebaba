@@ -4,7 +4,7 @@ description: "Рецепт полуничного чизкейка з печив
 lang: "uk"
 slug: "strawberry-oreo-cheesecake"
 publishedAt: "2026-06-04"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["чизкейк", "без випікання", "орео", "рецепт"]
 draft: false
 excerpt: "Ніжний полуничний чизкейк з Oreo без випікання — точні грамажі та покрокове збирання."

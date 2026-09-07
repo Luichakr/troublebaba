@@ -4,7 +4,7 @@ description: "Jakie pudełko, papier i akcesoria są potrzebne do tortu bento na
 lang: "pl"
 slug: "how-to-package-bento"
 publishedAt: "2026-06-03"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["opakowanie", "biznes", "sprzedaż"]
 draft: false
 excerpt: "Podstawowy zestaw opakowaniowy i co powiedzieć klientowi."

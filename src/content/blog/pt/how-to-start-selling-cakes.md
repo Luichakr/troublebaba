@@ -4,7 +4,7 @@ description: "O que você precisa para aceitar o primeiro bolo pago: equipamento
 lang: "pt"
 slug: "how-to-start-selling-cakes"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["negócio", "iniciantes", "confeitaria caseira"]
 draft: false
 excerpt: "O que é realmente necessário para aceitar o primeiro pedido de bolo — sem equipamento inventado e sem medo."

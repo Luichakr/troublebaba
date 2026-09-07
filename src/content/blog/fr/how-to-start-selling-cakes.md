@@ -4,7 +4,7 @@ description: "Ce qu'il faut vraiment pour accepter son premier gâteau payant : 
 lang: "fr"
 slug: "how-to-start-selling-cakes"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["business", "débutants", "pâtisserie maison"]
 draft: false
 excerpt: "Ce qu'il faut réellement pour prendre sa première commande de gâteau — sans matériel superflu et sans avoir peur."

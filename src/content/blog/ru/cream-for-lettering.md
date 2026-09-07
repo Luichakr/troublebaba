@@ -4,7 +4,7 @@ description: "Какой крем держит тонкую линию надп�
 lang: "ru"
 slug: "cream-for-lettering"
 publishedAt: "2026-09-06"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["декор", "техника", "крем"]
 draft: false
 excerpt: "Какой крем держит линию, как писать ровно и что делать, если надпись поплыла или треснула."

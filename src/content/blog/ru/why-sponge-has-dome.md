@@ -4,7 +4,7 @@ description: "Разбираем главную причину «горки» н
 lang: "ru"
 slug: "why-sponge-has-dome"
 publishedAt: "2026-06-03"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["бисквит", "ошибки", "техника"]
 draft: false
 excerpt: "Главная причина «горки» на бисквите — и что с ней делать."

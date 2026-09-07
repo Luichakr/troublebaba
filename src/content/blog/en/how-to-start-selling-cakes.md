@@ -4,7 +4,7 @@ description: "What you actually need to take on your first paid cake order: basi
 lang: "en"
 slug: "how-to-start-selling-cakes"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["business", "beginners", "home bakery"]
 draft: false
 excerpt: "What you truly need to take that first cake order — without the invented equipment list and without the fear."

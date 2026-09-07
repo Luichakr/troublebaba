@@ -5,7 +5,7 @@ lang: "ru"
 slug: "bento-cake-shelf-life"
 publishedAt: "2026-06-04"
 updatedAt: "2026-09-06"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["хранение", "бизнес", "продажа"]
 draft: false
 excerpt: "Таблица сроков по кремам и начинкам, правила перевозки и готовая памятка клиенту."

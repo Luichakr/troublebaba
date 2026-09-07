@@ -4,7 +4,7 @@ description: "Розбираємо, чому крем-чиз або збиті �
 lang: "uk"
 slug: "cream-not-thickening"
 publishedAt: "2026-09-07"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["крем", "помилки", "техніка", "збірка"]
 draft: false
 excerpt: "Що робити з кремом, який відмовляється густішати — і як не викинути пів пачки маскарпоне."

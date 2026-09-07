@@ -4,7 +4,7 @@ description: "Jak przygotować tort bento do transportu, jakie pudełko i podkł
 lang: "pl"
 slug: "how-to-transport-bento-cake"
 publishedAt: "2026-09-06"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["transport", "technika", "sprzedaż"]
 draft: false
 excerpt: "Pudełko, podkład, temperatura w samochodzie i checklista, która ratuje przed 'krem spłynął po drodze'."

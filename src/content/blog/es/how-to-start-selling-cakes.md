@@ -4,7 +4,7 @@ description: "Qué hace falta para aceptar la primera tarta de pago: inventario 
 lang: "es"
 slug: "how-to-start-selling-cakes"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["negocio", "principiantes", "repostería casera"]
 draft: false
 excerpt: "Lo que de verdad hace falta para aceptar el primer pedido de una tarta: sin inventario inventado y sin miedo."

@@ -4,7 +4,7 @@ description: "Nous passons en revue les causes les plus fréquentes pour lesquel
 lang: "fr"
 slug: "cream-not-holding-shape"
 publishedAt: "2026-06-04"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["crème", "erreurs", "technique"]
 draft: false
 excerpt: "Six raisons pour lesquelles la crème coule — et que faire."

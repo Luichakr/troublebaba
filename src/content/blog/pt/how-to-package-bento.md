@@ -4,7 +4,7 @@ description: "Qual caixa, papel e acessórios são necessários para um bento ca
 lang: "pt"
 slug: "how-to-package-bento"
 publishedAt: "2026-06-03"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["embalagem", "negócio", "venda"]
 draft: false
 excerpt: "O kit básico de embalagem e o que dizer ao cliente."

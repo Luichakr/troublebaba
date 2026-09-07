@@ -4,7 +4,7 @@ description: "Which box, paper and accessories you need for a bento cake to orde
 lang: "en"
 slug: "how-to-package-bento"
 publishedAt: "2026-06-03"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["packaging", "business", "sales"]
 draft: false
 excerpt: "The basic packaging kit and what to say to the client."

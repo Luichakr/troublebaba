@@ -4,7 +4,7 @@ description: "Frischkäse auf Sahne- oder Butterbasis, Ganache, Mascarpone – w
 lang: "de"
 slug: "which-cream-for-bento"
 publishedAt: "2026-06-03"
-cover: "/images/bento-you-can.webp"
+cover: "/images/blog-cover.webp"
 tags: ["Creme", "Technik", "Auswahl"]
 draft: false
 excerpt: "Worin sich die wichtigsten Cremes unterscheiden und wann du welche nimmst."

@@ -4,7 +4,7 @@ description: "Analisamos as causas mais comuns de o creme do bento cake escorrer
 lang: "pt"
 slug: "cream-not-holding-shape"
 publishedAt: "2026-06-04"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["creme", "erros", "técnica"]
 draft: false
 excerpt: "Seis razões pelas quais o creme escorre — e o que fazer."

@@ -4,7 +4,7 @@ description: "Analizamos la causa principal del «copete» en el bizcocho para b
 lang: "es"
 slug: "why-sponge-has-dome"
 publishedAt: "2026-06-03"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["bizcocho", "errores", "técnica"]
 draft: false
 excerpt: "La causa principal del «copete» en el bizcocho, y qué hacer con ella."

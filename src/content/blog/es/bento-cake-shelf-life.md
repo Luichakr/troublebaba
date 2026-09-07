@@ -4,7 +4,7 @@ description: "Cuánto conservar un bento cake en el frigorífico y a temperatura
 lang: "es"
 slug: "bento-cake-shelf-life"
 publishedAt: "2026-06-04"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["conservación", "negocio", "venta"]
 draft: false
 excerpt: "Tiempos de conservación según la crema, y qué decirle al cliente al entregar."

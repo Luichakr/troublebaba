@@ -4,7 +4,7 @@ description: "Quelle boîte, quel papier et quels accessoires prévoir pour un b
 lang: "fr"
 slug: "how-to-package-bento"
 publishedAt: "2026-06-03"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["emballage", "business", "vente"]
 draft: false
 excerpt: "Le kit d'emballage de base et ce qu'il faut dire au client."

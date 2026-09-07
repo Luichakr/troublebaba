@@ -4,7 +4,7 @@ description: "Receta de cheesecake de fresa con galletas Oreo sin horno: gramaje
 lang: "es"
 slug: "strawberry-oreo-cheesecake"
 publishedAt: "2026-06-04"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["cheesecake", "sin horno", "oreo", "receta"]
 draft: false
 excerpt: "Un cheesecake de fresa y Oreo sin horno, delicado: gramajes exactos y montaje paso a paso."

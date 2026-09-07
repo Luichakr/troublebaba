@@ -4,7 +4,7 @@ description: "Standarddurchmesser einer Bento-Torte, für wie viele Personen sie
 lang: "de"
 slug: "bento-cake-size"
 publishedAt: "2026-06-04"
-cover: "/images/bento-you-can.webp"
+cover: "/images/blog-cover.webp"
 tags: ["Größe", "Technik", "Verkauf"]
 draft: false
 excerpt: "Der Standard bei Durchmesser, Gewicht und Portionen – und warum das für den Preis zählt."

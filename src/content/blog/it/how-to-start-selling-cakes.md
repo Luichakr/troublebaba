@@ -4,7 +4,7 @@ description: "Cosa serve davvero per accettare la prima torta a pagamento: attre
 lang: "it"
 slug: "how-to-start-selling-cakes"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["business", "principianti", "pasticceria casalinga"]
 draft: false
 excerpt: "Cosa serve realmente per accettare il primo ordine di una torta — senza attrezzature inventate e senza paura."

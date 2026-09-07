@@ -4,7 +4,7 @@ description: "Rezept für Erdbeer-Cheesecake mit Oreo-Keksen ohne Backen: genaue
 lang: "de"
 slug: "strawberry-oreo-cheesecake"
 publishedAt: "2026-06-04"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["Cheesecake", "ohne Backen", "Oreo", "Rezept"]
 draft: false
 excerpt: "Zarter Erdbeer-Cheesecake mit Oreo ohne Backen – genaue Grammangaben und Schritt-für-Schritt-Aufbau."

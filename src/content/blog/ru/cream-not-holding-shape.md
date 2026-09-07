@@ -4,7 +4,7 @@ description: "Разбираем самые частые причины, поч�
 lang: "ru"
 slug: "cream-not-holding-shape"
 publishedAt: "2026-06-04"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["крем", "ошибки", "техника"]
 draft: false
 excerpt: "Шесть причин почему крем плывёт — и что с этим делать."

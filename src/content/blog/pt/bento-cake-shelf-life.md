@@ -4,7 +4,7 @@ description: "Por quanto tempo conservar o bento cake na geladeira e em temperat
 lang: "pt"
 slug: "bento-cake-shelf-life"
 publishedAt: "2026-06-04"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["conservação", "negócio", "venda"]
 draft: false
 excerpt: "Prazos de validade por tipo de creme + o que dizer ao cliente na entrega."

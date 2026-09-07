@@ -4,7 +4,7 @@ description: "Розбираємо, чому бісквіт для бенто-т
 lang: "uk"
 slug: "sponge-collapses"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["бісквіт", "помилки", "техніка"]
 draft: false
 excerpt: "Бісквіт піднявся, ти вимикаєш духовку — і за 5 хвилин він осідає посередині. Розбираємо чому."

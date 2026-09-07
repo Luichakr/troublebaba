@@ -4,7 +4,7 @@ description: "Analizamos las causas más frecuentes por las que la crema de un b
 lang: "es"
 slug: "cream-not-holding-shape"
 publishedAt: "2026-06-04"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["crema", "errores", "técnica"]
 draft: false
 excerpt: "Seis causas por las que la crema se desparrama, y qué hacer al respecto."

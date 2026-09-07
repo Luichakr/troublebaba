@@ -4,7 +4,7 @@ description: "Analizamos por qué el bizcocho para bento cake se hunde al desmol
 lang: "es"
 slug: "sponge-collapses"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["bizcocho", "errores", "técnica"]
 draft: false
 excerpt: "El bizcocho ha subido, apagas el horno y a los 5 minutos se hunde por el centro. Veamos por qué."

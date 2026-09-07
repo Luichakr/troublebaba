@@ -4,7 +4,7 @@ description: "Was wirklich in eine Bento-Torte fließt: Zutaten, Verpackung, Zei
 lang: "de"
 slug: "bento-cake-cost"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["Business", "Preis", "Selbstkosten"]
 draft: false
 excerpt: "Die Selbstkosten einer Bento-Torte sind nicht nur Mehl und Creme. Wir rechnen die komplette Liste durch."

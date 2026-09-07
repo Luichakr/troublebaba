@@ -4,7 +4,7 @@ description: "Какая коробка, бумага и аксессуары н
 lang: "ru"
 slug: "how-to-package-bento"
 publishedAt: "2026-06-03"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["упаковка", "бизнес", "продажа"]
 draft: false
 excerpt: "Базовый набор упаковки и что сказать клиенту."

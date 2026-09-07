@@ -4,7 +4,7 @@ description: "Как подготовить бенто-торт к перево�
 lang: "ru"
 slug: "how-to-transport-bento-cake"
 publishedAt: "2026-09-06"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["перевозка", "техника", "продажа"]
 draft: false
 excerpt: "Коробка, подложка, температура в машине и чек-лист, который спасает от «крем потёк по дороге»."

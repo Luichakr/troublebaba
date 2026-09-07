@@ -4,7 +4,7 @@ description: "Welche Box, welches Papier und welche Accessoires du für eine Ben
 lang: "de"
 slug: "how-to-package-bento"
 publishedAt: "2026-06-03"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["Verpackung", "Business", "Verkauf"]
 draft: false
 excerpt: "Das Basis-Set zum Verpacken und was du dem Kunden mitgeben solltest."

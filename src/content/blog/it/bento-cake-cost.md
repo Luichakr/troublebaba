@@ -4,7 +4,7 @@ description: "Quanto si spende realmente per una bento cake: ingredienti, confez
 lang: "it"
 slug: "bento-cake-cost"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["business", "prezzo", "costo di produzione"]
 draft: false
 excerpt: "Il costo di una bento cake non è solo farina e crema. Facciamo l'elenco completo."

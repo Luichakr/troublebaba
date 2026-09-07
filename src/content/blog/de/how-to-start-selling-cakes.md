@@ -4,7 +4,7 @@ description: "Was du für den ersten bezahlten Tortenauftrag wirklich brauchst: 
 lang: "de"
 slug: "how-to-start-selling-cakes"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["Business", "Einsteiger", "Heimkonditorei"]
 draft: false
 excerpt: "Was du wirklich brauchst, um den ersten Tortenauftrag anzunehmen – ohne aufgeblähte Ausstattungsliste und ohne Angst."

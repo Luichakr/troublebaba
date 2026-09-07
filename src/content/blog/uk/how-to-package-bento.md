@@ -4,7 +4,7 @@ description: "Яка коробка, папір та аксесуари потр
 lang: "uk"
 slug: "how-to-package-bento"
 publishedAt: "2026-06-03"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["пакування", "бізнес", "продаж"]
 draft: false
 excerpt: "Базовий набір пакування і що сказати клієнту."

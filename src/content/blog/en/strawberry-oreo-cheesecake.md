@@ -4,7 +4,7 @@ description: "No-bake strawberry cheesecake with Oreo cookies: exact weights for
 lang: "en"
 slug: "strawberry-oreo-cheesecake"
 publishedAt: "2026-06-04"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["cheesecake", "no-bake", "oreo", "recipe"]
 draft: false
 excerpt: "A delicate no-bake strawberry Oreo cheesecake — exact weights and step-by-step assembly."

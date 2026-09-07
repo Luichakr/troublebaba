@@ -4,7 +4,7 @@ description: "Cream cheese com creme de leite ou com manteiga, ganache, mascarpo
 lang: "pt"
 slug: "which-cream-for-bento"
 publishedAt: "2026-06-03"
-cover: "/images/bento-you-can.webp"
+cover: "/images/blog-cover.webp"
 tags: ["creme", "técnica", "escolha"]
 draft: false
 excerpt: "Qual a diferença entre os principais cremes e quando usar cada um."

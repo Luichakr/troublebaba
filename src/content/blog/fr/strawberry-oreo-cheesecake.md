@@ -4,7 +4,7 @@ description: "Recette de cheesecake à la fraise et aux biscuits Oreo sans cuiss
 lang: "fr"
 slug: "strawberry-oreo-cheesecake"
 publishedAt: "2026-06-04"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["cheesecake", "sans cuisson", "oreo", "recette"]
 draft: false
 excerpt: "Un cheesecake fraise délicat aux Oreo sans cuisson — grammages précis et montage pas à pas."

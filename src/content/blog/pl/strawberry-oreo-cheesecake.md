@@ -4,7 +4,7 @@ description: "Przepis na truskawkowy sernik z ciastkami Oreo bez pieczenia: dok�
 lang: "pl"
 slug: "strawberry-oreo-cheesecake"
 publishedAt: "2026-06-04"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["sernik", "bez pieczenia", "oreo", "przepis"]
 draft: false
 excerpt: "Delikatny truskawkowy sernik z Oreo bez pieczenia — dokładne gramatury i składanie krok po kroku."

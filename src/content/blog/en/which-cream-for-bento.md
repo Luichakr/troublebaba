@@ -4,7 +4,7 @@ description: "Cream cheese on cream or on butter, ganache, mascarpone — how th
 lang: "en"
 slug: "which-cream-for-bento"
 publishedAt: "2026-06-03"
-cover: "/images/bento-you-can.webp"
+cover: "/images/blog-cover.webp"
 tags: ["cream", "technique", "choice"]
 draft: false
 excerpt: "How the main creams differ and when to reach for each."

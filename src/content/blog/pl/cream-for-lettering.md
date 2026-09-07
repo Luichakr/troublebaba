@@ -4,7 +4,7 @@ description: "Jaki krem trzyma cienką linię napisu na torcie bento, czym pisa�
 lang: "pl"
 slug: "cream-for-lettering"
 publishedAt: "2026-09-06"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["dekor", "technika", "krem"]
 draft: false
 excerpt: "Jaki krem trzyma linię, jak pisać równo i co zrobić, gdy napis się rozpłynął albo pękł."

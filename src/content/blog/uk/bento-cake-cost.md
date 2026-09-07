@@ -5,7 +5,7 @@ lang: "uk"
 slug: "bento-cake-cost"
 publishedAt: "2026-09-01"
 updatedAt: "2026-09-06"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["бізнес", "ціна", "собівартість"]
 draft: false
 excerpt: "Собівартість одного бенто — це не лише борошно і крем. Повний список статей, приклад розрахунку і формула ціни."

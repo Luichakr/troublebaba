@@ -4,7 +4,7 @@ description: "I diametri standard della bento cake, per quante persone è pensat
 lang: "it"
 slug: "bento-cake-size"
 publishedAt: "2026-06-04"
-cover: "/images/bento-you-can.webp"
+cover: "/images/blog-cover.webp"
 tags: ["dimensioni", "tecnica", "vendita"]
 draft: false
 excerpt: "Lo standard di diametro, peso e porzioni, e perché conta per il prezzo."

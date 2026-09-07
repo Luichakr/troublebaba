@@ -5,7 +5,7 @@ lang: "pl"
 slug: "bento-cake-cost"
 publishedAt: "2026-09-01"
 updatedAt: "2026-09-06"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["biznes", "cena", "koszt własny"]
 draft: false
 excerpt: "Koszt własny jednego bento to nie tylko mąka i krem. Pełna lista pozycji, przykład kalkulacji i wzór na cenę."

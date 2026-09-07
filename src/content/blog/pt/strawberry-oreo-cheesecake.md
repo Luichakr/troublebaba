@@ -4,7 +4,7 @@ description: "Receita de cheesecake de morango com biscoito Oreo sem forno: gram
 lang: "pt"
 slug: "strawberry-oreo-cheesecake"
 publishedAt: "2026-06-04"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["cheesecake", "sem forno", "oreo", "receita"]
 draft: false
 excerpt: "Cheesecake delicado de morango com Oreo sem forno — gramaturas exatas e montagem passo a passo."

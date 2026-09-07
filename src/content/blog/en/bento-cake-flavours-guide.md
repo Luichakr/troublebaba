@@ -4,7 +4,7 @@ description: "A short, honest guide to 10 bento cake flavours we sell on order: 
 lang: "en"
 slug: "bento-cake-flavours-guide"
 publishedAt: "2026-09-07"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["flavours", "bento cake", "guide"]
 draft: false
 excerpt: "Ten bento cake flavours, side by side: taste, difficulty and who orders them."

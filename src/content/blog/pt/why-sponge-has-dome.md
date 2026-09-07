@@ -4,7 +4,7 @@ description: "Analisamos a principal causa da 'cupola' no pão de ló para bento
 lang: "pt"
 slug: "why-sponge-has-dome"
 publishedAt: "2026-06-03"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["pão de ló", "erros", "técnica"]
 draft: false
 excerpt: "A principal causa da 'barriga' no pão de ló — e o que fazer com ela."

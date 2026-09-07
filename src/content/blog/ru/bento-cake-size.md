@@ -5,7 +5,7 @@ lang: "ru"
 slug: "bento-cake-size"
 publishedAt: "2026-06-04"
 updatedAt: "2026-09-06"
-cover: "/images/bento-you-can.webp"
+cover: "/images/blog-cover.webp"
 tags: ["размер", "техника", "продажа"]
 draft: false
 excerpt: "Таблица диаметров, порций и веса — и почему «маленький» не значит «дешёвый»."

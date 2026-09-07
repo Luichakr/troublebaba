@@ -4,7 +4,7 @@ description: "Crema de queso a base de nata o de mantequilla, ganache, mascarpon
 lang: "es"
 slug: "which-cream-for-bento"
 publishedAt: "2026-06-03"
-cover: "/images/bento-you-can.webp"
+cover: "/images/blog-cover.webp"
 tags: ["crema", "técnica", "elección"]
 draft: false
 excerpt: "En qué se diferencian las cremas principales y cuándo usar cada una."

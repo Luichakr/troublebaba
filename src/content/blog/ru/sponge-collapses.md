@@ -4,7 +4,7 @@ description: "Разбираем, почему бисквит для бенто-
 lang: "ru"
 slug: "sponge-collapses"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["бисквит", "ошибки", "техника"]
 draft: false
 excerpt: "Бисквит поднялся, ты выключаешь духовку — и за 5 минут он оседает посередине. Разбираем почему."

@@ -4,7 +4,7 @@ description: "Nous analysons la principale cause de la « bosse » sur le biscui
 lang: "fr"
 slug: "why-sponge-has-dome"
 publishedAt: "2026-06-03"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["biscuit", "erreurs", "technique"]
 draft: false
 excerpt: "La cause principale de la « bosse » sur le biscuit — et que faire."

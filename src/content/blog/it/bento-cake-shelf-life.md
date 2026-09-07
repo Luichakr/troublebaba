@@ -4,7 +4,7 @@ description: "Per quanto tempo conservare una bento cake in frigorifero e a temp
 lang: "it"
 slug: "bento-cake-shelf-life"
 publishedAt: "2026-06-04"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["conservazione", "business", "vendita"]
 draft: false
 excerpt: "Tempi di conservazione per tipo di crema, e cosa dire al cliente alla consegna."

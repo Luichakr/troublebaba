@@ -5,7 +5,7 @@ lang: "pl"
 slug: "bento-cake-size"
 publishedAt: "2026-06-04"
 updatedAt: "2026-09-06"
-cover: "/images/bento-you-can.webp"
+cover: "/images/blog-cover.webp"
 tags: ["rozmiar", "technika", "sprzedaż"]
 draft: false
 excerpt: "Tabela średnic, porcji i wagi — i dlaczego «mały» nie znaczy «tani»."

@@ -4,7 +4,7 @@ description: "Cos'è la bento cake, in cosa si differenzia dalle torte normali, 
 lang: "it"
 slug: "bento-cake-ricetta-guida"
 publishedAt: "2026-09-07"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["bento cake", "ricetta", "guida"]
 draft: false
 excerpt: "Bento cake: cos'è, come si prepara e dove prendere le proporzioni esatte per il primo ordine."

@@ -5,7 +5,7 @@ lang: "ru"
 slug: "bento-cake-cost"
 publishedAt: "2026-09-01"
 updatedAt: "2026-09-06"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["бизнес", "цена", "себестоимость"]
 draft: false
 excerpt: "Себестоимость одного бенто — не только мука и крем. Полный список статей, пример расчёта и формула цены."

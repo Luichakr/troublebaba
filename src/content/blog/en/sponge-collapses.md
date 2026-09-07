@@ -4,7 +4,7 @@ description: "Why the sponge for a bento cake sinks on cooling — and what to d
 lang: "en"
 slug: "sponge-collapses"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["sponge", "mistakes", "technique"]
 draft: false
 excerpt: "Sponge rises, you turn off the oven — five minutes later there's a crater in the middle. Let's find out why."

@@ -4,7 +4,7 @@ description: "Ile czasu tort bento wytrzymuje w temperaturze pokojowej i w upale
 lang: "pl"
 slug: "bento-cake-without-fridge"
 publishedAt: "2026-09-06"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["przechowywanie", "technika", "sprzedaż"]
 draft: false
 excerpt: "Tabela czasu poza lodówką według rodzaju kremu i temperatury, oznaki zepsucia i co powiedzieć klientowi na imprezie."

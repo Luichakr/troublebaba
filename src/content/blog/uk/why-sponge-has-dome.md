@@ -4,7 +4,7 @@ description: "Розбираємо головну причину «гірки» 
 lang: "uk"
 slug: "why-sponge-has-dome"
 publishedAt: "2026-06-03"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["бісквіт", "помилки", "техніка"]
 draft: false
 excerpt: "Головна причина «гірки» на бісквіті — і що з нею робити."

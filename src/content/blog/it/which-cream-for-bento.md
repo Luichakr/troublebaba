@@ -4,7 +4,7 @@ description: "Crema al formaggio con panna o con burro, ganache, mascarpone: in 
 lang: "it"
 slug: "which-cream-for-bento"
 publishedAt: "2026-06-03"
-cover: "/images/bento-you-can.webp"
+cover: "/images/blog-cover.webp"
 tags: ["crema", "tecnica", "scelta"]
 draft: false
 excerpt: "In cosa differiscono le creme principali e quando usare ciascuna."

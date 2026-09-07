@@ -4,7 +4,7 @@ description: "Por que o pão de ló para bento cake afunda ao sair do forno ou a
 lang: "pt"
 slug: "sponge-collapses"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["pão de ló", "erros", "técnica"]
 draft: false
 excerpt: "O pão de ló cresceu, você desliga o forno — e em 5 minutos ele afunda no meio. Vamos entender por quê."

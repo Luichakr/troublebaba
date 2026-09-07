@@ -4,7 +4,7 @@ description: "Les diamètres standards d'un bento cake, le nombre de personnes a
 lang: "fr"
 slug: "bento-cake-size"
 publishedAt: "2026-06-04"
-cover: "/images/bento-you-can.webp"
+cover: "/images/blog-cover.webp"
 tags: ["taille", "technique", "vente"]
 draft: false
 excerpt: "Le standard en diamètre, poids et portions — et pourquoi c'est important pour le prix."

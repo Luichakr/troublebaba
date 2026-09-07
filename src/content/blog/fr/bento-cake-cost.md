@@ -4,7 +4,7 @@ description: "Ce qui part réellement dans un bento cake : ingrédients, emballa
 lang: "fr"
 slug: "bento-cake-cost"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["business", "prix", "coût de revient"]
 draft: false
 excerpt: "Le coût de revient d'un bento cake, ce n'est pas seulement la farine et la crème. On fait le calcul complet."

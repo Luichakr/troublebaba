@@ -4,7 +4,7 @@ description: "Wir gehen die häufigsten Gründe durch, warum die Creme für eine
 lang: "de"
 slug: "cream-not-holding-shape"
 publishedAt: "2026-06-04"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["Creme", "Fehler", "Technik"]
 draft: false
 excerpt: "Sechs Gründe, warum die Creme verläuft – und was du dagegen tun kannst."

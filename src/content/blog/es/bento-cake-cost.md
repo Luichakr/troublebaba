@@ -4,7 +4,7 @@ description: "Cuánto se va realmente en un bento cake: ingredientes, embalaje, 
 lang: "es"
 slug: "bento-cake-cost"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["negocio", "precio", "coste"]
 draft: false
 excerpt: "El coste de un bento cake no es solo harina y crema. Repasamos la lista completa."

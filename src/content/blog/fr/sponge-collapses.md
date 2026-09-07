@@ -4,7 +4,7 @@ description: "Pourquoi la génoise d'un bento cake s'affaisse au démoulage ou a
 lang: "fr"
 slug: "sponge-collapses"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["biscuit", "erreurs", "technique"]
 draft: false
 excerpt: "La génoise a bien levé, vous éteignez le four — et 5 minutes plus tard elle s'affaisse au centre. On explique pourquoi."

@@ -4,7 +4,7 @@ description: "Wie lange du eine Bento-Torte im Kühlschrank und bei Raumtemperat
 lang: "de"
 slug: "bento-cake-shelf-life"
 publishedAt: "2026-06-04"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["Lagerung", "Business", "Verkauf"]
 draft: false
 excerpt: "Haltbarkeit nach Cremetyp + was du dem Kunden bei der Übergabe sagst."

@@ -4,7 +4,7 @@ description: "Ricetta della cheesecake alla fragola con biscotti Oreo senza cott
 lang: "it"
 slug: "strawberry-oreo-cheesecake"
 publishedAt: "2026-06-04"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["cheesecake", "senza cottura", "oreo", "ricetta"]
 draft: false
 excerpt: "Una delicata cheesecake alla fragola con Oreo senza cottura: grammature precise e montaggio passo passo."

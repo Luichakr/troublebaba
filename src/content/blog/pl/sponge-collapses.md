@@ -4,7 +4,7 @@ description: "Rozbieramy, dlaczego biszkopt do tortu bento opada przy wyjmowaniu
 lang: "pl"
 slug: "sponge-collapses"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["biszkopt", "błędy", "technika"]
 draft: false
 excerpt: "Biszkopt wyrósł, wyłączasz piekarnik — i po 5 minutach opada na środku. Rozbieramy dlaczego."

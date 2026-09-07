@@ -4,7 +4,7 @@ description: "Krem serowy na śmietanie czy na maśle, ganache, mascarpone — c
 lang: "pl"
 slug: "which-cream-for-bento"
 publishedAt: "2026-06-03"
-cover: "/images/bento-you-can.webp"
+cover: "/images/blog-cover.webp"
 tags: ["krem", "technika", "wybór"]
 draft: false
 excerpt: "Czym różnią się główne kremy i kiedy który brać."

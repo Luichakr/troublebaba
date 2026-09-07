@@ -4,7 +4,7 @@ description: "Analizziamo perché il pan di Spagna per la bento cake si afflosci
 lang: "it"
 slug: "sponge-collapses"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["pan di spagna", "errori", "tecnica"]
 draft: false
 excerpt: "Il pan di Spagna è lievitato, spegni il forno — e in 5 minuti si affloscia al centro. Vediamo perché."

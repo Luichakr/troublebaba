@@ -4,7 +4,7 @@ description: "Wir klären, warum der Biskuit für eine Bento-Torte beim Herausne
 lang: "de"
 slug: "sponge-collapses"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["Biskuit", "Fehler", "Technik"]
 draft: false
 excerpt: "Der Biskuit ist aufgegangen, du schaltest den Ofen aus – und 5 Minuten später sackt er in der Mitte ein. Wir klären, warum."

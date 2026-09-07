@@ -4,7 +4,7 @@ description: "Що потрібно, щоб узятися за перший п�
 lang: "uk"
 slug: "how-to-start-selling-cakes"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["бізнес", "початківцям", "домашня кондитерська"]
 draft: false
 excerpt: "Що реально потрібно, щоб взяти перше замовлення на торт — без надуманого інвентаря і без страху."

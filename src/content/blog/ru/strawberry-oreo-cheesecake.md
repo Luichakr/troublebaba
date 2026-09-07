@@ -4,7 +4,7 @@ description: "Рецепт клубничного чизкейка с печен
 lang: "ru"
 slug: "strawberry-oreo-cheesecake"
 publishedAt: "2026-06-04"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["чизкейк", "без выпечки", "орео", "рецепт"]
 draft: false
 excerpt: "Нежный клубничный чизкейк с Oreo без выпечки — точные граммовки и пошаговая сборка."

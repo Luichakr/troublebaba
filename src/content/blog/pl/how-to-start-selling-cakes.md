@@ -4,7 +4,7 @@ description: "Co jest potrzebne, żeby wziąć pierwsze płatne zamówienie: pod
 lang: "pl"
 slug: "how-to-start-selling-cakes"
 publishedAt: "2026-09-01"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["biznes", "początki", "domowa cukiernia"]
 draft: false
 excerpt: "Co naprawdę trzeba, żeby wziąć pierwsze zamówienie na tort — bez wymyślonego sprzętu i bez strachu."

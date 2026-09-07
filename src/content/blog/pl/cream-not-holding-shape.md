@@ -4,7 +4,7 @@ description: "Najczęstsze przyczyny, dla których krem do tortu bento się rozp
 lang: "pl"
 slug: "cream-not-holding-shape"
 publishedAt: "2026-06-04"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["krem", "błędy", "technika"]
 draft: false
 excerpt: "Sześć przyczyn, dla których krem płynie — i co z tym zrobić."

@@ -4,7 +4,7 @@ description: "Czy tort bento można zamrozić, co dzieje się z kremem serkowym 
 lang: "pl"
 slug: "can-you-freeze-bento-cake"
 publishedAt: "2026-09-06"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["przechowywanie", "technika", "sprzedaż"]
 draft: false
 excerpt: "Tabela odporności składników na mrożenie, rozmrażanie bez skroplin i uczciwa odpowiedź dla klienta."

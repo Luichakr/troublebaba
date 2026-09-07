@@ -4,7 +4,7 @@ description: "Rozbieramy, dlaczego krem serowy albo bita śmietana nie gęstniej
 lang: "pl"
 slug: "cream-not-thickening"
 publishedAt: "2026-09-07"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["krem", "błędy", "technika", "składanie"]
 draft: false
 excerpt: "Co robić z kremem, który nie chce gęstnieć — i jak nie wyrzucić pół pudełka mascarpone."

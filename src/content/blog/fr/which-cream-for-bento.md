@@ -4,7 +4,7 @@ description: "Cream cheese à la crème ou au beurre, ganache, mascarpone — en
 lang: "fr"
 slug: "which-cream-for-bento"
 publishedAt: "2026-06-03"
-cover: "/images/bento-you-can.webp"
+cover: "/images/blog-cover.webp"
 tags: ["crème", "technique", "choix"]
 draft: false
 excerpt: "Ce qui distingue les principales crèmes et quand utiliser chacune."

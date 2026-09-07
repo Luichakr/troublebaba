@@ -4,7 +4,7 @@ description: "Analizziamo la causa principale della «cupola» sul pan di Spagna
 lang: "it"
 slug: "why-sponge-has-dome"
 publishedAt: "2026-06-03"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["pan di spagna", "errori", "tecnica"]
 draft: false
 excerpt: "La causa principale della «cupola» sul pan di Spagna, e cosa farci."

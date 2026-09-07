@@ -4,7 +4,7 @@ description: "Можно ли замораживать бенто-торт, чт
 lang: "ru"
 slug: "can-you-freeze-bento-cake"
 publishedAt: "2026-09-06"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["хранение", "техника", "продажа"]
 draft: false
 excerpt: "Таблица морозостойкости компонентов, разморозка без конденсата и честный ответ клиенту."

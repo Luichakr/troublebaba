@@ -4,7 +4,7 @@ description: "What goes into the cost of a bento cake — products, packaging, t
 lang: "en"
 slug: "bento-cake-cost"
 publishedAt: "2026-09-07"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["business", "pricing", "cost"]
 draft: false
 excerpt: "The cost of one bento cake isn't only flour and cream. Full breakdown, worked example and the pricing formula."

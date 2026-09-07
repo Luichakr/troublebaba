@@ -4,7 +4,7 @@ description: "Qué caja, papel y accesorios necesitas para un bento cake por enc
 lang: "es"
 slug: "how-to-package-bento"
 publishedAt: "2026-06-03"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["embalaje", "negocio", "venta"]
 draft: false
 excerpt: "El kit básico de embalaje y qué decirle al cliente."

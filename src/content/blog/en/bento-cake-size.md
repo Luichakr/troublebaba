@@ -4,7 +4,7 @@ description: "Standard bento cake diameters, how many people they serve, how muc
 lang: "en"
 slug: "bento-cake-size"
 publishedAt: "2026-06-04"
-cover: "/images/bento-you-can.webp"
+cover: "/images/blog-cover.webp"
 tags: ["size", "technique", "sales"]
 draft: false
 excerpt: "The standard diameter, weight and servings — and why it matters for the price."

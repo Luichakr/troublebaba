@@ -4,7 +4,7 @@ description: "The most common reasons a bento cake cream runs or won't hold the 
 lang: "en"
 slug: "cream-not-holding-shape"
 publishedAt: "2026-06-04"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["cream", "mistakes", "technique"]
 draft: false
 excerpt: "Six reasons the cream runs — and what to do about them."

@@ -4,7 +4,7 @@ description: "Wir klären die Hauptursache für den „Hügel“ auf dem Biskuit
 lang: "de"
 slug: "why-sponge-has-dome"
 publishedAt: "2026-06-03"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["Biskuit", "Fehler", "Technik"]
 draft: false
 excerpt: "Die Hauptursache für den „Hügel“ auf dem Biskuit – und was du dagegen tust."

@@ -4,7 +4,7 @@ description: "Główna przyczyna „górki” na biszkopcie do tortu bento i pro
 lang: "pl"
 slug: "why-sponge-has-dome"
 publishedAt: "2026-06-03"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["biszkopt", "błędy", "technika"]
 draft: false
 excerpt: "Główna przyczyna „górki” na biszkopcie — i co z nią zrobić."

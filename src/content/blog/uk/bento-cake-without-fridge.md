@@ -4,7 +4,7 @@ description: "Скільки часу бенто-торт витримує за 
 lang: "uk"
 slug: "bento-cake-without-fridge"
 publishedAt: "2026-09-06"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["зберігання", "техніка", "продаж"]
 draft: false
 excerpt: "Таблиця часу поза холодильником за типом крему і температурою, ознаки псування і що казати клієнту на святі."

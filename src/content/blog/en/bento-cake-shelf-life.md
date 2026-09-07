@@ -4,7 +4,7 @@ description: "How long to keep a bento cake in the fridge and at room temperatur
 lang: "en"
 slug: "bento-cake-shelf-life"
 publishedAt: "2026-06-04"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["storage", "business", "sales"]
 draft: false
 excerpt: "Shelf life by cream type + what to tell the client at hand-off."

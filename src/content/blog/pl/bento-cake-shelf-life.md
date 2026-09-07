@@ -5,7 +5,7 @@ lang: "pl"
 slug: "bento-cake-shelf-life"
 publishedAt: "2026-06-04"
 updatedAt: "2026-09-06"
-cover: "/images/inside-cake.webp"
+cover: "/images/blog-cover.webp"
 tags: ["przechowywanie", "biznes", "sprzedaż"]
 draft: false
 excerpt: "Tabela terminów według kremów i nadzień, zasady transportu i gotowa notatka dla klienta."

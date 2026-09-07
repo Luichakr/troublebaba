@@ -4,7 +4,7 @@ description: "Minimalny zestaw sprzętu na pierwszy tort bento, jaki rozmiar i s
 lang: "pl"
 slug: "bento-cake-for-beginners"
 publishedAt: "2026-09-06"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["nauka", "technika", "biznes"]
 draft: false
 excerpt: "Co naprawdę jest potrzebne na pierwszy tort, ile czasu zajmie i kiedy nie ma już wstydu go sprzedawać."

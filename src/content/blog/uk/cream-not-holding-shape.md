@@ -4,7 +4,7 @@ description: "Розбираємо найчастіші причини, чому
 lang: "uk"
 slug: "cream-not-holding-shape"
 publishedAt: "2026-06-04"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["крем", "помилки", "техніка"]
 draft: false
 excerpt: "Шість причин, чому крем пливе — і що з цим робити."

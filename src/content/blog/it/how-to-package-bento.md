@@ -4,7 +4,7 @@ description: "Quale scatola, carta e accessori servono per una bento cake su ord
 lang: "it"
 slug: "how-to-package-bento"
 publishedAt: "2026-06-03"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["confezionamento", "business", "vendita"]
 draft: false
 excerpt: "Il kit base di confezionamento e cosa dire al cliente."

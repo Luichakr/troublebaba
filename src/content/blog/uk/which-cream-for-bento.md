@@ -4,7 +4,7 @@ description: "Крем-чиз на вершках або на маслі, ган
 lang: "uk"
 slug: "which-cream-for-bento"
 publishedAt: "2026-06-03"
-cover: "/images/bento-you-can.webp"
+cover: "/images/blog-cover.webp"
 tags: ["крем", "техніка", "вибір"]
 draft: false
 excerpt: "Чим відрізняються основні креми і коли який брати."

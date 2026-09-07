@@ -4,7 +4,7 @@ description: "Крем-чиз на сливках или на масле, ган
 lang: "ru"
 slug: "which-cream-for-bento"
 publishedAt: "2026-06-03"
-cover: "/images/bento-you-can.webp"
+cover: "/images/blog-cover.webp"
 tags: ["крем", "техника", "выбор"]
 draft: false
 excerpt: "Чем отличаются основные кремы и когда какой брать."

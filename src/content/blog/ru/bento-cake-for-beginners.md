@@ -4,7 +4,7 @@ description: "Минимальный набор инвентаря для пер
 lang: "ru"
 slug: "bento-cake-for-beginners"
 publishedAt: "2026-09-06"
-cover: "/images/cta-book.webp"
+cover: "/images/blog-cover.webp"
 tags: ["обучение", "техника", "бизнес"]
 draft: false
 excerpt: "Что реально нужно для первого торта, сколько времени он займёт и когда уже не стыдно продавать."
