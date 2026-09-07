@@ -1,0 +1,41 @@
+---
+// Единый надзаголовок секции. До 7 сентября 2026 на главной жило пять
+// разных вариантов: где-то «ТЕКСТ ——— ♡ ———», где-то «——— ТЕКСТ ———»,
+// два из них по центру, плюс разные кегли (text-xs/0.14em против
+// 11px/0.22em) и разная прозрачность линий (mocha/40 против mocha/35).
+//
+// Канон, по DESIGN.md §3 (eyebrow = 11px / 700 / 0.18em) и §5.5
+// (декоративный мотив обязан быть между двумя одинаковыми линиями):
+//
+//   ТЕКСТ ——— ♡ ———
+//
+// Текст идёт первым: он читается сразу, а декор уходит вправо — так блок
+// нормально живёт при выравнивании по левому краю, которое на главной
+// теперь везде.
+interface Props {
+  /** Текст надзаголовка. Выводится капителью. */
+  label: string;
+  /** Тёмная секция (bg-espresso) — переключает акцент на warm-white. */
+  onDark?: boolean;
+  /** Класс отступа снизу. По умолчанию mb-5. */
+  class?: string;
+}
+const { label, onDark = false, class: cls = 'mb-5' } = Astro.props;
+
+const textColor = onDark ? 'text-warm-white' : 'text-mocha';
+const lineColor = onDark ? 'bg-warm-white/40' : 'bg-mocha/40';
+const stroke    = onDark ? '#FDFAF6' : '#8B7355';
+---
+<div class={`flex items-center gap-3 ${cls}`}>
+  <span class={`font-outfit text-[11px] font-bold uppercase tracking-[0.18em] ${textColor}`}>{label}</span>
+  <div class="flex items-center gap-2" aria-hidden="true">
+    <div class={`h-px w-10 ${lineColor}`}></div>
+    <svg width="11" height="10" viewBox="0 0 13 12" fill="none">
+      <path
+        d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z"
+        stroke={stroke} stroke-width="1.3" stroke-linejoin="round" fill="none"
+      />
+    </svg>
+    <div class={`h-px w-10 ${lineColor}`}></div>
+  </div>
+</div>
