@@ -21,6 +21,13 @@ const ROOT = 'public/images';
 const WIDTHS = [480, 768, 1024];
 const MIN_BYTES = 100 * 1024;   // мельче 100 КБ дробить смысла нет
 
+// Исключение из порога: карточки рецептов (q1..q10). recipeSrcSet() в
+// HomePage.astro генерирует srcset для всех десяти без проверки файлов,
+// поэтому вариант обязан существовать даже у мелкой картинки. q3.webp —
+// 82 КБ, порог его пропускал, и на мобильных и планшетах карточка
+// «Мак-цитрус» отдавала 404 вместо фото.
+const ALWAYS = /^q\d+\.(webp|jpe?g|png)$/i;
+
 function walk(dir) {
   return readdirSync(dir, { withFileTypes: true }).flatMap(e => {
     const p = join(dir, e.name);
@@ -34,7 +41,7 @@ const isVariant = f => /-(480|768|1024)\.webp$/.test(f);
 let made = 0, skipped = 0;
 for (const file of walk(ROOT)) {
   if (isVariant(file)) continue;
-  if (statSync(file).size < MIN_BYTES) continue;
+  if (statSync(file).size < MIN_BYTES && !ALWAYS.test(basename(file))) continue;
 
   const meta = await sharp(file).metadata();
   const stem = join(dirname(file), basename(file, extname(file)));

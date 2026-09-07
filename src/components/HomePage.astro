@@ -133,6 +133,18 @@ const PREVIEW_PAGES: Record<string, number[]> = {
 const previewLang = PREVIEW_PAGES[lang] ? lang : 'en';
 const previewPages = PREVIEW_PAGES[previewLang];
 
+// Мокап планшета с обложкой PDF — картинка языковая: на обложке
+// «10 РЕЦЕПТІВ БЕНТО-ТОРТІВ» и превью страниц на украинском. Показывать
+// украинскую обложку на en/de/fr нельзя — это обещание книги, которой
+// покупатель не получит. Пока есть только uk; остальные локали
+// остаются на нейтральном фото. Появится мокап — добавить сюда язык.
+const INSIDE_TABLET: Record<string, string> = {
+  uk: 'inside-tablet-uk',
+};
+const insideImg = INSIDE_TABLET[lang] ?? 'inside-cake';
+const insideImgW = insideImg === 'inside-cake' ? 1254 : 1122;
+const insideImgH = insideImg === 'inside-cake' ? 1254 : 1402;
+
 // Customer reviews — one JSON file per language in src/data/reviews/.
 // Falls back to EN, then RU, if a locale file is missing at build time.
 const REVIEW_FILES = import.meta.glob<{ default: { text: string; name?: string; rating?: number }[] }>(
@@ -773,15 +785,16 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
             {tr.inside_sub_short}
           </p>
 
-          {/* Четыре карточки вместо шести цифр вразброс: «2 базові креми»
-              и «∞ доступ назавжди» ушли во вторую часть — здесь остаются
-              те, что читаются как характеристики товара. */}
+          {/* Четыре карточки вместо шести цифр вразброс. Выбор по индексам,
+              не slice: иконка должна отвечать своей подписи, а «2 базові
+              креми» — деталь для второй части. «66 сторінок PDF» (индекс 0)
+              вынесено на стикер поверх мокапа, чтобы не дублировать. */}
           {tr.inside_facts && (
             <ul class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-9 list-none p-0">
-              {(tr.inside_facts as [string, string][]).slice(0, 4).map(([num, label], i) => (
+              {[1, 3, 4, 5].map((fi, i) => (tr.inside_facts as [string, string][])[fi]).filter(Boolean).map(([num, label], i) => (
                 <li class="bg-warm-white rounded-2xl px-4 py-5 flex flex-col items-center text-center" style="border:1px solid rgba(200,184,162,0.28);">
                   <span class="w-9 h-9 rounded-full bg-cream flex items-center justify-center mb-3">
-                    <Icon name={['ph:file-text','ph:chef-hat','ph:table','ph:image'][i]} class="w-[17px] h-[17px] text-mocha" />
+                    <Icon name={['ph:chef-hat','ph:table','ph:image','ph:infinity'][i]} class="w-[17px] h-[17px] text-mocha" />
                   </span>
                   <span class="font-cabinet text-espresso leading-none" style="font-size:1.45rem;">{num}</span>
                   <span class="font-outfit text-espresso/65 mt-1.5" style="font-size:0.76rem;line-height:1.3;">{label}</span>
@@ -827,64 +840,52 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
 
         </div>
 
+        {/* Мокап планшета. Вся карточка — кнопка, открывающая лайтбокс:
+            по картинке книги кликают и без подсказки, а вложенная кнопка
+            внутри кнопки — невалидный HTML, поэтому «подивитись усередину»
+            здесь span, а не button. Кнопка со ссылкой на цену внизу
+            картинки убрана: тот же текст (inside_cta_preview) уже стоит
+            в CTA-строке слева, две одинаковые кнопки в одной секции
+            заставляли выбирать между копиями. */}
         <div class="reveal reveal-d2">
-          <div class="relative rounded-xl overflow-hidden h-full min-h-[600px]" style="box-shadow:0 24px 72px rgba(139,115,85,0.22);">
+          <button type="button" id="preview-open-first" aria-label={tr.preview_cta}
+                  class="group relative block w-full text-left rounded-xl overflow-hidden h-full min-h-[600px] cursor-pointer"
+                  style="box-shadow:0 24px 72px rgba(139,115,85,0.22);">
             <div class="img-skeleton absolute inset-0 w-full h-full">
               <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 pointer-events-none">
                 <Icon name="ph:camera" class="opacity-30 w-[36px] h-[36px]" />
               </div>
-              <img src="/images/inside-cake.webp"
-        srcset="/images/inside-cake-480.webp 480w, /images/inside-cake-768.webp 768w, /images/inside-cake-1024.webp 1024w, /images/inside-cake.webp 1254w"
-        sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 640px" alt={tr.hero_img_alt} width="1254" height="1254" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+              <img src={`/images/${insideImg}.webp`}
+        srcset={`/images/${insideImg}-480.webp 480w, /images/${insideImg}-768.webp 768w, /images/${insideImg}-1024.webp 1024w, /images/${insideImg}.webp ${insideImgW}w`}
+        sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 660px" alt={tr.hero_img_alt} width={insideImgW} height={insideImgH} loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
             </div>
 
-            {/* "Look inside" has to actually open the book. The pages live in a
-                lightbox rather than their own section: a separate grid of page
-                thumbnails only repeated the feature list on the left. */}
-            <button type="button" id="preview-open-first"
-                    class="min-h-[44px] absolute top-4 left-4 z-30 inline-flex items-center gap-2 rounded-full pl-3 pr-4 py-2.5 font-outfit font-semibold text-[13.5px] text-espresso transition-colors hover:bg-warm-white"
-                    style="background:rgba(253,250,246,0.92);box-shadow:0 4px 16px rgba(26,26,26,0.16);">
+            <span class="min-h-[44px] absolute top-4 left-4 z-30 inline-flex items-center gap-2 rounded-full pl-3 pr-4 py-2.5 font-outfit font-semibold text-[13.5px] text-espresso transition-colors group-hover:bg-warm-white"
+                  style="background:rgba(253,250,246,0.92);box-shadow:0 4px 16px rgba(26,26,26,0.16);">
               <Icon name="ph:eye" class="w-[17px] h-[17px]" />
               {tr.preview_cta}
-            </button>
+            </span>
 
-            <div class="hidden absolute z-20" style="top:13%; right:7%;">
-              <div class="relative w-20 h-20 lg:w-28 lg:h-28 flex items-center justify-center">
-                <svg class="absolute inset-0 w-full h-full" viewBox="0 0 100 100" fill="none">
-                  <circle cx="50" cy="50" r="46" fill="#8B7355" stroke="#FDFAF6" stroke-width="2"/>
-                </svg>
-                <div class="relative z-10 text-center">
-                  <svg class="mx-auto mb-1" width="10" height="9" viewBox="0 0 13 12" fill="none"><path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="#FDFAF6" stroke-width="1.2" fill="none" stroke-linejoin="round"/></svg>
-                  <div class="font-stat text-warm-white leading-none" style="font-size:1.7rem;">10</div>
-                  <div class="font-outfit font-semibold text-warm-white/85 text-[11px] tracking-[0.18em] uppercase mt-1">{tr.stat_recipes}</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="absolute left-3 right-3 z-30 flex flex-col sm:flex-row gap-2.5" style="bottom:10px;">
-              <div class="hidden flex-1 flex items-center justify-around bg-warm-white rounded-xl px-4 py-6">
-                <div class="flex items-center gap-1.5 text-espresso/65">
-                  <Icon name="ph:file-text" class="w-[16px] h-[17px]" />
-                  <span class="font-outfit text-[15px] font-bold text-espresso">PDF</span>
-                </div>
-                <span class="text-mocha text-xs">·</span>
-                <div class="flex items-center gap-1.5 text-espresso/65">
-                  <Icon name="ph:camera" class="w-[17px] h-[14px]" />
-                  <span class="font-outfit text-[15px] font-bold text-espresso">{tr.inside_fmt_photo}</span>
-                </div>
-                <span class="text-mocha text-xs">·</span>
-                <div class="flex items-center gap-1.5 text-espresso/65">
-                  <Icon name="ph:table" class="w-[16px] h-[16px]" />
-                  <span class="font-outfit text-[15px] font-bold text-espresso">{tr.inside_fmt_table}</span>
-                </div>
-              </div>
-              <a href={anchor('recipes')}
-                 class="flex items-center justify-center gap-2 bg-mocha-dark text-warm-white font-outfit font-bold text-[15px] px-6 py-6 rounded-xl hover:bg-mocha-dark transition-colors whitespace-nowrap">
-                {tr.inside_cta_preview}
-                <Icon name="ph:arrow-right" class="w-[15px] h-[13px]" />
-              </a>
-            </div>
-          </div>
+            {/* Стикер «66 сторінок PDF» — первый факт из inside_facts,
+                поэтому в карточках слева он не повторяется. */}
+            {tr.inside_facts && (
+              <span class="absolute z-20 block" style="top:4%; right:5%;">
+                <span class="relative block w-[104px] h-[104px] lg:w-[136px] lg:h-[136px]">
+                  {/* Заливка #6E5C43, не акцентная #8B7355: белым по акценту
+                      это 4.31:1, для подписи в 10px мало. Тёмный оттенок
+                      даёт 6.16:1 — тот же, на который переведены кнопки. */}
+                  <svg class="absolute inset-0 w-full h-full" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+                    <circle cx="50" cy="50" r="46" fill="#6E5C43" stroke="#FDFAF6" stroke-width="2"/>
+                  </svg>
+                  <span class="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-[14px]">
+                    <svg class="mb-1" width="11" height="10" viewBox="0 0 13 12" fill="none" aria-hidden="true"><path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="#FDFAF6" stroke-width="1.2" fill="none" stroke-linejoin="round"/></svg>
+                    <span class="font-stat text-warm-white leading-none" style="font-size:1.85rem;">{(tr.inside_facts as [string, string][])[0][0]}</span>
+                    <span class="font-outfit font-bold text-warm-white uppercase mt-1.5" style="font-size:10px;letter-spacing:0.07em;line-height:1.3;">{(tr.inside_facts as [string, string][])[0][1]}</span>
+                  </span>
+                </span>
+              </span>
+            )}
+          </button>
         </div>
 
       </div>
