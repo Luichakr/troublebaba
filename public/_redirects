@@ -66,17 +66,31 @@ https://luichakr.github.io/troublebaba/*  https://troublebaba.com/:splat  301!
 
 # Blog: old russian-transliterated slugs → English canon (2026-09-01).
 # Preserves Google-indexed URLs and any incoming backlinks.
-/blog/kak-upakovat-bento-na-prodazhu/*  /blog/how-to-package-bento/  301
-/blog/kakoy-krem-dlya-bento/*  /blog/which-cream-for-bento/  301
-/blog/klubnichnyy-chizkeyk-oreo/*  /blog/strawberry-oreo-cheesecake/  301
-/blog/krem-ne-derzhit-formu/*  /blog/cream-not-holding-shape/  301
-/blog/pochemu-biskvit-s-gorbom/*  /blog/why-sponge-has-dome/  301
-/blog/razmer-bento-torta/*  /blog/bento-cake-size/  301
-/blog/skolko-hranitsya-bento-tort/*  /blog/bento-cake-shelf-life/  301
-/:lang/blog/kak-upakovat-bento-na-prodazhu/*  /:lang/blog/how-to-package-bento/  301
-/:lang/blog/kakoy-krem-dlya-bento/*  /:lang/blog/which-cream-for-bento/  301
-/:lang/blog/klubnichnyy-chizkeyk-oreo/*  /:lang/blog/strawberry-oreo-cheesecake/  301
-/:lang/blog/krem-ne-derzhit-formu/*  /:lang/blog/cream-not-holding-shape/  301
-/:lang/blog/pochemu-biskvit-s-gorbom/*  /:lang/blog/why-sponge-has-dome/  301
-/:lang/blog/razmer-bento-torta/*  /:lang/blog/bento-cake-size/  301
-/:lang/blog/skolko-hranitsya-bento-tort/*  /:lang/blog/bento-cake-shelf-life/  301
+/blog/kak-upakovat-bento-na-prodazhu    /blog/how-to-package-bento/   301
+/blog/kak-upakovat-bento-na-prodazhu/*  /blog/how-to-package-bento/   301
+/blog/kakoy-krem-dlya-bento    /blog/which-cream-for-bento/   301
+/blog/kakoy-krem-dlya-bento/*  /blog/which-cream-for-bento/   301
+/blog/klubnichnyy-chizkeyk-oreo    /blog/strawberry-oreo-cheesecake/   301
+/blog/klubnichnyy-chizkeyk-oreo/*  /blog/strawberry-oreo-cheesecake/   301
+/blog/krem-ne-derzhit-formu    /blog/cream-not-holding-shape/   301
+/blog/krem-ne-derzhit-formu/*  /blog/cream-not-holding-shape/   301
+/blog/pochemu-biskvit-s-gorbom    /blog/why-sponge-has-dome/   301
+/blog/pochemu-biskvit-s-gorbom/*  /blog/why-sponge-has-dome/   301
+/blog/razmer-bento-torta    /blog/bento-cake-size/   301
+/blog/razmer-bento-torta/*  /blog/bento-cake-size/   301
+/blog/skolko-hranitsya-bento-tort    /blog/bento-cake-shelf-life/   301
+/blog/skolko-hranitsya-bento-tort/*  /blog/bento-cake-shelf-life/   301
+/:lang/blog/kak-upakovat-bento-na-prodazhu    /:lang/blog/how-to-package-bento/   301
+/:lang/blog/kak-upakovat-bento-na-prodazhu/*  /:lang/blog/how-to-package-bento/   301
+/:lang/blog/kakoy-krem-dlya-bento    /:lang/blog/which-cream-for-bento/   301
+/:lang/blog/kakoy-krem-dlya-bento/*  /:lang/blog/which-cream-for-bento/   301
+/:lang/blog/klubnichnyy-chizkeyk-oreo    /:lang/blog/strawberry-oreo-cheesecake/   301
+/:lang/blog/klubnichnyy-chizkeyk-oreo/*  /:lang/blog/strawberry-oreo-cheesecake/   301
+/:lang/blog/krem-ne-derzhit-formu    /:lang/blog/cream-not-holding-shape/   301
+/:lang/blog/krem-ne-derzhit-formu/*  /:lang/blog/cream-not-holding-shape/   301
+/:lang/blog/pochemu-biskvit-s-gorbom    /:lang/blog/why-sponge-has-dome/   301
+/:lang/blog/pochemu-biskvit-s-gorbom/*  /:lang/blog/why-sponge-has-dome/   301
+/:lang/blog/razmer-bento-torta    /:lang/blog/bento-cake-size/   301
+/:lang/blog/razmer-bento-torta/*  /:lang/blog/bento-cake-size/   301
+/:lang/blog/skolko-hranitsya-bento-tort    /:lang/blog/bento-cake-shelf-life/   301
+/:lang/blog/skolko-hranitsya-bento-tort/*  /:lang/blog/bento-cake-shelf-life/   301
