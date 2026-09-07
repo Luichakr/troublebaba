@@ -41,6 +41,58 @@ A short note as a tag or a message:
 
 These three lines prevent 90% of "the cream ran / the cake sank" complaints. More on packaging in [how to package a bento cake for sale](/en/blog/how-to-package-bento/).
 
+## How to tell a customer will get it wrong
+
+The client says "I'll pick it up Friday at 6 pm, we'll eat it Saturday afternoon." Sounds fine. What actually happens: they leave the box in the car during the school pickup at 5 pm on Saturday. The car sits at 28°C for forty minutes. That's it — the cream cheese layer breaks.
+
+The three details worth asking about at booking, not at hand-off:
+- "Do you have space in the fridge tonight?" — if the answer is "we'll leave it on the counter, it's just one night" — that's not one night, that's cream on cream cheese failing before morning.
+- "Are you bringing it in a hot car?" — in July, a car sits at 40°C+ within twenty minutes. Suggest they carry it in a small cooler.
+- "When exactly will you serve it?" — if the answer is longer than 24 hours from hand-off, plan a Saturday pickup, not Friday.
+
+A ten-second conversation at booking prevents a "the cream leaked" refund request.
+
+## Signs a bento cake is past its shelf life
+
+The customer will call you if it happens. Have this list ready — it saves you from a refund on a cake that was fine when it left your kitchen.
+
+- **Cream is grainy or watery.** Whipped cream on cakes older than 48 hours starts to separate. The taste is still fine but the texture reads "old."
+- **The sponge has a sour edge.** Fruits with high water content (raspberry, cherry) release moisture into the sponge. After 48 hours the moist edge starts to ferment slightly.
+- **Frosted edges have condensation drops.** If it was taken out of the fridge and put back in, moisture forms on the cold surface. Not spoiled, but unsightly.
+- **Any smell that isn't the flavour.** Cream cheese in a plastic box picks up neighbours' aromas — onions, garlic, coriander. If the client stored it next to leftovers, the taste is off.
+
+None of these are food-safety issues at 48 hours. They are texture and presentation issues. A cake sold at Friday for Saturday-lunch consumption is still safe on Monday if the fridge was clean and cold.
+
+## Freezing bento cake: what works and what doesn't
+
+Whole assembled bento cake with fresh berries — **do not freeze**. Berries lose structure, cream de-emulsifies on thaw, the result is unusable.
+
+Individual layers **before assembly** — freeze happily for 30 days.
+
+- Sponge: wrap in plastic, freeze up to 30 days. Thaw in the fridge for 6 hours before assembly.
+- Cream cheese frosting: freeze in an airtight container up to 14 days. Thaw in the fridge for 8 hours, then whip briefly with a spatula to restore texture.
+- Confit / coulis / caramel: freeze up to 30 days, thaw at room temperature 30 minutes.
+
+Practical rule: **freeze components, not the finished cake.** This is how professional bakeries handle unpredictable order flow — they hold layers in the freezer and assemble to order.
+
+Read the full article on [whether you can freeze bento cake](/en/blog/can-you-freeze-bento-cake/) for the full breakdown per flavour.
+
+## What to write on the box
+
+The single-most-refund-preventing move is a small printed card inside the box that says:
+
+> Keep refrigerated. Best consumed within 48 hours of pickup. Bring to room temperature for 15 minutes before serving.
+
+Print it once, tuck one into every box. Cost: essentially zero. Result: the client can't say "you didn't tell me."
+
+The card is also how you handle the after-purchase claim: "the cream separated after 2 days." Your reply is a copy of the card. The claim goes away.
+
+## What actually lets you say "I sold a cake that lasts"
+
+The PDF collection has, for each of the 10 flavours: which cream base it uses, how many hours it holds at hand-off, what to write on the box in the customer's language, and what to do if the customer asks for a same-day-longer-than-planned delivery. That last one is the reason a starter loses money — they say yes to Friday-pickup-Sunday-eat orders that always come back with complaints.
+
+See also: [what size to make](/en/blog/bento-cake-size/), [which cream lasts longest](/en/blog/which-cream-for-bento/), [why the sponge collapses](/en/blog/sponge-collapses/).
+
 ## FAQ
 
 **Can the cake sit in the car in summer?**

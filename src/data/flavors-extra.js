@@ -59,6 +59,11 @@ export const FLAVOR_EXTRA = {
             a: 'Так, це навіть краще для стабільності. Скільки саме годин чи діб він може лежати перед збіркою — з деталями в PDF.' },
           { q: 'Чи підходить дітям?',
             a: 'Так, у цьому смаку немає алкоголю чи гострих спецій. Це один із найбезпечніших варіантів на дитячий святковий стіл.' },
+        
+          { q: 'Який розмір бенто-торта Oreo?',
+            a: 'Стандарт — 12 см у діаметрі, висота близько 8 см. Порція на 2 людей. Розрахунок на 8, 10, 14 і 16 см — у таблиці всередині PDF.' },
+          { q: 'Скільки важить бенто-торт Oreo?',
+            a: 'Приблизно 650–700 г для 12 см. Це один із «важких» смаків — щільний шоколадний бісквіт і крем-чиз на маслі роблять його насиченим.' },
         ],
       },
       ru: {
@@ -75,6 +80,11 @@ export const FLAVOR_EXTRA = {
             a: 'Да, это даже лучше для стабильности. Сколько часов или суток он может лежать перед сборкой — с деталями в PDF.' },
           { q: 'Подходит ли детям?',
             a: 'Да, в этом вкусе нет алкоголя и острых специй. Один из самых безопасных вариантов для детского стола.' },
+        
+          { q: 'Какого размера бенто-торт Oreo?',
+            a: 'Стандарт — 12 см в диаметре, высота около 8 см. Порция на 2 человек. Расчёт на 8, 10, 14 и 16 см — в таблице внутри PDF.' },
+          { q: 'Сколько весит бенто-торт Oreo?',
+            a: 'Примерно 650–700 г для 12 см. Один из «плотных» вкусов — насыщенный шоколадный бисквит и крем-чиз на масле делают его сытным.' },
         ],
       },
       pl: {
@@ -91,6 +101,11 @@ export const FLAVOR_EXTRA = {
             a: 'Tak, to nawet lepsze dla stabilności. Ile godzin lub dni może odpoczywać przed złożeniem — szczegóły w PDF.' },
           { q: 'Czy tort jest odpowiedni dla dzieci?',
             a: 'Tak, w tym smaku nie ma alkoholu ani ostrych przypraw. To jeden z najbezpieczniejszych wariantów na stół dziecięcy.' },
+        
+          { q: 'Jaki jest rozmiar tortu bento Oreo?',
+            a: 'Standard — 12 cm średnicy, wysokość około 8 cm. Porcja dla 2 osób. Przeliczenie na 8, 10, 14 i 16 cm — w tabeli w PDF.' },
+          { q: 'Ile waży tort bento Oreo?',
+            a: 'Około 650–700 g dla 12 cm. Jeden ze „gęstych" smaków — mocny czekoladowy biszkopt i krem serowy na maśle sprawiają, że jest sycący.' },
         ],
       },
       en: {
@@ -107,6 +122,11 @@ export const FLAVOR_EXTRA = {
             a: 'Yes, it actually helps the crumb settle. How many hours or days it can rest before assembly is detailed in the PDF.' },
           { q: 'Is it kid-friendly?',
             a: 'Yes — this flavour uses no alcohol or spice. It is one of the safer picks for a children’s party.' },
+        
+          { q: 'What size is the Oreo bento cake?',
+            a: 'Standard is 12 cm diameter, about 8 cm tall. Serves 2. Conversion to 8, 10, 14 and 16 cm — in the table inside the PDF.' },
+          { q: 'How much does the Oreo bento cake weigh?',
+            a: 'Around 650–700 g at 12 cm. One of the denser flavours — chocolate sponge with cream-cheese-and-butter frosting makes it hearty.' },
         ],
       },
     },
@@ -129,6 +149,11 @@ export const FLAVOR_EXTRA = {
             a: 'Так, за умови правильної стабілізації крему й температурного режиму — деталі в PDF-збірнику.' },
           { q: 'Що робити, якщо маскарпоне немає в магазині?',
             a: 'У збірнику є перелік перевірених аналогів і критерії, за якими їх обирати (жирність, консистенція).' },
+        
+          { q: 'Який розмір бенто-торта Червоний оксамит?',
+            a: 'Стандарт — 12 см у діаметрі, висота 7,5–8 см. Порція на 2 людей. Розрахунок на 8, 10 і 14 см — у PDF.' },
+          { q: 'Скільки важить бенто-торт Червоний оксамит?',
+            a: 'Приблизно 580–650 г для 12 см. Легший за Oreo, ніж Snickers чи Ferrero Rocher — какао-бісквіт менш щільний.' },
         ],
       },
       ru: {
@@ -145,6 +170,11 @@ export const FLAVOR_EXTRA = {
             a: 'Да, при правильной стабилизации крема и температурном режиме. Детали — в PDF-сборнике.' },
           { q: 'Что делать, если маскарпоне нет в магазине?',
             a: 'В сборнике есть перечень проверенных аналогов и критерии, по которым их выбирать (жирность, консистенция).' },
+        
+          { q: 'Какого размера бенто-торт Красный бархат?',
+            a: 'Стандарт — 12 см в диаметре, высота 7,5–8 см. Порция на 2 человек. Расчёт на 8, 10 и 14 см — в PDF.' },
+          { q: 'Сколько весит бенто-торт Красный бархат?',
+            a: 'Примерно 580–650 г для 12 см. Легче Oreo, чем Snickers или Ferrero Rocher — какао-бисквит менее плотный.' },
         ],
       },
       pl: {
@@ -161,6 +191,11 @@ export const FLAVOR_EXTRA = {
             a: 'Tak, przy odpowiedniej stabilizacji kremu i temperaturze. Szczegóły w zbiorze PDF.' },
           { q: 'Co jeśli w sklepie nie ma mascarpone?',
             a: 'Zbiór zawiera listę sprawdzonych zamienników i kryteria wyboru (tłuszcz, konsystencja).' },
+        
+          { q: 'Jaki jest rozmiar tortu bento Red Velvet?',
+            a: 'Standard — 12 cm średnicy, wysokość 7,5–8 cm. Porcja dla 2 osób. Przeliczenie na 8, 10 i 14 cm — w PDF.' },
+          { q: 'Ile waży tort bento Red Velvet?',
+            a: 'Około 580–650 g dla 12 cm. Lżejszy niż Oreo, Snickers czy Ferrero Rocher — biszkopt kakaowy jest mniej gęsty.' },
         ],
       },
       en: {
@@ -177,6 +212,11 @@ export const FLAVOR_EXTRA = {
             a: 'Yes, given the right cream stabilisation and temperature. The PDF walks through the details.' },
           { q: 'What if I can’t find mascarpone?',
             a: 'The collection lists tested substitutes and the criteria to pick one (fat content, texture).' },
+        
+          { q: 'What size is the Red Velvet bento cake?',
+            a: 'Standard is 12 cm diameter, 7.5–8 cm tall. Serves 2. Conversion to 8, 10 and 14 cm — in the PDF.' },
+          { q: 'How much does the Red Velvet bento cake weigh?',
+            a: 'Around 580–650 g at 12 cm. Lighter than Oreo, Snickers or Ferrero Rocher — cocoa sponge is less dense.' },
         ],
       },
     },
@@ -269,6 +309,11 @@ export const FLAVOR_EXTRA = {
             a: 'Правильні пропорції карамелі до крему саме регулюють цей баланс. Ми показуємо це в PDF цифрами.' },
           { q: 'Чи підійде на замовлення для дитячого свята?',
             a: 'За смаком — так, але через горіхи в складі краще спочатку уточнити в клієнта наявність алергій.' },
+        
+          { q: 'Який розмір бенто-торта Snickers?',
+            a: 'Стандарт — 12 см у діаметрі, висота близько 8 см. Порція на 2 людей. Розрахунок на інші діаметри — у PDF.' },
+          { q: 'Скільки важить бенто-торт Snickers?',
+            a: 'Приблизно 700–750 г для 12 см. Найважчий з базових вкусів — шар карамелі та арахісу додає ваги.' },
         ],
       },
       ru: {
@@ -285,6 +330,11 @@ export const FLAVOR_EXTRA = {
             a: 'Правильные пропорции карамели к крему как раз регулируют этот баланс. В PDF мы показываем это в цифрах.' },
           { q: 'Подойдёт ли на детский заказ?',
             a: 'По вкусу — да, но из-за орехов лучше уточнить у клиента про аллергии.' },
+        
+          { q: 'Какого размера бенто-торт Snickers?',
+            a: 'Стандарт — 12 см в диаметре, высота около 8 см. Порция на 2 человек. Расчёт на другие диаметры — в PDF.' },
+          { q: 'Сколько весит бенто-торт Snickers?',
+            a: 'Примерно 700–750 г для 12 см. Самый тяжёлый из базовых вкусов — слой карамели и арахиса добавляют веса.' },
         ],
       },
       pl: {
@@ -301,6 +351,11 @@ export const FLAVOR_EXTRA = {
             a: 'Właściwe proporcje karmelu do kremu odpowiadają za balans. W PDF pokazujemy to liczbami.' },
           { q: 'Czy sprawdzi się na dziecięcą imprezę?',
             a: 'Smakowo tak, ale ze względu na orzechy zapytaj klienta o alergie.' },
+        
+          { q: 'Jaki jest rozmiar tortu bento Snickers?',
+            a: 'Standard — 12 cm średnicy, wysokość około 8 cm. Porcja dla 2 osób. Przeliczenie na inne średnice — w PDF.' },
+          { q: 'Ile waży tort bento Snickers?',
+            a: 'Około 700–750 g dla 12 cm. Najcięższy z podstawowych smaków — warstwa karmelu i orzeszków dodaje wagi.' },
         ],
       },
       en: {
@@ -317,6 +372,11 @@ export const FLAVOR_EXTRA = {
             a: 'The caramel-to-cream ratio is what balances this. The PDF gives concrete numbers.' },
           { q: 'Can I sell it for a kids’ order?',
             a: 'Flavour-wise yes, but with peanuts on board, confirm allergies with the client first.' },
+        
+          { q: 'What size is the Snickers bento cake?',
+            a: 'Standard is 12 cm diameter, about 8 cm tall. Serves 2. Conversion to other diameters — in the PDF.' },
+          { q: 'How much does the Snickers bento cake weigh?',
+            a: 'Around 700–750 g at 12 cm. The heaviest of the base flavours — the caramel and peanut layer adds weight.' },
         ],
       },
     },
