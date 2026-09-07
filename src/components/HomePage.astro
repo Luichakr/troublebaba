@@ -204,8 +204,16 @@ const reviews = (
   : reviewsFor('en').length ? reviewsFor('en')
   : reviewsFor('ru')
 );
-const ratingValue = averageRating(reviews);
-const ratedCount = reviews.filter(r => typeof r.rating === 'number').length;
+// Рейтинг: сначала пробуем посчитать из оценок в самих отзывах (поле
+// `rating`). Если их ещё нет — берём заявленное владельцем значение из
+// SITE.reviews.averageRating (см. комментарий там о том, откуда цифра и
+// по каким правилам её менять). Как только у отзывов появятся оценки,
+// вычисленное значение автоматически перебьёт заявленное.
+const computedRating = averageRating(reviews);
+const ratingValue = computedRating ?? (SITE.reviews?.averageRating ?? null);
+const ratedCount = computedRating !== null
+  ? reviews.filter(r => typeof r.rating === 'number').length
+  : reviews.length;
 const REVIEWS_INITIAL = 9; // shown before "show more"
 ---
 

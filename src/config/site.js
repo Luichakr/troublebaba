@@ -131,6 +131,28 @@ export const SITE = {
   defaultLang:    'uk',
   supportedLangs: ['uk', 'ru', 'pl', 'en', 'es', 'de', 'fr', 'it', 'pt'],
 
+  // === Отзывы и рейтинг ===
+  // averageRating — средняя оценка по собранной обратной связи от покупателей.
+  // Заявлена владельцем: подсчёт от 7 сентября 2026 по 51 отзыву.
+  //
+  // Эта цифра идёт в JSON-LD AggregateRating и в видимый бейдж на главной,
+  // то есть её видят и Google, и покупатель. Правила, по которым она живёт:
+  //
+  //  1. Менять только при новом подсчёте по реальной обратной связи.
+  //     Не «подкрутить, чтобы красивее» — за AggregateRating без данных
+  //     Google снимает rich results со всего домена, а Omnibus Directive
+  //     (ЕС, с мая 2022) прямо запрещает ложные сведения об отзывах.
+  //  2. reviewCount должен совпадать с числом отзывов, реально показанных
+  //     на странице. Сейчас это длина src/data/reviews/<lang>.json.
+  //  3. Если в отдельных отзывах появится поле `rating` (1–5), среднее
+  //     начнёт считаться из них автоматически и это значение будет
+  //     проигнорировано — см. averageRating() в HomePage.astro.
+  //     Это и есть желаемое конечное состояние: рейтинг из данных.
+  reviews: {
+    averageRating: 4.8,
+    ratingSource: 'owner tally, 2026-09-07',
+  },
+
   // Open Graph — 1200×630 horizontal cover composited via scripts/build-og-cover.mjs
   // (run `npm run og:rebuild` to regenerate from public/images/hero-cake.webp).
   ogImage:       '/images/og-cover.webp',

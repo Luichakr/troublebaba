@@ -200,10 +200,13 @@ const _reviewList = (
   ?? []
 );
 const _scored = _reviewList.filter(r => typeof r.rating === 'number' && r.rating >= 1 && r.rating <= 5);
-const ratingValue = _scored.length
+// Приоритет — среднее из реальных оценок. Пока их нет, используется
+// заявленное владельцем значение из SITE.reviews.averageRating.
+const _computed = _scored.length
   ? Math.round((_scored.reduce((a, r) => a + (r.rating as number), 0) / _scored.length) * 10) / 10
   : null;
-const ratingCount = _scored.length;
+const ratingValue = _computed ?? ((SITE as any).reviews?.averageRating ?? null);
+const ratingCount = _computed !== null ? _scored.length : _reviewList.length;
 
 // Load GA4 on every real page (home, content, about, legal) so organic
 // landing pages (recipes, blog posts) actually count. Explicit `loadGA` prop
