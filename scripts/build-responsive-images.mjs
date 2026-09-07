@@ -28,10 +28,16 @@ const MIN_BYTES = 100 * 1024;   // мельче 100 КБ дробить смыс
 // «Мак-цитрус» отдавала 404 вместо фото.
 const ALWAYS = /^q\d+\.(webp|jpe?g|png)$/i;
 
+// pdf-preview/ не трогаем: там свои размеры считает build-pdf-preview.mjs.
+// Читаемые страницы уже отданы в нужной ширине, а размытые — 64 px, дробить
+// их бессмысленно; хуже того, вариант размытой страницы шириной 480 px
+// пришлось бы апскейлить, и он весил бы в разы больше исходной.
+const SKIP_DIRS = new Set(['pdf-preview']);
+
 function walk(dir) {
   return readdirSync(dir, { withFileTypes: true }).flatMap(e => {
     const p = join(dir, e.name);
-    if (e.isDirectory()) return walk(p);
+    if (e.isDirectory()) return SKIP_DIRS.has(e.name) ? [] : walk(p);
     return /\.(webp|jpe?g|png)$/i.test(e.name) ? [p] : [];
   });
 }

@@ -116,22 +116,26 @@ const GUAR: Record<string, { title: string; text: string }> = {
 };
 const guar = GUAR[lang] ?? GUAR.en;
 
-// PDF preview — four STRUCTURAL pages: cover, the author's welcome, and the
-// section title pages ("choosing your products", "frosting creams"). They show
-// how the book is built and how it looks, which the flavour grid above cannot.
-// An earlier version used the 10 recipe title pages and simply repeated that
-// grid — same names, same layer lists, no new information.
-// The pages that carry the actual know-how (product brands, equipment list,
-// diameter conversion table, assembly method) stay out: they'd be usable
-// straight off a screenshot. Locales without their own PDF fall back to EN.
-const PREVIEW_PAGES: Record<string, number[]> = {
-  uk: [1, 2, 3, 62],
-  ru: [1, 2, 3, 62],
-  pl: [1, 2, 3, 62],
-  en: [1, 2, 3, 55],
-};
-const previewLang = PREVIEW_PAGES[lang] ? lang : 'en';
-const previewPages = PREVIEW_PAGES[previewLang];
+// Превью PDF — вся книга целиком, а не выборка из четырёх страниц.
+// Читаемых 16 (в en 15: страницы «Фісташка-малина» в английском издании
+// нет), остальные размыты в public/ необратимо — размытие делается после
+// уменьшения в 17 раз, так что текста в файле физически не осталось.
+// Подробности и список страниц: scripts/pdf-preview.config.json,
+// перегенерация — npm run pdf:preview.
+//
+// Что это даёт против прежних четырёх страниц: посетитель видит, что
+// книга правда на 66 страниц и что в ней плотно, а не верит цифре на
+// слово. Локали без своего PDF показывают английский — тот же файл,
+// который они и получат письмом.
+import PREVIEW_MANIFEST from '../data/pdf-preview.json';
+const previewLang = (PREVIEW_MANIFEST as Record<string, { total: number; visible: number[] }>)[lang] ? lang : 'en';
+const previewMeta = (PREVIEW_MANIFEST as Record<string, { total: number; visible: number[] }>)[previewLang];
+const previewVisible = new Set(previewMeta.visible);
+const previewSlides = Array.from({ length: previewMeta.total }, (_, k) => ({
+  n: k + 1,
+  src: `/images/pdf-preview/${previewLang}/p${k + 1}.webp`,
+  open: previewVisible.has(k + 1),
+}));
 
 // Мокап планшета с обложкой PDF — картинка языковая: на обложке название
 // сборника и локализованный интерфейс читалки. Своя обложка у uk/ru/pl,
@@ -1203,48 +1207,143 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
     </div>
   </section>
 
-  {/* Lightbox: the section promises a look inside, so the pages have to open
-        full size. Arrows / swipe move between them; Esc or a click outside closes. */}
-    <div id="preview-lightbox" hidden data-pages={JSON.stringify(previewPages.map((p) => `/images/pdf-preview/${previewLang}/p${p}.jpg`))} data-alt-tpl={tr.preview_page_alt} class="fixed inset-0 z-[100] items-center justify-center p-4 md:p-8" style="background:rgba(26,20,14,0.92);backdrop-filter:blur(4px);">
-      <button type="button" id="preview-close" aria-label="Close" class="absolute top-4 right-4 md:top-6 md:right-6 w-11 h-11 rounded-full flex items-center justify-center text-warm-white/80 hover:text-warm-white" style="background:rgba(255,255,255,0.10);">
-        <Icon name="ph:x" class="w-[20px] h-[20px]" />
-      </button>
-      <button type="button" id="preview-prev" aria-label="Previous" class="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center text-warm-white/80 hover:text-warm-white" style="background:rgba(255,255,255,0.10);">
-        <Icon name="ph:caret-left" class="w-[20px] h-[20px]" />
-      </button>
-      <button type="button" id="preview-next" aria-label="Next" class="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center text-warm-white/80 hover:text-warm-white" style="background:rgba(255,255,255,0.10);">
-        <Icon name="ph:caret-right" class="w-[20px] h-[20px]" />
-      </button>
-      <img id="preview-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" decoding="async" class="max-h-[88vh] max-w-full w-auto h-auto rounded-xl" style="box-shadow:0 20px 60px rgba(0,0,0,0.5);" />
-      <div id="preview-counter" class="absolute bottom-4 left-1/2 -translate-x-1/2 font-outfit text-warm-white/60 text-[13px] tabular-nums"></div>
+  {/* Листалка всех страниц PDF. Свайп — нативный, на CSS scroll-snap:
+        никакой библиотеки слайдера и никакого touchmove в JS, поэтому на
+        телефоне инерция и «резинка» ровно те, к которым человек привык, и
+        листается без задержек. Прежняя версия ловила touchstart/touchend
+        вручную и на четырёх страницах это было терпимо, а на 66 — нет.
+        JS здесь остался только на то, чего CSS не умеет: счётчик, стрелки,
+        клавиши и ленивая подгрузка читаемых страниц. */}
+    <div id="preview-lightbox" hidden data-alt-tpl={tr.preview_page_alt} class="fixed inset-0 z-[100] flex-col" style="background:rgba(26,20,14,0.94);backdrop-filter:blur(4px);">
+
+      <div class="flex-shrink-0 flex items-center justify-between gap-3 px-4 py-3 md:px-6">
+        <div id="preview-counter" class="font-outfit text-warm-white/70 text-[13px] tabular-nums"></div>
+        <a href={anchor('price')} id="preview-buy"
+           class="min-h-[40px] inline-flex items-center gap-2 rounded-full bg-mocha-dark text-warm-white font-outfit font-bold text-[13px] px-5 py-2.5 whitespace-nowrap">
+          {tr.cta_final_btn}
+        </a>
+        <button type="button" id="preview-close" aria-label={tr.preview_close ?? 'Close'} class="min-h-[44px] w-11 h-11 flex-shrink-0 rounded-full flex items-center justify-center text-warm-white/80 hover:text-warm-white" style="background:rgba(255,255,255,0.10);">
+          <Icon name="ph:x" class="w-[20px] h-[20px]" />
+        </button>
+      </div>
+
+      <div class="relative flex-1 min-h-0">
+        {/* scroll-snap-type: x mandatory + snap-align на каждой странице —
+            этим и держится свайп. scrollbar спрятан, потому что полоса на
+            66 страниц под картинкой только мешает: место показывает счётчик. */}
+        <div id="preview-track" class="h-full flex overflow-x-auto overflow-y-hidden overscroll-x-contain"
+             style="scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;">
+          {previewSlides.map((s) => (
+            <div class="flex-shrink-0 w-full h-full flex items-center justify-center px-4 md:px-16" style="scroll-snap-align:center;scroll-snap-stop:always;" data-page={s.n} data-open={s.open ? '1' : '0'}>
+              {/* Ширина задана явно, а не берётся от картинки. Размытые
+                  страницы лежат в файле шириной 64 px, и рамка с auto-шириной
+                  схлопывалась до них: читаемая страница разворачивалась на
+                  весь слайд, а закрытая показывалась ноготком в углу.
+                  min(100%, высота × 0.707) держит пропорцию A4 и упирается
+                  то в ширину экрана (телефон), то в высоту (десктоп).
+                  svh, а не vh: на мобильных vh скачет вместе с адресной
+                  строкой, и страница дёргалась бы при листании. */}
+              <div class="relative" style="aspect-ratio:1080/1528;width:min(100%,calc((100svh - 7rem) * 0.707));">
+                {/* Размытые страницы — по 0.4 КБ, поэтому грузятся сразу:
+                    вся книга становится листаемой мгновенно, все 50 вместе
+                    весят меньше одной читаемой. Читаемые (~90 КБ) уходят
+                    в data-src и подтягиваются по мере приближения. */}
+                <img
+                  src={s.open ? undefined : s.src}
+                  data-src={s.open ? s.src : undefined}
+                  width="1080" height="1528" decoding="async"
+                  alt={tr.preview_page_alt.replace('{n}', String(s.n)).replace('{total}', String(previewMeta.total))}
+                  class="w-full h-full object-contain rounded-lg md:rounded-xl"
+                  style="box-shadow:0 20px 60px rgba(0,0,0,0.5);background:rgba(255,255,255,0.04);"
+                />
+                {!s.open && (
+                  /* Замок по центру страницы, а не ярлыком в углу: закрыта
+                     вся страница, и метка должна читаться как её состояние.
+                     Затемнение поверх — чтобы белый замок держал контраст на
+                     любой странице: под ним попадаются и тёмные фото, и
+                     почти белый фон. */
+                  <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-lg md:rounded-xl pointer-events-none" style="background:rgba(26,20,14,0.28);">
+                    <span class="flex items-center justify-center w-12 h-12 rounded-full" style="background:rgba(26,20,14,0.55);backdrop-filter:blur(2px);">
+                      <Icon name="ph:lock-simple" class="w-[20px] h-[20px] text-warm-white" />
+                    </span>
+                    <span class="font-outfit font-semibold text-[12.5px] text-warm-white text-center leading-snug max-w-[80%]" style="text-shadow:0 1px 6px rgba(26,20,14,0.6);">
+                      {tr.preview_locked}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Стрелки — только с планшета: на телефоне листают пальцем, а
+            кнопки поверх узкой страницы закрывали бы её содержимое. */}
+        <button type="button" id="preview-prev" aria-label={tr.preview_prev ?? 'Previous'} class="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full items-center justify-center text-warm-white/80 hover:text-warm-white" style="background:rgba(255,255,255,0.10);">
+          <Icon name="ph:caret-left" class="w-[20px] h-[20px]" />
+        </button>
+        <button type="button" id="preview-next" aria-label={tr.preview_next ?? 'Next'} class="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full items-center justify-center text-warm-white/80 hover:text-warm-white" style="background:rgba(255,255,255,0.10);">
+          <Icon name="ph:caret-right" class="w-[20px] h-[20px]" />
+        </button>
+      </div>
+
+      <div class="flex-shrink-0 h-1 mx-4 md:mx-6 mb-3 rounded-full overflow-hidden" style="background:rgba(255,255,255,0.12);">
+        <div id="preview-progress" class="h-full rounded-full transition-[width] duration-150" style="background:rgba(253,250,246,0.7);width:0%;"></div>
+      </div>
     </div>
 
     <script is:inline>
       (() => {
         const box = document.getElementById('preview-lightbox');
         if (!box) return;
-        const img = document.getElementById('preview-image');
+        const track = document.getElementById('preview-track');
         const counter = document.getElementById('preview-counter');
-        const srcs = JSON.parse(box.dataset.pages || '[]');
-        if (!srcs.length) return;
-        let i = 0;
+        const progress = document.getElementById('preview-progress');
+        const slides = Array.from(track.children);
+        if (!slides.length) return;
+        const total = slides.length;
 
-        // alt меняется вместе с src: в разметке у картинки alt="" — это
-        // верно для прозрачной заглушки 1×1, но как только сюда встаёт
-        // страница книги, картинка становится содержанием, и пустой alt
-        // означает, что скринридер не объявляет ничего.
-        const altTpl = box.dataset.altTpl || '';
-        const show = (n) => {
-          i = (n + srcs.length) % srcs.length;
-          img.src = srcs[i];
-          img.alt = altTpl.replace('{n}', i + 1).replace('{total}', srcs.length);
-          counter.textContent = `${i + 1} / ${srcs.length}`;
+        // Читаемые страницы весят ~90 КБ и лежат в data-src. Тянем текущую
+        // и по две в каждую сторону: пока человек долистает, картинка уже
+        // на месте, но открытие лайтбокса не запускает загрузку всех
+        // шестнадцати разом.
+        const RADIUS = 2;
+        const load = (idx) => {
+          for (let k = idx - RADIUS; k <= idx + RADIUS; k++) {
+            const img = slides[k]?.querySelector('img[data-src]');
+            if (img) { img.src = img.dataset.src; img.removeAttribute('data-src'); }
+          }
         };
+
+        let i = 0;
+        const sync = (idx) => {
+          i = Math.min(total - 1, Math.max(0, idx));
+          counter.textContent = `${i + 1} / ${total}`;
+          progress.style.width = `${((i + 1) / total) * 100}%`;
+          load(i);
+        };
+
+        // Позицию берём из самой прокрутки, а не из счётчика кликов:
+        // после свайпа страницу выбирает браузер, и единственный
+        // достоверный источник — где трек реально остановился.
+        let raf = 0;
+        track.addEventListener('scroll', () => {
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(() => sync(Math.round(track.scrollLeft / track.clientWidth)));
+        }, { passive: true });
+
+        const goTo = (n, smooth = true) => {
+          const idx = Math.min(total - 1, Math.max(0, n));
+          track.scrollTo({ left: idx * track.clientWidth, behavior: smooth ? 'smooth' : 'auto' });
+          sync(idx);
+        };
+
         const open = (n) => {
-          show(n);
           box.hidden = false;
           box.style.display = 'flex';
           document.body.style.overflow = 'hidden';
+          // Позиционируем после показа: у скрытого элемента clientWidth = 0,
+          // и scrollTo ушёл бы в ноль независимо от запрошенной страницы.
+          requestAnimationFrame(() => goTo(n, false));
         };
         const close = () => {
           box.hidden = true;
@@ -1253,32 +1352,33 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
         };
 
         // Лайтбокс открывают две кнопки: «Погортати сторінки» на картинке
-        // и текстовая ссылка «Подивитись приклади сторінок» под CTA,
-        // добавленная при разбиении секции на две части.
+        // и текстовая ссылка «Подивитись приклади сторінок» под CTA.
         for (const id of ['preview-open-first', 'preview-open-pages']) {
           const btn = document.getElementById(id);
           if (btn) btn.addEventListener('click', () => open(0));
         }
         document.getElementById('preview-close').addEventListener('click', close);
-        document.getElementById('preview-prev').addEventListener('click', (e) => { e.stopPropagation(); show(i - 1); });
-        document.getElementById('preview-next').addEventListener('click', (e) => { e.stopPropagation(); show(i + 1); });
-        box.addEventListener('click', (e) => { if (e.target === box || e.target === img) close(); });
+        document.getElementById('preview-prev').addEventListener('click', () => goTo(i - 1));
+        document.getElementById('preview-next').addEventListener('click', () => goTo(i + 1));
+        // Кнопка покупки — единственная ссылка внутри: закрываем лайтбокс,
+        // иначе якорь уводит на секцию цены под непрозрачным оверлеем.
+        document.getElementById('preview-buy').addEventListener('click', close);
         document.addEventListener('keydown', (e) => {
           if (box.hidden) return;
           if (e.key === 'Escape') close();
-          if (e.key === 'ArrowLeft') show(i - 1);
-          if (e.key === 'ArrowRight') show(i + 1);
+          if (e.key === 'ArrowLeft') goTo(i - 1);
+          if (e.key === 'ArrowRight') goTo(i + 1);
         });
 
-        // Swipe between pages on touch devices.
-        let x0 = null;
-        box.addEventListener('touchstart', (e) => { x0 = e.changedTouches[0].clientX; }, { passive: true });
-        box.addEventListener('touchend', (e) => {
-          if (x0 === null) return;
-          const dx = e.changedTouches[0].clientX - x0;
-          if (Math.abs(dx) > 50) show(dx < 0 ? i + 1 : i - 1);
-          x0 = null;
-        }, { passive: true });
+        // Клик по фону закрывает; клик по самой странице — нет, иначе
+        // промах мимо стрелки на десктопе выкидывает из просмотра.
+        track.addEventListener('click', (e) => {
+          if (e.target === track || e.target.dataset.page) close();
+        });
+
+        // Ширина слайда завязана на clientWidth трека, поэтому после
+        // поворота телефона позиция «уезжает» между страницами.
+        addEventListener('resize', () => { if (!box.hidden) goTo(i, false); });
       })();
     </script>
     </div>

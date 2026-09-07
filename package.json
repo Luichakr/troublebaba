@@ -12,7 +12,8 @@
     "astro": "astro",
     "og:rebuild": "node scripts/build-og-cover.mjs",
     "indexnow": "node scripts/indexnow-submit.mjs",
-    "img:responsive": "node scripts/build-responsive-images.mjs"
+    "img:responsive": "node scripts/build-responsive-images.mjs",
+    "pdf:preview": "node scripts/build-pdf-preview.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

@@ -189,3 +189,7 @@ body {
   outline: 2px solid #6E5C43;
   outline-offset: 1px;
 }
+
+/* Листалка страниц PDF: полосу прокрутки прячем — на 66 страницах она
+   только загораживает картинку, место показывает счётчик и прогресс. */
+#preview-track::-webkit-scrollbar { display: none; }
