@@ -134,18 +134,21 @@ const previewLang = PREVIEW_PAGES[lang] ? lang : 'en';
 const previewPages = PREVIEW_PAGES[previewLang];
 
 // Мокап планшета с обложкой PDF — картинка языковая: на обложке название
-// сборника и локализованный интерфейс читалки. Показывать украинскую
-// обложку на en/de/fr нельзя — это обещание книги, которой покупатель не
-// получит. Есть uk/ru/pl; остальные локали остаются на нейтральном фото
-// (EN-мокап отклонён: генератор написал на обложке «BUNDT CAKE» —
-// кекс в кольцевой форме, а не бенто-торт). Размеры у мокапов разные,
-// поэтому хранятся рядом с именем: width/height нужны против CLS.
+// сборника и локализованный интерфейс читалки. Своя обложка у uk/ru/pl,
+// у остальных — английская, и это не подмена: PDF существует на тех же
+// четырёх языках (см. PREVIEW_PAGES выше), покупатель с es/de/fr/it/pt
+// получает именно EN-сборник. Картинка обещает то, что придёт письмом.
+// Размеры у мокапов разные, поэтому лежат рядом с именем файла:
+// без верных width/height ловим CLS.
 const INSIDE_TABLET: Record<string, { file: string; w: number; h: number }> = {
   uk: { file: 'inside-tablet-uk', w: 1122, h: 1402 },
   ru: { file: 'inside-tablet-ru', w: 1122, h: 1402 },
   pl: { file: 'inside-tablet-pl', w: 1086, h: 1448 },
+  en: { file: 'inside-tablet-en', w: 1086, h: 1448 },
 };
-const insideShot = INSIDE_TABLET[lang] ?? { file: 'inside-cake', w: 1254, h: 1254 };
+// Фоллбэк на EN, а не на нейтральное фото: локали без своего PDF
+// получают английский сборник — той же логикой, что previewLang выше.
+const insideShot = INSIDE_TABLET[lang] ?? INSIDE_TABLET.en;
 const insideImg = insideShot.file;
 const insideImgW = insideShot.w;
 const insideImgH = insideShot.h;
