@@ -1,5 +1,7 @@
 ---
+import { Icon } from 'astro-icon/components';
 import { FLAVORS, RECIPES_HUB } from '../data/flavors.js';
+import { SITE } from '../config/site.js';
 
 type Lang = 'uk' | 'ru' | 'pl' | 'en';
 interface Props { lang: Lang; homeUrl: string }
@@ -7,18 +9,40 @@ const { lang, homeUrl } = Astro.props;
 const hub = (RECIPES_HUB as any)[lang] ?? (RECIPES_HUB as any).en;
 const langPrefix = lang === 'uk' ? '' : '/' + lang;
 const flavorUrl = (s: string) => `${langPrefix}/recipes/${s}/`;
+
+// ItemList JSON-LD: the 10 flavour pages as an ordered list. Helps Google
+// understand this hub as a collection and can surface it as a carousel.
+const itemList = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": hub.heading,
+  "inLanguage": lang,
+  "numberOfItems": (FLAVORS as any[]).length,
+  "itemListElement": (FLAVORS as any[]).map((f, i) => {
+    const fl = f.t[lang] ?? f.t.en;
+    return {
+      "@type": "ListItem",
+      "position": i + 1,
+      "name": (fl.metaTitle || fl.name).split(' | ')[0],
+      "url": SITE.url + flavorUrl(f.slug),
+      "image": SITE.url + f.image,
+    };
+  }),
+};
 ---
 <main class="min-h-[100dvh]" style="background:#F5EFE8;">
+  <script type="application/ld+json" set:html={JSON.stringify(itemList)} />
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16 py-12 lg:py-20">
 
     <a href={homeUrl} class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10">
-      <svg width="14" height="12" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M14 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <Icon name="ph:arrow-left" aria-hidden="true" class="w-[14px] h-[12px]" />
       <span>{hub.back}</span>
     </a>
 
     <header class="max-w-[640px] mb-12">
-      <h1 class="font-cabinet text-espresso mb-5" style="font-size:clamp(2.4rem,5vw,4rem);line-height:1.02;">{hub.heading}</h1>
-      <p class="font-outfit text-espresso/60 text-base leading-relaxed">{hub.intro}</p>
+      <h1 class="font-cabinet text-espresso mb-5" style="font-size:var(--h-section);line-height:1.02;">{hub.heading}</h1>
+      <p class="font-outfit text-espresso/65 text-base leading-relaxed">{hub.intro}</p>
+      {hub.seoIntro && <p class="font-outfit text-espresso/65 text-base leading-relaxed mt-4">{hub.seoIntro}</p>}
     </header>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 mb-16">
@@ -30,7 +54,7 @@ const flavorUrl = (s: string) => `${langPrefix}/recipes/${s}/`;
               <img src={f.image} alt={`${fl.name} — ${fl.layers}`} width="1122" height="1402" loading="lazy" decoding="async"
                    class="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500" onerror="this.style.display='none'" />
               {f.bestseller && (
-                <span class="absolute top-3 left-3 bg-mocha text-warm-white font-outfit font-semibold text-[10px] tracking-[0.12em] uppercase px-2.5 py-1 rounded-full">★ Bestseller</span>
+                <span class="absolute top-3 left-3 bg-mocha-dark text-warm-white font-outfit font-semibold text-[11px] tracking-[0.12em] uppercase px-2.5 py-1 rounded-full">★ Bestseller</span>
               )}
             </div>
             <div class="p-5">
@@ -43,9 +67,9 @@ const flavorUrl = (s: string) => `${langPrefix}/recipes/${s}/`;
     </div>
 
     <div class="text-center">
-      <a href={homeUrl + '#price'} class="inline-flex items-center justify-center gap-3 bg-mocha text-warm-white font-outfit font-bold px-8 py-4 rounded-2xl hover:bg-mocha-dark transition-colors btn-pulse">
+      <a href={homeUrl + '#price'} class="inline-flex items-center justify-center gap-3 bg-mocha-dark text-warm-white font-outfit font-bold px-8 py-4 rounded-2xl hover:bg-mocha-dark transition-colors btn-pulse">
         {hub.cta}
-        <svg width="16" height="14" viewBox="0 0 16 14" fill="none"><path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <Icon name="ph:arrow-right" class="w-[16px] h-[14px]" />
       </a>
     </div>
   </div>

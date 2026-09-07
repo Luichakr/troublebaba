@@ -1,6 +1,8 @@
 ---
+import { Icon } from 'astro-icon/components';
 import { t } from '../i18n/translations.js';
 import { SITE, BONUS_TOTAL } from '../config/site.js';
+import SiteFooter from './SiteFooter.astro';
 
 type Lang = 'uk' | 'ru' | 'pl' | 'en';
 interface Props { lang: Lang }
@@ -42,6 +44,50 @@ const RECIPE_IMAGES = [
   'images/q4.webp',   // 9: Cherry Chocolate
 ];
 
+// Адаптивные варианты для карточек рецептов. Файлы лежат в public/, поэтому
+// Astro их не обрабатывает — варианты 480/768/1024 генерирует
+// `npm run img:responsive` (scripts/build-responsive-images.mjs).
+// Без этого телефон тянул оригинал 1122×1122 (~420 КБ) на карточку 327 px.
+const recipeSrcSet = (src: string) => {
+  const stem = src.replace(/\.webp$/, '');
+  return [480, 768, 1024].map(w => `/${stem}-${w}.webp ${w}w`).join(', ') + `, /${src} 1122w`;
+};
+const RECIPE_SIZES = '(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 30vw';
+
+// Same order as RECIPE_IMAGES — each card links to /recipes/<slug>/.
+const RECIPE_SLUGS = [
+  'oreo-bento-cake',
+  'red-velvet-bento-cake',
+  'poppy-seed-citrus-bento-cake',
+  'snickers-bento-cake',
+  'raffaello-bento-cake',
+  'ferrero-rocher-bento-cake',
+  'cinnabon-bento-cake',
+  'pistachio-raspberry-bento-cake',
+  'pina-colada-bento-cake',
+  'cherry-chocolate-bento-cake',
+];
+const recipeHref = (idx: number) => (isUk ? '' : '/' + lang) + '/recipes/' + RECIPE_SLUGS[idx] + '/';
+
+// "Useful before you buy" hub: links the money page to the 5 commercial-intent
+// blog posts (size / cost / shelf life / cream choice / cream fixes). Passes
+// homepage authority deeper into the site and answers pre-purchase questions.
+// Titles come from the content collection, so every locale gets its own copy.
+import { getCollection } from 'astro:content';
+const HUB_SLUGS = ['bento-cake-size', 'bento-cake-cost', 'bento-cake-shelf-life', 'which-cream-for-bento', 'cream-not-holding-shape'];
+const _hubPool = await getCollection('blog', (e: any) => e.data.draft === false && e.data.lang === lang);
+const hubPosts = HUB_SLUGS
+  .map(s => _hubPool.find((p: any) => p.data.slug === s))
+  .filter(Boolean)
+  .map((p: any) => ({
+    slug: p.data.slug,
+    title: p.data.title,
+    excerpt: p.data.excerpt ?? p.data.description,
+    cover: p.data.cover || '/images/cta-book.webp',
+  }));
+const hubLead = hubPosts[0];
+const hubRest = hubPosts.slice(1, 5);
+
 const LANGS: { c: Lang; l: string; full: string }[] = [
   { c: 'uk', l: 'UKR', full: 'Українська' },
   { c: 'ru', l: 'RUS', full: 'Русский' },
@@ -68,13 +114,45 @@ const GUAR: Record<string, { title: string; text: string }> = {
   pt: { title: 'Compre com confiança', text: 'Não deu certo de primeira? Escreve para @troublebaba — resolvemos juntos, passo a passo.' },
 };
 const guar = GUAR[lang] ?? GUAR.en;
+
+// PDF preview — four STRUCTURAL pages: cover, the author's welcome, and the
+// section title pages ("choosing your products", "frosting creams"). They show
+// how the book is built and how it looks, which the flavour grid above cannot.
+// An earlier version used the 10 recipe title pages and simply repeated that
+// grid — same names, same layer lists, no new information.
+// The pages that carry the actual know-how (product brands, equipment list,
+// diameter conversion table, assembly method) stay out: they'd be usable
+// straight off a screenshot. Locales without their own PDF fall back to EN.
+const PREVIEW_PAGES: Record<string, number[]> = {
+  uk: [1, 2, 3, 62],
+  ru: [1, 2, 3, 62],
+  pl: [1, 2, 3, 62],
+  en: [1, 2, 3, 55],
+};
+const previewLang = PREVIEW_PAGES[lang] ? lang : 'en';
+const previewPages = PREVIEW_PAGES[previewLang];
+
+// Customer reviews — one JSON file per language in src/data/reviews/.
+// Falls back to EN, then RU, if a locale file is missing at build time.
+const REVIEW_FILES = import.meta.glob<{ default: { text: string }[] }>(
+  '../data/reviews/*.json',
+  { eager: true },
+);
+const reviewsFor = (l: string): { text: string }[] =>
+  REVIEW_FILES[`../data/reviews/${l}.json`]?.default ?? [];
+const reviews = (
+  reviewsFor(lang).length ? reviewsFor(lang)
+  : reviewsFor('en').length ? reviewsFor('en')
+  : reviewsFor('ru')
+);
+const REVIEWS_INITIAL = 9; // shown before "show more"
 ---
 
   <!-- ── HEADER ── -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-md border-b border-taupe/15">
     <div class="max-w-[1440px] mx-auto px-4 lg:px-16 h-[68px] lg:h-[72px] flex items-center justify-between gap-2 lg:gap-6">
-      <a href={langUrl(lang)} class="font-cabinet text-espresso flex-shrink-0 text-[1.1rem] lg:text-[1.55rem]" style="letter-spacing:0.01em;">TROUBLEBABA</a>
-      <nav class="hidden md:flex items-center gap-10 font-outfit text-[12px] font-semibold tracking-[0.16em] uppercase text-espresso/65">
+      <a href={langUrl(lang)} class="min-h-[44px] font-cabinet text-espresso flex-shrink-0 text-[1.1rem] lg:text-[1.55rem]" style="letter-spacing:0.01em;">TROUBLEBABA</a>
+      <nav class="hidden md:flex items-center gap-10 font-outfit text-[13px] font-semibold tracking-[0.16em] uppercase text-espresso/65">
         <a href={anchor('recipes')} class="hover:text-espresso transition-colors">{tr.nav_recipes}</a>
         <a href={anchor('about')} class="hover:text-espresso transition-colors">{tr.nav_author}</a>
         <a href={blogHref} class="hover:text-espresso transition-colors">{tr.nav_blog}</a>
@@ -84,31 +162,27 @@ const guar = GUAR[lang] ?? GUAR.en;
       <div class="flex items-center gap-3 flex-shrink-0">
         <!-- Language dropdown -->
         <div class="relative hidden sm:block" id="lang-dropdown-wrap">
-          <button id="lang-dropdown-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Choose language" class="flex items-center gap-1.5 font-outfit font-semibold text-[12px] tracking-[0.12em] uppercase text-espresso/70 hover:text-espresso transition-colors px-4 py-2.5 rounded-full border border-taupe/40 hover:border-taupe/60">
+          <button id="lang-dropdown-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Choose language" class="flex items-center gap-1.5 font-outfit font-semibold text-[13px] tracking-[0.12em] uppercase text-espresso/70 hover:text-espresso transition-colors px-4 py-2.5 rounded-full border border-taupe/40 hover:border-taupe/60">
             <span id="lang-label">{currentLangLabel}</span>
-            <svg width="11" height="7" viewBox="0 0 12 8" fill="none" class="transition-transform duration-200" id="lang-chevron">
-              <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <Icon name="ph:caret-down" class="transition-transform duration-200 w-[11px] h-[7px]" />
           </button>
           <div id="lang-menu" role="listbox" aria-label="Languages" class="hidden absolute right-0 top-full mt-2 bg-warm-white border border-taupe/25 rounded-2xl shadow-xl overflow-hidden min-w-[150px] z-50" style="box-shadow:0 12px 40px rgba(139,115,85,0.18);">
             {LANGS.map(x => (
               <a href={langUrl(x.c)} role="option" aria-label={x.full} aria-current={x.c === lang ? 'page' : undefined} class={`lang-btn w-full flex items-center justify-between px-4 py-3 font-outfit text-sm transition-colors ${x.c === lang ? 'bg-surface text-espresso' : 'text-espresso/70 hover:bg-surface hover:text-espresso'}`}>
                 <span class="font-medium">{x.full}</span>
-                <span class="text-xs text-espresso/35 font-mono">{x.l}</span>
+                <span class="text-xs text-espresso/65 font-outfit tracking-wider uppercase">{x.l}</span>
               </a>
             ))}
           </div>
         </div>
         <!-- CTA -->
         <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="header"
-           class="flex items-center gap-1.5 bg-mocha text-warm-white font-outfit font-semibold text-[11.5px] lg:text-[13px] px-3 lg:px-5 py-2 lg:py-2.5 rounded-full hover:bg-mocha-dark transition-colors whitespace-nowrap">
+           class="min-h-[44px] flex items-center gap-1.5 bg-mocha-dark text-warm-white font-outfit font-semibold text-[11.5px] lg:text-[13px] px-3 lg:px-5 py-2 lg:py-2.5 rounded-full hover:bg-mocha-dark transition-colors whitespace-nowrap">
           {tr.nav_buy}
         </a>
         <!-- Mobile burger menu -->
-        <button id="mobile-menu-btn" type="button" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden w-9 h-9 rounded-full flex items-center justify-center text-espresso hover:bg-taupe/15 transition-colors flex-shrink-0" aria-label="Menu">
-          <svg width="18" height="13" viewBox="0 0 20 14" fill="none">
-            <path d="M1 1h18M1 7h18M1 13h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
+        <button id="mobile-menu-btn" type="button" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden w-11 h-11 rounded-full flex items-center justify-center text-espresso hover:bg-taupe/15 transition-colors flex-shrink-0" aria-label="Menu">
+          <Icon name="ph:list" class="w-[18px] h-[13px]" />
         </button>
       </div>
     </div>
@@ -124,7 +198,7 @@ const guar = GUAR[lang] ?? GUAR.en;
         <!-- Language switcher in mobile menu -->
         <div class="pt-3 mt-2 flex gap-2">
           {LANGS.map(x => (
-            <a href={langUrl(x.c)} aria-current={x.c === lang ? 'page' : undefined} class={`lang-btn flex-1 text-center font-outfit font-semibold text-[11px] tracking-[0.12em] uppercase transition-colors py-2 rounded-full border ${x.c === lang ? 'bg-surface text-espresso border-taupe/60' : 'text-espresso/55 hover:text-espresso border-taupe/30'}`}>{x.l}</a>
+            <a href={langUrl(x.c)} aria-current={x.c === lang ? 'page' : undefined} class={`lang-btn flex-1 text-center font-outfit font-semibold text-[11px] tracking-[0.12em] uppercase transition-colors py-2 rounded-full border ${x.c === lang ? 'bg-surface text-espresso border-taupe/60' : 'text-espresso/65 hover:text-espresso border-taupe/30'}`}>{x.l}</a>
           ))}
         </div>
       </div>
@@ -145,7 +219,7 @@ const guar = GUAR[lang] ?? GUAR.en;
       <!-- Eyebrow + heart (desktop only — on mobile shown over photo) -->
       <div class="animate-fade-up mb-7 hidden lg:block">
         <div class="flex items-center gap-3 mb-3">
-          <p class="font-outfit text-[11px] font-semibold tracking-[0.18em] uppercase text-espresso/55">
+          <p class="font-outfit text-[11px] font-semibold tracking-[0.18em] uppercase text-espresso/65">
             {tr.hero_by}
           </p>
         </div>
@@ -158,11 +232,18 @@ const guar = GUAR[lang] ?? GUAR.en;
         </div>
       </div>
 
-      <!-- Main heading (desktop only — on mobile shown over photo).
-           Capped smaller so the full hero (headline → chips → CTA → stats)
-           fits above the fold on a 13" laptop even with a bookmarks bar. -->
-      <h1 class="animate-fade-up animate-fade-up-d1 font-cabinet text-espresso leading-[0.9] mb-5 hidden lg:block" style="font-size:clamp(3.4rem,6.5vw,6.4rem);">
-        BENTO<br/>CAKE
+      <!-- Main heading. On desktop it's the visible wordmark; on mobile we
+           keep the same <h1> in the DOM but visually hide it (sr-only) so
+           Google, screen readers and Search Console still see the page's
+           actual heading. The decorative "BENTO CAKE" over the mobile hero
+           photo further down is <div aria-hidden> — style only, no <h1>
+           duplication. Do NOT switch this back to `hidden lg:block` — that
+           is display:none and drops the H1 from mobile-first indexing. -->
+      <h1 class="animate-fade-up animate-fade-up-d1 font-cabinet text-espresso leading-[0.9] mb-5 sr-only lg:not-sr-only lg:block" style="font-size:var(--h-hero);">
+        <span class="block">BENTO</span><span class="block">CAKE</span>
+        {tr.hero_h1_kw && (
+          <span style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;">{tr.hero_h1_kw}</span>
+        )}
       </h1>
 
       <!-- Sub (desktop only — on mobile shown over photo) -->
@@ -175,30 +256,30 @@ const guar = GUAR[lang] ?? GUAR.en;
            Ordered longest-first so natural wrap reads cleanly. -->
       <div class="animate-fade-up animate-fade-up-d2 flex flex-wrap justify-start gap-2.5 mb-6 lg:mb-7">
         <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3.5 py-2.5 shadow-sm">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B7355" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+          <Icon name="ph:book-open" class="flex-shrink-0 w-[16px] h-[16px]" />
           <span class="font-outfit text-[13px] lg:text-sm font-medium text-espresso/75 leading-none whitespace-nowrap">{tr.hero_chip1}</span>
         </div>
         <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3.5 py-2.5 shadow-sm">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B7355" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>
+          <Icon name="ph:fork-knife" class="flex-shrink-0 w-[16px] h-[16px]" />
           <span class="font-outfit text-[13px] lg:text-sm font-medium text-espresso/75 leading-none whitespace-nowrap">{tr.hero_chip5}</span>
         </div>
         <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3.5 py-2.5 shadow-sm">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B7355" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></svg>
+          <Icon name="ph:list-checks" class="flex-shrink-0 w-[16px] h-[16px]" />
           <span class="font-outfit text-[13px] lg:text-sm font-medium text-espresso/75 leading-none whitespace-nowrap">{tr.hero_chip4}</span>
         </div>
         <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3.5 py-2.5 shadow-sm">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B7355" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+          <Icon name="ph:image" class="flex-shrink-0 w-[16px] h-[16px]" />
           <span class="font-outfit text-[13px] lg:text-sm font-medium text-espresso/75 leading-none whitespace-nowrap">{tr.hero_chip2}</span>
         </div>
         <div class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-3.5 py-2.5 shadow-sm">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B7355" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+          <Icon name="ph:table" class="flex-shrink-0 w-[16px] h-[16px]" />
           <span class="font-outfit text-[13px] lg:text-sm font-medium text-espresso/75 leading-none whitespace-nowrap">{tr.hero_chip3}</span>
         </div>
       </div>
 
       {presale && (
         <div class="animate-fade-up animate-fade-up-d2 inline-flex items-center gap-2.5 self-start bg-mocha/10 border border-mocha/25 rounded-full pl-2.5 pr-4 py-2 mb-5">
-          <span class="font-outfit text-[10px] font-bold uppercase tracking-[0.14em] text-warm-white bg-mocha rounded-full px-2.5 py-1">{tr.presale_badge}</span>
+          <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.14em] text-warm-white bg-mocha-dark rounded-full px-2.5 py-1">{tr.presale_badge}</span>
           <span class="font-outfit text-[13px] font-medium text-espresso/75">{tr.notify_heading}</span>
         </div>
       )}
@@ -206,75 +287,63 @@ const guar = GUAR[lang] ?? GUAR.en;
       <!-- CTA buttons -->
       <div class="animate-fade-up animate-fade-up-d3 flex flex-col lg:flex-row gap-3 items-stretch lg:items-center mb-3.5 lg:mb-7">
         <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="hero"
-           class="btn-pulse inline-flex items-center justify-center gap-3 bg-mocha text-warm-white font-outfit font-semibold text-base px-7 py-3 lg:py-4 rounded-xl hover:bg-mocha-dark transition-colors shadow-md w-full lg:w-auto lg:self-start whitespace-nowrap">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="flex-shrink-0">
-            <path d="M9 1v10M5 8l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2 13v2a1 1 0 001 1h12a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
+           class="btn-pulse inline-flex items-center justify-center gap-3 bg-mocha-dark text-warm-white font-outfit font-semibold text-base px-7 py-3 lg:py-4 rounded-xl hover:bg-mocha-dark transition-colors shadow-md w-full lg:w-auto lg:self-start whitespace-nowrap">
+          <Icon name="ph:arrow-down" class="flex-shrink-0 w-[18px] h-[18px]" />
           <span>{presale ? tr.notify_cta_short : tr.hero_cta}</span>
         </a>
         <a href={anchor('recipes')}
-           class="inline-flex items-center justify-center lg:justify-start font-outfit font-medium text-espresso/60 text-base py-2 lg:py-4 px-2 hover:text-mocha transition-colors whitespace-nowrap">
+           class="min-h-[44px] inline-flex items-center justify-center lg:justify-start font-outfit font-medium text-espresso/65 text-base py-2 lg:py-4 px-2 hover:text-mocha transition-colors whitespace-nowrap">
           {tr.hero_link}
         </a>
       </div>
 
       <!-- Stats row — 3 in a single row -->
       <div class="animate-fade-up animate-fade-up-d4 grid grid-cols-3 gap-2 lg:flex lg:items-center lg:gap-5">
-        <a href={SITE.tiktokUrl ?? 'https://tiktok.com/@troublebaba'} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 lg:gap-2.5 hover:opacity-80 transition-opacity">
+        <a href={SITE.tiktokUrl ?? 'https://tiktok.com/@troublebaba'} target="_blank" rel="noopener noreferrer" class="min-h-[44px] flex items-center gap-2 lg:gap-2.5 hover:opacity-80 transition-opacity">
           <div class="w-7 h-7 lg:w-8 lg:h-8 rounded-xl bg-espresso/6 flex items-center justify-center flex-shrink-0">
-            <svg width="11" height="13" viewBox="0 0 13 15" fill="none" class="lg:w-[13px] lg:h-[15px]">
-              <path d="M9.5 0.5C9.7 2.5 10.9 3.9 13 4.1V6.5C11.8 6.4 10.7 5.9 9.9 5.1V10C9.9 12.5 7.9 14.5 5.3 14.5C2.7 14.5 0.7 12.5 0.7 10C0.7 7.4 2.7 5.4 5.3 5.4C5.6 5.4 5.8 5.4 6 5.5V8C5.8 7.9 5.6 7.9 5.3 7.9C4 7.9 2.9 8.9 2.9 10.2C2.9 11.5 4 12.4 5.3 12.4C6.6 12.4 7.7 11.4 7.7 10.1L7.8 0.5H9.5Z" fill="#1A1A1A" fill-opacity="0.45"/>
-            </svg>
+            <Icon name="simple-icons:tiktok" class="lg:w-[13px] lg:h-[15px] w-[11px] h-[13px]" />
           </div>
           <div class="min-w-0">
             <div class="font-stat text-espresso text-[15px] lg:text-lg leading-tight">2.2M</div>
-            <div class="font-outfit text-[9px] lg:text-[10px] text-espresso/40 uppercase tracking-wide">TikTok</div>
+            <div class="font-outfit text-[11px] lg:text-[11px] text-espresso/65 uppercase tracking-wide">TikTok</div>
           </div>
         </a>
         <div class="hidden lg:block w-px h-7 bg-taupe/35"></div>
-        <a href={SITE.instagramUrl ?? 'https://instagram.com/troublebaba'} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 lg:gap-2.5 hover:opacity-80 transition-opacity">
+        <a href={SITE.instagramUrl ?? 'https://instagram.com/troublebaba'} target="_blank" rel="noopener noreferrer" class="min-h-[44px] flex items-center gap-2 lg:gap-2.5 hover:opacity-80 transition-opacity">
           <div class="w-7 h-7 lg:w-8 lg:h-8 rounded-xl bg-espresso/6 flex items-center justify-center flex-shrink-0">
-            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" class="lg:w-[14px] lg:h-[14px]">
-              <rect x="1" y="1" width="12" height="12" rx="3.5" stroke="#1A1A1A" stroke-opacity="0.45" stroke-width="1.3"/>
-              <circle cx="7" cy="7" r="2.8" stroke="#1A1A1A" stroke-opacity="0.45" stroke-width="1.3"/>
-              <circle cx="10.5" cy="3.5" r="0.8" fill="#1A1A1A" fill-opacity="0.45"/>
-            </svg>
+            <Icon name="simple-icons:instagram" class="lg:w-[14px] lg:h-[14px] w-[12px] h-[12px]" />
           </div>
           <div class="min-w-0">
             <div class="font-stat text-espresso text-[15px] lg:text-lg leading-tight">66K</div>
-            <div class="font-outfit text-[9px] lg:text-[10px] text-espresso/40 uppercase tracking-wide">Instagram</div>
+            <div class="font-outfit text-[11px] lg:text-[11px] text-espresso/65 uppercase tracking-wide">Instagram</div>
           </div>
         </a>
         <div class="hidden lg:block w-px h-7 bg-taupe/35"></div>
-        <a href={SITE.youtubeUrl ?? 'https://youtube.com/@troublebaba'} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 lg:gap-2.5 hover:opacity-80 transition-opacity">
+        <a href={SITE.youtubeUrl ?? 'https://youtube.com/@troublebaba'} target="_blank" rel="noopener noreferrer" class="min-h-[44px] flex items-center gap-2 lg:gap-2.5 hover:opacity-80 transition-opacity">
           <div class="w-7 h-7 lg:w-8 lg:h-8 rounded-xl bg-espresso/6 flex items-center justify-center flex-shrink-0">
-            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" class="lg:w-[14px] lg:h-[14px]">
-              <rect x="0.5" y="2.5" width="13" height="9" rx="2" stroke="#1A1A1A" stroke-opacity="0.45" stroke-width="1.3"/>
-              <path d="M5.8 5.2v3.6l3-1.8z" fill="#1A1A1A" fill-opacity="0.45"/>
-            </svg>
+            <Icon name="simple-icons:youtube" class="lg:w-[14px] lg:h-[14px] w-[12px] h-[12px]" />
           </div>
           <div class="min-w-0">
             <div class="font-stat text-espresso text-[15px] lg:text-lg leading-tight">24K</div>
-            <div class="font-outfit text-[9px] lg:text-[10px] text-espresso/40 uppercase tracking-wide">YouTube</div>
+            <div class="font-outfit text-[11px] lg:text-[11px] text-espresso/65 uppercase tracking-wide">YouTube</div>
           </div>
         </a>
       </div>
 
       <!-- Mobile-only: Trust row + payment logos -->
       <div class="lg:hidden flex items-center justify-center gap-3 mt-4 pt-3 border-t border-taupe/25 flex-wrap">
-        <div class="flex items-center gap-2 text-espresso/55">
-          <svg width="12" height="13" viewBox="0 0 11 13" fill="none"><rect x="1" y="5.5" width="9" height="7" rx="1.6" stroke="currentColor" stroke-width="1.2"/><path d="M3 5.5V3.5a2.5 2.5 0 0 1 5 0v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <div class="flex items-center gap-2 text-espresso/65">
+          <Icon name="ph:lock" class="w-[12px] h-[13px]" />
           <span class="font-outfit text-[11px]">{tr.cta_secure}</span>
         </div>
         <div class="flex items-center gap-2">
-          <span class="font-outfit font-black text-espresso/45 text-[10px] tracking-[0.06em]" style="color:#1A1F71;">VISA</span>
+          <span class="font-outfit font-black text-espresso/65 text-[11px] tracking-[0.06em]" style="color:#1A1F71;">VISA</span>
           <span class="flex items-center">
             <span class="inline-block w-3 h-3 rounded-full" style="background:#EB001B;opacity:0.5;"></span>
             <span class="inline-block w-3 h-3 rounded-full -ml-1.5" style="background:#F79E1B;opacity:0.5;"></span>
           </span>
-          <span class="flex items-center gap-0.5"><svg width="8" height="10" viewBox="0 0 9 11" fill="#1A1A1A"><path d="M7.3 5.9c0-.85.39-1.5 1.16-1.97-.43-.62-1.08-.96-1.94-1.02-.81-.06-1.7.48-2.02.48-.34 0-1.12-.46-1.74-.46-1.3.02-2.69 1.02-2.69 3.04 0 .6.11 1.22.33 1.86.29.85 1.34 2.94 2.43 2.91.57-.01.97-.4 1.71-.4.72 0 1.09.4 1.72.4 1.1-.02 2.05-1.92 2.33-2.77-1.49-.7-1.29-2.06-1.29-2.07Z"/></svg><span class="font-outfit font-semibold text-[9px] text-espresso/55">Pay</span></span>
-          <span class="flex items-center gap-0.5"><span class="font-outfit font-semibold text-[10px] text-espresso/55">G</span><span class="font-outfit font-semibold text-[9px] text-espresso/55">Pay</span></span>
+          <span class="flex items-center gap-0.5"><Icon name="simple-icons:apple" class="w-[8px] h-[10px]" /><span class="font-outfit font-semibold text-[11px] text-espresso/65">Pay</span></span>
+          <span class="flex items-center gap-0.5"><span class="font-outfit font-semibold text-[11px] text-espresso/65">G</span><span class="font-outfit font-semibold text-[11px] text-espresso/65">Pay</span></span>
         </div>
       </div>
 
@@ -285,12 +354,13 @@ const guar = GUAR[lang] ?? GUAR.en;
     <div class="lg:flex-1 w-full h-[51vh] sm:h-[48vh] lg:h-[72vh] lg:min-h-[540px] lg:max-h-[760px] relative overflow-hidden lg:rounded-l-[2rem]">
       <div class="img-skeleton absolute inset-0 w-full h-full" style="background:linear-gradient(160deg,#D4C4B0 0%,#A8896A 60%,#7A6048 100%);">
         <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 pointer-events-none">
-          <svg width="40" height="40" viewBox="0 0 28 28" fill="none" class="opacity-50"><rect x="3" y="7" width="22" height="17" rx="3" stroke="#FDFAF6" stroke-width="1.3"/><circle cx="10" cy="14" r="3" stroke="#FDFAF6" stroke-width="1.3"/><path d="M3 19l5-4 4 4 4-5 6 6" stroke="#FDFAF6" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 7V5a5 5 0 0 1 10 0v2" stroke="#FDFAF6" stroke-width="1.3" stroke-linecap="round"/></svg>
-          <span class="font-mono text-xs tracking-wider" style="color:rgba(253,250,246,0.55);">1200 × 1500 px</span>
+          <Icon name="ph:camera" class="opacity-50 w-[40px] h-[40px]" />
         </div>
       </div>
       <img
-        src="images/hero-cake.webp"
+        src="/images/hero-cake.webp"
+        srcset="/images/hero-cake-480.webp 480w, /images/hero-cake-768.webp 768w, /images/hero-cake-1024.webp 1024w, /images/hero-cake.webp 1254w"
+        sizes="(max-width: 1023px) 100vw, 50vw"
         alt={tr.hero_img_alt}
         width="1254"
         height="1254"
@@ -309,7 +379,7 @@ const guar = GUAR[lang] ?? GUAR.en;
         <div class="absolute inset-0" style="background:radial-gradient(ellipse 95% 75% at 50% 35%, transparent 0%, rgba(0,0,0,0.18) 100%);"></div>
 
         <div class="absolute left-0 right-6 px-6 -translate-y-1/2" style="top:calc(55% - 55px);">
-          <p class="font-outfit text-[10px] font-semibold tracking-[0.2em] uppercase text-warm-white mb-3 leading-relaxed whitespace-pre-line" style="text-shadow:0 2px 10px rgba(0,0,0,0.5);" set:html={(tr.hero_by_m ?? '').replace(/\n/g, '<br/>')}></p>
+          <p class="font-outfit text-[11px] font-semibold tracking-[0.2em] uppercase text-warm-white mb-3 leading-relaxed whitespace-pre-line" style="text-shadow:0 2px 10px rgba(0,0,0,0.5);" set:html={(tr.hero_by_m ?? '').replace(/\n/g, '<br/>')}></p>
           <div class="flex items-center gap-2">
             <div class="h-px w-10 bg-warm-white/60"></div>
             <svg width="12" height="11" viewBox="0 0 13 12" fill="none">
@@ -324,7 +394,7 @@ const guar = GUAR[lang] ?? GUAR.en;
           <div class="font-cabinet text-warm-white leading-[0.92] mb-4" style="font-size:clamp(3.8rem,17vw,5.6rem);text-shadow:0 4px 24px rgba(0,0,0,0.55);" aria-hidden="true">
             BENTO<br/>CAKE
           </div>
-          <p class="font-outfit text-warm-white/90 text-[9px] leading-relaxed max-w-[216px]" style="text-shadow:0 2px 12px rgba(0,0,0,0.5);">
+          <p class="font-outfit text-warm-white/90 text-[11px] leading-relaxed max-w-[216px]" style="text-shadow:0 2px 12px rgba(0,0,0,0.5);">
             {tr.hero_sub}
           </p>
         </div>
@@ -340,8 +410,8 @@ const guar = GUAR[lang] ?? GUAR.en;
             <div class="font-outfit font-semibold text-warm-white/70 text-[7px] mt-0.5 tracking-wider">PDF</div>
           </div>
           <div class="flex-1">
-            <div class="font-outfit font-bold text-espresso text-[14px] leading-snug mb-1">{tr.inside_label}</div>
-            <div class="font-outfit text-espresso/50 text-[12px] leading-relaxed">{tr.hero_list_short}</div>
+            <div class="font-outfit font-bold text-espresso text-[15px] leading-snug mb-1">{tr.inside_label}</div>
+            <div class="font-outfit text-espresso/50 text-[13px] leading-relaxed">{tr.hero_list_short}</div>
           </div>
         </div>
         <a href={anchor('recipes')} class="font-outfit text-mocha text-[13px] font-semibold hover:text-mocha-dark transition-colors">{tr.hero_inside_link}</a>
@@ -371,36 +441,33 @@ const guar = GUAR[lang] ?? GUAR.en;
             <h2 class="font-cabinet font-black text-espresso mb-5" style="font-size:clamp(2rem,3.2vw,3.2rem);line-height:1.02;">
               {tr.recipes_title}
             </h2>
-            <p class="font-outfit text-espresso/55 text-sm leading-relaxed mb-8">
+            <p class="font-outfit text-espresso/65 text-sm leading-relaxed mb-8">
               {tr.recipes_sub}
             </p>
           </div>
           <div class="hidden flex flex-wrap items-center gap-5 mt-auto">
             <div class="flex items-center gap-2 bg-warm-white border border-taupe/30 rounded-xl px-4 py-2.5" style="box-shadow:0 2px 10px rgba(139,115,85,0.07);">
-              <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="10" height="13" rx="2" stroke="#8B7355" stroke-width="1.3"/><path d="M5 5h5M5 8h4M5 11h3" stroke="#8B7355" stroke-width="1.2" stroke-linecap="round"/></svg>
+              <Icon name="ph:file-text" class="w-[15px] h-[15px]" />
               <span class="font-outfit text-sm font-medium text-espresso/70">{tr.hero_chip1}</span>
             </div>
             <div>
-              <div class="font-outfit text-espresso/40 text-xs mb-1" set:html={(tr.recipes_author_label ?? '').replace(/\n/g, '<br/>')}></div>
-              <svg width="34" height="28" viewBox="0 0 34 28" fill="none" class="opacity-50">
-                <path d="M4 24C4 24 8 4 17 4C22 4 24 8 22 12C20 16 15 16 15 16C15 16 20 16 22 20C24 24 20 26 17 26C12 26 8 22 8 18" stroke="#8B7355" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M26 8C26 8 28 10 30 14C32 18 30 24 27 24" stroke="#8B7355" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
+              <div class="font-outfit text-espresso/65 text-xs mb-1" set:html={(tr.recipes_author_label ?? '').replace(/\n/g, '<br/>')}></div>
+              <Icon name="ph:quotes-fill" class="opacity-50 w-[34px] h-[28px]" />
             </div>
           </div>
         </div>
 
         {[0, 1].map((idx, i) => (
-          <div class={`reveal reveal-d${i+1} card-hover rounded-3xl overflow-hidden relative aspect-square`} style="box-shadow:0 8px 32px rgba(139,115,85,0.13);">
+          <a href={recipeHref(idx)} aria-label={tr.recipes_data[idx].name} class={`reveal reveal-d${i+1} card-hover rounded-3xl overflow-hidden relative aspect-square block group`} style="box-shadow:0 8px 32px rgba(139,115,85,0.13);">
             <div class="img-skeleton absolute inset-0 w-full h-full">
               <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 pointer-events-none">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" class="opacity-30"><rect x="2" y="6" width="28" height="20" rx="4" stroke="#8B7355" stroke-width="1.5"/><circle cx="11" cy="13" r="3" stroke="#8B7355" stroke-width="1.5"/><path d="M2 22l8-6 5 4 5-4 10 7" stroke="#8B7355" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <Icon name="ph:camera" class="opacity-30 w-[32px] h-[32px]" />
               </div>
-              <img src={RECIPE_IMAGES[idx]} alt={tr.recipes_data[idx].name} width="1122" height="1122" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+              <img src={RECIPE_IMAGES[idx]} srcset={recipeSrcSet(RECIPE_IMAGES[idx])} sizes={RECIPE_SIZES} alt={tr.recipes_data[idx].name} width="1122" height="1122" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
             </div>
             {idx === 0 && (
               <div class="absolute top-4 left-4 z-10 flex items-center gap-1.5 bg-warm-white/92 backdrop-blur-sm rounded-xl px-3 py-1.5" style="box-shadow:0 2px 12px rgba(26,26,26,0.12);">
-                <svg width="12" height="12" viewBox="0 0 14 13" fill="none"><path d="M7 1l1.5 3.1 3.5.5-2.5 2.5.6 3.5L7 9.2l-3.1 1.4.6-3.5L2 4.6l3.5-.5z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round"/></svg>
+                <Icon name="ph:star-fill" class="w-[12px] h-[12px]" />
                 <span class="font-outfit text-xs font-semibold text-espresso/80">{tr.recipes_bestseller}</span>
               </div>
             )}
@@ -409,54 +476,54 @@ const guar = GUAR[lang] ?? GUAR.en;
               <div class="font-cabinet font-black text-warm-white text-2xl leading-tight">{tr.recipes_data[idx].name}</div>
               <div class="font-outfit text-warm-white/65 text-sm mt-1" style="min-height:4.5em;">{tr.recipes_data[idx].desc}</div>
             </div>
-          </div>
+          </a>
         ))}
       </div>
 
       <!-- Row 2: 4 equal squares -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         {[2, 3, 4, 5].map((idx, i) => (
-          <div class={`reveal reveal-d${i+1} card-hover rounded-3xl overflow-hidden relative aspect-square`} style="box-shadow:0 4px 20px rgba(139,115,85,0.09);">
+          <a href={recipeHref(idx)} aria-label={tr.recipes_data[idx].name} class={`reveal reveal-d${i+1} card-hover rounded-3xl overflow-hidden relative aspect-square block group`} style="box-shadow:0 4px 20px rgba(139,115,85,0.09);">
             <div class="img-skeleton absolute inset-0 w-full h-full">
               <div class="absolute inset-0 flex flex-col items-center justify-center gap-1.5 pointer-events-none">
-                <svg width="22" height="22" viewBox="0 0 32 32" fill="none" class="opacity-30"><rect x="2" y="6" width="28" height="20" rx="4" stroke="#8B7355" stroke-width="1.5"/><circle cx="11" cy="13" r="3" stroke="#8B7355" stroke-width="1.5"/><path d="M2 22l8-6 5 4 5-4 10 7" stroke="#8B7355" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <Icon name="ph:camera" class="opacity-30 w-[22px] h-[22px]" />
               </div>
-              <img src={RECIPE_IMAGES[idx]} alt={tr.recipes_data[idx].name} width="1122" height="1122" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" style={idx === 3 ? 'transform:scale(1.30) translateY(-15%);transform-origin:center;' : ''} onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+              <img src={RECIPE_IMAGES[idx]} srcset={recipeSrcSet(RECIPE_IMAGES[idx])} sizes={RECIPE_SIZES} alt={tr.recipes_data[idx].name} width="1122" height="1122" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" style={idx === 3 ? 'transform:scale(1.30) translateY(-15%);transform-origin:center;' : ''} onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
             </div>
             <div class="absolute inset-0 bg-gradient-to-t from-espresso/82 via-espresso/10 to-transparent pointer-events-none"></div>
             <div class="absolute bottom-0 left-0 right-0 p-5 z-10">
               <div class="font-cabinet font-bold text-warm-white text-xl">{tr.recipes_data[idx].name}</div>
               <div class="font-outfit text-warm-white/55 text-xs mt-0.5" style="min-height:4.5em;">{tr.recipes_data[idx].desc}</div>
             </div>
-          </div>
+          </a>
         ))}
       </div>
 
       <!-- Row 3: 4 equal squares -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[6, 7, 8, 9].map((idx, i) => (
-          <div class={`reveal reveal-d${i+1} card-hover rounded-3xl overflow-hidden relative aspect-square`} style="box-shadow:0 4px 20px rgba(139,115,85,0.09);">
+          <a href={recipeHref(idx)} aria-label={tr.recipes_data[idx].name} class={`reveal reveal-d${i+1} card-hover rounded-3xl overflow-hidden relative aspect-square block group`} style="box-shadow:0 4px 20px rgba(139,115,85,0.09);">
             <div class="img-skeleton absolute inset-0 w-full h-full">
               <div class="absolute inset-0 flex flex-col items-center justify-center gap-1.5 pointer-events-none">
-                <svg width="22" height="22" viewBox="0 0 32 32" fill="none" class="opacity-30"><rect x="2" y="6" width="28" height="20" rx="4" stroke="#8B7355" stroke-width="1.5"/><circle cx="11" cy="13" r="3" stroke="#8B7355" stroke-width="1.5"/><path d="M2 22l8-6 5 4 5-4 10 7" stroke="#8B7355" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <Icon name="ph:camera" class="opacity-30 w-[22px] h-[22px]" />
               </div>
-              <img src={RECIPE_IMAGES[idx]} alt={tr.recipes_data[idx].name} width="1122" height="1122" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" style={idx === 7 ? 'transform:scale(1.15) translateY(-7%);transform-origin:center;' : idx === 8 ? 'transform:scale(1.25) translateY(-12%);transform-origin:center;' : ''} onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+              <img src={RECIPE_IMAGES[idx]} srcset={recipeSrcSet(RECIPE_IMAGES[idx])} sizes={RECIPE_SIZES} alt={tr.recipes_data[idx].name} width="1122" height="1122" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" style={idx === 7 ? 'transform:scale(1.15) translateY(-7%);transform-origin:center;' : idx === 8 ? 'transform:scale(1.25) translateY(-12%);transform-origin:center;' : ''} onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
             </div>
             <div class="absolute inset-0 bg-gradient-to-t from-espresso/82 via-espresso/10 to-transparent pointer-events-none"></div>
             <div class="absolute bottom-0 left-0 right-0 p-5 z-10">
               <div class="font-cabinet font-bold text-warm-white text-xl">{tr.recipes_data[idx].name}</div>
               <div class="font-outfit text-warm-white/55 text-xs mt-0.5" style="min-height:4.5em;">{tr.recipes_data[idx].desc}</div>
             </div>
-          </div>
+          </a>
         ))}
       </div>
 
       <div class="mt-12 flex flex-col items-center gap-5 reveal">
         <a href={(isUk ? '' : '/' + lang) + '/recipes/'}
-           class="inline-flex items-center gap-3 font-outfit font-semibold text-base text-espresso/75 hover:text-mocha transition-colors group">
+           class="min-h-[44px] inline-flex items-center gap-3 font-outfit font-semibold text-base text-espresso/75 hover:text-mocha transition-colors group">
           {tr.recipes_cta_link}
           <span class="w-9 h-9 rounded-full border border-taupe/40 flex items-center justify-center group-hover:border-mocha/60 group-hover:bg-mocha/8 transition-all">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="group-hover:translate-x-0.5 transition-transform"><path d="M2 7h10M7 2l5 5-5 5" stroke="#8B7355" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <Icon name="ph:arrow-right" class="group-hover:translate-x-0.5 transition-transform w-[14px] h-[14px]" />
           </span>
         </a>
         <div class="flex items-center gap-3">
@@ -486,12 +553,13 @@ const guar = GUAR[lang] ?? GUAR.en;
                   0 32px 80px rgba(0,0,0,0.55);">
               <div class="img-skeleton absolute inset-0 w-full h-full" style="background-color:#2a2320;">
                 <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 pointer-events-none">
-                  <svg width="36" height="36" viewBox="0 0 32 32" fill="none" class="opacity-20"><circle cx="16" cy="10" r="5" stroke="#C8B8A2" stroke-width="1.4"/><path d="M4 28c0-6.6 5.4-12 12-12s12 5.4 12 12" stroke="#C8B8A2" stroke-width="1.4" stroke-linecap="round"/></svg>
-                  <span class="font-mono text-[11px] tracking-wider" style="color:rgba(200,184,162,0.4);">760 × 900 px</span>
+                  <Icon name="ph:user" class="opacity-20 w-[36px] h-[36px]" />
                 </div>
               </div>
               <img
-                src="images/author.webp"
+                src="/images/author.webp"
+        srcset="/images/author-480.webp 480w, /images/author-768.webp 768w, /images/author-1024.webp 1024w, /images/author.webp 1254w"
+        sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 640px"
                 alt={tr.author_img_alt || 'TROUBLEBABA'}
                 width="1152"
                 height="1365"
@@ -535,11 +603,11 @@ const guar = GUAR[lang] ?? GUAR.en;
                   <path d="M9 8 Q9 3 14 3 L26 3 Q31 3 31 8 L31 42 Q31 52 21 52 Q11 52 11 42 L11 16 Q11 11 16 11 L24 11 Q29 11 29 16 L29 38 Q29 44 23 44 Q17 44 17 38 L17 20"
                     stroke="#fff" stroke-width="0.6" stroke-linecap="round" fill="none" opacity="0.5"/>
                 </svg>
-                <div class="bg-[#EDE4D6] rounded-[10px] px-6 py-5 min-w-[200px]" style="background:linear-gradient(160deg,#F2EADC 0%,#E6DCC8 100%);">
-                  <p class="text-espresso mb-3" style="font-family:'Caveat',cursive;font-weight:600;font-size:2rem;line-height:0.9;">{tr.author_name} <span style="font-size:1.3rem;">♡</span></p>
+                <div class="bg-[#EFE6DA] rounded-[10px] px-6 py-5 min-w-[200px]" style="background:linear-gradient(160deg,#F5EFE8 0%,#EFE6DA 100%);">
+                  <p class="font-signature text-espresso mb-3" style="font-size:2rem;">{tr.author_name} <span style="font-size:1.3rem;">♡</span></p>
                   <div class="h-px bg-mocha/25 mb-3"></div>
-                  <p class="font-outfit text-[10px] font-bold uppercase tracking-[0.15em] text-espresso/60 mb-1">{tr.author_tag_role}</p>
-                  <p class="font-outfit text-[10px] font-bold uppercase tracking-[0.15em] text-espresso/45">{tr.author_tag_title}</p>
+                  <p class="font-outfit text-[11px] font-bold uppercase tracking-[0.15em] text-espresso/65 mb-1">{tr.author_tag_role}</p>
+                  <p class="font-outfit text-[11px] font-bold uppercase tracking-[0.15em] text-espresso/65">{tr.author_tag_title}</p>
                 </div>
               </div>
             </div>
@@ -568,34 +636,34 @@ const guar = GUAR[lang] ?? GUAR.en;
             <a href={SITE.instagramUrl ?? 'https://instagram.com/troublebaba'} target="_blank" rel="noopener noreferrer"
                class="flex items-center gap-3 bg-white/5 border border-white/8 rounded-2xl px-4 py-4 hover:bg-white/10 hover:border-mocha/30 transition-all group">
               <div class="flex-shrink-0 text-warm-white/50 group-hover:text-mocha transition-colors">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+                <Icon name="simple-icons:instagram" class="w-[22px] h-[22px]" />
               </div>
               <div>
-                <div class="font-outfit text-warm-white/45 text-xs mb-0.5">Instagram</div>
+                <div class="font-outfit text-warm-white/55 text-xs mb-0.5">Instagram</div>
                 <div class="font-stat text-warm-white text-xl leading-tight">66K</div>
-                <div class="font-outfit text-warm-white/35 text-xs">{tr.author_follow}</div>
+                <div class="font-outfit text-warm-white/55 text-xs">{tr.author_follow}</div>
               </div>
             </a>
             <a href={SITE.tiktokUrl ?? 'https://tiktok.com/@troublebaba'} target="_blank" rel="noopener noreferrer"
                class="flex items-center gap-3 bg-white/5 border border-white/8 rounded-2xl px-4 py-4 hover:bg-white/10 hover:border-mocha/30 transition-all group">
               <div class="flex-shrink-0 text-warm-white/50 group-hover:text-mocha transition-colors">
-                <svg width="20" height="22" viewBox="0 0 24 26" fill="none"><path d="M17 1C17.3 4.5 19.3 6.8 23 7.1V11C21 10.8 19.2 10.1 17.7 9V17.5C17.7 21.9 14.4 25.5 10 25.5C5.6 25.5 2 22 2 17.6C2 13.1 5.5 9.8 10 9.8C10.4 9.8 10.7 9.8 11 9.9V14C10.7 13.9 10.4 13.9 10 13.9C7.8 13.9 6 15.6 6 17.8C6 20 7.8 21.6 10 21.6C12.2 21.6 14.1 19.9 14.1 17.7L14.2 1H17Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                <Icon name="simple-icons:tiktok" class="w-[22px] h-[22px]" />
               </div>
               <div>
-                <div class="font-outfit text-warm-white/45 text-xs mb-0.5">TikTok</div>
+                <div class="font-outfit text-warm-white/55 text-xs mb-0.5">TikTok</div>
                 <div class="font-stat text-warm-white text-xl leading-tight">2.2M</div>
-                <div class="font-outfit text-warm-white/35 text-xs">{tr.author_likes}</div>
+                <div class="font-outfit text-warm-white/55 text-xs">{tr.author_likes}</div>
               </div>
             </a>
             <a href="https://youtube.com/@troublebaba" target="_blank" rel="noopener noreferrer"
                class="flex items-center gap-3 bg-white/5 border border-white/8 rounded-2xl px-4 py-4 hover:bg-white/10 hover:border-mocha/30 transition-all group">
               <div class="flex-shrink-0 text-warm-white/50 group-hover:text-mocha transition-colors">
-                <svg width="24" height="18" viewBox="0 0 28 20" fill="none"><path d="M26.5 3.2C26.2 2.1 25.3 1.3 24.2 1C22.2 0.5 14 0.5 14 0.5C14 0.5 5.8 0.5 3.8 1C2.7 1.3 1.8 2.2 1.5 3.2C1 5.2 1 10 1 10C1 10 1 14.8 1.5 16.8C1.8 17.9 2.7 18.7 3.8 19C5.8 19.5 14 19.5 14 19.5C14 19.5 22.2 19.5 24.2 19C25.3 18.7 26.2 17.8 26.5 16.8C27 14.8 27 10 27 10C27 10 27 5.2 26.5 3.2Z" stroke="currentColor" stroke-width="1.6"/><path d="M11.5 14L18 10L11.5 6V14Z" fill="currentColor"/></svg>
+                <Icon name="simple-icons:youtube" class="w-[22px] h-[22px]" />
               </div>
               <div>
-                <div class="font-outfit text-warm-white/45 text-xs mb-0.5">YouTube</div>
+                <div class="font-outfit text-warm-white/55 text-xs mb-0.5">YouTube</div>
                 <div class="font-stat text-warm-white text-xl leading-tight">24K</div>
-                <div class="font-outfit text-warm-white/35 text-xs">{tr.author_follow}</div>
+                <div class="font-outfit text-warm-white/55 text-xs">{tr.author_follow}</div>
               </div>
             </a>
           </div>
@@ -603,21 +671,19 @@ const guar = GUAR[lang] ?? GUAR.en;
             <a href="https://facebook.com/troublebaba" target="_blank" rel="noopener noreferrer"
                class="flex items-center gap-3 bg-white/5 border border-white/8 rounded-2xl px-4 py-4 hover:bg-white/10 hover:border-mocha/30 transition-all group">
               <div class="flex-shrink-0 text-warm-white/50 group-hover:text-mocha transition-colors">
-                <svg width="13" height="22" viewBox="0 0 14 26" fill="none"><path d="M9 14H12.5L13.5 10H9V7.5C9 6.2 9.5 5 11.5 5H13.5V1.4C13.5 1.4 11.7 1 10 1C6.7 1 4.5 3 4.5 7V10H1V14H4.5V25H9V14Z" fill="currentColor"/></svg>
+                <Icon name="simple-icons:facebook" class="w-[22px] h-[22px]" />
               </div>
               <div>
-                <div class="font-outfit text-warm-white/45 text-xs mb-0.5">Facebook</div>
-                <div class="font-stat text-warm-white text-xl leading-tight">2K</div>
-                <div class="font-outfit text-warm-white/35 text-xs">{tr.author_follow}</div>
+                <div class="font-outfit text-warm-white/55 text-xs mb-0.5">Facebook</div>
+                <div class="font-stat text-warm-white text-xl leading-tight">5K</div>
+                <div class="font-outfit text-warm-white/55 text-xs">{tr.author_follow}</div>
               </div>
             </a>
             <div class="sm:col-span-2 flex items-start gap-3 bg-mocha/18 border border-mocha/25 rounded-2xl px-5 py-4">
-              <svg width="22" height="18" viewBox="0 0 24 20" fill="none" class="flex-shrink-0 text-mocha/70 mt-1">
-                <path d="M3 15c0-4 2-8 6-8v3c-2 0-3 2-3 4h3v5H3v-4zM14 15c0-4 2-8 6-8v3c-2 0-3 2-3 4h3v5h-6v-4z" fill="currentColor"/>
-              </svg>
+              <Icon name="ph:quotes-fill" class="w-[22px] h-[22px] flex-shrink-0 text-mocha/70 mt-1" />
               <div class="flex-1">
                 <div class="font-outfit italic text-warm-white/85 text-[13px] leading-relaxed">
-                  {tr.author_review_text} <span class="not-italic text-warm-white/45 whitespace-nowrap">— {tr.author_review_name}</span>
+                  {tr.author_review_text} <span class="not-italic text-warm-white/55 whitespace-nowrap">— {tr.author_review_name}</span>
                 </div>
               </div>
             </div>
@@ -650,23 +716,29 @@ const guar = GUAR[lang] ?? GUAR.en;
             {tr.inside_title}
           </h2>
 
-          <p class="font-outfit text-espresso/55 leading-relaxed mb-10 max-w-[460px]" style="font-size:0.95rem;line-height:1.65;">
+          <p class="font-outfit text-espresso/65 leading-relaxed mb-10 max-w-[460px]" style="font-size:0.95rem;line-height:1.65;">
             {tr.inside_sub}
           </p>
 
+          {tr.inside_facts && (
+            <ul class="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-5 mb-10 list-none p-0">
+              {(tr.inside_facts as [string, string][]).map(([num, label]) => (
+                <li>
+                  <div class="font-cabinet text-espresso leading-none" style="font-size:clamp(1.6rem,2.6vw,2.1rem);">{num}</div>
+                  <div class="font-outfit text-espresso/65 mt-1.5" style="font-size:0.78rem;line-height:1.35;">{label}</div>
+                </li>
+              ))}
+            </ul>
+          )}
+
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 flex-1" id="inside-items">
             {(() => {
-              const icons = [
-                `<svg width="34" height="34" viewBox="0 0 34 34" fill="none"><ellipse cx="17" cy="25" rx="11" ry="3" stroke="#8B7355" stroke-width="1.3"/><path d="M6 17v8c0 1.6 4.9 3 11 3s11-1.4 11-3v-8" stroke="#8B7355" stroke-width="1.3"/><ellipse cx="17" cy="17" rx="11" ry="3" stroke="#8B7355" stroke-width="1.3"/><path d="M17 8 Q19 4 21 8 Q23 12 21 14 Q19 16 17 14 Q15 12 17 8Z" stroke="#8B7355" stroke-width="1.2" fill="none"/></svg>`,
-                `<svg width="34" height="34" viewBox="0 0 34 34" fill="none"><path d="M5 12h24l-2 14H7L5 12Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round"/><path d="M10 12V9a7 7 0 0 1 14 0v3" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round"/><path d="M11 17v5M17 17v5M23 17v5" stroke="#8B7355" stroke-width="1.2" stroke-linecap="round"/></svg>`,
-                `<svg width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="8" r="4" stroke="#8B7355" stroke-width="1.3"/><path d="M12 8c-1.5-2 0.5-5 3-5" stroke="#8B7355" stroke-width="1.2" stroke-linecap="round"/><path d="M17 12v18" stroke="#8B7355" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="17" cy="30" rx="5" ry="1.5" stroke="#8B7355" stroke-width="1.2"/></svg>`,
-                `<svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="6" y="4" width="22" height="26" rx="3" stroke="#8B7355" stroke-width="1.3"/><rect x="10" y="8" width="14" height="5" rx="1" stroke="#8B7355" stroke-width="1.2"/><circle cx="12.5" cy="18" r="1" fill="#8B7355"/><circle cx="17" cy="18" r="1" fill="#8B7355"/><circle cx="21.5" cy="18" r="1" fill="#8B7355"/><circle cx="12.5" cy="22" r="1" fill="#8B7355"/><circle cx="17" cy="22" r="1" fill="#8B7355"/><circle cx="21.5" cy="22" r="1" fill="#8B7355"/><circle cx="12.5" cy="26" r="1" fill="#8B7355"/><circle cx="17" cy="26" r="1" fill="#8B7355"/><circle cx="21.5" cy="26" r="1" fill="#8B7355"/></svg>`,
-                `<svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="6" y="12" width="22" height="18" rx="2" stroke="#8B7355" stroke-width="1.3"/><path d="M6 18h22M17 12v18" stroke="#8B7355" stroke-width="1.2"/><path d="M17 12 Q14 6 11 8 Q9 10 11 12 L17 12Z M17 12 Q20 6 23 8 Q25 10 23 12 L17 12Z" stroke="#8B7355" stroke-width="1.2" fill="none" stroke-linejoin="round"/></svg>`,
-                `<svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="6" y="22" width="22" height="6" rx="1.5" stroke="#8B7355" stroke-width="1.3"/><rect x="8" y="15" width="18" height="7" rx="1.2" stroke="#8B7355" stroke-width="1.2"/><rect x="10" y="9" width="14" height="6" rx="1.2" stroke="#8B7355" stroke-width="1.2"/><path d="M17 6v3" stroke="#8B7355" stroke-width="1.2" stroke-linecap="round"/><path d="M16 4 Q17 2 18 4" stroke="#8B7355" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>`,
-              ];
+              // Phosphor, one 24x24 grid, one weight - was six hand-drawn SVGs
+              // on six different grids with four different stroke widths.
+              const icons = ['ph:scales', 'ph:shopping-bag', 'ph:cooking-pot', 'ph:table', 'ph:package', 'ph:cake'];
               return (tr.inside_items as [string, string][]).map((item, i) => (
                 <div class={`reveal reveal-d${Math.min(i+1,5)} bg-warm-white rounded-2xl p-5 flex gap-4 items-start`} style="box-shadow:0 1px 6px rgba(139,115,85,0.05);">
-                  <div class="flex-shrink-0 -ml-1 -mt-1" set:html={icons[i]}></div>
+                  <Icon name={icons[i]} class="flex-shrink-0 w-7 h-7 text-mocha" />
                   <div>
                     <div class="font-outfit font-bold text-espresso text-[15px] leading-snug mb-1.5">{item[0]}</div>
                     <div class="font-outfit text-espresso/50 text-[12.5px] leading-relaxed">{item[1]}</div>
@@ -678,11 +750,8 @@ const guar = GUAR[lang] ?? GUAR.en;
 
           {/* Disclaimer: products are selected for UA/EU market */}
           <div class="reveal mt-5 flex items-start gap-3 bg-cream/60 border border-taupe/25 rounded-2xl px-5 py-4">
-            <svg class="flex-shrink-0 mt-0.5" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="9.5" stroke="#8B7355" stroke-width="1.4"/>
-              <path d="M12 8.2v.2M12 11v5" stroke="#8B7355" stroke-width="1.6" stroke-linecap="round"/>
-            </svg>
-            <p class="font-outfit text-espresso/60 text-[12.5px] leading-relaxed">{tr.inside_products_note}</p>
+            <Icon name="ph:info" aria-hidden="true" class="flex-shrink-0 mt-0.5 w-[20px] h-[20px]" />
+            <p class="font-outfit text-espresso/65 text-[12.5px] leading-relaxed">{tr.inside_products_note}</p>
           </div>
         </div>
 
@@ -690,11 +759,22 @@ const guar = GUAR[lang] ?? GUAR.en;
           <div class="relative rounded-xl overflow-hidden h-full min-h-[600px]" style="box-shadow:0 24px 72px rgba(139,115,85,0.22);">
             <div class="img-skeleton absolute inset-0 w-full h-full">
               <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 pointer-events-none">
-                <svg width="36" height="36" viewBox="0 0 28 28" fill="none" class="opacity-30"><rect x="3" y="7" width="22" height="17" rx="3" stroke="#8B7355" stroke-width="1.3"/><circle cx="10" cy="14" r="3" stroke="#8B7355" stroke-width="1.3"/></svg>
-                <span class="font-mono text-[11px] text-mocha/40 tracking-wider">800 × 900 px</span>
+                <Icon name="ph:camera" class="opacity-30 w-[36px] h-[36px]" />
               </div>
-              <img src="images/inside-cake.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+              <img src="/images/inside-cake.webp"
+        srcset="/images/inside-cake-480.webp 480w, /images/inside-cake-768.webp 768w, /images/inside-cake-1024.webp 1024w, /images/inside-cake.webp 1254w"
+        sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 640px" alt={tr.hero_img_alt} width="1254" height="1254" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
             </div>
+
+            {/* "Look inside" has to actually open the book. The pages live in a
+                lightbox rather than their own section: a separate grid of page
+                thumbnails only repeated the feature list on the left. */}
+            <button type="button" id="preview-open-first"
+                    class="min-h-[44px] absolute top-4 left-4 z-30 inline-flex items-center gap-2 rounded-full pl-3 pr-4 py-2.5 font-outfit font-semibold text-[13.5px] text-espresso transition-colors hover:bg-warm-white"
+                    style="background:rgba(253,250,246,0.92);box-shadow:0 4px 16px rgba(26,26,26,0.16);">
+              <Icon name="ph:eye" class="w-[17px] h-[17px]" />
+              {tr.preview_cta}
+            </button>
 
             <div class="hidden absolute z-20" style="top:13%; right:7%;">
               <div class="relative w-20 h-20 lg:w-28 lg:h-28 flex items-center justify-center">
@@ -704,7 +784,7 @@ const guar = GUAR[lang] ?? GUAR.en;
                 <div class="relative z-10 text-center">
                   <svg class="mx-auto mb-1" width="10" height="9" viewBox="0 0 13 12" fill="none"><path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="#FDFAF6" stroke-width="1.2" fill="none" stroke-linejoin="round"/></svg>
                   <div class="font-stat text-warm-white leading-none" style="font-size:1.7rem;">10</div>
-                  <div class="font-outfit font-semibold text-warm-white/85 text-[8px] tracking-[0.18em] uppercase mt-1">{tr.stat_recipes}</div>
+                  <div class="font-outfit font-semibold text-warm-white/85 text-[11px] tracking-[0.18em] uppercase mt-1">{tr.stat_recipes}</div>
                 </div>
               </div>
             </div>
@@ -712,24 +792,24 @@ const guar = GUAR[lang] ?? GUAR.en;
             <div class="absolute left-3 right-3 z-30 flex flex-col sm:flex-row gap-2.5" style="bottom:10px;">
               <div class="hidden flex-1 flex items-center justify-around bg-warm-white rounded-xl px-4 py-6">
                 <div class="flex items-center gap-1.5 text-espresso/65">
-                  <svg width="16" height="17" viewBox="0 0 16 20" fill="none"><rect x="2" y="1" width="12" height="18" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M5 6h6M5 10h6M5 14h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                  <Icon name="ph:file-text" class="w-[16px] h-[17px]" />
                   <span class="font-outfit text-[15px] font-bold text-espresso">PDF</span>
                 </div>
-                <span class="text-mocha/35 text-xs">·</span>
+                <span class="text-mocha text-xs">·</span>
                 <div class="flex items-center gap-1.5 text-espresso/65">
-                  <svg width="17" height="14" viewBox="0 0 18 16" fill="none"><rect x="1" y="3" width="16" height="12" rx="2.5" stroke="currentColor" stroke-width="1.3"/><circle cx="9" cy="9" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M5 3V2a1 1 0 011-1h6a1 1 0 011 1v1" stroke="currentColor" stroke-width="1.2"/></svg>
+                  <Icon name="ph:camera" class="w-[17px] h-[14px]" />
                   <span class="font-outfit text-[15px] font-bold text-espresso">{tr.inside_fmt_photo}</span>
                 </div>
-                <span class="text-mocha/35 text-xs">·</span>
+                <span class="text-mocha text-xs">·</span>
                 <div class="flex items-center gap-1.5 text-espresso/65">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M1 6h14M1 11h14M6 1v14" stroke="currentColor" stroke-width="1.1"/></svg>
+                  <Icon name="ph:table" class="w-[16px] h-[16px]" />
                   <span class="font-outfit text-[15px] font-bold text-espresso">{tr.inside_fmt_table}</span>
                 </div>
               </div>
               <a href={anchor('recipes')}
-                 class="flex items-center justify-center gap-2 bg-mocha text-warm-white font-outfit font-bold text-[15px] px-6 py-6 rounded-xl hover:bg-mocha-dark transition-colors whitespace-nowrap">
+                 class="flex items-center justify-center gap-2 bg-mocha-dark text-warm-white font-outfit font-bold text-[15px] px-6 py-6 rounded-xl hover:bg-mocha-dark transition-colors whitespace-nowrap">
                 {tr.inside_cta_preview}
-                <svg width="15" height="13" viewBox="0 0 16 14" fill="none"><path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <Icon name="ph:arrow-right" class="w-[15px] h-[13px]" />
               </a>
             </div>
           </div>
@@ -744,7 +824,7 @@ const guar = GUAR[lang] ?? GUAR.en;
     <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
 
       <!-- Header -->
-      <div class="reveal text-center max-w-[720px] mx-auto mb-14 lg:mb-20">
+      <div class="reveal max-w-[720px] mb-14 lg:mb-20">
         <div class="flex items-center justify-center gap-3 mb-6">
           <div class="h-px w-10 bg-mocha/40"></div>
           <span class="font-outfit text-xs font-semibold tracking-[0.14em] uppercase text-mocha">{tr.who_label}</span>
@@ -753,7 +833,7 @@ const guar = GUAR[lang] ?? GUAR.en;
         <h2 class="font-cabinet text-espresso mb-6" style="font-size:clamp(2.4rem,4.6vw,4rem);line-height:1.0;">
           {tr.who_title}
         </h2>
-        <p class="hidden font-outfit text-espresso/55 leading-relaxed mx-auto max-w-[520px]" style="font-size:0.98rem;line-height:1.7;white-space:pre-line;">
+        <p class="hidden font-outfit text-espresso/65 leading-relaxed mx-auto max-w-[520px]" style="font-size:0.98rem;line-height:1.7;white-space:pre-line;">
           {tr.who_sub}
         </p>
       </div>
@@ -766,7 +846,7 @@ const guar = GUAR[lang] ?? GUAR.en;
               <svg width="20" height="18" viewBox="0 0 13 12" fill="none"><path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="#8B7355" stroke-width="1.2" fill="none" stroke-linejoin="round"/></svg>
             </div>
             <h3 class="font-outfit font-bold text-espresso text-[17px] leading-snug mb-2.5">{item.title}</h3>
-            <p class="font-outfit text-espresso/55 text-[13.5px] leading-relaxed" style="white-space:pre-line;">{item.text}</p>
+            <p class="font-outfit text-espresso/65 text-[13.5px] leading-relaxed" style="white-space:pre-line;">{item.text}</p>
           </div>
         ))}
       </div>
@@ -779,185 +859,92 @@ const guar = GUAR[lang] ?? GUAR.en;
         </div>
         <div class="bg-cream rounded-3xl px-6 py-8 text-center flex flex-col items-center justify-center" style="border:1px solid rgba(200,184,162,0.22);">
           <div class="font-cabinet text-mocha leading-none mb-2" style="font-size:2rem;">{tr.who_stat2_title}</div>
-          <div class="font-outfit text-espresso/55 text-[13px] leading-relaxed" style="white-space:pre-line;">{tr.who_stat2_text}</div>
+          <div class="font-outfit text-espresso/65 text-[13px] leading-relaxed" style="white-space:pre-line;">{tr.who_stat2_text}</div>
         </div>
         <div class="bg-cream rounded-3xl px-6 py-8 text-center flex flex-col items-center justify-center" style="border:1px solid rgba(200,184,162,0.22);">
           <div class="font-cabinet text-mocha leading-none mb-2" style="font-size:2rem;">{tr.who_stat3_title}</div>
-          <div class="font-outfit text-espresso/55 text-[13px] leading-relaxed" style="white-space:pre-line;">{tr.who_stat3_text}</div>
+          <div class="font-outfit text-espresso/65 text-[13px] leading-relaxed" style="white-space:pre-line;">{tr.who_stat3_text}</div>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- ── SOCIAL → BLOG (showcases content, funnels into the blog hub) ── -->
-  <section id="social" class="py-16 lg:py-24" style="background:#F5EFE8;" aria-labelledby="social-title">
+  <!-- ── BLOG (one block: was two — a "600+ recipes" social teaser and a
+       separate "useful before you buy" card row, both funnelling to the same
+       blog. Merged into a single editorial block: one lead article plus a 2×2
+       grid, matching the reference layout.) ── -->
+  {hubLead && (
+  <section id="blog-hub" class="relative py-16 lg:py-24 overflow-hidden" style="background:#F5EFE8;" aria-labelledby="blog-hub-title">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-16">
-      <div class="reveal rounded-[1.5rem] lg:rounded-[2rem] bg-warm-white overflow-hidden"
-        style="box-shadow:0 8px 40px rgba(139,115,85,0.10), 0 32px 80px rgba(139,115,85,0.08); border:1px solid rgba(200,184,162,0.25);">
-        <div class="grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] items-stretch">
 
-          <!-- ── Left: text + pills ── -->
-          <div class="px-6 sm:px-10 lg:px-14 py-10 lg:py-14 flex flex-col">
-
-            <!-- Eyebrow with decorative ribbon -->
-            <div class="flex items-center gap-3 mb-7">
-              <svg width="14" height="12" viewBox="0 0 16 14" fill="none" aria-hidden="true">
-                <path d="M3 7Q5 3 8 5 Q11 3 13 7" stroke="#8B7355" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-                <circle cx="8" cy="5.5" r="0.8" fill="#8B7355"/>
-              </svg>
-              <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha">{tr.social_eyebrow}</span>
-              <div class="h-px flex-1 bg-mocha/30"></div>
-            </div>
-
-            <!-- Heading -->
-            <h2 id="social-title" class="font-cabinet text-espresso mb-5 lg:mb-6" style="font-size:clamp(2rem,3.4vw,3rem);line-height:1.05;">
-              {tr.social_title}
-            </h2>
-
-            <!-- Sub -->
-            <p class="font-outfit text-espresso/60 text-[15px] leading-relaxed mb-8 max-w-[440px]">
-              {tr.social_sub}
-            </p>
-
-            <!-- Primary CTA → blog (the content hub) -->
-            <div class="flex flex-wrap gap-2.5 mb-8">
-              <a href={blogHref}
-                 data-analytics="social_to_blog_click" data-location="homepage_social_block"
-                 class="inline-flex items-center gap-3 bg-mocha hover:bg-mocha-dark text-warm-white transition-colors rounded-2xl px-7 py-4 font-outfit font-bold text-[15px] min-h-[52px]">
-                <span>{tr.social_to_blog}</span>
-                <svg width="16" height="14" viewBox="0 0 16 14" fill="none" aria-hidden="true">
-                  <path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </a>
-            </div>
-
-            <!-- 4 topic tiles: what the blog actually covers -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-auto">
-              {(tr.social_feat ?? []).map((f: any, i: number) => (
-                <div class="flex items-start gap-3 rounded-xl px-3.5 py-3" style="background:#FBF6EC;border:1px solid rgba(200,184,162,0.4);">
-                  <div class="w-8 h-8 rounded-lg bg-warm-white flex items-center justify-center flex-shrink-0" aria-hidden="true">
-                    {i === 0 && (
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 2C7 2 4.5 5 4.5 8.5C4.5 11.5 7 13 7 15h10c0-2 2.5-3.5 2.5-6.5C19.5 5 17 2 12 2Z" stroke="#8B7355" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    )}
-                    {i === 1 && (
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="14" height="12" rx="2" stroke="#8B7355" stroke-width="1.5"/><path d="M17 10l5-3v10l-5-3z" stroke="#8B7355" stroke-width="1.5" stroke-linejoin="round"/></svg>
-                    )}
-                    {i === 2 && (
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="14" rx="7" ry="4" stroke="#8B7355" stroke-width="1.5"/><path d="M7 11c1-3 4-5 5-5s4 2 5 5" stroke="#8B7355" stroke-width="1.5" stroke-linecap="round"/></svg>
-                    )}
-                    {i === 3 && (
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="8" width="18" height="13" rx="2" stroke="#8B7355" stroke-width="1.5"/><path d="M12 8v13M3 12h18" stroke="#8B7355" stroke-width="1.5"/></svg>
-                    )}
-                  </div>
-                  <div class="min-w-0">
-                    <div class="font-outfit font-bold text-espresso text-[13px] leading-snug">{f.h}</div>
-                    <div class="font-outfit text-espresso/55 text-[11.5px] leading-snug mt-0.5">{f.p}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-          </div>
-
-          <!-- ── Right: 3 cards ── -->
-          <div class="px-6 sm:px-10 lg:pl-4 lg:pr-14 pb-10 pt-2 lg:py-14">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5">
-              {[
-                {
-                  platform: 'instagram',
-                  label: tr.social_pill_ig,
-                  title: tr.social_card_ig_title,
-                  desc:  tr.social_card_ig_desc,
-                  btn:   tr.social_btn_ig,
-                  url:   blogHref,
-                  img:   'images/social/instagram-bento-cover.webp',
-                  alt:   tr.social_card_ig_title,
-                  iconBg:'linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)',
-                  icon:  `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg>`,
-                  btnBg: '#E5A8A8',
-                  btnTx: '#5C2E2E',
-                },
-                {
-                  platform: 'tiktok',
-                  label: tr.social_pill_tt,
-                  title: tr.social_card_tt_title,
-                  desc:  tr.social_card_tt_desc,
-                  btn:   tr.social_btn_tt,
-                  url:   blogHref,
-                  img:   'images/social/tiktok-bento-cover.webp',
-                  alt:   tr.social_card_tt_title,
-                  iconBg:'#000',
-                  icon:  `<svg width="12" height="14" viewBox="0 0 24 26" fill="none"><path d="M17 1C17.3 4.5 19.3 6.8 23 7.1V11C21 10.8 19.2 10.1 17.7 9V17.5C17.7 21.9 14.4 25.5 10 25.5C5.6 25.5 2 22 2 17.6C2 13.1 5.5 9.8 10 9.8C10.4 9.8 10.7 9.8 11 9.9V14C10.7 13.9 10.4 13.9 10 13.9C7.8 13.9 6 15.6 6 17.8C6 20 7.8 21.6 10 21.6C12.2 21.6 14.1 19.9 14.1 17.7L14.2 1H17Z" fill="white"/></svg>`,
-                  btnBg: '#1A1A1A',
-                  btnTx: '#FDFAF6',
-                },
-                {
-                  platform: 'youtube',
-                  label: tr.social_pill_yt,
-                  title: tr.social_card_yt_title,
-                  desc:  tr.social_card_yt_desc,
-                  btn:   tr.social_btn_yt,
-                  url:   blogHref,
-                  img:   'images/social/youtube-bento-cover.webp',
-                  alt:   tr.social_card_yt_title,
-                  iconBg:'#FF0000',
-                  icon:  `<svg width="14" height="11" viewBox="0 0 28 20" fill="none"><path d="M26.5 3.2C26.2 2.1 25.3 1.3 24.2 1C22.2 0.5 14 0.5 14 0.5C14 0.5 5.8 0.5 3.8 1C2.7 1.3 1.8 2.2 1.5 3.2C1 5.2 1 10 1 10C1 10 1 14.8 1.5 16.8C1.8 17.9 2.7 18.7 3.8 19C5.8 19.5 14 19.5 14 19.5C14 19.5 22.2 19.5 24.2 19C25.3 18.7 26.2 17.8 26.5 16.8C27 14.8 27 10 27 10C27 10 27 5.2 26.5 3.2Z" fill="white"/><path d="M11.5 14L18 10L11.5 6V14Z" fill="#FF0000"/></svg>`,
-                  btnBg: '#B85959',
-                  btnTx: '#FDFAF6',
-                },
-              ].map(c => (
-                <a href={c.url}
-                   data-analytics="social_card_to_blog" data-platform={c.platform} data-location="homepage_social_block"
-                   class="group block bg-warm-white rounded-2xl overflow-hidden flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mocha hover:-translate-y-1 transition-transform duration-300"
-                   style="box-shadow:0 4px 18px rgba(139,115,85,0.10); border:1px solid rgba(200,184,162,0.30);">
-                  <!-- Platform label row -->
-                  <div class="flex items-center gap-2 px-3 pt-3 pb-2.5">
-                    <div class="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0" style={`background:${c.iconBg};`} set:html={c.icon}></div>
-                    <span class="font-outfit text-[12px] font-semibold text-espresso/75">{c.label}</span>
-                    <span class="ml-auto opacity-40">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <path d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" stroke="#8B7355" stroke-width="1.5"/>
-                        <path d="M9 9h6v6" stroke="#8B7355" stroke-width="1.5" stroke-linecap="round"/>
-                      </svg>
-                    </span>
-                  </div>
-                  <!-- Cover image -->
-                  <div class="relative w-full overflow-hidden" style="aspect-ratio:4/5;">
-                    <img src={c.img} alt={c.alt} width="1000" height="1250"
-                         loading="lazy" decoding="async"
-                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
-                    <!-- Play icon overlay -->
-                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <div class="w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-warm-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg group-hover:bg-warm-white transition-colors">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                          <path d="M8 5.5V18.5L19 12L8 5.5Z" fill="#1A1A1A"/>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Body -->
-                  <div class="flex-1 flex flex-col px-4 pt-4 pb-4">
-                    <h3 class="font-cabinet text-espresso text-[16px] lg:text-[17px] leading-snug mb-1.5">{c.title}</h3>
-                    <p class="font-outfit text-espresso/55 text-[13px] mb-4">{c.desc}</p>
-                    <span class="mt-auto inline-flex items-center justify-center gap-2 font-outfit font-semibold text-[13px] rounded-xl px-4 py-2.5 min-h-[40px] transition-opacity group-hover:opacity-90"
-                          style={`background:${c.btnBg};color:${c.btnTx};`}>
-                      {c.btn}
-                      <svg width="14" height="12" viewBox="0 0 16 14" fill="none" aria-hidden="true">
-                        <path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-
+      <!-- Heading -->
+      <div class="reveal max-w-[860px] mb-10 lg:mb-14">
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <div class="h-px w-10 bg-mocha/35"></div>
+          <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha">{tr.nav_blog}</span>
+          <div class="h-px w-10 bg-mocha/35"></div>
         </div>
+        <h2 id="blog-hub-title" class="font-cabinet text-espresso mb-4" style="font-size:clamp(2.1rem,4.4vw,3.5rem);line-height:1.02;">{tr.hub_title}</h2>
+        <p class="font-outfit text-espresso/65 text-[13px] uppercase tracking-[0.14em]">{tr.hub_sub}</p>
+      </div>
 
+      <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.02fr)] gap-4 lg:gap-5 items-stretch">
+
+        <!-- Lead article: photo + copy, the one people open most -->
+        <a href={`${blogHref}${hubLead.slug}/`} class="reveal group grid sm:grid-cols-2 rounded-[1.5rem] overflow-hidden bg-warm-white transition-transform duration-300 hover:-translate-y-1"
+           style="box-shadow:0 8px 34px rgba(139,115,85,0.11);border:1px solid rgba(200,184,162,0.3);">
+          <div class="relative min-h-[220px] sm:min-h-[340px] overflow-hidden">
+            <img src={hubLead.cover} alt={hubLead.title} width="800" height="800" loading="lazy" decoding="async"
+                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+          </div>
+          <div class="p-6 lg:p-8 flex flex-col justify-center">
+            <span class="inline-flex items-center gap-1.5 self-start rounded-full px-3 py-1.5 mb-4 font-outfit text-[10.5px] font-bold uppercase tracking-[0.12em] text-mocha" style="background:#F5EFE8;">
+              <Icon name="ph:star-fill" aria-hidden="true" class="w-[11px] h-[11px]" />
+              {tr.hub_popular}
+            </span>
+            <h3 class="font-cabinet text-espresso mb-3 group-hover:text-mocha transition-colors" style="font-size:clamp(1.35rem,2vw,1.85rem);line-height:1.15;">{hubLead.title}</h3>
+            <p class="font-outfit text-espresso/65 text-[15px] leading-relaxed mb-6">{hubLead.excerpt}</p>
+            <span class="inline-flex items-center justify-center gap-2.5 self-start bg-mocha-dark group-hover:bg-mocha-dark text-warm-white transition-colors rounded-xl px-6 py-3.5 font-outfit font-bold text-[15px]">
+              {tr.hub_read}
+              <Icon name="ph:arrow-right" aria-hidden="true" class="w-[15px] h-[13px]" />
+            </span>
+          </div>
+        </a>
+
+        <!-- 2×2 grid -->
+        <div class="reveal grid sm:grid-cols-2 gap-4 lg:gap-5">
+          {hubRest.map((p) => (
+            <a href={`${blogHref}${p.slug}/`} class="group flex gap-4 rounded-[1.25rem] bg-warm-white p-4 lg:p-5 transition-transform duration-300 hover:-translate-y-1"
+               style="box-shadow:0 4px 20px rgba(139,115,85,0.08);border:1px solid rgba(200,184,162,0.3);">
+              <div class="relative w-[76px] h-[76px] lg:w-[86px] lg:h-[86px] rounded-xl overflow-hidden flex-shrink-0">
+                <img src={p.cover} alt={p.title} width="200" height="200" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" />
+              </div>
+              <div class="min-w-0 flex flex-col">
+                <h3 class="font-outfit font-bold text-espresso text-[14.5px] leading-snug mb-1.5 group-hover:text-mocha transition-colors">{p.title}</h3>
+                <p class="font-outfit text-espresso/65 text-[12.5px] leading-snug line-clamp-3">{p.excerpt}</p>
+                <span class="mt-auto pt-2.5 inline-flex items-center gap-1.5 font-outfit font-semibold text-mocha text-[12.5px]">
+                  {tr.hub_read}
+                  <Icon name="ph:arrow-right" aria-hidden="true" class="w-[12px] h-[10px]" />
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- All articles -->
+      <div class="reveal text-center mt-8 lg:mt-10">
+        <a href={blogHref} data-analytics="social_to_blog_click" data-location="homepage_blog_block"
+           class="inline-flex items-center gap-2.5 rounded-full bg-warm-white px-7 py-3.5 font-outfit font-semibold text-espresso text-[14.5px] transition-colors hover:text-mocha"
+           style="border:1px solid rgba(200,184,162,0.55);box-shadow:0 2px 12px rgba(139,115,85,0.07);">
+          {tr.blog_all}
+          <Icon name="ph:arrow-right" aria-hidden="true" class="w-[15px] h-[13px]" />
+        </a>
       </div>
     </div>
   </section>
+  )}
 
   <!-- ── BONUS ── -->
   <section class="hidden py-12 lg:py-20" style="background:#F5EFE8;">
@@ -969,12 +956,8 @@ const guar = GUAR[lang] ?? GUAR.en;
           <div class="flex flex-col px-6 sm:px-10 lg:px-14 py-10 lg:py-14 relative">
 
             <div class="inline-flex mb-7">
-              <span class="inline-flex items-center gap-2 font-outfit text-[12px] font-semibold tracking-[0.1em] uppercase text-warm-white/75 bg-white/[0.06] border border-white/12 rounded-full px-4 py-2">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                  <rect x="1.5" y="6" width="13" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
-                  <path d="M1.5 9.5h13M8 6v9" stroke="currentColor" stroke-width="1.4"/>
-                  <path d="M8 6S6 3 4.5 4.5 6 6 8 6Z M8 6s2-3 3.5-1.5S10 6 8 6Z" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-                </svg>
+              <span class="inline-flex items-center gap-2 font-outfit text-[13px] font-semibold tracking-[0.1em] uppercase text-warm-white/75 bg-white/[0.06] border border-white/12 rounded-full px-4 py-2">
+                <Icon name="ph:gift" class="w-[14px] h-[14px]" />
                 <span>{tr.bonus_label}</span>
               </span>
             </div>
@@ -992,16 +975,16 @@ const guar = GUAR[lang] ?? GUAR.en;
                 <div id="bonus-counter-num" class="font-stat text-warm-white leading-none tracking-tight" style="font-size:clamp(3.5rem,6vw,4.5rem);">{BONUS_TOTAL}</div>
                 <div class="pb-2 flex-1">
                   <div id="bonus-counter-label" class="font-outfit text-warm-white text-[15px] font-semibold leading-tight">{tr.bonus_spots_left}</div>
-                  <div class="font-outfit text-warm-white/45 text-[12px] mt-0.5">{tr.bonus_of_total}</div>
+                  <div class="font-outfit text-warm-white/55 text-[13px] mt-0.5">{tr.bonus_of_total}</div>
                 </div>
                 <div id="bonus-soldout-badge" class="hidden pb-2">
-                  <span class="font-outfit text-[10px] font-bold uppercase tracking-[0.14em] text-warm-white/80 bg-red-900/40 border border-red-700/30 rounded-full px-3 py-1.5">{tr.bonus_sold_out}</span>
+                  <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.14em] text-warm-white/80 bg-red-900/40 border border-red-700/30 rounded-full px-3 py-1.5">{tr.bonus_sold_out}</span>
                 </div>
               </div>
               <div class="relative h-1.5 bg-white/8 rounded-full overflow-hidden mb-2.5">
-                <div id="bonus-counter-bar" class="absolute inset-y-0 left-0 rounded-full" style="width:100%;background:linear-gradient(90deg,#8B7355 0%,#C8B8A2 100%);transition:width 1.8s cubic-bezier(0.22,1,0.36,1);"></div>
+                <div id="bonus-counter-bar" class="absolute inset-y-0 left-0 rounded-full" style="width:100%;transform-origin:left center;background:linear-gradient(90deg,#8B7355 0%,#C8B8A2 100%);transition:transform 1.8s cubic-bezier(0.22,1,0.36,1);"></div>
               </div>
-              <div class="font-outfit text-warm-white/45 text-[12px]">
+              <div class="font-outfit text-warm-white/55 text-[13px]">
                 <span id="bonus-counter-taken" class="font-stat text-warm-white/65">0</span>
                 <span>{tr.bonus_taken_label}</span>
               </div>
@@ -1009,13 +992,13 @@ const guar = GUAR[lang] ?? GUAR.en;
 
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-8">
               {[
-                { icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2.5" stroke="#C8B8A2" stroke-width="1.4"/><path d="M8 8a5.66 5.66 0 0 0 0 8M16 8a5.66 5.66 0 0 1 0 8M5.5 5.5a9.5 9.5 0 0 0 0 13M18.5 5.5a9.5 9.5 0 0 1 0 13" stroke="#C8B8A2" stroke-width="1.3" stroke-linecap="round"/></svg>`, label: tr.bonus_feat1 },
-                { icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="14" height="12" rx="2" stroke="#C8B8A2" stroke-width="1.4"/><path d="M17 10l5-3v10l-5-3z" stroke="#C8B8A2" stroke-width="1.4" stroke-linejoin="round"/></svg>`, label: tr.bonus_feat2 },
-                { icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-4 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" stroke="#C8B8A2" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 10h8M8 13h5" stroke="#C8B8A2" stroke-width="1.3" stroke-linecap="round"/></svg>`, label: tr.bonus_feat3 },
-                { icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="18" rx="8" ry="2.5" stroke="#C8B8A2" stroke-width="1.3"/><rect x="4" y="12" width="16" height="6" rx="2" stroke="#C8B8A2" stroke-width="1.3"/><ellipse cx="12" cy="12" rx="8" ry="2.5" stroke="#C8B8A2" stroke-width="1.3"/><path d="M12 4 Q14 1 16 4 Q18 7 16 9 Q14 11 12 9 Q10 7 12 4Z" stroke="#C8B8A2" stroke-width="1.2" fill="none"/></svg>`, label: tr.bonus_feat4 },
+                { icon: 'ph:broadcast', label: tr.bonus_feat1 },
+                { icon: 'ph:video-camera', label: tr.bonus_feat2 },
+                { icon: 'ph:chat-circle', label: tr.bonus_feat3 },
+                { icon: 'ph:cake', label: tr.bonus_feat4 },
               ].map(f => (
                 <div class="bg-white/[0.04] border border-white/8 rounded-xl px-3 py-3 flex flex-col items-center text-center gap-2">
-                  <div set:html={f.icon}></div>
+                  <Icon name={f.icon} class="w-[20px] h-[20px] text-taupe" />
                   <span class="font-outfit text-warm-white/65 text-[11px] leading-tight">{f.label}</span>
                 </div>
               ))}
@@ -1023,29 +1006,30 @@ const guar = GUAR[lang] ?? GUAR.en;
 
             <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="bonus"
               id="bonus-cta-btn"
-              class="flex items-center justify-center gap-3 w-full bg-warm-white text-espresso font-outfit font-bold text-[16px] py-4 rounded-2xl hover:bg-cream transition-colors btn-pulse mb-3">
+              class="flex items-center justify-center gap-3 w-full bg-warm-white text-espresso font-outfit font-bold text-[17px] py-4 rounded-2xl hover:bg-cream transition-colors btn-pulse mb-3">
               {tr.bonus_cta}
-              <svg width="16" height="14" viewBox="0 0 16 14" fill="none"><path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <Icon name="ph:arrow-right" class="w-[16px] h-[14px]" />
             </a>
 
             <a href={anchor('price')} class="self-center font-outfit text-warm-white/60 text-[13px] inline-flex items-center gap-1.5 hover:text-warm-white transition-colors mb-4">
               <span>{tr.bonus_details}</span>
-              <svg width="13" height="11" viewBox="0 0 14 12" fill="none"><path d="M1 6h12M9 2l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <Icon name="ph:arrow-right" class="w-[13px] h-[11px]" />
             </a>
 
-            <div class="flex items-center gap-2 text-warm-white/35 mt-auto pt-2">
+            <div class="flex items-center gap-2 text-warm-white/55 mt-auto pt-2">
               <span class="w-1 h-1 rounded-full bg-warm-white/40"></span>
-              <span class="font-outfit text-[12px]">{tr.bonus_warning}</span>
+              <span class="font-outfit text-[13px]">{tr.bonus_warning}</span>
             </div>
           </div>
 
           <div class="relative min-h-[500px] lg:min-h-0">
             <div class="img-skeleton absolute inset-0 w-full h-full" style="background-color:#1a1310;">
               <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 pointer-events-none">
-                <svg width="36" height="36" viewBox="0 0 32 32" fill="none" class="opacity-20"><circle cx="16" cy="10" r="5" stroke="#C8B8A2" stroke-width="1.4"/><path d="M4 28c0-6.6 5.4-12 12-12s12 5.4 12 12" stroke="#C8B8A2" stroke-width="1.4" stroke-linecap="round"/></svg>
-                <span class="font-mono text-[11px] text-mocha/40 tracking-wider">800 × 1000 px</span>
+                <Icon name="ph:user" class="opacity-20 w-[36px] h-[36px]" />
               </div>
-              <img src="images/bonus-author-2.webp" alt={tr.bonus_img_alt || 'TROUBLEBABA'} width="1254" height="1254" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+              <img src="/images/bonus-author-2.webp"
+        srcset="/images/bonus-author-2-480.webp 480w, /images/bonus-author-2-768.webp 768w, /images/bonus-author-2-1024.webp 1024w, /images/bonus-author-2.webp 1254w"
+        sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 640px" alt={tr.bonus_img_alt || 'TROUBLEBABA'} width="1254" height="1254" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
             </div>
 
             <div class="absolute z-10" style="top:4%; right:4%;">
@@ -1066,12 +1050,8 @@ const guar = GUAR[lang] ?? GUAR.en;
                   <circle cx="50" cy="50" r="40"/>
                 </svg>
                 <div class="relative z-10 text-center text-espresso">
-                  <svg class="mx-auto mb-1" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <rect x="2" y="7" width="16" height="11" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
-                    <path d="M2 11h16M10 7v11" stroke="currentColor" stroke-width="1.4"/>
-                    <path d="M10 7S8 4 6.5 5.5 8 7 10 7Z M10 7s2-3 3.5-1.5S12 7 10 7Z" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-                  </svg>
-                  <div class="font-cabinet leading-none text-[14px]">{tr.bonus_free}</div>
+                  <Icon name="ph:gift" class="mx-auto mb-1 w-[20px] h-[20px]" />
+                  <div class="font-cabinet leading-none text-[15px]">{tr.bonus_free}</div>
                   <svg class="mx-auto mt-1" width="9" height="8" viewBox="0 0 13 12" fill="none"><path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" fill="none"/></svg>
                 </div>
               </div>
@@ -1083,17 +1063,19 @@ const guar = GUAR[lang] ?? GUAR.en;
               <div class="flex items-start justify-between gap-3 mb-3">
                 <div>
                   <div class="font-outfit font-bold text-warm-white text-[11px] tracking-[0.16em] uppercase mb-1">{tr.bonus_class_label}</div>
-                  <div class="font-outfit text-warm-white/55 text-[12px]">{tr.bonus_class_with}</div>
+                  <div class="font-outfit text-warm-white/55 text-[13px]">{tr.bonus_class_with}</div>
                 </div>
                 <span class="inline-flex items-center gap-1.5 bg-white/[0.08] border border-white/15 rounded-full px-2.5 py-1 flex-shrink-0">
                   <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
-                  <span class="font-outfit text-warm-white/85 text-[10px] font-bold tracking-wider">LIVE</span>
+                  <span class="font-outfit text-warm-white/85 text-[11px] font-bold tracking-wider">LIVE</span>
                 </span>
               </div>
 
               <div class="flex items-start gap-3 mb-3">
                 <div class="w-20 h-20 rounded-lg flex-shrink-0 overflow-hidden bg-mocha/20">
-                  <img src="images/bento-you-can.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async" class="w-full h-full object-cover" onerror="this.style.display='none'" />
+                  <img src="/images/bento-you-can.webp"
+        srcset="/images/bento-you-can-480.webp 480w, /images/bento-you-can-768.webp 768w, /images/bento-you-can-1024.webp 1024w, /images/bento-you-can.webp 1254w"
+        sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 640px" alt={tr.hero_img_alt} width="1254" height="1254" loading="lazy" decoding="async" class="w-full h-full object-cover" onerror="this.style.display='none'" />
                 </div>
                 <ul class="flex-1 space-y-1">
                   {[tr.bonus_b1, tr.bonus_b2, tr.bonus_b3, tr.bonus_b4].map(label => (
@@ -1110,7 +1092,7 @@ const guar = GUAR[lang] ?? GUAR.en;
                   <div class="flex -space-x-2">
                     {['А','М','К'].map(l => (
                       <div class="w-7 h-7 rounded-full bg-mocha border-2 border-espresso flex items-center justify-center">
-                        <span class="font-cabinet text-warm-white text-[10px]">{l}</span>
+                        <span class="font-cabinet text-warm-white text-[11px]">{l}</span>
                       </div>
                     ))}
                   </div>
@@ -1125,36 +1107,155 @@ const guar = GUAR[lang] ?? GUAR.en;
     </div>
   </section>
 
-  <!-- ── PDF PREVIEW SPREADS ── -->
-  <section id="preview" class="hidden py-16 lg:py-20" style="background:#F5EFE8;">
-    <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
-      <h2 class="reveal font-cabinet font-black text-espresso text-center mb-3" style="font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.1;">{tr.price_peek_inside}</h2>
-      <p class="reveal font-outfit text-espresso/50 text-center text-[15px] mb-10 max-w-xl mx-auto">{tr.price_langs}</p>
-      <div class="reveal grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
-        {[1,2,3,4,5,6].map((n) => (
-          <div class="rounded-2xl overflow-hidden bg-warm-white" style="box-shadow:0 4px 18px rgba(139,115,85,0.10);border:1px solid rgba(200,184,162,0.30);">
-            <img src={`/images/pdf-preview/spread-${n}-p${['01','02','03','04','06','07'][n-1]}.jpg`}
-                 alt={`Bento Cake PDF — preview ${n}`}
-                 width="800" height="1131" loading="lazy" decoding="async"
-                 class="block w-full h-auto" />
+  {/* Lightbox: the section promises a look inside, so the pages have to open
+        full size. Arrows / swipe move between them; Esc or a click outside closes. */}
+    <div id="preview-lightbox" hidden data-pages={JSON.stringify(previewPages.map((p) => `/images/pdf-preview/${previewLang}/p${p}.jpg`))} class="fixed inset-0 z-[100] items-center justify-center p-4 md:p-8" style="background:rgba(26,20,14,0.92);backdrop-filter:blur(4px);">
+      <button type="button" id="preview-close" aria-label="Close" class="absolute top-4 right-4 md:top-6 md:right-6 w-11 h-11 rounded-full flex items-center justify-center text-warm-white/80 hover:text-warm-white" style="background:rgba(255,255,255,0.10);">
+        <Icon name="ph:x" class="w-[20px] h-[20px]" />
+      </button>
+      <button type="button" id="preview-prev" aria-label="Previous" class="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center text-warm-white/80 hover:text-warm-white" style="background:rgba(255,255,255,0.10);">
+        <Icon name="ph:caret-left" class="w-[20px] h-[20px]" />
+      </button>
+      <button type="button" id="preview-next" aria-label="Next" class="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center text-warm-white/80 hover:text-warm-white" style="background:rgba(255,255,255,0.10);">
+        <Icon name="ph:caret-right" class="w-[20px] h-[20px]" />
+      </button>
+      <img id="preview-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" decoding="async" class="max-h-[88vh] max-w-full w-auto h-auto rounded-xl" style="box-shadow:0 20px 60px rgba(0,0,0,0.5);" />
+      <div id="preview-counter" class="absolute bottom-4 left-1/2 -translate-x-1/2 font-outfit text-warm-white/60 text-[13px] tabular-nums"></div>
+    </div>
+
+    <script is:inline>
+      (() => {
+        const box = document.getElementById('preview-lightbox');
+        if (!box) return;
+        const img = document.getElementById('preview-image');
+        const counter = document.getElementById('preview-counter');
+        const srcs = JSON.parse(box.dataset.pages || '[]');
+        if (!srcs.length) return;
+        let i = 0;
+
+        const show = (n) => {
+          i = (n + srcs.length) % srcs.length;
+          img.src = srcs[i];
+          counter.textContent = `${i + 1} / ${srcs.length}`;
+        };
+        const open = (n) => {
+          show(n);
+          box.hidden = false;
+          box.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        };
+        const close = () => {
+          box.hidden = true;
+          box.style.display = '';
+          document.body.style.overflow = '';
+        };
+
+        const first = document.getElementById('preview-open-first');
+        if (first) first.addEventListener('click', () => open(0));
+        document.getElementById('preview-close').addEventListener('click', close);
+        document.getElementById('preview-prev').addEventListener('click', (e) => { e.stopPropagation(); show(i - 1); });
+        document.getElementById('preview-next').addEventListener('click', (e) => { e.stopPropagation(); show(i + 1); });
+        box.addEventListener('click', (e) => { if (e.target === box || e.target === img) close(); });
+        document.addEventListener('keydown', (e) => {
+          if (box.hidden) return;
+          if (e.key === 'Escape') close();
+          if (e.key === 'ArrowLeft') show(i - 1);
+          if (e.key === 'ArrowRight') show(i + 1);
+        });
+
+        // Swipe between pages on touch devices.
+        let x0 = null;
+        box.addEventListener('touchstart', (e) => { x0 = e.changedTouches[0].clientX; }, { passive: true });
+        box.addEventListener('touchend', (e) => {
+          if (x0 === null) return;
+          const dx = e.changedTouches[0].clientX - x0;
+          if (Math.abs(dx) > 50) show(dx < 0 ? i + 1 : i - 1);
+          x0 = null;
+        }, { passive: true });
+      })();
+    </script>
+    </div>
+  </section>
+
+  <!-- ── REVIEWS ── -->
+  {reviews.length > 0 && (
+  <section id="reviews" class="bg-cream py-24 lg:py-32">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
+
+      <!-- Header -->
+      <div class="reveal max-w-[720px] mb-12 lg:mb-16">
+        <div class="flex items-center justify-center gap-3 mb-6">
+          <div class="h-px w-10 bg-mocha/40"></div>
+          <span class="font-outfit text-xs font-semibold tracking-[0.14em] uppercase text-mocha">{tr.testi_label}</span>
+          <div class="h-px w-10 bg-mocha/40"></div>
+        </div>
+        <h2 class="font-cabinet text-espresso mb-6" style="font-size:clamp(2.4rem,4.6vw,4rem);line-height:1.0;">
+          {tr.testi_title}
+        </h2>
+        <!-- Rating badge -->
+        <div class="inline-flex items-center gap-3 bg-warm-white rounded-full px-5 py-2.5" style="border:1px solid rgba(200,184,162,0.3);box-shadow:0 1px 6px rgba(139,115,85,0.05);">
+          <div class="flex items-center gap-0.5">
+            {[0,1,2,3,4].map(() => (
+              <Icon name="ph:star-fill" class="w-[17px] h-[17px]" />
+            ))}
+          </div>
+          <span class="font-outfit font-bold text-espresso text-[15px]">4.9</span>
+          <span class="font-outfit text-espresso/50 text-[12.5px] leading-tight" style="white-space:pre-line;">{tr.testi_rating_sub}</span>
+        </div>
+      </div>
+
+      <!-- Review cards: CSS masonry columns -->
+      <div id="reviews-grid" class="columns-1 sm:columns-2 lg:columns-3" style="column-gap:1.5rem;">
+        {reviews.map((r, i) => (
+          <div
+            class="review-card break-inside-avoid mb-5 lg:mb-6 bg-warm-white rounded-3xl p-6 lg:p-7"
+            data-review-index={i}
+            hidden={i >= REVIEWS_INITIAL}
+            style="box-shadow:0 1px 6px rgba(139,115,85,0.05);border:1px solid rgba(200,184,162,0.22);"
+          >
+            <div class="flex items-center gap-0.5 mb-3">
+              {[0,1,2,3,4].map(() => (
+                <Icon name="ph:star-fill" class="w-[14px] h-[14px]" />
+              ))}
+            </div>
+            <p class="font-outfit text-espresso/75 text-[15px] leading-relaxed mb-4">{r.text}</p>
+            <div class="flex items-center gap-2">
+              <Icon name="ph:check-circle" class="w-[15px] h-[15px]" />
+              <span class="font-outfit text-espresso/65 text-[13px] font-medium">{tr.testi_verified}</span>
+            </div>
           </div>
         ))}
       </div>
+
+      <!-- Show more -->
+      {reviews.length > REVIEWS_INITIAL && (
+        <div class="text-center mt-10 lg:mt-12">
+          <button
+            type="button"
+            id="reviews-more-btn"
+            class="font-outfit font-semibold text-[13px] tracking-[0.06em] uppercase text-espresso px-7 py-3.5 rounded-full border border-taupe/40 hover:border-taupe/70 hover:bg-warm-white transition-colors"
+          >
+            {tr.testi_more ?? 'Show all reviews'}
+          </button>
+        </div>
+      )}
+
     </div>
   </section>
+  )}
 
   <!-- ── PRICING ── -->
   <section id="price" class="py-10 lg:py-14">
     <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
 
-      <div class="reveal mb-5 lg:mb-7 text-center">
+      <div class="reveal mb-5 lg:mb-7">
         <div class="flex items-center justify-center gap-3 mb-3">
           <div class="h-px w-8 bg-mocha/40"></div>
           <span class="font-outfit text-xs font-semibold tracking-[0.14em] uppercase text-mocha">{tr.price_label}</span>
           <div class="h-px w-8 bg-mocha/40"></div>
         </div>
         <h2 class="font-cabinet font-black text-espresso mb-3" style="font-size:clamp(1.9rem,3.4vw,2.9rem);line-height:1.05;">{tr.price_title}</h2>
-        <p class="font-outfit text-espresso/50 text-[15px] leading-relaxed max-w-xl mx-auto">{tr.price_sub}</p>
+        <p class="font-outfit text-espresso/50 text-[15px] leading-relaxed max-w-xl">{tr.price_sub}</p>
       </div>
 
       <div class="reveal reveal-d1">
@@ -1162,25 +1263,23 @@ const guar = GUAR[lang] ?? GUAR.en;
 
           <div class="relative img-skeleton min-h-[320px] sm:min-h-0">
             <div class="absolute inset-0 flex flex-col items-center justify-center gap-1.5 pointer-events-none">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="3" y="7" width="22" height="17" rx="3" stroke="#C8B8A2" stroke-width="1.3"/><circle cx="10" cy="14" r="3" stroke="#C8B8A2" stroke-width="1.3"/><path d="M3 19l5-4 4 4 4-5 6 6" stroke="#C8B8A2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 7V5a5 5 0 0 1 10 0v2" stroke="#C8B8A2" stroke-width="1.3" stroke-linecap="round"/></svg>
-              <span class="font-mono text-[10px] text-mocha/40 tracking-wider">560 × 720 px</span>
+              <Icon name="ph:camera" class="w-[28px] h-[28px]" />
             </div>
-            <img src="images/bento-you-can.webp" alt={tr.price_img_alt || 'Bento cake'} width="1254" height="1254" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+            <img src="/images/bento-you-can.webp"
+        srcset="/images/bento-you-can-480.webp 480w, /images/bento-you-can-768.webp 768w, /images/bento-you-can-1024.webp 1024w, /images/bento-you-can.webp 1254w"
+        sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 640px" alt={tr.price_img_alt || 'Bento cake'} width="1254" height="1254" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
           </div>
 
           <div class="px-7 lg:px-10 py-7 lg:py-9 flex flex-col">
-            <span class="self-start inline-block font-outfit font-bold text-[10px] tracking-[0.16em] uppercase text-warm-white bg-mocha rounded-full px-3.5 py-1.5 mb-4">{tr.price_plan}</span>
+            <span class="self-start inline-block font-outfit font-bold text-[11px] tracking-[0.16em] uppercase text-warm-white bg-mocha-dark rounded-full px-3.5 py-1.5 mb-4">{tr.price_plan}</span>
 
             <h3 class="font-cabinet font-black text-espresso mb-2.5" style="font-size:clamp(1.5rem,2vw,1.85rem);line-height:1.15;letter-spacing:-0.01em;">{tr.price_card_title || tr.price_title}</h3>
-            <p class="font-outfit text-espresso/55 text-[14px] leading-relaxed mb-5">{tr.price_card_sub || tr.price_sub}</p>
+            <p class="font-outfit text-espresso/65 text-[15px] leading-relaxed mb-5">{tr.price_card_sub || tr.price_sub}</p>
 
             <ul class="space-y-2 mb-5" id="price-items">
               {(tr.price_items as string[]).slice(0, 5).map(item => (
-                <li class="flex items-start gap-2.5 font-outfit text-espresso/80 text-[14px] leading-snug">
-                  <svg class="w-[17px] h-[17px] flex-shrink-0 mt-[2px]" viewBox="0 0 19 19" fill="none">
-                    <circle cx="9.5" cy="9.5" r="8.5" stroke="#8B7355" stroke-width="1.2"/>
-                    <path d="M5.8 9.5l2.6 2.6 4.8-4.8" stroke="#8B7355" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                <li class="flex items-start gap-2.5 font-outfit text-espresso/80 text-[15px] leading-snug">
+                  <Icon name="ph:check-circle" class="w-[17px] h-[17px] flex-shrink-0 mt-[2px]" />
                   {item}
                 </li>
               ))}
@@ -1189,43 +1288,43 @@ const guar = GUAR[lang] ?? GUAR.en;
             <div class="flex items-end gap-3 mb-4">
               <span class="font-outfit font-black text-espresso leading-none" style="font-size:2.6rem;letter-spacing:-0.03em;">{tr.price_display}</span>
               <div class="flex items-center gap-2 mb-1.5">
-                <span class="font-outfit text-espresso/35 text-[17px] line-through">{tr.price_display_old}</span>
-                <span class="font-outfit text-[10px] font-bold uppercase tracking-[0.08em] text-mocha bg-mocha/12 rounded px-2 py-0.5" style="background:rgba(139,115,85,0.14);">{tr.price_discount}</span>
+                <span class="font-outfit text-espresso/65 text-[17px] line-through">{tr.price_display_old}</span>
+                <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.08em] text-mocha bg-mocha/12 rounded px-2 py-0.5" style="background:rgba(139,115,85,0.14);">{tr.price_discount}</span>
               </div>
             </div>
 
             <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="price"
               class="flex items-center justify-center gap-2 w-full text-warm-white font-outfit font-semibold text-base py-[17px] rounded-2xl transition-colors btn-pulse mb-3"
-              style="background:linear-gradient(180deg,#8B7355 0%,#7A6448 100%);box-shadow:0 8px 24px rgba(139,115,85,0.35);">
+              style="background:#6E5C43;box-shadow:0 8px 24px rgba(139,115,85,0.35);">
               {tr.price_cta}
             </a>
 
             <div class="grid grid-cols-2 gap-2 mb-3">
-              <span class="flex items-center justify-center gap-1.5 font-outfit text-[12px] text-espresso/60 py-2 px-3 rounded-lg" style="border:1px solid rgba(200,184,162,0.55);">
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v8M3.5 6l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 10v1a1.5 1.5 0 0 0 1.5 1.5h6A1.5 1.5 0 0 0 11 11v-1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <span class="flex items-center justify-center gap-1.5 font-outfit text-[13px] text-espresso/65 py-2 px-3 rounded-lg" style="border:1px solid rgba(200,184,162,0.55);">
+                <Icon name="ph:arrow-down" class="w-[13px] h-[13px]" />
                 {tr.price_instant}
               </span>
-              <span class="flex items-center justify-center gap-1.5 font-outfit text-[12px] text-espresso/60 py-2 px-3 rounded-lg" style="border:1px solid rgba(200,184,162,0.55);">
-                <svg width="11" height="13" viewBox="0 0 11 13" fill="none"><rect x="1" y="5.5" width="9" height="7" rx="1.6" stroke="currentColor" stroke-width="1.3"/><path d="M3 5.5V3.5a2.5 2.5 0 0 1 5 0v2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <span class="flex items-center justify-center gap-1.5 font-outfit text-[13px] text-espresso/65 py-2 px-3 rounded-lg" style="border:1px solid rgba(200,184,162,0.55);">
+                <Icon name="ph:lock" class="w-[11px] h-[13px]" />
                 {tr.price_secure}
               </span>
             </div>
 
             <div class="flex items-center justify-center gap-2 flex-wrap">
               <span class="bg-warm-white rounded-lg px-2.5 py-1.5 flex items-center justify-center" style="box-shadow:0 1px 4px rgba(139,115,85,0.12);border:1px solid rgba(200,184,162,0.4);">
-                <span class="font-outfit font-black text-[10px] tracking-[0.06em]" style="color:#1A1F71;">VISA</span>
+                <span class="font-outfit font-black text-[11px] tracking-[0.06em]" style="color:#1A1F71;">VISA</span>
               </span>
               <span class="bg-warm-white rounded-lg px-2.5 py-1.5 flex items-center" style="box-shadow:0 1px 4px rgba(139,115,85,0.12);border:1px solid rgba(200,184,162,0.4);">
                 <span class="inline-block w-3.5 h-3.5 rounded-full" style="background:#EB001B;"></span>
                 <span class="inline-block w-3.5 h-3.5 rounded-full -ml-1.5 mix-blend-multiply" style="background:#F79E1B;"></span>
               </span>
               <span class="bg-warm-white rounded-lg px-2.5 py-1.5 flex items-center gap-0.5" style="box-shadow:0 1px 4px rgba(139,115,85,0.12);border:1px solid rgba(200,184,162,0.4);">
-                <svg width="9" height="11" viewBox="0 0 9 11" fill="#1A1A1A"><path d="M7.3 5.9c0-.85.39-1.5 1.16-1.97-.43-.62-1.08-.96-1.94-1.02-.81-.06-1.7.48-2.02.48-.34 0-1.12-.46-1.74-.46-1.3.02-2.69 1.02-2.69 3.04 0 .6.11 1.22.33 1.86.29.85 1.34 2.94 2.43 2.91.57-.01.97-.4 1.71-.4.72 0 1.09.4 1.72.4 1.1-.02 2.05-1.92 2.33-2.77-1.49-.7-1.29-2.06-1.29-2.07ZM5.96 1.94c.65-.77.59-1.47.57-1.72-.57.03-1.23.39-1.6.83-.41.47-.66 1.06-.6 1.7.62.05 1.18-.27 1.63-.81Z"/></svg>
-                <span class="font-outfit font-semibold text-[10px] text-espresso">Pay</span>
+                <Icon name="simple-icons:apple" class="w-[9px] h-[11px]" />
+                <span class="font-outfit font-semibold text-[11px] text-espresso">Pay</span>
               </span>
               <span class="bg-warm-white rounded-lg px-2.5 py-1.5 flex items-center gap-0.5" style="box-shadow:0 1px 4px rgba(139,115,85,0.12);border:1px solid rgba(200,184,162,0.4);">
-                <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M10.85 5.62c0-.4-.04-.8-.1-1.17H5.5v2.22h3c-.13.7-.52 1.3-1.12 1.7v1.4h1.8c1.07-.98 1.67-2.44 1.67-4.15Z" fill="#4285F4"/><path d="M5.5 11c1.5 0 2.77-.5 3.69-1.35l-1.8-1.4c-.5.33-1.13.53-1.89.53-1.45 0-2.68-.98-3.12-2.3H.5v1.45A5.5 5.5 0 0 0 5.5 11Z" fill="#34A853"/><path d="M2.38 6.48a3.3 3.3 0 0 1 0-2.1V2.94H.5a5.5 5.5 0 0 0 0 4.97l1.88-1.43Z" fill="#FBBC04"/><path d="M5.5 2.18c.82 0 1.55.28 2.12.83l1.6-1.6A5.27 5.27 0 0 0 5.5 0 5.5 5.5 0 0 0 .5 2.94l1.88 1.44C2.82 3.16 4.05 2.18 5.5 2.18Z" fill="#EA4335"/></svg>
-                <span class="font-outfit font-semibold text-[10px] text-espresso">Pay</span>
+                <Icon name="simple-icons:google" class="w-[11px] h-[11px]" />
+                <span class="font-outfit font-semibold text-[11px] text-espresso">Pay</span>
               </span>
             </div>
           </div>
@@ -1235,40 +1334,29 @@ const guar = GUAR[lang] ?? GUAR.en;
       <div class="max-w-[1320px] mx-auto mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3 reveal reveal-d2">
         <div class="bg-warm-white rounded-2xl px-5 py-3.5 flex items-center gap-3.5" style="border:1px solid rgba(200,184,162,0.5);">
           <div class="w-9 h-9 rounded-xl bg-surface flex items-center justify-center flex-shrink-0">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M2 20l10-16 10 16H2z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round"/>
-              <path d="M5 14h14" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round"/>
-              <circle cx="9" cy="11" r="0.8" fill="#8B7355"/>
-              <circle cx="14" cy="13" r="0.8" fill="#8B7355"/>
-            </svg>
+            <Icon name="ph:triangle" class="w-[20px] h-[20px]" />
           </div>
           <div>
             <div class="font-outfit font-bold text-espresso text-sm leading-snug">{tr.price_feat1_title}</div>
-            <div class="font-outfit text-espresso/45 text-xs leading-snug mt-0.5">{tr.price_feat1_sub}</div>
+            <div class="font-outfit text-espresso/65 text-xs leading-snug mt-0.5">{tr.price_feat1_sub}</div>
           </div>
         </div>
         <div class="bg-warm-white rounded-2xl px-5 py-3.5 flex items-center gap-3.5" style="border:1px solid rgba(200,184,162,0.5);">
           <div class="w-9 h-9 rounded-xl bg-surface flex items-center justify-center flex-shrink-0">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M2 5h7a3 3 0 0 1 3 3v12a2.5 2.5 0 0 0-2.5-2.5H2V5z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round"/>
-              <path d="M22 5h-7a3 3 0 0 0-3 3v12a2.5 2.5 0 0 1 2.5-2.5H22V5z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round"/>
-            </svg>
+            <Icon name="ph:book-open" class="w-[20px] h-[20px]" />
           </div>
           <div>
             <div class="font-outfit font-bold text-espresso text-sm leading-snug">{tr.price_feat2_title}</div>
-            <div class="font-outfit text-espresso/45 text-xs leading-snug mt-0.5">{tr.price_feat2_sub}</div>
+            <div class="font-outfit text-espresso/65 text-xs leading-snug mt-0.5">{tr.price_feat2_sub}</div>
           </div>
         </div>
         <div class="bg-warm-white rounded-2xl px-5 py-3.5 flex items-center gap-3.5" style="border:1px solid rgba(200,184,162,0.5);">
           <div class="w-9 h-9 rounded-xl bg-surface flex items-center justify-center flex-shrink-0">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M21 12a9 9 0 1 1-3-6.7" stroke="#8B7355" stroke-width="1.4" stroke-linecap="round"/>
-              <path d="M21 4v5h-5" stroke="#8B7355" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <Icon name="ph:arrow-clockwise" class="w-[20px] h-[20px]" />
           </div>
           <div>
             <div class="font-outfit font-bold text-espresso text-sm leading-snug">{tr.price_feat3_title}</div>
-            <div class="font-outfit text-espresso/45 text-xs leading-snug mt-0.5">{tr.price_feat3_sub}</div>
+            <div class="font-outfit text-espresso/65 text-xs leading-snug mt-0.5">{tr.price_feat3_sub}</div>
           </div>
         </div>
       </div>
@@ -1288,14 +1376,14 @@ const guar = GUAR[lang] ?? GUAR.en;
       <div class="max-w-[760px] mx-auto px-6 lg:px-10">
         <div class="rounded-[1.5rem] lg:rounded-[2rem] px-8 lg:px-14 py-12 lg:py-16 text-center"
              style="background:linear-gradient(120deg, #2e2219 0%, #241a13 45%, #1A1A1A 100%); box-shadow:0 32px 80px rgba(26,26,26,0.28);">
-          <span class="inline-block font-outfit text-[11px] font-bold uppercase tracking-[0.18em] text-warm-white/85 bg-mocha rounded-full px-4 py-1.5 mb-6">{tr.presale_badge}</span>
-          <h2 class="font-cabinet text-warm-white mb-4" style="font-size:clamp(2rem,4vw,3rem);line-height:1.05;">{tr.notify_heading}</h2>
+          <span class="inline-block font-outfit text-[11px] font-bold uppercase tracking-[0.18em] text-warm-white/85 bg-mocha-dark rounded-full px-4 py-1.5 mb-6">{tr.presale_badge}</span>
+          <h2 class="font-cabinet text-warm-white mb-4" style="font-size:var(--h-page);line-height:1.05;">{tr.notify_heading}</h2>
           <p class="font-outfit text-warm-white/60 text-[15px] leading-relaxed mb-8 max-w-[460px] mx-auto">{tr.notify_sub}</p>
 
           <form id="notify-form" class="flex flex-col sm:flex-row flex-wrap gap-3 max-w-[460px] mx-auto" novalidate>
             <input id="notify-email" type="email" required autocomplete="email"
                    placeholder={tr.notify_placeholder}
-                   class="flex-1 font-outfit text-base bg-warm-white/10 border border-white/15 rounded-xl px-4 py-3.5 text-warm-white placeholder:text-warm-white/40 outline-none focus:border-mocha min-h-[48px]" />
+                   class="flex-1 font-outfit text-base bg-warm-white/10 border border-white/15 rounded-xl px-4 py-3.5 text-warm-white placeholder:text-warm-white/55 outline-none focus:border-mocha min-h-[48px]" />
             <button type="submit" id="notify-submit"
                     class="font-outfit font-bold text-[15px] bg-warm-white text-espresso rounded-xl px-6 py-3.5 hover:bg-cream transition-colors whitespace-nowrap min-h-[48px]">
               {tr.notify_btn}
@@ -1303,7 +1391,7 @@ const guar = GUAR[lang] ?? GUAR.en;
             {turnstileKey && <div class="cf-turnstile basis-full flex justify-center" data-sitekey={turnstileKey} data-theme="dark"></div>}
           </form>
           <p id="notify-msg" class="hidden font-outfit text-sm mt-4"></p>
-          <p class="font-outfit text-warm-white/35 text-xs mt-5">{tr.notify_privacy}</p>
+          <p class="font-outfit text-warm-white/55 text-xs mt-5">{tr.notify_privacy}</p>
         </div>
       </div>
     </section>
@@ -1335,7 +1423,7 @@ const guar = GUAR[lang] ?? GUAR.en;
             {(tr.faq_items as {q:string;a:string}[]).map((faq, i) => (
               <div class={`faq-item ${i === 0 ? 'open' : ''} cursor-pointer ${i > 0 ? 'border-t border-taupe/15' : ''}`} data-index={i} role="button" tabindex="0" aria-expanded={i === 0 ? 'true' : 'false'}>
                 <div class="flex items-center gap-6 px-7 py-4">
-                  <span class="font-outfit text-[11px] font-bold text-mocha/45 tracking-[0.2em] flex-shrink-0 w-7">
+                  <span class="font-outfit text-[11px] font-bold text-mocha tracking-[0.2em] flex-shrink-0 w-7">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <h3 class="font-outfit font-bold text-espresso text-[1rem] flex-1 leading-snug">{faq.q}</h3>
@@ -1355,15 +1443,8 @@ const guar = GUAR[lang] ?? GUAR.en;
           <div class="bg-warm-white rounded-[2rem] overflow-hidden flex flex-col h-full" style="box-shadow:0 8px 40px rgba(139,115,85,0.12);">
             <div class="px-7 pt-7 pb-6">
               <div class="hidden relative w-14 h-14 rounded-full bg-surface flex items-center justify-center mb-6">
-                <svg width="30" height="30" viewBox="0 0 36 36" fill="none">
-                  <ellipse cx="18" cy="28" rx="11" ry="3" stroke="#8B7355" stroke-width="1.4"/>
-                  <rect x="7" y="19" width="22" height="9" rx="4" stroke="#8B7355" stroke-width="1.4"/>
-                  <ellipse cx="18" cy="19" rx="11" ry="3" stroke="#8B7355" stroke-width="1.4"/>
-                  <path d="M18 7 Q20 3 22 7 Q24 11 22 13.5 Q20 16 18 13.5 Q16 11 18 7Z" stroke="#8B7355" stroke-width="1.2" fill="none"/>
-                </svg>
-                <svg class="absolute -top-1 -right-1" width="13" height="13" viewBox="0 0 14 14" fill="none">
-                  <path d="M7 1v12M1 7h12M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="#C8B8A2" stroke-width="1.3" stroke-linecap="round"/>
-                </svg>
+                <Icon name="ph:cake" class="w-[30px] h-[30px]" />
+                <Icon name="ph:sparkle" class="absolute -top-1 -right-1 w-[13px] h-[13px]" />
               </div>
 
               <h3 class="font-cabinet font-black text-espresso mb-5" style="font-size:1.5rem;line-height:1.1;" set:html={(tr.faq_trust_title ?? '').replace(/\n/g, '<br/>')}></h3>
@@ -1373,40 +1454,29 @@ const guar = GUAR[lang] ?? GUAR.en;
               <div class="space-y-5">
                 <div class="flex items-start gap-3.5">
                   <div class="w-10 h-10 rounded-full border border-taupe/30 flex items-center justify-center flex-shrink-0">
-                    <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
-                      <path d="M3 14a4 4 0 0 0 4 4h9a4 4 0 0 0 1-7.9C16.7 6.8 14.1 4.5 11 4.5c-3.5 0-6.4 2.6-7 6" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M11 11v6M8 14l3 3 3-3" stroke="#8B7355" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+                    <Icon name="ph:cloud-arrow-down" class="w-[18px] h-[18px]" />
                   </div>
                   <div class="flex-1 pt-0.5">
                     <div class="font-outfit font-bold text-espresso text-[0.92rem] leading-snug">{tr.faq_trust1_title}</div>
-                    <div class="font-outfit text-espresso/45 text-xs leading-relaxed mt-1 whitespace-pre-line">{tr.faq_trust1_sub}</div>
+                    <div class="font-outfit text-espresso/65 text-xs leading-relaxed mt-1 whitespace-pre-line">{tr.faq_trust1_sub}</div>
                   </div>
                 </div>
                 <div class="flex items-start gap-3.5">
                   <div class="w-10 h-10 rounded-full border border-taupe/30 flex items-center justify-center flex-shrink-0">
-                    <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
-                      <path d="M5 2h8l4 4v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z" stroke="#8B7355" stroke-width="1.3"/>
-                      <path d="M13 2v4h4" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round"/>
-                      <text x="11" y="17" text-anchor="middle" font-family="Arial" font-size="5" font-weight="800" fill="#8B7355">PDF</text>
-                    </svg>
+                    <Icon name="ph:file-pdf" class="w-[18px] h-[18px]" />
                   </div>
                   <div class="flex-1 pt-0.5">
                     <div class="font-outfit font-bold text-espresso text-[0.92rem] leading-snug">{tr.faq_trust2_title}</div>
-                    <div class="font-outfit text-espresso/45 text-xs leading-relaxed mt-1 whitespace-pre-line">{tr.faq_trust2_sub}</div>
+                    <div class="font-outfit text-espresso/65 text-xs leading-relaxed mt-1 whitespace-pre-line">{tr.faq_trust2_sub}</div>
                   </div>
                 </div>
                 <div class="flex items-start gap-3.5">
                   <div class="w-10 h-10 rounded-full border border-taupe/30 flex items-center justify-center flex-shrink-0">
-                    <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
-                      <rect x="2" y="5" width="18" height="13" rx="2" stroke="#8B7355" stroke-width="1.3"/>
-                      <path d="M2 9h18" stroke="#8B7355" stroke-width="1.3"/>
-                      <rect x="5" y="13" width="4" height="2" rx="0.5" fill="#8B7355"/>
-                    </svg>
+                    <Icon name="ph:credit-card" class="w-[18px] h-[18px]" />
                   </div>
                   <div class="flex-1 pt-0.5">
                     <div class="font-outfit font-bold text-espresso text-[0.92rem] leading-snug" set:html={(tr.faq_trust3_title ?? '').replace(/\n/g, '<br/>')}></div>
-                    <div class="font-outfit text-espresso/45 text-xs leading-relaxed mt-1">{tr.faq_trust3_sub}</div>
+                    <div class="font-outfit text-espresso/65 text-xs leading-relaxed mt-1">{tr.faq_trust3_sub}</div>
                   </div>
                 </div>
               </div>
@@ -1416,10 +1486,11 @@ const guar = GUAR[lang] ?? GUAR.en;
               <div class="absolute inset-x-0 top-0 h-16 z-10 pointer-events-none" style="background:linear-gradient(180deg,#FDFAF6 0%,rgba(253,250,246,0.85) 30%,rgba(253,250,246,0) 100%);"></div>
               <div class="img-skeleton absolute inset-0 w-full h-full">
                 <div class="absolute inset-0 flex flex-col items-center justify-center gap-1.5 pointer-events-none">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="20" height="15" rx="2.5" stroke="#C8B8A2" stroke-width="1.2"/><circle cx="8" cy="12" r="2.5" stroke="#C8B8A2" stroke-width="1.2"/><path d="M2 17l5-4 3.5 3.5 4-5 5.5 6" stroke="#C8B8A2" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="font-mono text-[10px] text-mocha/35 tracking-wider">560 × 320 px</span>
+                  <Icon name="ph:camera" class="w-[28px] h-[28px]" />
                 </div>
-                <img src="images/faq-cake.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+                <img src="/images/faq-cake.webp"
+        srcset="/images/faq-cake-480.webp 480w, /images/faq-cake-768.webp 768w, /images/faq-cake-1024.webp 1024w, /images/faq-cake.webp 1254w"
+        sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 640px" alt={tr.hero_img_alt} width="1254" height="1254" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
               </div>
               <svg class="absolute bottom-4 left-3 opacity-25 pointer-events-none" width="90" height="120" viewBox="0 0 90 120" fill="none">
                 <path d="M45 120 Q42 90 38 60 Q35 35 30 10" stroke="#8B7355" stroke-width="0.8" stroke-linecap="round"/>
@@ -1433,7 +1504,7 @@ const guar = GUAR[lang] ?? GUAR.en;
                 <circle cx="42" cy="94" r="2" stroke="#8B7355" stroke-width="0.7" fill="none"/>
               </svg>
               <div class="absolute bottom-5 right-5 pointer-events-none text-right">
-                <p class="text-mocha" style="font-family:'Caveat',cursive;font-weight:600;font-size:2.2rem;line-height:0.95;" set:html={(tr.faq_handwrite ?? '').replace(/\n/g, '<br/>')}></p>
+                <p class="font-signature text-mocha" style="font-size:2.2rem;" set:html={(tr.faq_handwrite ?? '').replace(/\n/g, '<br/>')}></p>
               </div>
             </div>
 
@@ -1452,7 +1523,7 @@ const guar = GUAR[lang] ?? GUAR.en;
         <div class="grid lg:grid-cols-[42%_minmax(0,1fr)] items-center">
 
           <div class="relative overflow-hidden min-h-[380px] lg:min-h-[560px] h-full">
-            <img src="images/cta-book.webp?v=2" alt={tr.cta_img_alt || 'Bento Cake book'}
+            <img src="/images/cta-book.webp?v=2" alt={tr.cta_img_alt || 'Bento Cake book'}
               width="1254" height="1254" loading="lazy" decoding="async"
               class="absolute inset-0 w-full h-full object-cover"
               onerror="this.style.display='none'" />
@@ -1462,7 +1533,7 @@ const guar = GUAR[lang] ?? GUAR.en;
           <div class="flex flex-col px-6 sm:px-10 lg:px-14 pb-10 pt-2 lg:py-16">
 
             <div class="inline-flex self-start mb-5 lg:mb-7">
-              <span class="inline-flex items-center gap-2 font-outfit text-[11px] font-bold tracking-[0.16em] uppercase text-warm-white bg-mocha rounded-full px-4 py-1.5">
+              <span class="inline-flex items-center gap-2 font-outfit text-[11px] font-bold tracking-[0.16em] uppercase text-warm-white bg-mocha-dark rounded-full px-4 py-1.5">
                 <svg width="12" height="11" viewBox="0 0 13 12" fill="none"><path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" fill="#FDFAF6"/></svg>
                 {tr.cta_final_chip || tr.cta_eyebrow}
               </span>
@@ -1470,46 +1541,46 @@ const guar = GUAR[lang] ?? GUAR.en;
 
             <h2 class="font-cabinet font-black text-warm-white mb-5 lg:mb-6" style="font-size:clamp(1.75rem,2.9vw,2.6rem);line-height:1.1;letter-spacing:-0.01em;">{tr.cta_final_title || tr.cta_title}</h2>
 
-            <p class="font-outfit text-warm-white/60 text-[15px] lg:text-[16px] leading-relaxed mb-7 lg:mb-8 max-w-[520px]">{tr.cta_final_sub || tr.cta_sub}</p>
+            <p class="font-outfit text-warm-white/60 text-[15px] lg:text-[17px] leading-relaxed mb-7 lg:mb-8 max-w-[520px]">{tr.cta_final_sub || tr.cta_sub}</p>
 
             <div class="flex items-baseline gap-3 mb-5">
               <span class="font-outfit font-black text-warm-white leading-none" style="font-size:clamp(2rem,3vw,2.6rem);letter-spacing:-0.03em;">{tr.price_display}</span>
-              <span class="font-outfit text-warm-white/35 text-[17px] line-through">{tr.price_display_old}</span>
+              <span class="font-outfit text-warm-white/55 text-[17px] line-through">{tr.price_display_old}</span>
               <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.08em] text-warm-white rounded-full px-2.5 py-1" style="background:rgba(139,115,85,0.55);">{tr.price_discount}</span>
             </div>
 
             <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="final-cta"
-              class="flex items-center justify-center gap-3 w-full sm:w-auto sm:self-start bg-warm-white text-espresso font-outfit font-bold text-[16px] lg:text-lg px-9 py-[18px] rounded-2xl hover:bg-cream transition-colors btn-pulse mb-7 lg:mb-9">
+              class="flex items-center justify-center gap-3 w-full sm:w-auto sm:self-start bg-warm-white text-espresso font-outfit font-bold text-[17px] lg:text-lg px-9 py-[18px] rounded-2xl hover:bg-cream transition-colors btn-pulse mb-7 lg:mb-9">
               {tr.cta_final_btn || tr.cta_btn}
-              <svg width="16" height="14" viewBox="0 0 16 14" fill="none"><path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <Icon name="ph:arrow-right" class="w-[16px] h-[14px]" />
             </a>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div class="flex items-start gap-2.5">
                 <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v9M3.5 6.5l3.5 3.5 3.5-3.5" stroke="#C8B8A2" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 11v1a1.5 1.5 0 0 0 1.5 1.5h7A1.5 1.5 0 0 0 12 12v-1" stroke="#C8B8A2" stroke-width="1.4" stroke-linecap="round"/></svg>
+                  <Icon name="ph:arrow-down" class="w-[14px] h-[14px]" />
                 </div>
                 <div>
-                  <div class="font-outfit font-semibold text-warm-white/85 text-[12px] leading-snug">{tr.cta_trust1_title || tr.price_instant}</div>
-                  <div class="font-outfit text-warm-white/40 text-[11px] leading-snug mt-0.5">{tr.cta_trust1_sub || ''}</div>
+                  <div class="font-outfit font-semibold text-warm-white/85 text-[13px] leading-snug">{tr.cta_trust1_title || tr.price_instant}</div>
+                  <div class="font-outfit text-warm-white/55 text-[11px] leading-snug mt-0.5">{tr.cta_trust1_sub || ''}</div>
                 </div>
               </div>
               <div class="flex items-start gap-2.5">
                 <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);">
-                  <svg width="14" height="14" viewBox="0 0 16 12" fill="none"><rect x="1" y="1" width="14" height="10" rx="1.8" stroke="#C8B8A2" stroke-width="1.4"/><path d="M1 4.5h14" stroke="#C8B8A2" stroke-width="1.4"/><rect x="3" y="7" width="4" height="2" rx="0.4" fill="#C8B8A2"/></svg>
+                  <Icon name="ph:credit-card" class="w-[14px] h-[14px]" />
                 </div>
                 <div>
-                  <div class="font-outfit font-semibold text-warm-white/85 text-[12px] leading-snug">{tr.cta_trust2_title || tr.price_once?.replace(/^\/\s*/,'') || ''}</div>
-                  <div class="font-outfit text-warm-white/40 text-[11px] leading-snug mt-0.5">{tr.cta_trust2_sub || ''}</div>
+                  <div class="font-outfit font-semibold text-warm-white/85 text-[13px] leading-snug">{tr.cta_trust2_title || tr.price_once?.replace(/^\/\s*/,'') || ''}</div>
+                  <div class="font-outfit text-warm-white/55 text-[11px] leading-snug mt-0.5">{tr.cta_trust2_sub || ''}</div>
                 </div>
               </div>
               <div class="flex items-start gap-2.5">
                 <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1 2 3v4c0 3 2 5 5 6 3-1 5-3 5-6V3L7 1Z" stroke="#C8B8A2" stroke-width="1.4" stroke-linejoin="round"/><path d="M4.8 7 6.6 8.8 9.6 5.6" stroke="#C8B8A2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <Icon name="ph:shield-check" class="w-[14px] h-[14px]" />
                 </div>
                 <div>
-                  <div class="font-outfit font-semibold text-warm-white/85 text-[12px] leading-snug">{tr.cta_trust3_title || tr.price_secure}</div>
-                  <div class="font-outfit text-warm-white/40 text-[11px] leading-snug mt-0.5">{tr.cta_trust3_sub || ''}</div>
+                  <div class="font-outfit font-semibold text-warm-white/85 text-[13px] leading-snug">{tr.cta_trust3_title || tr.price_secure}</div>
+                  <div class="font-outfit text-warm-white/55 text-[11px] leading-snug mt-0.5">{tr.cta_trust3_sub || ''}</div>
                 </div>
               </div>
             </div>
@@ -1521,123 +1592,11 @@ const guar = GUAR[lang] ?? GUAR.en;
   </section>
 
   <!-- ── FOOTER ── -->
-  <footer class="bg-espresso pt-20 pb-0">
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
-
-      <div class="grid lg:grid-cols-[300px_minmax(0,1fr)_300px] gap-12 lg:gap-20 pb-14">
-
-        <div class="flex flex-col gap-7">
-          <div>
-            <div class="font-cabinet font-black text-warm-white tracking-tight mb-4" style="font-size:2.25rem;line-height:1;">TROUBLEBABA</div>
-            <div class="flex items-center gap-2 mb-1">
-              <div class="h-px w-12 bg-mocha/50"></div>
-              <svg width="11" height="10" viewBox="0 0 12 11" fill="none">
-                <path d="M6 10.5C6 10.5 1 7 1 3.5C1 2.12 2.12 1 3.5 1C4.45 1 5.27 1.52 5.75 2.29C5.85 2.44 6.15 2.44 6.25 2.29C6.73 1.52 7.55 1 8.5 1C9.88 1 11 2.12 11 3.5C11 7 6 10.5 6 10.5Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round" fill="rgba(139,115,85,0.2)"/>
-              </svg>
-            </div>
-          </div>
-          <p class="font-outfit text-warm-white/45 text-sm leading-relaxed" set:html={(tr.footer_desc ?? '').replace(/\n/g, '<br/>')}></p>
-        </div>
-
-        <div class="flex flex-col items-center gap-9">
-          <div class="font-outfit font-semibold text-warm-white/35 text-[11px] uppercase tracking-[0.22em]">{tr.footer_follow}</div>
-
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full">
-
-            {[
-              { name: 'Instagram', count: '66K', href: SITE.instagramUrl ?? 'https://instagram.com/troublebaba',
-                icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="#FDFAF6" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="#FDFAF6" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.1" fill="#FDFAF6"/></svg>` },
-              { name: 'TikTok', count: '2.2M', label: 'author_likes', href: SITE.tiktokUrl ?? 'https://tiktok.com/@troublebaba',
-                icon: `<svg width="20" height="22" viewBox="0 0 24 26" fill="none"><path d="M17 1C17.3 4.5 19.3 6.8 23 7.1V11C21 10.8 19.2 10.1 17.7 9V17.5C17.7 21.9 14.4 25.5 10 25.5C5.6 25.5 2 22 2 17.6C2 13.1 5.5 9.8 10 9.8C10.4 9.8 10.7 9.8 11 9.9V14C10.7 13.9 10.4 13.9 10 13.9C7.8 13.9 6 15.6 6 17.8C6 20 7.8 21.6 10 21.6C12.2 21.6 14.1 19.9 14.1 17.7L14.2 1H17Z" stroke="#FDFAF6" stroke-width="1.7" stroke-linejoin="round"/></svg>` },
-              { name: 'YouTube', count: '24K', href: 'https://youtube.com/@troublebaba',
-                icon: `<svg width="24" height="18" viewBox="0 0 28 20" fill="none"><path d="M26.5 3.2C26.2 2.1 25.3 1.3 24.2 1C22.2 0.5 14 0.5 14 0.5C14 0.5 5.8 0.5 3.8 1C2.7 1.3 1.8 2.2 1.5 3.2C1 5.2 1 10 1 10C1 10 1 14.8 1.5 16.8C1.8 17.9 2.7 18.7 3.8 19C5.8 19.5 14 19.5 14 19.5C14 19.5 22.2 19.5 24.2 19C25.3 18.7 26.2 17.8 26.5 16.8C27 14.8 27 10 27 10C27 10 27 5.2 26.5 3.2Z" stroke="#FDFAF6" stroke-width="1.8"/><path d="M11.5 14L18 10L11.5 6V14Z" fill="#FDFAF6"/></svg>` },
-              { name: 'Facebook', count: '3K', href: 'https://facebook.com/troublebaba',
-                icon: `<svg width="13" height="22" viewBox="0 0 14 26" fill="none"><path d="M9 14H12.5L13.5 10H9V7.5C9 6.2 9.5 5 11.5 5H13.5V1.4C13.5 1.4 11.7 1 10 1C6.7 1 4.5 3 4.5 7V10H1V14H4.5V25H9V14Z" fill="#FDFAF6"/></svg>` },
-            ].map(s => (
-              <a href={s.href} target="_blank" rel="noopener noreferrer"
-                class="group flex flex-col items-center text-center gap-3 bg-white/[0.03] border border-white/8 rounded-2xl px-4 py-5 hover:bg-white/[0.06] hover:border-mocha/35 transition-all duration-300">
-                <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform"
-                  style="background:linear-gradient(135deg,#8B7355,#6E5C43);box-shadow:0 4px 16px rgba(139,115,85,0.35);"
-                  set:html={s.icon}></div>
-                <div class="font-outfit text-warm-white/55 text-xs">{s.name}</div>
-                <div class="font-cabinet font-black text-warm-white text-lg leading-none -mt-1">{s.count}</div>
-                <div class="font-outfit text-warm-white/30 text-[10px] -mt-0.5">{s.label === 'author_likes' ? tr.author_likes : tr.author_follow}</div>
-              </a>
-            ))}
-
-          </div>
-
-          <div class="flex items-center gap-5 w-full max-w-md mt-1">
-            <div class="h-px flex-1 bg-mocha/15"></div>
-            <div class="text-center flex flex-col items-center gap-1">
-              <p class="text-mocha/80 italic whitespace-nowrap" style="font-family:'Brush Script MT','Lucida Handwriting','Segoe Script',cursive;font-size:1.35rem;letter-spacing:0.01em;line-height:1;">{tr.footer_thanks}</p>
-              <svg width="22" height="18" viewBox="0 0 22 18" fill="none">
-                <path d="M11 17C11 17 1.5 11 1.5 5.5C1.5 3 3.5 1 6 1C7.6 1 9 1.8 9.8 3.1C10 3.4 10.4 3.4 10.6 3.1C11.5 1.8 12.9 1 14.5 1C17 1 19 3 19 5.5C19 11 11 17 11 17Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round" fill="none"/>
-              </svg>
-            </div>
-            <div class="h-px flex-1 bg-mocha/15"></div>
-          </div>
-        </div>
-
-        <div>
-          <div class="font-outfit font-semibold text-warm-white/35 text-[11px] uppercase tracking-[0.22em] mb-7">{tr.footer_info}</div>
-          <div class="flex flex-col">
-            {[
-              { label: tr.nav_recipes,     href: (isUk ? '' : '/' + lang) + '/recipes/' },
-              { label: tr.blog_heading,    href: (isUk ? '' : '/' + lang) + '/blog/' },
-              { label: tr.nav_author,      href: (isUk ? '' : '/' + lang) + '/about' },
-              { label: tr.contact_heading, href: (isUk ? '' : '/' + lang) + '/contact' },
-              { label: tr.footer_privacy,  href: (isUk ? '' : '/' + lang) + '/privacy' },
-              { label: tr.footer_terms,    href: (isUk ? '' : '/' + lang) + '/terms' },
-            ].map((link, i) => (
-              <a href={link.href} class={`group flex items-center justify-between py-4 font-outfit text-warm-white/70 text-sm hover:text-warm-white transition-colors ${i > 0 ? 'border-t border-white/8' : ''}`}>
-                <span>{link.label}</span>
-                <svg width="18" height="14" viewBox="0 0 18 14" fill="none" class="text-mocha/70 group-hover:text-mocha group-hover:translate-x-1 transition-all ml-2 flex-shrink-0">
-                  <path d="M2 7H16M11 2l5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </a>
-            ))}
-          </div>
-          <a href="mailto:hello@troublebaba.com" class="group flex items-center gap-3 mt-8 font-outfit text-warm-white/55 text-sm hover:text-warm-white transition-colors">
-            <div class="w-9 h-9 rounded-full bg-mocha/15 border border-mocha/25 flex items-center justify-center flex-shrink-0 group-hover:bg-mocha/25 transition-colors">
-              <svg width="15" height="13" viewBox="0 0 14 12" fill="none" class="text-mocha">
-                <rect x="1" y="1" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.3"/>
-                <path d="M1 3.5L7 7L13 3.5" stroke="currentColor" stroke-width="1.3"/>
-              </svg>
-            </div>
-            hello@troublebaba.com
-          </a>
-        </div>
-
-      </div>
-
-      <div class="border-t border-white/8 py-6 flex flex-col lg:flex-row items-center justify-between gap-4">
-        <p class="font-outfit text-warm-white/30 text-xs leading-relaxed" set:html={(tr.footer_copy ?? '').replace(/\n/g, '<br/>')}></p>
-        <div class="flex items-center gap-4 px-5 py-3 rounded-2xl border border-white/8 bg-white/[0.03]">
-          <svg width="14" height="15" viewBox="0 0 14 16" fill="none" class="text-mocha/70">
-            <rect x="1" y="6" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.3"/>
-            <path d="M4 6V4.5C4 2.8 5.3 1.5 7 1.5C8.7 1.5 10 2.8 10 4.5V6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-          </svg>
-          <span class="font-outfit text-warm-white/45 text-xs">{tr.footer_secure}</span>
-          <span class="font-outfit font-bold text-warm-white/45 text-xs tracking-widest">VISA</span>
-          <span class="flex items-center">
-            <span class="inline-block w-4 h-4 rounded-full" style="background:rgba(235,0,27,0.4);"></span>
-            <span class="inline-block w-4 h-4 rounded-full -ml-1.5" style="background:rgba(255,163,0,0.4);"></span>
-          </span>
-          <span class="font-outfit font-semibold text-warm-white/45 text-xs tracking-tight">G Pay</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <p class="font-outfit text-warm-white/30 text-xs text-right leading-relaxed" set:html={(tr.footer_digital ?? '').replace(/\n/g, '<br/>')}></p>
-          <span class="w-5 h-5 rounded-full border border-white/15 flex items-center justify-center text-warm-white/40 text-[10px] font-outfit cursor-help" title={tr.footer_digital}>i</span>
-        </div>
-      </div>
-
-    </div>
-  </footer>
+  <SiteFooter lang={lang} />
 
   <!-- ── Mobile sticky CTA ── -->
   <a id="sticky-cta" href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="sticky-mobile"
-     class="md:hidden fixed bottom-4 left-4 right-4 z-40 bg-mocha text-warm-white font-outfit font-bold text-[15px] flex items-center justify-center gap-2 py-4 rounded-2xl shadow-2xl opacity-0 pointer-events-none translate-y-4 transition-all duration-300"
+     class="md:hidden fixed bottom-4 left-4 right-4 z-40 bg-mocha-dark text-warm-white font-outfit font-bold text-[15px] flex items-center justify-center gap-2 py-4 rounded-2xl shadow-2xl opacity-0 pointer-events-none translate-y-4 transition-all duration-300"
      style="box-shadow:0 8px 28px rgba(139,115,85,0.45);">
     {tr.nav_buy}
   </a>
@@ -1647,16 +1606,16 @@ const guar = GUAR[lang] ?? GUAR.en;
      class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
   <div class="w-full max-w-sm bg-cream rounded-3xl shadow-2xl p-6 relative">
     <button type="button" id="pdf-lang-close" aria-label="Close"
-            class="absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center text-espresso/60 hover:text-espresso hover:bg-espresso/5 transition">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4l10 10M14 4L4 14"/></svg>
+            class="absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center text-espresso/65 hover:text-espresso hover:bg-espresso/5 transition">
+      <Icon name="ph:x" class="w-[18px] h-[18px]" />
     </button>
     <h3 id="pdf-lang-title" class="font-cabinet font-bold text-[22px] text-espresso leading-tight pr-6">{tr.pdf_lang_title}</h3>
-    <p class="mt-1 text-[13px] text-espresso/60">{tr.pdf_lang_hint}</p>
+    <p class="mt-1 text-[13px] text-espresso/65">{tr.pdf_lang_hint}</p>
     <div class="mt-5 grid grid-cols-2 gap-2.5">
-      <button type="button" data-pdf-lang="uk" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">Українська</button>
-      <button type="button" data-pdf-lang="ru" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">Русский</button>
-      <button type="button" data-pdf-lang="en" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">English</button>
-      <button type="button" data-pdf-lang="pl" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">Polski</button>
+      <button type="button" data-pdf-lang="uk" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha-dark hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">Українська</button>
+      <button type="button" data-pdf-lang="ru" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha-dark hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">Русский</button>
+      <button type="button" data-pdf-lang="en" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha-dark hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">English</button>
+      <button type="button" data-pdf-lang="pl" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha-dark hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">Polski</button>
     </div>
   </div>
 </div>
@@ -1677,6 +1636,17 @@ const guar = GUAR[lang] ?? GUAR.en;
 
 <script>
 import { BONUS_TOTAL, BONUS_REMAINING } from '../i18n/translations.js';
+
+// Reviews: reveal the rest on "show all", then remove the button.
+(function initReviewsMore() {
+  const btn = document.getElementById('reviews-more-btn');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    document.querySelectorAll<HTMLElement>('#reviews-grid .review-card[hidden]')
+      .forEach(el => { el.hidden = false; });
+    btn.remove();
+  });
+})();
 
 function attachFaqListeners() {
   const toggle = (item: Element) => {
@@ -1730,7 +1700,7 @@ attachFaqListeners();
   // Initial paint — everything full, animation waits for the API + viewport.
   if (numEl) numEl.textContent = String(BONUS_TOTAL);
   if (takenEl) takenEl.textContent = '0';
-  if (barEl) barEl.style.width = '100%';
+  if (barEl) barEl.style.transform = 'scaleX(1)';
 
   let live = { total: BONUS_TOTAL, remaining: BONUS_TOTAL };
   fetch('/api/bonus/count')
@@ -1760,7 +1730,7 @@ attachFaqListeners();
       const takenCur = total - cur;
       if (numEl) numEl.textContent = String(cur);
       if (takenEl) takenEl.textContent = String(takenCur);
-      if (barEl) barEl.style.width = (cur / total * 100) + '%';
+      if (barEl) barEl.style.transform = 'scaleX(' + (cur / total) + ')';
       if (p < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
@@ -1902,7 +1872,9 @@ document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
       // fallback: no modal in DOM — use page language
       const validLang = ['uk','ru','en','pl'].includes(pageLang) ? pageLang : 'en';
       const sep = lsUrl.includes('?') ? '&' : '?';
-      window.location.href = lsUrl + sep + 'checkout[custom][lang]=' + encodeURIComponent(validLang);
+      window.location.href = lsUrl + sep +
+        'checkout[custom][lang]='   + encodeURIComponent(validLang) +
+        '&checkout[custom][source]=' + encodeURIComponent(source);
       return;
     }
     modal.classList.remove('hidden');
@@ -1911,6 +1883,11 @@ document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
     // stash the buyer's page-language so the modal handler can pick the
     // right store URL (no need to read documentElement.lang twice)
     modal.dataset.siteLang = pageLang;
+    // Also stash which CTA the buyer clicked (hero / price / sticky-mobile / …)
+    // so the modal handler can pass it to LS as ?checkout[custom][source]=<x>.
+    // The webhook then forwards it to GA purchase's traffic_source_button so
+    // we can slice conversions per button.
+    modal.dataset.buySource = source;
   });
 });
 
@@ -1938,8 +1915,11 @@ if (pdfModal) {
       const lsUrl    = byLang[pageLang] || (window as any).TR_LS_CHECKOUT as string;
       if (!lsUrl) { closeModal(); return; }
       send('pdf_lang_pick', { lang: chosen, site_lang: pageLang });
+      const src = pdfModal?.dataset.buySource || 'unknown';
       const sep = lsUrl.includes('?') ? '&' : '?';
-      window.location.href = lsUrl + sep + 'checkout[custom][lang]=' + encodeURIComponent(chosen);
+      window.location.href = lsUrl + sep +
+        'checkout[custom][lang]='   + encodeURIComponent(chosen) +
+        '&checkout[custom][source]=' + encodeURIComponent(src);
     });
   });
 }

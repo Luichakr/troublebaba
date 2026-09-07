@@ -1,5 +1,7 @@
 ---
+import { Icon } from 'astro-icon/components';
 import SiteHeader from './SiteHeader.astro';
+import SiteFooter from './SiteFooter.astro';
 import { t } from '../i18n/translations.js';
 import { SITE } from '../config/site.js';
 
@@ -20,7 +22,7 @@ const socials = [
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16 py-16 lg:py-24">
 
     <a href={homeUrl} class="inline-flex items-center gap-2 font-outfit text-warm-white/60 hover:text-warm-white transition-colors text-sm mb-12">
-      <svg width="14" height="12" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M14 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <Icon name="ph:arrow-left" aria-hidden="true" class="w-[14px] h-[12px]" />
       <span>{tr.contact_back}</span>
     </a>
 
@@ -30,7 +32,9 @@ const socials = [
       <div class="relative w-full max-w-[460px] mx-auto lg:mx-0">
         <div class="relative rounded-3xl overflow-hidden" style="aspect-ratio:3/3.6; box-shadow:0 0 0 1px rgba(132,100,76,0.5), 0 32px 80px rgba(0,0,0,0.5);">
           <div class="img-skeleton absolute inset-0 w-full h-full" style="background-color:#2a2320;"></div>
-          <img src="images/author.webp" alt={tr.about_heading} width="1152" height="1365"
+          <img src="/images/author.webp"
+        srcset="/images/author-480.webp 480w, /images/author-768.webp 768w, /images/author-1024.webp 1024w, /images/author.webp 1254w"
+        sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 640px" alt={tr.about_heading} width="1152" height="1365"
                loading="eager" fetchpriority="high" decoding="async"
                class="absolute inset-0 w-full h-full object-cover object-top"
                onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
@@ -44,7 +48,7 @@ const socials = [
       <!-- Text -->
       <div>
         <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.18em] text-mocha">{tr.about_role}</span>
-        <h1 class="font-cabinet font-black text-warm-white mt-3 mb-8" style="font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.02;">{tr.about_heading}</h1>
+        <h1 class="font-cabinet font-black text-warm-white mt-3 mb-8" style="font-size:var(--h-section);line-height:1.02;">{tr.about_heading}</h1>
 
         <div class="space-y-5 font-outfit text-warm-white/65 text-base leading-relaxed mb-10">
           <p>{tr.about_p1}</p>
@@ -54,7 +58,7 @@ const socials = [
 
         <!-- Socials -->
         <div class="mb-10">
-          <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-warm-white/40 mb-3">{tr.about_socials}</div>
+          <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-warm-white/55 mb-3">{tr.about_socials}</div>
           <div class="flex flex-wrap gap-2.5">
             {socials.map(s => (
               <a href={s.url} target="_blank" rel="noopener noreferrer"
@@ -65,9 +69,11 @@ const socials = [
 
         <a href={homeUrl + '#price'} class="inline-flex items-center justify-center gap-3 bg-warm-white text-espresso font-outfit font-bold px-7 py-4 rounded-2xl hover:bg-cream transition-colors">
           {tr.about_cta}
-          <svg width="16" height="14" viewBox="0 0 16 14" fill="none"><path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <Icon name="ph:arrow-right" class="w-[16px] h-[14px]" />
         </a>
       </div>
     </div>
   </div>
 </main>
+
+<SiteFooter lang={lang} />

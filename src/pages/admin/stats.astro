@@ -1,0 +1,151 @@
+---
+// Password-gated stats dashboard. Fetches /api/admin/stats?pass=... client-side.
+// Not indexed, not linked from the site.
+---
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin · Stats</title>
+  <style>
+    :root { color-scheme: light dark; }
+    /* Шкала разведена по контрасту: 13 / 15 / 28 вместо 12/14/15/20/22,
+       где соседние ступени отличались на 1-2px и иерархия не читалась. */
+    body { font: 15px/1.5 system-ui, sans-serif; margin: 0; padding: 24px; max-width: 1100px; }
+    h1 { margin: 0 0 16px; font-size: 28px; }
+    h2 { margin: 24px 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; opacity: .7; }
+    .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+    input, select, button { font: inherit; padding: 6px 10px; border-radius: 6px; border: 1px solid #8884; background: transparent; color: inherit; }
+    button { cursor: pointer; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
+    .card { border: 1px solid #8884; border-radius: 8px; padding: 10px 12px; }
+    .card .k { font-size: 12px; opacity: .7; }
+    .card .v { font-size: 22px; font-weight: 600; }
+    table { width: 100%; border-collapse: collapse; margin-top: 6px; }
+    th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #8883; font-variant-numeric: tabular-nums; }
+    th { font-weight: 600; opacity: .8; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
+    .muted { opacity: .6; }
+    .err { color: #c33; }
+    .ok { color: #2a8; }
+  </style>
+</head>
+<body>
+  <h1>TroubleBaba · Admin Stats</h1>
+
+  <div class="row">
+    <input id="pass" type="password" placeholder="ADMIN_PASS" autocomplete="current-password" />
+    <select id="range">
+      <option value="24h">24h</option>
+      <option value="7d" selected>7d</option>
+      <option value="30d">30d</option>
+    </select>
+    <button id="load">Load</button>
+    <span id="status" class="muted"></span>
+  </div>
+
+  <div id="out"></div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const pass = $('pass'); const range = $('range'); const out = $('out'); const status = $('status');
+
+  // Remember password locally so refresh doesn't require re-typing.
+  try { pass.value = localStorage.getItem('adminPass') || ''; } catch {}
+
+  const fmtMoney = (minor, currency) => {
+    const n = (Number(minor) || 0) / 100;
+    try { return new Intl.NumberFormat('uk-UA', { style: 'currency', currency: currency || 'UAH' }).format(n); }
+    catch { return `${n.toFixed(2)} ${currency || ''}`; }
+  };
+  const fmtDate = (ts, unit) => {
+    if (!ts) return '—';
+    const ms = unit === 's' ? ts * 1000 : ts;
+    return new Date(ms).toLocaleString('uk-UA');
+  };
+  const table = (headers, rows, cellFns) => {
+    const th = headers.map(h => `<th>${h}</th>`).join('');
+    const tr = rows.map(r => `<tr>${cellFns.map(fn => `<td>${fn(r)}</td>`).join('')}</tr>`).join('');
+    return `<table><thead><tr>${th}</tr></thead><tbody>${tr || `<tr><td colspan="${headers.length}" class="muted">no data</td></tr>`}</tbody></table>`;
+  };
+
+  async function load() {
+    status.textContent = 'loading…'; status.className = 'muted';
+    try { localStorage.setItem('adminPass', pass.value); } catch {}
+    const r = await fetch(`/api/admin/stats?pass=${encodeURIComponent(pass.value)}&range=${range.value}`);
+    const j = await r.json();
+    if (!j.ok) { status.textContent = j.error || 'error'; status.className = 'err'; out.innerHTML = ''; return; }
+    status.textContent = 'ok · ' + new Date(j.now).toLocaleTimeString('uk-UA'); status.className = 'ok';
+    render(j);
+  }
+
+  function render(j) {
+    const byType = Object.fromEntries((j.events.byType || []).map(x => [x.type, x.n]));
+    const funnel = Object.fromEntries((j.events.funnel || []).map(x => [x.type, x.n]));
+    const clicks = funnel.click_buy || 0;
+    const inv    = funnel.invoice_create || 0;
+    const paid   = funnel.invoice_success || 0;
+    const fail   = funnel.invoice_failure || 0;
+
+    const paidTotals = (j.botOrders.paidTotals || [])
+      .map(x => fmtMoney(x.sum_minor, x.currency) + ` (${x.n})`).join(' · ') || '—';
+
+    const botTotal = (j.botOrders.byStatus || []).reduce((a, b) => a + (b.n || 0), 0);
+
+    out.innerHTML = `
+      <h2>Funnel · сайт</h2>
+      <div class="cards">
+        <div class="card"><div class="k">pageview</div><div class="v">${byType.pageview || 0}</div></div>
+        <div class="card"><div class="k">click_buy</div><div class="v">${clicks}</div></div>
+        <div class="card"><div class="k">invoice_create</div><div class="v">${inv}</div></div>
+        <div class="card"><div class="k">invoice_success</div><div class="v">${paid}</div></div>
+        <div class="card"><div class="k">invoice_failure</div><div class="v">${fail}</div></div>
+        <div class="card"><div class="k">click → paid</div><div class="v">${clicks ? ((paid/clicks)*100).toFixed(1) + '%' : '—'}</div></div>
+      </div>
+
+      <h2>Bot orders (Telegram)</h2>
+      <div class="cards">
+        <div class="card"><div class="k">всего в окне</div><div class="v">${botTotal}</div></div>
+        <div class="card"><div class="k">paid · сумма</div><div class="v" style="font-size:14px;">${paidTotals}</div></div>
+      </div>
+
+      <div class="grid2">
+        <div>
+          <h2>click_buy по метке (source)</h2>
+          ${table(['метка', 'кол-во'], j.events.clickBuyBySource || [], [r => r.source, r => r.n])}
+        </div>
+        <div>
+          <h2>Bot orders по статусу</h2>
+          ${table(['статус', 'валюта', 'кол-во', 'сумма'], j.botOrders.byStatus || [],
+            [r => r.status, r => r.currency, r => r.n, r => fmtMoney(r.sum_minor, r.currency)])}
+        </div>
+        <div>
+          <h2>Просмотры по языку</h2>
+          ${table(['lang', 'n'], j.events.byLang || [], [r => r.lang, r => r.n])}
+        </div>
+        <div>
+          <h2>Просмотры по стране</h2>
+          ${table(['country', 'n'], j.events.byCountry || [], [r => r.country, r => r.n])}
+        </div>
+      </div>
+
+      <h2>События (все типы, ${j.range})</h2>
+      ${table(['type', 'n'], j.events.byType || [], [r => r.type, r => r.n])}
+
+      <h2>Последние 20 заказов из бота</h2>
+      ${table(
+        ['order_id', 'tg_id', 'статус', 'способ', 'сумма', 'создан', 'оплачен'],
+        j.botOrders.recent || [],
+        [r => r.order_id, r => r.telegram_id, r => r.status, r => r.payment_method,
+         r => fmtMoney(r.amount, r.currency), r => fmtDate(r.created_ts, 's'), r => fmtDate(r.paid_ts, 's')]
+      )}
+    `;
+  }
+
+  $('load').addEventListener('click', load);
+  pass.addEventListener('keydown', (e) => { if (e.key === 'Enter') load(); });
+  if (pass.value) load();
+</script>
+</body>
+</html>

@@ -18,8 +18,12 @@ interface Env {
   DB?: D1Database;
   /** Channel ID — UC… 24 chars. Set as plain env in CF Pages settings. */
   YOUTUBE_CHANNEL_ID?: string;
-  /** Bearer secret shared with the GitHub Actions workflow. */
+  /** Bearer secret shared with the cron caller. */
   CRON_SECRET?: string;
+  /** Alternative bearer — same purpose but independent of download-link
+   *  signing. Kept so cron on Mac Mini uses one shared token for both
+   *  cron endpoints without touching CRON_SECRET. */
+  CRON_TOKEN?: string;
 }
 
 const json = (data: unknown, status = 200) =>
@@ -36,10 +40,14 @@ function timingSafeEqual(a: string, b: string): boolean {
 }
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-  // Auth — Bearer must match CRON_SECRET.
-  if (!env.CRON_SECRET) return json({ ok: false, error: 'cron secret not configured' }, 500);
+  // Auth — Bearer must match CRON_SECRET or CRON_TOKEN. Either works so we
+  // can rotate CRON_TOKEN independently of the download-link signing secret.
   const token = (request.headers.get('authorization') ?? '').replace(/^Bearer\s+/i, '').trim();
-  if (!timingSafeEqual(token, env.CRON_SECRET)) return json({ ok: false, error: 'unauthorized' }, 401);
+  const expected = env.CRON_TOKEN || env.CRON_SECRET;
+  if (!expected) return json({ ok: false, error: 'cron token not configured' }, 500);
+  if (!(timingSafeEqual(token, env.CRON_TOKEN || '') || timingSafeEqual(token, env.CRON_SECRET || ''))) {
+    return json({ ok: false, error: 'unauthorized' }, 401);
+  }
 
   if (!env.DB)                 return json({ ok: false, error: 'db not configured' }, 500);
   if (!env.YOUTUBE_CHANNEL_ID) return json({ ok: false, error: 'channel id not configured' }, 500);

@@ -1,0 +1,120 @@
+---
+import { Icon } from 'astro-icon/components';
+import { SITE } from '../config/site.js';
+import { t } from '../i18n/translations.js';
+
+interface Props {
+  lang?: 'uk' | 'ru' | 'pl' | 'en';
+}
+
+const { lang = 'uk' } = Astro.props;
+const tr = (t as any)[lang] ?? (t as any).uk;
+const isUk = lang === 'uk';
+const langPrefix = isUk ? '' : '/' + lang;
+---
+
+<footer class="bg-espresso pt-20 pb-0">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
+
+    <div class="grid lg:grid-cols-[300px_minmax(0,1fr)_300px] gap-12 lg:gap-20 pb-14">
+
+      <div class="flex flex-col gap-7">
+        <div>
+          <div class="font-cabinet font-black text-warm-white tracking-tight mb-4" style="font-size:2.25rem;line-height:1;">TROUBLEBABA</div>
+          <div class="flex items-center gap-2 mb-1">
+            <div class="h-px w-12 bg-mocha/50"></div>
+            <svg width="11" height="10" viewBox="0 0 12 11" fill="none">
+              <path d="M6 10.5C6 10.5 1 7 1 3.5C1 2.12 2.12 1 3.5 1C4.45 1 5.27 1.52 5.75 2.29C5.85 2.44 6.15 2.44 6.25 2.29C6.73 1.52 7.55 1 8.5 1C9.88 1 11 2.12 11 3.5C11 7 6 10.5 6 10.5Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round" fill="rgba(139,115,85,0.2)"/>
+            </svg>
+          </div>
+        </div>
+        <p class="font-outfit text-warm-white/55 text-sm leading-relaxed" set:html={(tr.footer_desc ?? '').replace(/\n/g, '<br/>')}></p>
+      </div>
+
+      <div class="flex flex-col items-center gap-9">
+        <div class="font-outfit font-semibold text-warm-white/55 text-[11px] uppercase tracking-[0.22em]">{tr.footer_follow}</div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full">
+          {[
+            { name: 'Instagram', count: '66K', href: SITE.instagramUrl ?? 'https://instagram.com/troublebaba',
+              icon: 'simple-icons:instagram' },
+            { name: 'TikTok', count: '2.2M', label: 'author_likes', href: SITE.tiktokUrl ?? 'https://tiktok.com/@troublebaba',
+              icon: 'simple-icons:tiktok' },
+            { name: 'YouTube', count: '24K', href: 'https://youtube.com/@troublebaba',
+              icon: 'simple-icons:youtube' },
+            { name: 'Facebook', count: '5K', href: 'https://facebook.com/troublebaba',
+              icon: 'simple-icons:facebook' },
+          ].map(s => (
+            <a href={s.href} target="_blank" rel="noopener noreferrer"
+              class="group flex flex-col items-center text-center gap-3 bg-white/[0.03] border border-white/8 rounded-2xl px-4 py-5 hover:bg-white/[0.06] hover:border-mocha/35 transition-all duration-300">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform"
+                style="background:linear-gradient(135deg,#8B7355,#6E5C43);box-shadow:0 4px 16px rgba(139,115,85,0.35);"
+                >
+                <Icon name={s.icon} class="w-[22px] h-[22px] text-warm-white" />
+              </div>
+              <div class="font-outfit text-warm-white/55 text-xs">{s.name}</div>
+              <div class="font-cabinet font-black text-warm-white text-lg leading-none -mt-1">{s.count}</div>
+              <div class="font-outfit text-warm-white/55 text-[11px] -mt-0.5">{s.label === 'author_likes' ? tr.author_likes : tr.author_follow}</div>
+            </a>
+          ))}
+        </div>
+
+        <div class="flex items-center gap-5 w-full max-w-md mt-1">
+          <div class="h-px flex-1 bg-mocha/15"></div>
+          <div class="text-center flex flex-col items-center gap-1">
+            <p class="font-signature text-mocha/80 italic whitespace-nowrap" style="font-size:1.5rem;letter-spacing:0.01em;">{tr.footer_thanks}</p>
+            <svg width="22" height="18" viewBox="0 0 22 18" fill="none">
+              <path d="M11 17C11 17 1.5 11 1.5 5.5C1.5 3 3.5 1 6 1C7.6 1 9 1.8 9.8 3.1C10 3.4 10.4 3.4 10.6 3.1C11.5 1.8 12.9 1 14.5 1C17 1 19 3 19 5.5C19 11 11 17 11 17Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+          <div class="h-px flex-1 bg-mocha/15"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-outfit font-semibold text-warm-white/55 text-[11px] uppercase tracking-[0.22em] mb-7">{tr.footer_info}</div>
+        <div class="flex flex-col">
+          {[
+            { label: tr.nav_recipes,     href: langPrefix + '/recipes/' },
+            { label: tr.blog_heading,    href: langPrefix + '/blog/' },
+            { label: tr.nav_author,      href: langPrefix + '/about' },
+            { label: tr.contact_heading, href: langPrefix + '/contact' },
+            { label: tr.footer_privacy,  href: langPrefix + '/privacy' },
+            { label: tr.footer_terms,    href: langPrefix + '/terms' },
+          ].map((link, i) => (
+            <a href={link.href} class={`group flex items-center justify-between py-4 font-outfit text-warm-white/70 text-sm hover:text-warm-white transition-colors ${i > 0 ? 'border-t border-white/8' : ''}`}>
+              <span>{link.label}</span>
+              <Icon name="ph:arrow-right" class="text-mocha/70 group-hover:text-mocha group-hover:translate-x-1 transition-all ml-2 flex-shrink-0 w-[18px] h-[14px]" />
+            </a>
+          ))}
+        </div>
+        <a href="mailto:hello@troublebaba.com" class="min-h-[44px] group flex items-center gap-3 mt-8 font-outfit text-warm-white/55 text-sm hover:text-warm-white transition-colors">
+          <div class="w-9 h-9 rounded-full bg-mocha/15 border border-mocha/25 flex items-center justify-center flex-shrink-0 group-hover:bg-mocha/25 transition-colors">
+            <Icon name="ph:envelope" class="text-mocha w-[15px] h-[13px]" />
+          </div>
+          hello@troublebaba.com
+        </a>
+      </div>
+
+    </div>
+
+    <div class="border-t border-white/8 py-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+      <p class="font-outfit text-warm-white/55 text-xs leading-relaxed" set:html={(tr.footer_copy ?? '').replace(/\n/g, '<br/>')}></p>
+      <div class="flex items-center gap-4 px-5 py-3 rounded-2xl border border-white/8 bg-white/[0.03]">
+        <Icon name="ph:lock" class="text-mocha/70 w-[14px] h-[15px]" />
+        <span class="font-outfit text-warm-white/55 text-xs">{tr.footer_secure}</span>
+        <span class="font-outfit font-bold text-warm-white/55 text-xs tracking-widest">VISA</span>
+        <span class="flex items-center">
+          <span class="inline-block w-4 h-4 rounded-full" style="background:rgba(235,0,27,0.4);"></span>
+          <span class="inline-block w-4 h-4 rounded-full -ml-1.5" style="background:rgba(255,163,0,0.4);"></span>
+        </span>
+        <span class="font-outfit font-semibold text-warm-white/55 text-xs tracking-tight">G Pay</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <p class="font-outfit text-warm-white/55 text-xs text-right leading-relaxed" set:html={(tr.footer_digital ?? '').replace(/\n/g, '<br/>')}></p>
+        <span class="w-5 h-5 rounded-full border border-white/15 flex items-center justify-center text-warm-white/55 text-[11px] font-outfit cursor-help" title={tr.footer_digital}>i</span>
+      </div>
+    </div>
+
+  </div>
+</footer>

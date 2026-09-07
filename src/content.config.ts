@@ -23,6 +23,9 @@ const blog = defineCollection({
     tags:        z.array(z.string()).default([]),
     draft:       z.boolean().default(true),  // unpublished until author approves
     excerpt:     z.string().optional(),
+    // Optional FAQ pairs → FAQPage JSON-LD (rich results / "People also ask").
+    // Keep answers self-contained and free of paid-recipe details.
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
 
     // Optional structured recipe → drives Recipe JSON-LD (Google rich results).
     // The human-readable recipe still lives in the markdown body; this is the

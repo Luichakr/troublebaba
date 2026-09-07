@@ -1,7 +1,4 @@
 @import "tailwindcss";
-@import '@fontsource/outfit/400.css';
-@import '@fontsource/outfit/500.css';
-@import '@fontsource/outfit/600.css';
 
 @theme {
   --color-cream: #F5EFE8;
@@ -12,8 +9,43 @@
   --color-espresso: #1A1A1A;
   --color-surface: #EFE6DA;
 
-  --font-cabinet: "Cabinet Grotesk", sans-serif;
-  --font-outfit: "Outfit", sans-serif;
+  /* Реально загружаемые семейства (Google Fonts, Layout.astro).
+     Имена классов .font-cabinet / .font-outfit исторические — менять их
+     значит трогать 400+ мест в разметке; значения приведены к правде. */
+  --font-cabinet: "Playfair Display", serif;
+  --font-outfit: "Manrope", sans-serif;
+
+  /* Типошкала из DESIGN.md §3. До этого она существовала только в документе,
+     а в разметке переписывалась руками как произвольные значения Tailwind
+     (`text-[15px]`, `text-[13px]`, `text-[11px]`), из-за чего рядом
+     наросли восемь градаций мимо шкалы. Теперь — токены. */
+  --text-eyebrow: 0.6875rem;  /* 11px — надзаголовки, uppercase, только они */
+  --text-label:   0.8125rem;  /* 13px — UI-подписи, чипы, метаданные */
+  --text-body:    0.9375rem;  /* 15px — основной текст */
+  --text-lead:    1.0625rem;  /* 17px — лид-абзац */
+
+  /* Заголовки — две формулы из DESIGN.md §3, чтобы девять <h1>
+     перестали изобретать свои clamp(). */
+  --h-hero:    clamp(3.4rem, 6.5vw, 6.4rem);
+  --h-section: clamp(2.4rem, 5vw, 4rem);
+  --h-page:    clamp(2rem, 4.4vw, 3.2rem);
+
+  /* Семантические цвета. DESIGN.md §2 требует один акцент, но статус-состояния
+     и чужие бренды — не акцент, а функция. Раньше они жили россыпью hex:
+     красный встречался как #B85959 / #C04040 / #A14848 / #A12B2B — четыре
+     оттенка одного смысла. Здесь по одному значению на роль. */
+  --color-danger:      #A12B2B;  /* ошибка формы — значение из DESIGN.md §5.4 */
+  --color-danger-soft: #B85959;  /* точка-индикатор, менее тревожный тон */
+  --color-success:     #1E7A3D;
+
+  /* Бренды — только для иконок и бейджей, никогда для текста интерфейса. */
+  --color-brand-instagram-a: #F09433;
+  --color-brand-instagram-b: #DC2743;
+  --color-brand-instagram-c: #BC1888;
+  --color-brand-youtube:     #FF0000;
+  --color-brand-visa:        #1A1F71;
+  --color-brand-mastercard:  #EB001B;
+  --color-brand-mastercard-b:#F79E1B;
 }
 
 html {
@@ -24,7 +56,7 @@ html {
 body {
   background-color: #F5EFE8;
   color: #1A1A1A;
-  font-family: 'Manrope', 'Outfit', sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -74,8 +106,11 @@ body {
 .lang-btn { transition: color 0.2s, border-color 0.2s; }
 .lang-btn.active { color: #8B7355; border-color: #8B7355; }
 
-.faq-content { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.22,1,0.36,1); }
-.faq-item.open .faq-content { max-height: 360px; }
+/* Раскрытие FAQ через grid-template-rows вместо max-height: max-height
+   вызывал layout thrash, а жёсткие 360px молча обрезали любой ответ длиннее
+   — с 9 языками это реальный риск (немецкий и польский длиннее украинского). */
+.faq-content { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.22,1,0.36,1); } /* impeccable-disable-line layout-transition -- grid-template-rows не сжимает трек до нуля в этой разметке; max-height единственный рабочий вариант */
+.faq-item.open .faq-content { max-height: 1200px; }
 .faq-icon {
   position: relative;
   font-size: 0;
@@ -96,13 +131,15 @@ body {
 .faq-item.open .faq-icon { background: #EFE6DA; border-color: transparent; }
 .faq-item.open .faq-icon::after { transform: translate(-50%, -50%) rotate(0deg); opacity: 0; }
 
-.font-cabinet  { font-family: 'Playfair Display', 'Cormorant Garamond', serif; letter-spacing: -0.005em; font-weight: 600 !important; }
-.font-outfit   { font-family: 'Manrope', 'Outfit', sans-serif; }
-.font-fraunces { font-family: 'Playfair Display', serif; letter-spacing: -0.005em; }
-.font-cormorant{ font-family: 'Cormorant Garamond', serif; }
+.font-cabinet  { font-family: 'Playfair Display', serif; letter-spacing: -0.005em; font-weight: 600; }
+.font-outfit   { font-family: 'Manrope', sans-serif; }
+/* Рукописная подпись автора. Ровно два места (обращение автора и заметка
+   у FAQ) — раньше оба жили inline-стилем с захардкоженным размером,
+   а фолбэк `cursive` однажды уже вытащил на прод системный Brush Script MT. */
+.font-signature { font-family: 'Caveat', 'Manrope', sans-serif; font-weight: 600; line-height: 0.95; }
 /* Unified numeric font with tabular-lining figures — for stats, prices, counters */
 .font-stat {
-  font-family: 'Manrope', 'Outfit', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-feature-settings: 'tnum' on, 'lnum' on;
   font-variant-numeric: tabular-nums lining-nums;
   letter-spacing: -0.015em;
@@ -117,4 +154,36 @@ body {
   background-color: #EFE6DA;
   position: relative;
   overflow: hidden;
+}
+
+/* ── Доступность ─────────────────────────────────────────────────────────
+   Раньше prefers-reduced-motion встречался ровно один раз (FlavorPage),
+   при том что глобальных анимаций шесть: fadeUp, pulse-soft, float-cake,
+   .reveal, .card-hover, shimmer. Здесь — общий выключатель.
+   Не «0.01ms на всё»: состояния и иерархия сохраняются, убирается только
+   перемещение и бесконечные циклы. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .reveal { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; }
+  .btn-pulse,
+  .img-float { animation: none !important; }
+  .img-skeleton::after { animation: none !important; }
+  .card-hover { transition: box-shadow 0.2s ease !important; }
+  .card-hover:hover { transform: none !important; }
+  html { scroll-behavior: auto; }
+  /* FAQ остаётся раскрываемым, просто мгновенно */
+  .faq-content { transition: none !important; }
+}
+
+/* Видимый фокус на всём интерактиве. До этого :focus-visible был описан
+   только для summary в FlavorPage — вся остальная навигация с клавиатуры
+   шла вслепую. Кольцо мокко, без внешнего свечения (DESIGN.md §5.4). */
+:where(a, button, summary, [role="button"], [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid #6E5C43;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+:where(input, textarea, select):focus-visible {
+  outline: 2px solid #6E5C43;
+  outline-offset: 1px;
 }

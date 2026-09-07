@@ -9,23 +9,20 @@
 //        secret_token=<TELEGRAM_WEBHOOK_SECRET>&\
 //        allowed_updates=%5B%22message%22%2C%22callback_query%22%5D"
 
-import { createInvoice }   from '../../_lib/monobank';
-import type { Env as MonoEnv, InvoiceCreateRequest } from '../../_lib/monobank';
 import {
   sendMessage, editMessageText, answerCallbackQuery, tgEscape,
   verifyWebhookSecret, getAdminChatIds, isAdmin,
 } from '../../_lib/telegram';
 import type { TGEnv } from '../../_lib/telegram';
 import {
-  upsertBotUser, createOrder, getOrderById, setInvoiceId,
-  newOrderId, newMonoReference, logBotEvent, getStats,
+  upsertBotUser, getOrderById, logBotEvent, getStats,
 } from '../../_lib/orders';
 import type { BotEnv } from '../../_lib/orders';
 import { COPY, FAQ, recipesList } from '../../_lib/bot-copy';
 import { deliverPdfToTelegram } from '../../_lib/pdf-delivery';
 import type { PdfEnv } from '../../_lib/pdf-delivery';
 
-type Env = MonoEnv & TGEnv & BotEnv & PdfEnv & { SITE_URL?: string };
+type Env = TGEnv & BotEnv & PdfEnv & { SITE_URL?: string };
 
 const PRICE_UAH_KOPECKS = 85000;
 const PRODUCT_NAME = 'Bento Cake by TROUBLEBABA — PDF';
@@ -78,64 +75,23 @@ const socialsMenu = (env: Env) => {
 };
 
 // ─── Buy flow ─────────────────────────────────────────────────────────────────
-async function handleBuy(env: Env, chatId: number, telegramId: string, username?: string): Promise<void> {
-  if (!env.MONOBANK_TOKEN) {
-    await sendMessage(env, chatId, COPY.buyError, { reply_markup: backToMenu() });
-    return;
-  }
-  await sendMessage(env, chatId, COPY.buyCreating);
-
-  const order_id  = newOrderId();
-  const reference = newMonoReference();
-  const origin    = (env.SITE_URL ?? 'https://troublebaba.com').replace(/\/$/, '');
-
-  try {
-    await createOrder(env, {
-      order_id,
-      telegram_id: telegramId,
-      status: 'pending',
-      payment_method: 'monobank_invoice',
-      amount: PRICE_UAH_KOPECKS,
-      currency: 'UAH',
-      mono_reference: reference,
-      created_ts: Date.now(),
-      delivery_attempts: 0,
-      extra: JSON.stringify({ username }),
-    });
-
-    const payload: InvoiceCreateRequest = {
-      amount: PRICE_UAH_KOPECKS,
-      ccy: 980,
-      paymentType: 'debit',
-      validity: 3600,
-      redirectUrl: origin + '/thank-you?invoiceId={invoiceId}',
-      webHookUrl:  origin + '/api/checkout/webhook',
-      merchantPaymInfo: {
-        reference,
-        destination: PRODUCT_NAME,
-        basketOrder: [{ name: PRODUCT_NAME, qty: 1, sum: PRICE_UAH_KOPECKS, unit: 'шт.', code: 'troublebaba-bento-cake-pdf' }],
+async function handleBuy(env: Env, chatId: number, telegramId: string, _username?: string): Promise<void> {
+  // In-bot Monobank checkout was retired — the site's Lemon Squeezy checkout
+  // handles every currency and forwards the download link + PDF by email.
+  // The bot just redirects buyers to the site's price section.
+  const origin = (env.SITE_URL ?? 'https://troublebaba.com').replace(/\/$/, '');
+  await logBotEvent(env, 'bot_buy_redirect', telegramId, undefined, { origin });
+  await sendMessage(env, chatId,
+    '🛒 Купівля відбувається на сайті — там Visa / Mastercard / Apple Pay / Google Pay і миттєве завантаження PDF після оплати.',
+    {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: '💳 Перейти на сайт', url: origin + '/#price' }],
+          [{ text: '⬅️ В меню',         callback_data: 'menu' }],
+        ],
       },
-    };
-    const invoice = await createInvoice(env, payload);
-    await setInvoiceId(env, order_id, invoice.invoiceId);
-
-    await logBotEvent(env, 'bot_invoice_create', telegramId, order_id, { invoice_id: invoice.invoiceId });
-
-    await sendMessage(env, chatId,
-      COPY.buyAsk + '\n\n<code>' + tgEscape(order_id) + '</code>',
-      {
-        reply_markup: {
-          inline_keyboard: [
-            [{ text: '💳 Оплатить', url: invoice.pageUrl }],
-            [{ text: '⬅️ В меню',  callback_data: 'menu' }],
-          ],
-        },
-      },
-    );
-  } catch (e: any) {
-    console.error('[bot.buy]', e?.message);
-    await sendMessage(env, chatId, COPY.buyError, { reply_markup: backToMenu() });
-  }
+    },
+  );
 }
 
 // ─── Callback router ──────────────────────────────────────────────────────────

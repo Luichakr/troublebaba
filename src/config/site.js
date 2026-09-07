@@ -11,8 +11,8 @@ export const SITE = {
   // and bound to the apex domain troublebaba.com.
   url:         'https://troublebaba.com',
 
-  // Contact
-  // TODO: INSERT VERIFIED CONTACT EMAIL — current value is placeholder
+  // Contact — домен верифицирован в Resend (DKIM/SPF через Cloudflare
+  // Domain Connect), письма о покупке уходят именно с этого адреса.
   contactEmail: 'hello@troublebaba.com',
 
   // Social — main profile URLs
@@ -36,8 +36,12 @@ export const SITE = {
   },
 
   // Payment
-  // TODO: INSERT FINAL GUMROAD / PAYMENT LINK
-  paymentUrl:   'https://gumroad.com/l/bentocake',
+  // ВНИМАНИЕ: Gumroad не используется — продажи идут через Lemon Squeezy
+  // (см. блок lemonsqueezy ниже), обработчик покупки выбирает магазин по
+  // языку страницы. Эта константа осталась от первой версии лендинга и
+  // никуда не ведёт; оставлена только чтобы не сломать импорты.
+  // Не показывать пользователю и не использовать в CTA.
+  paymentUrl:   null,
 
   // Commerce
   // We only sell the full 10-recipe bundle. Per-recipe / mini-bundle sales

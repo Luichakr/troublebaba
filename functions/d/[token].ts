@@ -26,7 +26,7 @@ const MAX_DOWNLOADS = 3;
 // Localized copy for the gate page and 410 messages. Falls back to uk.
 const COPY: Record<string, {
   title: string; heading: string; body: string; button: string;
-  saveTip: string; expired: string; limit: string;
+  saveTip: string; expired: string; limit: string; sizeHint: string;
 }> = {
   uk: {
     title: 'Ваш PDF — Bento Cake by TROUBLEBABA',
@@ -34,6 +34,7 @@ const COPY: Record<string, {
     body: 'Натисніть кнопку, щоб завантажити PDF. Це персональне посилання — рекомендуємо відразу зберегти файл на пристрій.',
     button: 'Завантажити PDF',
     saveTip: 'Порада: після завантаження збережіть файл у «Файли» / «Завантаження» — так збірник залишиться з вами назавжди.',
+    sizeHint: '— висока роздільна здатність: можна друкувати й роздивлятися зі збільшенням. На мобільному інтернеті краще підключитися до Wi-Fi.',
     expired: 'Термін дії посилання минув (7 днів). Напишіть на pr.troublebaba@gmail.com — надішлемо нове.',
     limit:   'Ліміт завантажень вичерпано. Напишіть на pr.troublebaba@gmail.com — надішлемо нове посилання.',
   },
@@ -43,6 +44,7 @@ const COPY: Record<string, {
     body: 'Нажмите кнопку, чтобы скачать PDF. Это персональная ссылка — сразу сохраните файл на устройство.',
     button: 'Скачать PDF',
     saveTip: 'Совет: после скачивания сохраните файл в «Файлы» / «Загрузки» — сборник останется у вас навсегда.',
+    sizeHint: '— высокое разрешение: можно печатать и рассматривать с увеличением. На мобильном интернете лучше подключиться к Wi-Fi.',
     expired: 'Срок действия ссылки истёк (7 дней). Напишите на pr.troublebaba@gmail.com — вышлем новую.',
     limit:   'Лимит скачиваний исчерпан. Напишите на pr.troublebaba@gmail.com — вышлем новую ссылку.',
   },
@@ -52,6 +54,7 @@ const COPY: Record<string, {
     body: 'Click the button to download the PDF. This is a personal link — please save the file to your device right away.',
     button: 'Download PDF',
     saveTip: 'Tip: after the download, save the file to Files / Downloads — the collection will stay with you forever.',
+    sizeHint: '— print-quality resolution: zoom right in or print it out. On mobile data, Wi-Fi is a better bet.',
     expired: 'This link has expired (7 days). Email pr.troublebaba@gmail.com and we’ll send a fresh one.',
     limit:   'Download limit reached. Email pr.troublebaba@gmail.com and we’ll send a fresh link.',
   },
@@ -61,6 +64,7 @@ const COPY: Record<string, {
     body: 'Kliknij przycisk, aby pobrać PDF. To osobisty link — zapisz plik od razu na swoim urządzeniu.',
     button: 'Pobierz PDF',
     saveTip: 'Wskazówka: po pobraniu zapisz plik w Plikach / Pobranych — zbiór zostanie z Tobą na zawsze.',
+    sizeHint: '— wysoka rozdzielczość: można drukować i oglądać w powiększeniu. Przez internet mobilny lepiej połączyć się z Wi-Fi.',
     expired: 'Link wygasł (7 dni). Napisz do pr.troublebaba@gmail.com — wyślemy nowy.',
     limit:   'Limit pobrań wyczerpany. Napisz do pr.troublebaba@gmail.com — wyślemy nowy link.',
   },
@@ -79,7 +83,22 @@ function gone(msg: string): Response {
 // Gate page — a light HTML with one button pointing at the same URL + ?go=1.
 // Kept intentionally simple so a Gmail preview scan produces zero counter ticks
 // (previewers fetch the HTML, they don't follow the button).
-function gatePage(url: URL, c: typeof COPY['uk']): Response {
+/**
+ * "70.5 MB" — the PDF is deliberately heavy: full print resolution so buyers
+ * can zoom into every photo or print the collection. Stating the size (and why)
+ * turns a scary number into a selling point, and warns mobile users — 87% of
+ * our traffic — before a dropped connection burns one of only 3 attempts.
+ * Size comes from R2 metadata so it stays correct when the PDF is re-uploaded.
+ */
+function formatSize(bytes: number, lang: string): string {
+  const mb = bytes / (1024 * 1024);
+  const unit = lang === 'uk' ? 'МБ' : lang === 'ru' ? 'МБ' : lang === 'pl' ? 'MB' : 'MB';
+  // Locale decimal comma for uk/ru/pl, dot for en.
+  const num = mb.toFixed(1).replace('.', lang === 'en' ? '.' : ',');
+  return `${num} ${unit}`;
+}
+
+function gatePage(url: URL, c: typeof COPY['uk'], sizeLabel?: string): Response {
   const goUrl = new URL(url); goUrl.searchParams.set('go', '1');
   const html = `<!doctype html>
 <html><head>
@@ -94,6 +113,8 @@ function gatePage(url: URL, c: typeof COPY['uk']): Response {
     p{margin:0 0 24px;line-height:1.55;color:#4a4238;font-size:15px}
     a.btn{display:inline-block;background:#8B7355;color:#fff;text-decoration:none;padding:14px 32px;border-radius:12px;font-weight:700;font-size:16px}
     a.btn:hover{background:#725d43}
+    .size{margin:12px 0 0;font-size:13.5px;color:#6b6152;font-weight:600}
+    .size span{font-weight:400;color:#8a8175}
     .tip{margin-top:20px;font-size:13px;color:#8a8175}
   </style>
 </head><body>
@@ -101,6 +122,7 @@ function gatePage(url: URL, c: typeof COPY['uk']): Response {
     <h1>${c.heading}</h1>
     <p>${c.body}</p>
     <a class="btn" href="${goUrl.pathname}${goUrl.search}" rel="noopener">${c.button}</a>
+    ${sizeLabel ? `<p class="size">${sizeLabel} <span>${c.sizeHint}</span></p>` : ''}
     <p class="tip">${c.saveTip}</p>
   </div>
 </body></html>`;
@@ -130,7 +152,16 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, params, env })
 
   // The gate: no ?go=1 → HTML page, no counter tick. This is what Gmail /
   // link previewers hit; they never follow the download button.
-  if (url.searchParams.get('go') !== '1') return gatePage(url, c);
+  if (url.searchParams.get('go') !== '1') {
+    // head() reads only R2 metadata — no bytes transferred, no counter tick —
+    // so the page can show the real size without costing the buyer an attempt.
+    let sizeLabel: string | undefined;
+    try {
+      const meta = await env.PDF_BUCKET.head(fileKey(lang));
+      if (meta?.size) sizeLabel = formatSize(meta.size, lang);
+    } catch { /* size is a nicety — never block the download page over it */ }
+    return gatePage(url, c, sizeLabel);
+  }
 
   // Real download path — counter first (so a bug in R2 fetch doesn't let
   // someone bypass the cap).
@@ -148,6 +179,34 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, params, env })
     headers: {
       'content-type': 'application/pdf',
       'content-disposition': `attachment; filename="${dlName}"`,
+      'content-length': String(obj.size),
+      'cache-control': 'no-store',
+    },
+  });
+};
+
+/**
+ * Mail clients, antivirus scanners and link checkers probe URLs with HEAD.
+ * Without a handler Pages answered 404, so a perfectly good download link
+ * looked broken to them. Answer with the same headers the GET would send,
+ * minus the body — and without touching the download counter.
+ */
+export const onRequestHead: PagesFunction<Env> = async ({ request, params, env }) => {
+  const url = new URL(request.url);
+  const v = await verifyDownloadToken(env.CRON_SECRET || '', String((params as any).token || ''));
+  if (!v.ok) return new Response(null, { status: v.reason === 'expired' ? 410 : 403 });
+
+  const lang = (v.lang || DEFAULT_LANG).toLowerCase();
+  if (url.searchParams.get('go') !== '1') {
+    return new Response(null, { status: 200, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store', 'x-robots-tag': 'noindex, nofollow' } });
+  }
+  const meta = await env.PDF_BUCKET.head(fileKey(lang));
+  if (!meta) return new Response(null, { status: 503 });
+  return new Response(null, {
+    status: 200,
+    headers: {
+      'content-type': 'application/pdf',
+      'content-length': String(meta.size),
       'cache-control': 'no-store',
     },
   });

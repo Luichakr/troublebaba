@@ -13,6 +13,13 @@ pages_build_output_dir  = "dist"
 # RESEND_API_KEY, MONOBANK_*, ADMIN_PASS) live in the dashboard as Encrypted.
 [vars]
 PADDLE_ENV  = "sandbox"
+
+# GA4 Measurement Protocol — server-side `purchase` events from the LS/Paddle
+# webhooks. Pairs with the GA_API_SECRET secret; sendPurchase() silently skips
+# when either is missing, which is why revenue read 0 until this was set.
+# The measurement ID is public (it ships in the page HTML), so it lives here
+# rather than in secrets.
+GA_MEASUREMENT_ID = "G-6JQ23T5RWN"
 # Sends from the verified troublebaba.com domain (DKIM/SPF added via Resend →
 # Cloudflare Domain Connect) so delivery emails land in inbox, not spam.
 RESEND_FROM = "Bento Cake by TROUBLEBABA <hello@troublebaba.com>"

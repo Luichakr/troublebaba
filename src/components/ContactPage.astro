@@ -1,5 +1,7 @@
 ---
+import { Icon } from 'astro-icon/components';
 import SiteHeader from './SiteHeader.astro';
+import SiteFooter from './SiteFooter.astro';
 import { t } from '../i18n/translations.js';
 import { SITE } from '../config/site.js';
 
@@ -20,11 +22,11 @@ const socials = [
   <div class="max-w-2xl mx-auto px-6 lg:px-10">
 
     <a href={homeUrl} class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10">
-      <svg width="14" height="12" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M14 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <Icon name="ph:arrow-left" aria-hidden="true" class="w-[14px] h-[12px]" />
       <span>{tr.contact_back}</span>
     </a>
 
-    <h1 class="font-cabinet text-espresso mb-4" style="font-size:clamp(2rem,4vw,3rem);line-height:1.1;">{tr.contact_heading}</h1>
+    <h1 class="font-cabinet text-espresso mb-4" style="font-size:var(--h-page);line-height:1.1;">{tr.contact_heading}</h1>
     <p class="font-outfit text-espresso/65 text-base leading-relaxed mb-10">{tr.contact_intro}</p>
 
     <!-- Email card -->
@@ -47,3 +49,5 @@ const socials = [
     <p class="font-outfit text-espresso/50 text-sm leading-relaxed">{tr.contact_response}</p>
   </div>
 </main>
+
+<SiteFooter lang={lang} />

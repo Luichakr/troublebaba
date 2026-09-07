@@ -16,8 +16,11 @@ import type { ResendEnv } from '../../_lib/resend';
 import { signDownloadToken } from '../../_lib/dl';
 import { sendMessage, tgEscape } from '../../_lib/telegram';
 import type { TGEnv } from '../../_lib/telegram';
+import { renderDeliverEmail, pickLang } from '../../_lib/deliver-copy';
+import { sendPurchase } from '../../_lib/ga-server';
+import type { GaServerEnv } from '../../_lib/ga-server';
 
-type Env = ResendEnv & TGEnv & {
+type Env = ResendEnv & TGEnv & GaServerEnv & {
   LS_WEBHOOK_SECRET?: string;
   SITE_URL?: string;
   CRON_SECRET?: string;
@@ -65,36 +68,6 @@ async function bumpBonusCount(bucket: R2Bucket, orderId: string): Promise<void> 
   await bucket.put(BONUS_COUNT_KEY, String(n + 1));
 }
 
-function deliverEmailHtml(link: string, communityUrl?: string): string {
-  const communityBlock = communityUrl
-    ? `<p style="margin:24px 0 0">
-         <a href="${communityUrl}" style="background:#f0e6d2;color:#1A1A1A;text-decoration:none;padding:12px 22px;border-radius:10px;font-weight:700;display:inline-block;border:1px solid #d9c7a3">
-           ✦ Приєднатися до Telegram-чату покупців
-         </a>
-       </p>
-       <p style="font-size:12px;color:#8a8175;margin-top:8px">Закритий чат TROUBLEBABA: питання авторці, фото ваших робіт, оновлення збірника.</p>`
-    : '';
-  return `
-  <div style="font-family:system-ui,-apple-system,sans-serif;max-width:520px;margin:0 auto;color:#1A1A1A">
-    <h2 style="color:#8B7355">Дякуємо за покупку! 🍰</h2>
-    <p>Ваш збірник «Bento Cake by TROUBLEBABA — 10 рецептів» готовий до завантаження.</p>
-    <p style="margin:28px 0">
-      <a href="${link}" style="background:#8B7355;color:#fff;text-decoration:none;padding:14px 28px;border-radius:12px;font-weight:700;display:inline-block">
-        Завантажити PDF
-      </a>
-    </p>
-    <p style="font-size:13px;color:#6b6257">Якщо кнопка не працює, скопіюйте посилання:<br>${link}</p>
-    <p style="font-size:13px;color:#8a6d3b;background:#fbf6ec;border:1px solid #ecdcc0;border-radius:10px;padding:12px 14px">
-      ⏳ Посилання персональне: діє <b>${EXPIRY_DAYS} днів</b> і розраховане на <b>${MAX_DOWNLOADS} завантаження</b>. Будь ласка, збережіть файл на свій пристрій одразу.
-    </p>
-    <p style="font-size:13px;color:#6b6257;margin-top:20px">
-      Окремим листом Lemon Squeezy надішле офіційний чек за покупку — це нормально, зберігайте його.
-    </p>
-    ${communityBlock}
-    <p style="font-size:13px;color:#6b6257">Питання? Напишіть на <a href="mailto:pr.troublebaba@gmail.com" style="color:#8B7355">pr.troublebaba@gmail.com</a>.</p>
-  </div>`;
-}
-
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const raw = await request.text();
   const ok = await verifyLsSignature(env.LS_WEBHOOK_SECRET || '', request.headers.get('X-Signature'), raw);
@@ -110,20 +83,32 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     const orderId = String(evt?.data?.id ?? '');
     const email: string | undefined = attrs.user_email || attrs.customer_email;
 
-    // Custom data (buyer's PDF language) is passed at checkout via
-    // ?checkout[custom][lang]=uk — LS forwards it here.
+    // Custom data (buyer's PDF language + which CTA they clicked) is passed at
+    // checkout via ?checkout[custom][lang]=uk&checkout[custom][source]=hero.
+    // LS forwards it here as meta.custom_data.{lang,source}.
     const custom = evt?.meta?.custom_data ?? {};
-    const lang = String(custom?.lang ?? '').toLowerCase().slice(0, 4) || undefined;
+    const lang   = String(custom?.lang   ?? '').toLowerCase().slice(0, 4) || undefined;
+    const buyBtn = String(custom?.source ?? '').toLowerCase().slice(0, 32) || undefined;
 
     if (email && orderId) {
       const origin = env.SITE_URL?.replace(/\/$/, '') || new URL(request.url).origin;
       const exp = Math.floor(Date.now() / 1000) + EXPIRY_DAYS * 86400;
-      const token = await signDownloadToken(env.CRON_SECRET || '', `ls_${orderId}`, exp, lang);
+      const storeId = String(attrs.store_id ?? '');
+      const pdfLang = pickLang(lang, storeId);
+      const token = await signDownloadToken(env.CRON_SECRET || '', `ls_${orderId}`, exp, pdfLang);
       const link = `${origin}/d/${token}`;
+      const mail = renderDeliverEmail({
+        lang: pdfLang,
+        link,
+        expiryDays: EXPIRY_DAYS,
+        maxDownloads: MAX_DOWNLOADS,
+        communityUrl: env.TELEGRAM_COMMUNITY_URL,
+        processor: 'ls',
+      });
       const emailRes = await sendEmail(env, {
         to: email,
-        subject: 'Ваш PDF — Bento Cake by TROUBLEBABA',
-        html: deliverEmailHtml(link, env.TELEGRAM_COMMUNITY_URL),
+        subject: mail.subject,
+        html: mail.html,
       });
       // Surface Resend failures in CF Pages real-time logs so we notice a
       // silent misconfiguration (missing API key, unverified domain, etc.)
@@ -141,6 +126,27 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     if (env.PDF_BUCKET && orderId) {
       try { await bumpBonusCount(env.PDF_BUCKET, orderId); }
       catch (e: any) { console.warn('[bonus] bump failed:', e?.message); }
+    }
+
+    // GA4 server-side purchase — reliable revenue tracking, independent of
+    // whether the buyer ever hits /thank-you. Best-effort.
+    if (orderId) {
+      const total    = Number(attrs.total ?? 0) / 100;
+      const currency = String(attrs.currency ?? '') || 'USD';
+      const storeId  = String(attrs.store_id ?? '');
+      const purchaseLang = pickLang(lang, storeId);
+      try {
+        await sendPurchase(env, {
+          transactionId: `ls_${orderId}`,
+          email,
+          value: total,
+          currency,
+          lang: purchaseLang,
+          storeId,
+          processor: 'ls',
+          buyButton: buyBtn,
+        });
+      } catch (e: any) { console.warn('[ga] purchase failed', e?.message); }
     }
 
     // Telegram "new sale" ping to the owner's group. Best-effort: a Telegram

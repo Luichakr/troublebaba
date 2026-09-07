@@ -31,14 +31,18 @@ The site is **LIVE at [troublebaba.com](https://troublebaba.com)** in a "live-te
 
 ## 2 · Tech stack
 
-- **Framework:** Astro 5 (static output; server-only stuff runs as Cloudflare Pages Functions).
-- **Styling:** Tailwind (utility classes + a few custom fonts loaded via `@fontsource`).
+- **Framework:** Astro 6 (static output; server-only stuff runs as Cloudflare Pages Functions).
+- **Styling:** Tailwind 4 via `@tailwindcss/vite`. Fonts come from Google Fonts
+  (Playfair Display / Manrope / Caveat) — `@fontsource/outfit` was removed in
+  Sept 2026: it shipped 72 KB that rendered on zero elements.
 - **Hosting:** Cloudflare Pages (project `troublebaba`), auto-deploys on push to `main` on GitHub `Luichakr/troublebaba`.
 - **Serverless:** Cloudflare Pages Functions in `functions/`.
 - **Storage:**
   - R2 bucket `troublebaba-files` — private, holds `bento-cake-<lang>.pdf` (uk/ru/en/pl) + counter objects.
   - D1 database `troublebaba-events` — event tracking, waitlist emails, free-recipe leads, YouTube-shorts cache.
-- **Payments:** Paddle Billing (Merchant of Record). Currently sandbox. Real prices are USD-canonical; Paddle auto-converts at checkout.
+- **Payments:** **Lemon Squeezy is the active Merchant of Record** — four stores,
+  one per display currency, picked by the page language the buyer clicked from.
+  Paddle Billing is wired in parallel but still sandbox, pending KYC.
 - **Email:** Resend, sending from a verified custom domain `hello@troublebaba.com`.
 - **Bot protection:** Cloudflare Turnstile.
 
@@ -145,6 +149,7 @@ Each file below is auto-deployed as an edge function on push.
 | `GET /api/shorts/*` | `functions/api/shorts/*.ts` | Serves the shorts feed to the homepage widget. |
 | `GET /api/admin/stats` | `functions/api/admin/stats.ts` | Password-gated dashboard reads. |
 | Utilities | `functions/_lib/*.ts` | Signed-token helpers (`dl.ts`), Paddle sig verification (`paddle.ts`), Resend wrapper (`resend.ts`), Turnstile verify (`turnstile.ts`), etc. |
+| Delivery email copy | `functions/_lib/deliver-copy.ts` | Single source of truth for the post-purchase email in 4 languages (UA / RU / EN / PL). `renderDeliverEmail({lang, link, processor, …})` returns `{subject, html}`; `pickLang(rawLang, storeId)` chooses lang from `custom_data.lang` → falls back to LS `store_id` → defaults `uk`. Both LS and Paddle webhooks call it — do NOT reintroduce hardcoded strings. |
 
 ## 7 · Owner action items (things ONLY the owner can do)
 

@@ -7,9 +7,76 @@ https://www.troublebaba.com/*  https://troublebaba.com/:splat  301!
 # Legacy GitHub Pages URL → apex
 https://luichakr.github.io/troublebaba/*  https://troublebaba.com/:splat  301!
 
+# ── Bio short-links ─────────────────────────────────────────────
+# Vlepite v opisanie: troublebaba.com/tt  →  UTM prosachivaetsya sam.
+# 302 (temporary) so we can tweak params later without permanent caching.
+/tt   /?utm_source=tiktok&utm_medium=social&utm_campaign=bio       302
+/ig   /?utm_source=instagram&utm_medium=social&utm_campaign=bio    302
+/yt   /?utm_source=youtube&utm_medium=social&utm_campaign=channel  302
+/fb   /?utm_source=facebook&utm_medium=social&utm_campaign=bio     302
+
+# Video-specific: /tt/oreo → recipe page + UTM per platform + campaign.
+# Add more rows below when you publish a video about a specific recipe.
+/tt/oreo         /recipes/oreo-bento-cake/?utm_source=tiktok&utm_medium=video&utm_campaign=recipe_oreo             302
+/tt/velvet       /recipes/red-velvet-bento-cake/?utm_source=tiktok&utm_medium=video&utm_campaign=recipe_red_velvet 302
+/tt/snickers     /recipes/snickers-bento-cake/?utm_source=tiktok&utm_medium=video&utm_campaign=recipe_snickers     302
+/tt/raffaello    /recipes/raffaello-bento-cake/?utm_source=tiktok&utm_medium=video&utm_campaign=recipe_raffaello   302
+/tt/ferrero      /recipes/ferrero-rocher-bento-cake/?utm_source=tiktok&utm_medium=video&utm_campaign=recipe_ferrero 302
+/tt/cinnabon     /recipes/cinnabon-bento-cake/?utm_source=tiktok&utm_medium=video&utm_campaign=recipe_cinnabon     302
+/tt/pistachio    /recipes/pistachio-raspberry-bento-cake/?utm_source=tiktok&utm_medium=video&utm_campaign=recipe_pistachio 302
+/tt/pina         /recipes/pina-colada-bento-cake/?utm_source=tiktok&utm_medium=video&utm_campaign=recipe_pina      302
+/tt/poppy        /recipes/poppy-seed-citrus-bento-cake/?utm_source=tiktok&utm_medium=video&utm_campaign=recipe_poppy 302
+/tt/cherry       /recipes/cherry-chocolate-bento-cake/?utm_source=tiktok&utm_medium=video&utm_campaign=recipe_cherry 302
+/ig/oreo         /recipes/oreo-bento-cake/?utm_source=instagram&utm_medium=post&utm_campaign=recipe_oreo             302
+/ig/velvet       /recipes/red-velvet-bento-cake/?utm_source=instagram&utm_medium=post&utm_campaign=recipe_red_velvet 302
+/yt/oreo         /recipes/oreo-bento-cake/?utm_source=youtube&utm_medium=video&utm_campaign=recipe_oreo              302
+/yt/velvet       /recipes/red-velvet-bento-cake/?utm_source=youtube&utm_medium=video&utm_campaign=recipe_red_velvet  302
+/yt/snickers     /recipes/snickers-bento-cake/?utm_source=youtube&utm_medium=video&utm_campaign=recipe_snickers      302
+/yt/raffaello    /recipes/raffaello-bento-cake/?utm_source=youtube&utm_medium=video&utm_campaign=recipe_raffaello    302
+/yt/ferrero      /recipes/ferrero-rocher-bento-cake/?utm_source=youtube&utm_medium=video&utm_campaign=recipe_ferrero 302
+/yt/cinnabon     /recipes/cinnabon-bento-cake/?utm_source=youtube&utm_medium=video&utm_campaign=recipe_cinnabon      302
+/yt/pistachio    /recipes/pistachio-raspberry-bento-cake/?utm_source=youtube&utm_medium=video&utm_campaign=recipe_pistachio 302
+/yt/pina         /recipes/pina-colada-bento-cake/?utm_source=youtube&utm_medium=video&utm_campaign=recipe_pina       302
+/yt/poppy        /recipes/poppy-seed-citrus-bento-cake/?utm_source=youtube&utm_medium=video&utm_campaign=recipe_poppy 302
+/yt/cherry       /recipes/cherry-chocolate-bento-cake/?utm_source=youtube&utm_medium=video&utm_campaign=recipe_cherry 302
+/ig/snickers     /recipes/snickers-bento-cake/?utm_source=instagram&utm_medium=post&utm_campaign=recipe_snickers     302
+/ig/raffaello    /recipes/raffaello-bento-cake/?utm_source=instagram&utm_medium=post&utm_campaign=recipe_raffaello   302
+/ig/ferrero      /recipes/ferrero-rocher-bento-cake/?utm_source=instagram&utm_medium=post&utm_campaign=recipe_ferrero 302
+/ig/cinnabon     /recipes/cinnabon-bento-cake/?utm_source=instagram&utm_medium=post&utm_campaign=recipe_cinnabon     302
+/ig/pistachio    /recipes/pistachio-raspberry-bento-cake/?utm_source=instagram&utm_medium=post&utm_campaign=recipe_pistachio 302
+/ig/pina         /recipes/pina-colada-bento-cake/?utm_source=instagram&utm_medium=post&utm_campaign=recipe_pina      302
+/ig/poppy        /recipes/poppy-seed-citrus-bento-cake/?utm_source=instagram&utm_medium=post&utm_campaign=recipe_poppy 302
+/ig/cherry       /recipes/cherry-chocolate-bento-cake/?utm_source=instagram&utm_medium=post&utm_campaign=recipe_cherry 302
+# Blog hub for descriptions/bio: "полезное перед покупкой"
+/yt/blog         /blog/?utm_source=youtube&utm_medium=video&utm_campaign=blog        302
+/ig/blog         /blog/?utm_source=instagram&utm_medium=post&utm_campaign=blog       302
+/tt/blog         /blog/?utm_source=tiktok&utm_medium=video&utm_campaign=blog         302
+
+
 # /free-recipe/ deprecated — the "free recipe" offer is the blog itself
 # (hundreds of free recipes from the channel). Redirect to the blog hub.
+/free-recipe        /blog/      301
 /free-recipe/*      /blog/      301
+/ru/free-recipe     /ru/blog/   301
 /ru/free-recipe/*   /ru/blog/   301
+/pl/free-recipe     /pl/blog/   301
 /pl/free-recipe/*   /pl/blog/   301
+/en/free-recipe     /en/blog/   301
 /en/free-recipe/*   /en/blog/   301
+
+# Blog: old russian-transliterated slugs → English canon (2026-09-01).
+# Preserves Google-indexed URLs and any incoming backlinks.
+/blog/kak-upakovat-bento-na-prodazhu       /blog/how-to-package-bento         301
+/blog/kakoy-krem-dlya-bento                /blog/which-cream-for-bento        301
+/blog/klubnichnyy-chizkeyk-oreo            /blog/strawberry-oreo-cheesecake   301
+/blog/krem-ne-derzhit-formu                /blog/cream-not-holding-shape      301
+/blog/pochemu-biskvit-s-gorbom             /blog/why-sponge-has-dome          301
+/blog/razmer-bento-torta                   /blog/bento-cake-size              301
+/blog/skolko-hranitsya-bento-tort          /blog/bento-cake-shelf-life        301
+/:lang/blog/kak-upakovat-bento-na-prodazhu /:lang/blog/how-to-package-bento         301
+/:lang/blog/kakoy-krem-dlya-bento          /:lang/blog/which-cream-for-bento        301
+/:lang/blog/klubnichnyy-chizkeyk-oreo      /:lang/blog/strawberry-oreo-cheesecake   301
+/:lang/blog/krem-ne-derzhit-formu          /:lang/blog/cream-not-holding-shape      301
+/:lang/blog/pochemu-biskvit-s-gorbom       /:lang/blog/why-sponge-has-dome          301
+/:lang/blog/razmer-bento-torta             /:lang/blog/bento-cake-size              301
+/:lang/blog/skolko-hranitsya-bento-tort    /:lang/blog/bento-cake-shelf-life        301

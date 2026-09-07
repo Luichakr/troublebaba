@@ -15,8 +15,11 @@ import type { PaddleEnv } from '../../_lib/paddle';
 import { sendEmail } from '../../_lib/resend';
 import type { ResendEnv } from '../../_lib/resend';
 import { signDownloadToken } from '../../_lib/dl';
+import { renderDeliverEmail, pickLang } from '../../_lib/deliver-copy';
+import { sendPurchase } from '../../_lib/ga-server';
+import type { GaServerEnv } from '../../_lib/ga-server';
 
-type Env = PaddleEnv & ResendEnv & { SITE_URL?: string; CRON_SECRET?: string; TELEGRAM_COMMUNITY_URL?: string; PDF_BUCKET?: R2Bucket };
+type Env = PaddleEnv & ResendEnv & GaServerEnv & { SITE_URL?: string; CRON_SECRET?: string; TELEGRAM_COMMUNITY_URL?: string; PDF_BUCKET?: R2Bucket };
 
 // Launch-bonus counter (first-50 promo). Increments idempotently — the same
 // Paddle transaction id can arrive twice and we count it once.
@@ -32,41 +35,6 @@ async function bumpBonusCount(bucket: R2Bucket, txnId: string): Promise<void> {
 
 const EXPIRY_DAYS = 7;
 const MAX_DOWNLOADS = 3;
-
-function deliverEmailHtml(link: string, _receiptUrl?: string, communityUrl?: string): string {
-  const communityBlock = communityUrl
-    ? `<p style="margin:24px 0 0">
-         <a href="${communityUrl}" style="background:#f0e6d2;color:#1A1A1A;text-decoration:none;padding:12px 22px;border-radius:10px;font-weight:700;display:inline-block;border:1px solid #d9c7a3">
-           ✦ Приєднатися до Telegram-чату покупців
-         </a>
-       </p>
-       <p style="font-size:12px;color:#8a8175;margin-top:8px">Закритий чат TROUBLEBABA: питання авторці, фото ваших робіт, оновлення збірника.</p>`
-    : '';
-  // Paddle sends the official receipt as a separate email (enable it in
-  // Paddle Dashboard → Notifications → Buyer emails). We don't build a
-  // receipt URL ourselves — webhook payload doesn't carry a stable public
-  // one, so any link we invent leads to a wrong place.
-  const receiptBlock = `<p style="font-size:13px;color:#6b6257;margin-top:20px">
-       Окремим листом від Paddle прийде офіційний чек за покупку — це нормально, зберігайте його.
-     </p>`;
-  return `
-  <div style="font-family:system-ui,-apple-system,sans-serif;max-width:520px;margin:0 auto;color:#1A1A1A">
-    <h2 style="color:#8B7355">Дякуємо за покупку! 🍰</h2>
-    <p>Ваш збірник «Bento Cake by TROUBLEBABA — 10 рецептів» готовий до завантаження.</p>
-    <p style="margin:28px 0">
-      <a href="${link}" style="background:#8B7355;color:#fff;text-decoration:none;padding:14px 28px;border-radius:12px;font-weight:700;display:inline-block">
-        Завантажити PDF
-      </a>
-    </p>
-    <p style="font-size:13px;color:#6b6257">Якщо кнопка не працює, скопіюйте посилання:<br>${link}</p>
-    <p style="font-size:13px;color:#8a6d3b;background:#fbf6ec;border:1px solid #ecdcc0;border-radius:10px;padding:12px 14px">
-      ⏳ Посилання персональне: діє <b>${EXPIRY_DAYS} днів</b> і розраховане на <b>${MAX_DOWNLOADS} завантаження</b>. Будь ласка, збережіть файл на свій пристрій одразу.
-    </p>
-    ${receiptBlock}
-    ${communityBlock}
-    <p style="font-size:13px;color:#6b6257">Питання? Напишіть на <a href="mailto:pr.troublebaba@gmail.com" style="color:#8B7355">pr.troublebaba@gmail.com</a>.</p>
-  </div>`;
-}
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const raw = await request.text();
@@ -90,17 +58,21 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     if (email) {
       const origin = env.SITE_URL?.replace(/\/$/, '') || new URL(request.url).origin;
       const exp = Math.floor(Date.now() / 1000) + EXPIRY_DAYS * 86400;
-      const lang = String(data?.custom_data?.lang ?? '').toLowerCase().slice(0, 4) || undefined;
-      const token = await signDownloadToken(env.CRON_SECRET || '', String(data.id || 'txn'), exp, lang);
+      const pdfLang = pickLang(data?.custom_data?.lang);
+      const token = await signDownloadToken(env.CRON_SECRET || '', String(data.id || 'txn'), exp, pdfLang);
       const link = `${origin}/d/${token}`;
-      const receiptUrl: string | undefined =
-        data?.checkout?.url ??
-        data?.receipt_data?.url ??
-        (data?.invoice_id ? `https://receipt.paddle.com/receipt/${data.invoice_id}` : undefined);
+      const mail = renderDeliverEmail({
+        lang: pdfLang,
+        link,
+        expiryDays: EXPIRY_DAYS,
+        maxDownloads: MAX_DOWNLOADS,
+        communityUrl: env.TELEGRAM_COMMUNITY_URL,
+        processor: 'paddle',
+      });
       await sendEmail(env, {
         to: email,
-        subject: 'Ваш PDF — Bento Cake by TROUBLEBABA',
-        html: deliverEmailHtml(link, receiptUrl, env.TELEGRAM_COMMUNITY_URL),
+        subject: mail.subject,
+        html: mail.html,
       });
     }
 
@@ -108,6 +80,24 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     if (env.PDF_BUCKET && data?.id) {
       try { await bumpBonusCount(env.PDF_BUCKET, String(data.id)); }
       catch (e: any) { console.warn('[bonus] bump failed:', e?.message); }
+    }
+
+    // GA4 server-side purchase — reliable revenue tracking. Best-effort.
+    if (data?.id) {
+      // Paddle sends money as integer minor units in details.totals.total.
+      const totalMinor = Number(data?.details?.totals?.total ?? data?.details?.line_items?.[0]?.totals?.total ?? 0);
+      const currency = String(data?.currency_code ?? data?.details?.totals?.currency_code ?? 'USD');
+      const purchaseLang = pickLang(data?.custom_data?.lang);
+      try {
+        await sendPurchase(env, {
+          transactionId: `pdl_${data.id}`,
+          email: null,
+          value: totalMinor / 100,
+          currency,
+          lang: purchaseLang,
+          processor: 'paddle',
+        });
+      } catch (e: any) { console.warn('[ga] purchase failed', e?.message); }
     }
   }
 

@@ -32,17 +32,22 @@ pure black.
 - **Warm White** (`#FDFAF6`) — Card fill, elevated panels, chip
   backgrounds. One notch brighter than canvas so cards read as lifted
   without a heavy shadow.
-- **Soft Cream** (`#EFE4D2`) — Hover fill, secondary panels, subtle
+- **Soft Cream** (`#EFE6DA`) — Hover fill, secondary panels, subtle
   highlights that must not compete with warm-white cards.
 - **Espresso Ink** (`#1A1A1A`) — Primary text, deep sections (bonus
   block, footer), high-contrast surfaces. Never pure black.
 - **Mocha Accent** (`#8B7355`) — The one accent. CTA fill, active-state
   labels, price emphasis, section eyebrows, decorative line separators.
-- **Mocha Dark** (`#6F5C43`) — Hover / pressed states of the mocha accent.
+- **Mocha Dark** (`#6E5C43`) — Hover / pressed states, and the fill for any
+  surface that carries text: `#8B7355` under `#FDFAF6` text measures 4.31:1,
+  below the 4.5:1 AA floor. Mocha stays for lines, icons and large display type.
 - **Taupe Line** (`#C8B8A2`) — 1px structural borders on cards and inputs;
   low-opacity variants (30–60%) for divider lines and quiet outlines.
-- **Muted Ink** (`rgba(26,26,26,0.55)`) — Secondary body text, metadata,
+- **Muted Ink** (`rgba(26,26,26,0.65)`) — Secondary body text, metadata,
   soft labels. Achieve by opacity, not by a new color token.
+  **Was 0.55 until Sept 2026** — that measures 3.74:1 on Canvas Cream and
+  fails AA. 0.65 gives 5.09:1. On Espresso surfaces the equivalent floor is
+  `rgba(253,250,246,0.55)` (5.83:1).
 
 Rules:
 - Maximum **one** accent color across the whole site. `#8B7355` and its
@@ -56,13 +61,22 @@ Rules:
 
 Two families do the work. Everything else is banned.
 
-- **Display / Headlines: `Cabinet Grotesk`** — geometric sans with editorial
-  personality. Track-tight (`letter-spacing: -0.02em`), weight-driven
-  hierarchy (700 / 800 / 900), never screaming. Line-height `0.95–1.05` for
-  huge hero words; `1.1` for section H2; `1.15` for card H3.
-- **Body / UI: `Outfit`** — clean sans, softer than Geist, warmer than Inter.
-  Weights 400 / 500 / 600 / 700. Line-height `1.6` for paragraphs, `1.5` for
-  UI, `1.35` for chips and dense labels. Max measure `65ch` on paragraphs.
+> **Обновлено в сентябре 2026.** Раздел описывал шрифты, которых в проекте
+> никогда не было: Cabinet Grotesk не подключался ни одной строкой, а Outfit
+> грузился (72 КБ) и не рендерил ни одного элемента, потому что каждое
+> объявление начиналось с Manrope. Ниже — то, что действительно загружается.
+
+- **Display / Headlines: `Playfair Display`** — засечный, editorial.
+  Класс `.font-cabinet` (историческое имя, 89 использований — переименование
+  тронуло бы всю разметку). Вес 600–900, `letter-spacing: -0.005em`.
+- **Body / UI: `Manrope`** — класс `.font-outfit`, тоже историческое имя.
+  Веса 400 / 500 / 600 / 700. Line-height `1.6` для абзацев, `1.5` для UI.
+  Max measure `65ch` на абзацах.
+- **`Caveat`** — только рукописные подписи автора (две штуки: подпись под
+  обращением и заметка у FAQ). Больше нигде.
+- Загружаются с Google Fonts неблокирующе (`media="print"` → `onload`),
+  с `<noscript>`-фолбэком. Четвёртой гарнитуры быть не должно: `font-mono`
+  и системный курсив уже однажды просочились и были вычищены.
 - **Stat / Number token: `font-stat`** (already in Tailwind config) —
   reserved for follower counts, price digits, quantity chips. Never on body.
 
@@ -75,9 +89,19 @@ Type scale (`clamp()` for hero, static rem for the rest):
 | Sub-section H3      | `clamp(1.4rem, 2.4vw, 1.9rem)` | 700 | 0 |
 | Card / block title  | `clamp(1.1rem, 1.7vw, 1.35rem)` | 700 | 0 |
 | Lead paragraph      | `clamp(0.95rem, 1.2vw, 1.1rem)` | 400 | 0 |
-| Body                | `15px` | 400 | 0 |
-| UI label            | `13px` | 500 | `0.02em` |
-| Eyebrow (uppercase) | `11px` | 700 | `0.18em` |
+| Body                | `15px` → токен `--text-body`    | 400 | 0 |
+| UI label            | `13px` → токен `--text-label`   | 500 | `0.02em` |
+| Eyebrow (uppercase) | `11px` → токен `--text-eyebrow` | 700 | `0.18em` |
+
+**11px — нижняя граница, не рекомендация.** Ничего мельче в проекте быть не
+должно: до сентября 2026 в разметке жили 9px и 10px (47 элементов на главной),
+это и нечитаемо на телефоне, и проваливает проверку доступности. Единственное
+исключение — микро-логотип PDF внутри контейнера 12×14 px, он декоративный.
+
+Шкала объявлена токенами в `global.css`. До этого она существовала только в
+этом документе, а в разметке переписывалась руками как `text-[15px]`, из-за
+чего рядом наросли восемь градаций мимо шкалы (`[14px]` 58 раз, `[12px]` 47,
+`[10px]` 27 и так далее).
 
 Banned in every context of this project:
 - `Inter`, `Roboto`, `system-ui` as *display*. Cabinet Grotesk owns headlines.

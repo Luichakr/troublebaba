@@ -43,6 +43,18 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
+# --- Yandex (RU/UA — 4 169 показов из России по Search Console) ---
+# Правило User-agent: * их покрывает, но Яндекс применяет Crawl-delay и
+# Clean-param только к явно названным ботам, поэтому группа отдельная.
+User-agent: Yandex
+Allow: /
+User-agent: YandexBot
+Allow: /
+User-agent: YandexImages
+Allow: /
+User-agent: YandexMobileBot
+Allow: /
+
 # --- Microsoft / Bing AI ---
 User-agent: bingbot
 Allow: /

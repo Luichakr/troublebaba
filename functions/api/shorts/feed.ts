@@ -38,6 +38,26 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
     // ?all=1 → every known short (archive view). Default → only surfaced ones
     // (homepage "short of the day" rotation), newest-surfaced first.
     const all = url.searchParams.get('all') === '1';
+    // ?platform=instagram|tiktok → skip YouTube entirely, return only the
+    // requested platform's posts from social_posts. Used by the blog hub's
+    // IG/TT tile grids.
+    const platform = (url.searchParams.get('platform') || '').toLowerCase();
+    if (platform === 'instagram' || platform === 'tiktok') {
+      const { results } = await env.DB.prepare(
+        `SELECT platform, url, title, thumbnail_url, sort_ts FROM social_posts
+           WHERE platform = ? ORDER BY sort_ts DESC LIMIT ?`,
+      ).bind(platform, limit).all<{ platform: string; url: string; title: string | null; thumbnail_url: string | null; sort_ts: number }>();
+      const items = (results ?? []).map(s => ({
+        platform:    s.platform,
+        videoId:     null as string | null,
+        title:       s.title ?? '',
+        thumbnail:   s.thumbnail_url,
+        publishedAt: s.sort_ts,
+        postedAt:    s.sort_ts,
+        url:         s.url,
+      }));
+      return json({ ok: true, current: items[0] ?? null, recent: items.slice(1) });
+    }
     // NB: we intentionally do NOT gate on is_short. The in-Worker shorts
     // detector is unreliable (YouTube serves the consent wall to CF egress
     // IPs, so the canonical /shorts/ rewrite often isn't visible). The channel

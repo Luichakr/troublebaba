@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
 import Layout from '../../layouts/Layout.astro';
 import { t } from '../../i18n/translations.js';
 import { SITE } from '../../config/site.js';
@@ -8,14 +9,23 @@ import { SITE } from '../../config/site.js';
 export async function getStaticPaths() {
   const published = await getCollection('blog', (e: any) => e.data.draft === false);
   const ukPosts = published.filter((e: any) => e.data.lang === 'uk');
-  return ukPosts.map((post: any) => ({
-    params: { slug: post.data.slug },
-    // Which languages this slug exists in → correct hreflang (no 404 alternates).
-    props: { post, slugLangs: published.filter((p: any) => p.data.slug === post.data.slug).map((p: any) => p.data.lang) },
-  }));
+  return ukPosts.map((post: any) => {
+    // Related posts: same language, ranked by shared tags. Internal linking + topic clusters.
+    const related = ukPosts
+      .filter((p: any) => p.data.slug !== post.data.slug)
+      .map((p: any) => ({ p, shared: (p.data.tags || []).filter((tg: string) => (post.data.tags || []).includes(tg)).length }))
+      .sort((a: any, b: any) => b.shared - a.shared)
+      .slice(0, 3)
+      .map((x: any) => ({ slug: x.p.data.slug, title: x.p.data.title }));
+    return {
+      params: { slug: post.data.slug },
+      // Which languages this slug exists in → correct hreflang (no 404 alternates).
+      props: { post, slugLangs: published.filter((p: any) => p.data.slug === post.data.slug).map((p: any) => p.data.lang), related },
+    };
+  });
 }
 
-const { post, slugLangs } = Astro.props as { post: any; slugLangs: string[] };
+const { post, slugLangs, related } = Astro.props as { post: any; slugLangs: string[]; related: { slug: string; title: string }[] };
 const lang = 'uk' as const;
 const tr = (t as any)[lang];
 const { Content } = await render(post);
@@ -23,12 +33,12 @@ const { Content } = await render(post);
 <Layout title={`${post.data.title} | TROUBLEBABA`} description={post.data.description} lang={lang} path={`blog/${post.data.slug}`} pageType="content" hreflangLangs={slugLangs} ogImage={post.data.cover} breadcrumb={{ name: tr.blog_all, url: '/blog/' }} articleMeta={{ publishedAt: post.data.publishedAt, updatedAt: post.data.updatedAt, author: 'TROUBLEBABA' }}>
   <SiteHeader lang={lang} />
   <article class="min-h-[100dvh] py-12 lg:py-20" style="background:#F5EFE8;">
-    <div class="max-w-2xl mx-auto px-6 lg:px-10">
+    <div class="max-w-[820px] mx-auto px-6 lg:px-10">
       <a href="/blog/" class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10">
         <svg width="14" height="12" viewBox="0 0 16 14" fill="none"><path d="M14 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span>{tr.blog_all}</span>
       </a>
-      <h1 class="font-cabinet text-espresso mb-6" style="font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.08;">{post.data.title}</h1>
+      <h1 class="font-cabinet text-espresso mb-6" style="font-size:var(--h-page);line-height:1.08;">{post.data.title}</h1>
       <div class="blog-prose font-outfit text-espresso/75 leading-relaxed">
         <Content />
       </div>
@@ -38,8 +48,36 @@ const { Content } = await render(post);
           <svg width="16" height="14" viewBox="0 0 16 14" fill="none"><path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       </div>
+      {related && related.length > 0 && (
+        <nav class="mt-12 pt-8 border-t border-taupe/25" aria-label={tr.blog_related ?? tr.blog_all}>
+          <h2 class="font-cabinet text-espresso mb-4" style="font-size:clamp(1.3rem,2.6vw,1.7rem);">{tr.blog_related ?? tr.blog_all}</h2>
+          <ul class="flex flex-col gap-3">
+            {related.map((r) => (
+              <li>
+                <a href={`/blog/${r.slug}/`} class="group inline-flex items-center gap-2 font-outfit font-medium text-mocha hover:text-mocha-dark transition-colors">
+                  <svg width="14" height="12" viewBox="0 0 16 14" fill="none" class="flex-shrink-0"><path d="M2 7h12M10 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span>{r.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </div>
   </article>
+
+  {post.data.faq && post.data.faq.length > 0 && (
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "inLanguage": lang,
+      "mainEntity": post.data.faq.map((it: { q: string; a: string }) => ({
+        "@type": "Question",
+        "name": it.q,
+        "acceptedAnswer": { "@type": "Answer", "text": it.a },
+      })),
+    })} />
+  )}
 
   {/* Article JSON-LD */}
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -77,6 +115,7 @@ const { Content } = await render(post);
       })),
     })} />
   )}
+  <SiteFooter lang={lang} />
 </Layout>
 
 <style is:global>
@@ -87,4 +126,53 @@ const { Content } = await render(post);
   .blog-prose li { margin-bottom: 0.5rem; }
   .blog-prose a  { color:#8B7355; text-decoration: underline; }
   .blog-prose strong { color:#1A1A1A; }
+
+  /* Tables carry the reference data (sizes, shelf life, costs) and were the
+     part that actually suffered from the narrow column — so they break out
+     wider than the text while the prose keeps a readable measure. */
+  .blog-prose .table-wrap { margin: 1.6rem 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  @media (min-width: 1024px) {
+    .blog-prose .table-wrap { margin-left: -6rem; margin-right: -6rem; }
+  }
+  .blog-prose table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    font-size: 0.95rem; background:#FDFAF6;
+    border: 1px solid rgba(200,184,162,0.5); border-radius: 14px; overflow: hidden;
+    box-shadow: 0 2px 12px rgba(139,115,85,0.06);
+  }
+  .blog-prose thead th {
+    background:#EFE6DA; color:#1A1A1A; font-weight: 700; text-align: left;
+    padding: 12px 16px; font-size: 0.88rem; white-space: nowrap;
+    border-bottom: 1px solid rgba(200,184,162,0.55);
+  }
+  .blog-prose tbody td {
+    padding: 12px 16px; vertical-align: top; line-height: 1.45;
+    border-bottom: 1px solid rgba(200,184,162,0.3);
+  }
+  .blog-prose tbody tr:last-child td { border-bottom: none; }
+  .blog-prose tbody tr:nth-child(even) td { background: rgba(240,231,218,0.28); }
+  .blog-prose td strong { white-space: nowrap; }
+
+  .blog-prose blockquote {
+    margin: 1.8rem 0; padding: 18px 22px; background:#FDFAF6;
+    /* Без боковой полосы: заливка warm-white на кремовом фоне статьи уже
+       отделяет цитату. DESIGN.md §2 — структурные линии только Taupe Line,
+       а акцентная полоса слева ещё и читается как шаблонный приём.
+       Внепалитрный #4a4238 заменён на espresso 78%. */
+    border: 1px solid rgba(200,184,162,0.45); border-radius: 12px;
+    color: rgba(26,26,26,0.78);
+  }
+  .blog-prose blockquote p:last-child { margin-bottom: 0; }
 </style>
+
+  <script is:inline>
+    // Wrap every table so it can scroll on a phone and break out of the text
+    // column on desktop without the markdown having to know about layout.
+    document.querySelectorAll('.blog-prose table').forEach((t) => {
+      if (t.parentElement && t.parentElement.classList.contains('table-wrap')) return;
+      const w = document.createElement('div');
+      w.className = 'table-wrap';
+      t.replaceWith(w);
+      w.appendChild(t);
+    });
+  </script>

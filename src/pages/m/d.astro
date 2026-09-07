@@ -40,7 +40,7 @@ import Layout from '../../layouts/Layout.astro';
       <!-- Login gate -->
       <div id="login-card" class="hidden bg-warm-white rounded-2xl px-8 py-10 max-w-md mx-auto" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
         <h2 class="font-cabinet text-espresso text-xl mb-2">Вход</h2>
-        <p class="font-outfit text-espresso/60 text-sm mb-6">Введите пароль для доступа.</p>
+        <p class="font-outfit text-espresso/65 text-sm mb-6">Введите пароль для доступа.</p>
         <input id="pass-input" type="password" placeholder="••••••••" autocomplete="current-password"
                class="w-full font-outfit text-base bg-cream border border-taupe/40 rounded-xl px-4 py-3 mb-4 outline-none focus:border-mocha" />
         <button id="pass-submit" class="w-full bg-mocha text-warm-white font-outfit font-semibold rounded-xl py-3 hover:bg-mocha-dark">Войти</button>
@@ -60,7 +60,7 @@ import Layout from '../../layouts/Layout.astro';
             </div>
           </div>
           <div id="visits-by-lang" class="grid grid-cols-2 lg:grid-cols-4 gap-3"></div>
-          <div class="mt-5 flex items-center gap-2 font-outfit text-xs text-espresso/45">
+          <div class="mt-5 flex items-center gap-2 font-outfit text-xs text-espresso/65">
             <span>За всё время:</span>
             <span class="font-mono text-espresso/70" id="visits-total-all">—</span>
           </div>
@@ -79,7 +79,7 @@ import Layout from '../../layouts/Layout.astro';
             </div>
           </div>
           <div id="wl-by-lang" class="font-outfit text-sm mb-4"></div>
-          <div id="wl-recent" class="font-mono text-[12px] text-espresso/70 overflow-x-auto"></div>
+          <div id="wl-recent" class="font-mono text-[13px] text-espresso/70 overflow-x-auto"></div>
         </section>
 
         <!-- Free-recipe leads -->
@@ -92,7 +92,7 @@ import Layout from '../../layouts/Layout.astro';
             </div>
           </div>
           <div id="fr-by-lang" class="font-outfit text-sm mb-4"></div>
-          <div id="fr-recent" class="font-mono text-[12px] text-espresso/70 overflow-x-auto"></div>
+          <div id="fr-recent" class="font-mono text-[13px] text-espresso/70 overflow-x-auto"></div>
         </section>
 
         <!-- YouTube shorts sync status -->
@@ -117,7 +117,7 @@ import Layout from '../../layouts/Layout.astro';
         <!-- Manual social posts (IG / TikTok) → feed -->
         <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
           <h2 class="font-cabinet text-espresso text-lg mb-1">Посты Instagram / TikTok в ленте</h2>
-          <p class="font-outfit text-espresso/55 text-[13px] mb-4">Вставь одну или несколько ссылок (каждая с новой строки) — они появятся в ленте /shorts/. TikTok подтянет обложку и заголовок автоматически (короткие vt.tiktok.com тоже разворачиваются). Для Instagram обложку лучше задать вручную или будет фирменная плашка.</p>
+          <p class="font-outfit text-espresso/65 text-[13px] mb-4">Вставь одну или несколько ссылок (каждая с новой строки) — они появятся в ленте /shorts/. TikTok подтянет обложку и заголовок автоматически (короткие vt.tiktok.com тоже разворачиваются). Для Instagram обложку лучше задать вручную или будет фирменная плашка.</p>
           <textarea id="sp-urls" rows="4" placeholder="https://vt.tiktok.com/...&#10;https://www.instagram.com/reel/...&#10;..." class="w-full bg-cream border border-taupe/40 rounded-lg px-3 py-2 font-outfit text-sm text-espresso outline-none focus:border-mocha mb-2"></textarea>
           <div class="flex gap-2 mb-4">
             <button id="sp-add" class="font-outfit text-sm font-semibold bg-mocha text-warm-white rounded-lg px-5 py-2 hover:bg-mocha-dark whitespace-nowrap">Добавить все</button>
@@ -154,12 +154,12 @@ import Layout from '../../layouts/Layout.astro';
 
         <section class="bg-warm-white rounded-2xl p-6" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">
           <h2 class="font-cabinet text-espresso text-lg mb-4">Последние 100 событий</h2>
-          <div id="recent" class="font-mono text-[12px] text-espresso/70 overflow-x-auto"></div>
+          <div id="recent" class="font-mono text-[13px] text-espresso/70 overflow-x-auto"></div>
         </section>
 
       </div>
 
-      <div id="loading" class="hidden text-center py-20 font-outfit text-espresso/60">Загрузка…</div>
+      <div id="loading" class="hidden text-center py-20 font-outfit text-espresso/65">Загрузка…</div>
       <div id="error"   class="hidden text-center py-20 font-outfit text-red-700"></div>
 
     </div>
@@ -210,10 +210,10 @@ import Layout from '../../layouts/Layout.astro';
         return '<div class="bg-cream rounded-xl px-4 py-4 flex flex-col gap-2 border border-taupe/20">' +
           '<div class="flex items-baseline justify-between">' +
             '<span class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-mocha">' + m.label + '</span>' +
-            '<span class="font-outfit text-[11px] text-espresso/45">' + m.name + '</span>' +
+            '<span class="font-outfit text-[11px] text-espresso/65">' + m.name + '</span>' +
           '</div>' +
           '<div class="font-cabinet text-espresso text-3xl tabular-nums leading-none">' + fmtNum(n) + '</div>' +
-          '<div class="font-outfit text-[10px] uppercase tracking-[0.14em] text-espresso/40">визитов</div>' +
+          '<div class="font-outfit text-[11px] uppercase tracking-[0.14em] text-espresso/65">визитов</div>' +
           '<div class="h-1.5 bg-warm-white rounded-full overflow-hidden mt-1">' +
             '<div class="h-full rounded-full transition-all duration-500" style="width:' + pct.toFixed(1) + '%;background:' + accent + ';"></div>' +
           '</div>' +
@@ -240,7 +240,7 @@ import Layout from '../../layouts/Layout.astro';
     function renderBars(elId, rows, labelKey) {
       const max = rows.reduce(function(m, r){ return Math.max(m, r.n); }, 0);
       if (rows.length === 0) {
-        $(elId).innerHTML = '<div class="text-espresso/45 italic">Нет данных за этот период</div>';
+        $(elId).innerHTML = '<div class="text-espresso/65 italic">Нет данных за этот период</div>';
         return;
       }
       $(elId).innerHTML = rows.map(function(r){ return bar(r[labelKey] || '(пусто)', r.n, max); }).join('');
@@ -248,7 +248,7 @@ import Layout from '../../layouts/Layout.astro';
 
     function renderDay(rows) {
       if (rows.length === 0) {
-        $('by-day').innerHTML = '<div class="text-espresso/45 italic">Нет данных за этот период</div>';
+        $('by-day').innerHTML = '<div class="text-espresso/65 italic">Нет данных за этот период</div>';
         return;
       }
       const max = rows.reduce(function(m, r){ return Math.max(m, r.n); }, 0);
@@ -265,24 +265,24 @@ import Layout from '../../layouts/Layout.astro';
 
     function renderRecent(rows) {
       if (rows.length === 0) {
-        $('recent').innerHTML = '<div class="text-espresso/45 italic">Пока нет событий</div>';
+        $('recent').innerHTML = '<div class="text-espresso/65 italic">Пока нет событий</div>';
         return;
       }
       const rowsHtml = rows.map(function(r){
         const d = new Date(r.ts);
         const ts = d.toISOString().replace('T', ' ').slice(0, 19);
         return '<tr>' +
-          '<td class="py-1 pr-4 text-espresso/55">' + ts + '</td>' +
+          '<td class="py-1 pr-4 text-espresso/65">' + ts + '</td>' +
           '<td class="py-1 pr-4">' + r.type + '</td>' +
           '<td class="py-1 pr-4 text-mocha">' + (r.source || '') + '</td>' +
           '<td class="py-1 pr-4">' + (r.page_lang || '') + '</td>' +
           '<td class="py-1 pr-4">' + (r.ip_country || '') + '</td>' +
-          '<td class="py-1 text-espresso/45">' + (r.page_path || '') + '</td>' +
+          '<td class="py-1 text-espresso/65">' + (r.page_path || '') + '</td>' +
         '</tr>';
       }).join('');
       $('recent').innerHTML =
         '<table class="w-full text-left">' +
-          '<thead><tr class="text-espresso/45 border-b border-taupe/30">' +
+          '<thead><tr class="text-espresso/65 border-b border-taupe/30">' +
             '<th class="py-1 pr-4 font-normal">время</th>' +
             '<th class="py-1 pr-4 font-normal">тип</th>' +
             '<th class="py-1 pr-4 font-normal">блок</th>' +
@@ -298,19 +298,19 @@ import Layout from '../../layouts/Layout.astro';
       $('wl-total').textContent = fmtNum(total || 0);
       const rows = byLang || [];
       $('wl-by-lang').innerHTML = rows.length === 0
-        ? '<span class="text-espresso/45 italic">Пока никто не записался</span>'
+        ? '<span class="text-espresso/65 italic">Пока никто не записался</span>'
         : rows.map(function(r){
             return '<span class="inline-block bg-cream rounded-lg px-3 py-1.5 mr-2 mb-2">' +
               '<b>' + (r.lang || '—') + '</b>: ' + fmtNum(r.n) + '</span>';
           }).join('');
       if (WL_RECENT.length === 0) { $('wl-recent').innerHTML = ''; return; }
       $('wl-recent').innerHTML = '<table class="w-full text-left">' +
-        '<thead><tr class="text-espresso/45 border-b border-taupe/30">' +
+        '<thead><tr class="text-espresso/65 border-b border-taupe/30">' +
           '<th class="py-1 pr-4 font-normal">время</th><th class="py-1 pr-4 font-normal">email</th>' +
           '<th class="py-1 pr-4 font-normal">язык</th><th class="py-1 font-normal">страна</th></tr></thead><tbody>' +
         WL_RECENT.map(function(r){
           var ts = new Date(r.ts).toISOString().replace('T',' ').slice(0,16);
-          return '<tr><td class="py-1 pr-4 text-espresso/55">' + ts + '</td>' +
+          return '<tr><td class="py-1 pr-4 text-espresso/65">' + ts + '</td>' +
             '<td class="py-1 pr-4">' + (r.email || '') + '</td>' +
             '<td class="py-1 pr-4">' + (r.lang || '') + '</td>' +
             '<td class="py-1">' + (r.ip_country || '') + '</td></tr>';
@@ -336,19 +336,19 @@ import Layout from '../../layouts/Layout.astro';
       $('fr-total').textContent = fmtNum(total || 0);
       const rows = byLang || [];
       $('fr-by-lang').innerHTML = rows.length === 0
-        ? '<span class="text-espresso/45 italic">Пока никто не подписался</span>'
+        ? '<span class="text-espresso/65 italic">Пока никто не подписался</span>'
         : rows.map(function(r){
             return '<span class="inline-block bg-cream rounded-lg px-3 py-1.5 mr-2 mb-2">' +
               '<b>' + (r.lang || '—') + '</b>: ' + fmtNum(r.n) + '</span>';
           }).join('');
       if (FR_RECENT.length === 0) { $('fr-recent').innerHTML = ''; return; }
       $('fr-recent').innerHTML = '<table class="w-full text-left">' +
-        '<thead><tr class="text-espresso/45 border-b border-taupe/30">' +
+        '<thead><tr class="text-espresso/65 border-b border-taupe/30">' +
           '<th class="py-1 pr-4 font-normal">время</th><th class="py-1 pr-4 font-normal">email</th>' +
           '<th class="py-1 pr-4 font-normal">язык</th><th class="py-1 font-normal">страна</th></tr></thead><tbody>' +
         FR_RECENT.map(function(r){
           var ts = new Date(r.ts).toISOString().replace('T',' ').slice(0,16);
-          return '<tr><td class="py-1 pr-4 text-espresso/55">' + ts + '</td>' +
+          return '<tr><td class="py-1 pr-4 text-espresso/65">' + ts + '</td>' +
             '<td class="py-1 pr-4">' + (r.email || '') + '</td>' +
             '<td class="py-1 pr-4">' + (r.lang || '') + '</td>' +
             '<td class="py-1">' + (r.ip_country || '') + '</td></tr>';
@@ -381,15 +381,15 @@ import Layout from '../../layouts/Layout.astro';
       try {
         const r = await fetch('/api/m/social', { headers: { 'Authorization': 'Bearer ' + spToken() }, cache: 'no-store' });
         const d = await r.json();
-        if (!d.ok) { list.innerHTML = '<span class="text-espresso/45 italic">Не удалось загрузить</span>'; return; }
-        if (!d.posts.length) { list.innerHTML = '<span class="text-espresso/45 italic">Пока ничего не добавлено</span>'; return; }
+        if (!d.ok) { list.innerHTML = '<span class="text-espresso/65 italic">Не удалось загрузить</span>'; return; }
+        if (!d.posts.length) { list.innerHTML = '<span class="text-espresso/65 italic">Пока ничего не добавлено</span>'; return; }
         list.innerHTML = '<table class="w-full text-left"><tbody>' + d.posts.map(function(p){
           return '<tr class="border-b border-taupe/15">' +
             '<td class="py-2 pr-3"><span class="inline-block rounded px-2 py-0.5 text-[11px] font-semibold ' +
               (p.platform==='tiktok'?'bg-espresso text-warm-white':p.platform==='instagram'?'bg-[#dc2743] text-white':'bg-mocha text-warm-white') + '">' + p.platform + '</span></td>' +
-            '<td class="py-2 pr-3 text-espresso/80">' + (p.title || '<span class="text-espresso/40">без заголовка</span>') + '</td>' +
-            '<td class="py-2 pr-3"><a href="' + p.url + '" target="_blank" rel="noopener" class="text-mocha underline text-[12px] break-all">ссылка</a></td>' +
-            '<td class="py-2 text-right"><button data-del="' + p.id + '" class="text-[#B85959] text-[12px] hover:underline">удалить</button></td>' +
+            '<td class="py-2 pr-3 text-espresso/80">' + (p.title || '<span class="text-espresso/65">без заголовка</span>') + '</td>' +
+            '<td class="py-2 pr-3"><a href="' + p.url + '" target="_blank" rel="noopener" class="text-mocha underline text-[13px] break-all">ссылка</a></td>' +
+            '<td class="py-2 text-right"><button data-del="' + p.id + '" class="text-[#B85959] text-[13px] hover:underline">удалить</button></td>' +
           '</tr>';
         }).join('') + '</tbody></table>';
         list.querySelectorAll('[data-del]').forEach(function(btn){
@@ -399,7 +399,7 @@ import Layout from '../../layouts/Layout.astro';
             loadSocialPosts();
           });
         });
-      } catch (e) { list.innerHTML = '<span class="text-espresso/45 italic">Ошибка сети</span>'; }
+      } catch (e) { list.innerHTML = '<span class="text-espresso/65 italic">Ошибка сети</span>'; }
     }
     const spAddBtn = document.getElementById('sp-add');
     if (spAddBtn) spAddBtn.addEventListener('click', async function(){

@@ -3,7 +3,7 @@ import '../styles/global.css';
 import { SITE, LOCALES } from '../config/site.js';
 import { t } from '../i18n/translations.js';
 
-type Lang = 'uk' | 'ru' | 'pl' | 'en';
+type Lang = 'uk' | 'ru' | 'pl' | 'en' | 'es' | 'de' | 'fr' | 'it' | 'pt';
 
 interface Props {
   /** Page title (server-rendered per language; no client mutation). */
@@ -26,8 +26,9 @@ interface Props {
   /** Override GA loading. Default rule: load only on home. Set true to also load on /thank-you so purchase events fire. */
   loadGA?: boolean;
   /** Restrict hreflang alternates to the languages this page actually has
-   *  (e.g. a blog post in ru+uk only). Defaults to all supported languages. */
-  hreflangLangs?: Array<'uk' | 'ru' | 'pl' | 'en'>;
+   *  (e.g. a blog post in ru+uk only). Defaults to all supported languages
+   *  (see SITE.supportedLangs — currently uk/ru/pl/en/es/de/fr/it/pt). */
+  hreflangLangs?: Array<'uk' | 'ru' | 'pl' | 'en' | 'es' | 'de' | 'fr' | 'it' | 'pt'>;
   /** Per-page OG/Twitter image (absolute URL or root-relative). Falls back
    *  to SITE.ogImage. Used by blog posts and recipe pages for better social CTR. */
   ogImage?: string;
@@ -98,6 +99,41 @@ const extraJsonLd: object[] = jsonLd
   : [];
 const OG_LOCALE = LOCALES[lang]?.og || 'uk_UA';
 
+// Localized og:image:alt — same PDF cover, described in the reader's language
+// so FB/Twitter/LinkedIn screenreaders and previews are on-locale.
+const OG_IMAGE_ALT_BY_LANG: Record<Lang, string> = {
+  uk: 'Bento Cake — PDF збірник рецептів від TROUBLEBABA',
+  ru: 'Bento Cake — PDF-сборник рецептов от TROUBLEBABA',
+  pl: 'Bento Cake — PDF ze zbiorem przepisów od TROUBLEBABA',
+  en: 'Bento Cake — PDF recipe collection by TROUBLEBABA',
+  es: 'Bento Cake — colección de recetas en PDF de TROUBLEBABA',
+  de: 'Bento Cake — PDF-Rezeptsammlung von TROUBLEBABA',
+  fr: 'Bento Cake — recueil de recettes PDF par TROUBLEBABA',
+  it: 'Bento Cake — raccolta di ricette in PDF di TROUBLEBABA',
+  pt: 'Bento Cake — coleção de receitas em PDF da TROUBLEBABA',
+};
+const OG_IMAGE_ALT = OG_IMAGE_ALT_BY_LANG[lang] || OG_IMAGE_ALT_BY_LANG.uk;
+
+// Localized product:price:amount + currency — matches the LS store for that
+// language so social/shopping crawlers don't advertise $20 on a /pl/ page
+// showing 80 zł. Keep values in sync with SITE.checkout.buyUrls.
+const PRICE_BY_LANG: Record<Lang, { amount: string; currency: string }> = {
+  uk: { amount: '800', currency: 'UAH' },
+  ru: { amount: '20',  currency: 'USD' },
+  pl: { amount: '80',  currency: 'PLN' },
+  en: { amount: '18',  currency: 'EUR' },
+  // es/de/fr/it/pt делят EUR-магазин с английским (site.js → checkoutByLang).
+  // Пока их тут не было, фолбэк уводил на uk и все пять локалей объявляли
+  // 800 UAH в og:price и в JSON-LD Product — при витрине в евро. Для Google
+  // это расхождение разметки с видимой ценой, то есть риск снятия rich results.
+  de: { amount: '18',  currency: 'EUR' },
+  fr: { amount: '18',  currency: 'EUR' },
+  it: { amount: '18',  currency: 'EUR' },
+  es: { amount: '18',  currency: 'EUR' },
+  pt: { amount: '18',  currency: 'EUR' },
+};
+const priceMeta = PRICE_BY_LANG[lang] || PRICE_BY_LANG.uk;
+
 // Hreflang alternates — emit for home and legal pages (skip 404/error).
 const emitHreflang = pageType === 'home' || pageType === 'legal' || pageType === 'about' || pageType === 'content';
 // `hreflangLangs` lets a page restrict alternates to the languages it ACTUALLY
@@ -105,7 +141,12 @@ const emitHreflang = pageType === 'home' || pageType === 'legal' || pageType ===
 // Pointing hreflang at non-existent (404) versions is a real SEO error.
 const altLangs = (hreflangLangs && hreflangLangs.length ? hreflangLangs : SUPPORTED) as Lang[];
 const hreflangEntries = altLangs.map(l => ({ lang: l, url: altUrlFor(l) }));
-const xDefaultUrl = altUrlFor(altLangs.includes('uk') ? 'uk' : altLangs[0]);
+// x-default — версия «для всех остальных», кого не поймал ни один hreflang.
+// Раньше указывал на украинскую: логично для СНГ, но посетитель из Бразилии
+// или Италии по умолчанию попадал на украиноязычную страницу. Английская —
+// нейтральный выбор для международного трафика, а uk/ru/pl продолжают
+// приходить по своим hreflang как раньше.
+const xDefaultUrl = altUrlFor(altLangs.includes('en') ? 'en' : altLangs[0]);
 
 // JSON-LD helpers -------------------------------------------------------
 const tr = (t as Record<string, any>)[lang] || (t as Record<string, any>).uk;
@@ -116,6 +157,11 @@ const HOME_LABEL: Record<Lang, string> = {
   ru: 'Главная',
   pl: 'Strona główna',
   en: 'Home',
+  es: 'Inicio',
+  de: 'Startseite',
+  fr: 'Accueil',
+  it: 'Home',
+  pt: 'Início',
 };
 const homeLabel = HOME_LABEL[lang] ?? 'Home';
 
@@ -125,11 +171,30 @@ const PRODUCT_CATEGORY: Record<Lang, string> = {
   ru: 'Цифровой сборник рецептов',
   pl: 'Cyfrowy zbiór przepisów',
   en: 'Digital cookbook',
+  es: 'Recetario digital',
+  de: 'Digitales Kochbuch',
+  fr: 'Livre de recettes numérique',
+  it: 'Ricettario digitale',
+  pt: 'Livro de receitas digital',
 };
 
-// Skip GA on legal/404 pages — avoid noise + reduce JS on low-value pages.
-// `loadGA` prop overrides (e.g. /thank-you needs GA so the `purchase` event fires).
-const loadGA = (loadGAOverride ?? pageType === 'home') && !!SITE.gaId;
+// Customer reviews → aggregateRating for the Product schema on the home page.
+// ratingValue mirrors the rating badge shown visibly in the reviews section
+// (Google requires the aggregate to appear on the page). reviewCount is the
+// real number of testimonials collected per language.
+const REVIEW_FILES = import.meta.glob('../data/reviews/*.json', { eager: true }) as Record<string, { default: { text: string }[] }>;
+const reviewCount = (
+  REVIEW_FILES[`../data/reviews/${lang}.json`]?.default
+  ?? REVIEW_FILES['../data/reviews/en.json']?.default
+  ?? REVIEW_FILES['../data/reviews/ru.json']?.default
+  ?? []
+).length;
+
+// Load GA4 on every real page (home, content, about, legal) so organic
+// landing pages (recipes, blog posts) actually count. Explicit `loadGA` prop
+// still wins (e.g. force-off on some page); 404s stay untracked because
+// pageType='error' is filtered here.
+const loadGA = (loadGAOverride ?? (pageType !== 'error')) && !!SITE.gaId;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -178,7 +243,7 @@ const loadGA = (loadGAOverride ?? pageType === 'home') && !!SITE.gaId;
   <meta property="og:image:type"       content={SITE.ogImageType} />
   <meta property="og:image:width"      content={String(SITE.ogImageWidth)} />
   <meta property="og:image:height"     content={String(SITE.ogImageHeight)} />
-  <meta property="og:image:alt"        content="Bento Cake — PDF збірник рецептів від TROUBLEBABA" />
+  <meta property="og:image:alt"        content={OG_IMAGE_ALT} />
   <meta property="og:locale"           content={OG_LOCALE} />
   {SUPPORTED.filter(l => l !== lang).map(l => (
     <meta property="og:locale:alternate" content={LOCALES[l].og} />
@@ -187,8 +252,8 @@ const loadGA = (loadGAOverride ?? pageType === 'home') && !!SITE.gaId;
   <!-- Product price meta — picked up by Pinterest, some Telegram clients -->
   {pageType === 'home' && (
     <>
-      <meta property="product:price:amount"   content={String(SITE.price)} />
-      <meta property="product:price:currency" content={SITE.currency} />
+      <meta property="product:price:amount"   content={priceMeta.amount} />
+      <meta property="product:price:currency" content={priceMeta.currency} />
     </>
   )}
 
@@ -208,25 +273,46 @@ const loadGA = (loadGAOverride ?? pageType === 'home') && !!SITE.gaId;
   <link rel="manifest"         href="/site.webmanifest" />
   <link rel="mask-icon"        href="/favicon.svg" color="#8B7355" />
 
-  <!-- Google Analytics 4 — only on home pages (skip 404 / legal / error to reduce noise) -->
+  <!-- Google Analytics 4 — loaded on every real page.
+       `lang` and `page_type` go out with every event so we can slice
+       conversions by locale (uk / ru / pl / en / …) and by section
+       (home / content / about / legal) inside GA4. -->
   {loadGA && (
     <>
       <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.gaId}`} is:inline></script>
-      <script is:inline define:vars={{ gaId: SITE.gaId }}>
+      <script is:inline define:vars={{ gaId: SITE.gaId, pageLang: lang, pageKind: pageType }}>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', gaId, { anonymize_ip: true });
+        gtag('set', 'user_properties', { lang: pageLang });
+        gtag('config', gaId, {
+          anonymize_ip: true,
+          page_lang: pageLang,
+          page_kind: pageKind,
+        });
       </script>
     </>
   )}
 
-  <!-- Fonts — only actually-used families and weights.
-       Outfit is loaded locally via @fontsource (see global.css), so it's
-       intentionally NOT in this Google Fonts URL. -->
+  <!-- Fonts — the three families actually rendered on the page:
+       Playfair Display (headlines, .font-cabinet), Manrope (body, .font-outfit),
+       Caveat (two handwritten signatures). @fontsource/outfit was removed —
+       it shipped 72 KB of webfont that rendered on zero elements because every
+       declaration listed Manrope first.
+       Loaded non-blocking: the stylesheet is fetched as `print` (which the
+       parser does not block on), then flipped to `all` on load. The <noscript>
+       keeps it working without JS. -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&family=Caveat:wght@600&display=swap"
+    media="print"
+    onload="this.media='all';this.onload=null;"
+  />
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet" />
+  </noscript>
 
   <!-- JSON-LD: Organization (always) -->
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -272,13 +358,25 @@ const loadGA = (loadGAOverride ?? pageType === 'home') && !!SITE.gaId;
       "image": OG_IMAGE,
       "category": PRODUCT_CATEGORY[lang] || PRODUCT_CATEGORY.en,
       "sku": "troublebaba-bento-cake-pdf",
+      ...(reviewCount ? {
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": String(reviewCount),
+          "bestRating": "5",
+          "worstRating": "1",
+        }
+      } : {}),
       "offers": {
         "@type": "Offer",
-        "price": String(SITE.price),
-        "priceCurrency": SITE.currency,
+        "price": priceMeta.amount,
+        "priceCurrency": priceMeta.currency,
         "availability": "https://schema.org/InStock",
         "itemCondition": "https://schema.org/NewCondition",
-        "url": SITE.paymentUrl,
+        // Offer.url должен вести на страницу, где товар покупается.
+        // Раньше здесь стоял SITE.paymentUrl — ссылка на несуществующий
+        // Gumroad, то есть разметка Product уводила Google в никуда.
+        "url": CANONICAL,
         "seller": { "@type": "Organization", "name": SITE.name },
       }
     })} />
