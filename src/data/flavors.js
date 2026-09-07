@@ -20,7 +20,7 @@ export const FLAVORS = [
         layers: 'Шоколадний бісквіт · крем-чиз з Oreo',
         lead: 'Бенто-торт Oreo — це глибокий шоколадний смак із делікатною вишневою кислинкою. Хрустка крихта печива, ніжний крем-чиз і яскраве кюлі роблять його незмінним фаворитом на замовлення. Один із найпопулярніших смаків збірника.',
         learn: ['Пропорції бісквіту та крему', 'Як зібрати рівні шари', 'Яке печиво обрати', 'Стабілізація й нарізка'],
-        metaTitle: 'Oreo бенто-торт — рецепт у збірнику | TROUBLEBABA',
+        metaTitle: 'Бенто-торт Oreo — рецепт з пропорціями | TROUBLEBABA',
         metaDesc: 'Oreo бенто торт: шоколад, крем-чиз і вишневе кюлі. Повний рецепт із пропорціями та збіркою — у платному PDF-збірнику TROUBLEBABA.',
       },
       ru: {
@@ -28,7 +28,7 @@ export const FLAVORS = [
         layers: 'Шоколадный бисквит · крем-чиз с Oreo',
         lead: 'Бенто-торт Oreo — это насыщенный шоколадный вкус с лёгкой вишнёвой кислинкой. Хрустящая крошка печенья, нежный крем-чиз и яркое кюли делают его фаворитом на заказ. Один из самых продаваемых вкусов в сборнике.',
         learn: ['Точные граммовки бисквита и крема', 'Как собрать ровные слои', 'Какое печенье использовать', 'Стабилизация и нарезка'],
-        metaTitle: 'Oreo бенто-торт — рецепт в сборнике | TROUBLEBABA',
+        metaTitle: 'Бенто-торт Oreo — рецепт с пропорциями | TROUBLEBABA',
         metaDesc: 'Oreo бенто торт: шоколад, крем-чиз и вишнёвое кюли. Полный рецепт с граммовками и сборкой — в платном PDF-сборнике TROUBLEBABA.',
       },
       pl: {
@@ -36,7 +36,7 @@ export const FLAVORS = [
         layers: 'Biszkopt czekoladowy · krem serowy · wiśniowe coulis',
         lead: 'Tort bento Oreo to głęboki smak czekolady z delikatną wiśniową nutą. Chrupiące okruchy ciastek, aksamitny krem serowy i wyraziste coulis czynią go ulubieńcem na zamówienie. Jeden z najchętniej wybieranych smaków w zbiorze.',
         learn: ['Proporcje biszkoptu i kremu', 'Jak złożyć równe warstwy', 'Które ciastka wybrać', 'Stabilizacja i krojenie'],
-        metaTitle: 'Oreo tort bento — przepis w zbiorze | TROUBLEBABA',
+        metaTitle: 'Tort bento Oreo — przepis z proporcjami | TROUBLEBABA',
         metaDesc: 'Oreo tort bento: czekolada, krem serowy i wiśniowe coulis. Pełny przepis z proporcjami i montażem — w płatnym zbiorze PDF TROUBLEBABA.',
       },
       en: {
@@ -44,7 +44,7 @@ export const FLAVORS = [
         layers: 'Chocolate sponge · cream cheese · cherry coulis',
         lead: 'The Oreo bento cake delivers a deep chocolate flavour with a bright hint of cherry. Crunchy cookie crumbs, silky cream cheese and a vivid coulis make it a runaway favourite to order. One of the best-selling flavours in the collection.',
         learn: ['Sponge and cream proportions', 'How to build even layers', 'Which cookies to use', 'Stabilising and slicing'],
-        metaTitle: 'Oreo bento cake — recipe in the collection | TROUBLEBABA',
+        metaTitle: 'Bento cake Oreo — recipe with proportions | TROUBLEBABA',
         metaDesc: 'Oreo bento cake: chocolate, cream cheese and cherry coulis. The full recipe with proportions and assembly lives in the paid TROUBLEBABA PDF.',
       },
     },
@@ -58,7 +58,7 @@ export const FLAVORS = [
         layers: 'Бісквіт червоний оксамит · крем на основі маскарпоне · полуничне кюлі',
         lead: 'Бенто-торт «Червоний оксамит» закохує з першого погляду яскравим кольором і оксамитовою текстурою. Крем на маскарпоне та соковита полуниця додають свіжості, а ніжний м’якуш тане в роті. Чудовий вибір для романтичних приводів.',
         learn: ['Як отримати насичений колір', 'Текстура оксамитового бісквіту', 'Робота з маскарпоне', 'Складання й оздоблення'],
-        metaTitle: 'Червоний оксамит бенто-торт — рецепт | TROUBLEBABA',
+        metaTitle: 'Бенто-торт Червоний оксамит — рецепт | TROUBLEBABA',
         metaDesc: 'Червоний оксамит бенто торт із маскарпоне та полуницею. Повний рецепт із пропорціями та порадами — у платному PDF-збірнику TROUBLEBABA.',
       },
       ru: {
@@ -66,7 +66,7 @@ export const FLAVORS = [
         layers: 'Бисквит красный бархат · крем на основе маскарпоне · клубничное кюли',
         lead: 'Бенто-торт «Красный бархат» влюбляет с первого взгляда ярким цветом и бархатистой текстурой. Крем на маскарпоне и сочная клубника добавляют свежести, а нежный мякиш тает во рту. Отличный выбор для романтичных поводов.',
         learn: ['Как добиться насыщенного цвета', 'Текстура бархатного бисквита', 'Работа с маскарпоне', 'Сборка и оформление'],
-        metaTitle: 'Красный бархат бенто-торт — рецепт | TROUBLEBABA',
+        metaTitle: 'Бенто-торт Красный бархат — рецепт | TROUBLEBABA',
         metaDesc: 'Красный бархат бенто торт с маскарпоне и клубникой. Полный рецепт с граммовками и советами — в платном PDF-сборнике TROUBLEBABA.',
       },
       pl: {
@@ -74,7 +74,7 @@ export const FLAVORS = [
         layers: 'Czerwony biszkopt · mascarpone · truskawka',
         lead: 'Tort bento Czerwony aksamit zachwyca od pierwszego spojrzenia intensywnym kolorem i aksamitną teksturą. Krem na mascarpone i soczysta truskawka dodają świeżości, a delikatny miękisz rozpływa się w ustach. Idealny na romantyczne okazje.',
         learn: ['Jak uzyskać głęboki kolor', 'Tekstura aksamitnego biszkoptu', 'Praca z mascarpone', 'Montaż i dekoracja'],
-        metaTitle: 'Czerwony aksamit tort bento — przepis | TROUBLEBABA',
+        metaTitle: 'Tort bento Red Velvet — przepis | TROUBLEBABA',
         metaDesc: 'Czerwony aksamit tort bento z mascarpone i truskawką. Pełny przepis z proporcjami i wskazówkami — w płatnym zbiorze PDF TROUBLEBABA.',
       },
       en: {
@@ -82,7 +82,7 @@ export const FLAVORS = [
         layers: 'Red velvet sponge · mascarpone · strawberry',
         lead: 'The Red Velvet bento cake wins hearts at first sight with its vivid colour and velvety crumb. Mascarpone cream and juicy strawberry add freshness, while the tender sponge melts in the mouth. A perfect pick for romantic occasions.',
         learn: ['How to get a deep colour', 'The velvet sponge texture', 'Working with mascarpone', 'Assembly and finishing'],
-        metaTitle: 'Red Velvet bento cake — recipe | TROUBLEBABA',
+        metaTitle: 'Bento cake Red Velvet — recipe with proportions | TROUBLEBABA',
         metaDesc: 'Red Velvet bento cake with mascarpone and strawberry. The full recipe with proportions and tips is inside the paid TROUBLEBABA PDF.',
       },
     },
@@ -134,7 +134,7 @@ export const FLAVORS = [
         layers: 'Шоколадний бісквіт · шоколадний крем-чиз · солона карамель',
         lead: 'Бенто-торт Snickers — це сміливе поєднання шоколаду, солоного арахісу й тягучої карамелі. Крем-чиз урівноважує насиченість, а горіхи додають хрусткості. Ідеальний вибір для любителів ситних і яскравих десертів.',
         learn: ['Як зварити тягучу карамель', 'Підготовка арахісу', 'Баланс солодкого й солоного', 'Складання шарів'],
-        metaTitle: 'Snickers бенто-торт — рецепт у збірнику | TROUBLEBABA',
+        metaTitle: 'Бенто-торт Snickers — рецепт | TROUBLEBABA',
         metaDesc: 'Snickers бенто торт: шоколад, арахіс і карамель. Повний рецепт із пропорціями та збіркою — у платному PDF-збірнику TROUBLEBABA.',
       },
       ru: {
@@ -142,7 +142,7 @@ export const FLAVORS = [
         layers: 'Шоколадный бисквит · шоколадный крем-чиз · солёная карамель',
         lead: 'Бенто-торт Snickers — это смелое сочетание шоколада, солёного арахиса и тягучей карамели. Крем-чиз уравновешивает насыщенность, а орехи добавляют хруста. Идеальный выбор для любителей сытных и ярких десертов.',
         learn: ['Как сварить тягучую карамель', 'Подготовка арахиса', 'Баланс сладкого и солёного', 'Сборка слоёв'],
-        metaTitle: 'Snickers бенто-торт — рецепт в сборнике | TROUBLEBABA',
+        metaTitle: 'Бенто-торт Snickers — рецепт | TROUBLEBABA',
         metaDesc: 'Snickers бенто торт: шоколад, арахис и карамель. Полный рецепт с граммовками и сборкой — в платном PDF-сборнике TROUBLEBABA.',
       },
       pl: {
@@ -150,7 +150,7 @@ export const FLAVORS = [
         layers: 'Czekolada · orzeszki · karmel · krem serowy',
         lead: 'Tort bento Snickers to odważne połączenie czekolady, słonych orzeszków i ciągnącego się karmelu. Krem serowy równoważy intensywność, a orzeszki dodają chrupkości. Idealny wybór dla miłośników sytych i wyrazistych deserów.',
         learn: ['Jak ugotować ciągnący karmel', 'Przygotowanie orzeszków', 'Balans słodkiego i słonego', 'Montaż warstw'],
-        metaTitle: 'Snickers tort bento — przepis w zbiorze | TROUBLEBABA',
+        metaTitle: 'Tort bento Snickers — przepis | TROUBLEBABA',
         metaDesc: 'Snickers tort bento: czekolada, orzeszki i karmel. Pełny przepis z proporcjami i montażem — w płatnym zbiorze PDF TROUBLEBABA.',
       },
       en: {
@@ -158,7 +158,7 @@ export const FLAVORS = [
         layers: 'Chocolate · peanuts · caramel · cream cheese',
         lead: 'The Snickers bento cake is a bold mix of chocolate, salted peanuts and stretchy caramel. Cream cheese balances the richness while the nuts add crunch. The ideal choice for fans of indulgent, full-flavoured desserts.',
         learn: ['How to cook stretchy caramel', 'Preparing the peanuts', 'Balancing sweet and salty', 'Layering it all together'],
-        metaTitle: 'Snickers bento cake — recipe in the collection | TROUBLEBABA',
+        metaTitle: 'Bento cake Snickers — recipe | TROUBLEBABA',
         metaDesc: 'Snickers bento cake: chocolate, peanuts and caramel. The full recipe with proportions and assembly lives in the paid TROUBLEBABA PDF.',
       },
     },
@@ -594,7 +594,7 @@ export const RECIPES_HUB = {
     seoIntro: 'Все 10 рецептов бенто-тортов рассчитаны на диаметр 12 см и идут с таблицей пересчёта на 8–16 см. Для каждого вкуса указаны уровень сложности, время приготовления, частые ошибки и ответы на вопросы. Перед покупкой полезно прочитать в блоге, какой размер бенто выбрать, сколько стоит бенто-торт и сколько он хранится.',
   },
   pl: {
-    metaTitle: '10 przepisów na torty bento — smaki zbioru | TROUBLEBABA',
+    metaTitle: 'Torty bento — 10 przepisów, proporcje i smaki | TROUBLEBABA',
     metaDesc: 'Zbiór 10 przepisów na torty bento w formacie PDF: Oreo, Raffaello, Snickers i inne. Dokładne proporcje, montaż i wskazówki od TROUBLEBABA.',
     heading: '10 przepisów na torty bento — wszystkie smaki zbioru',
     intro: 'Kolekcja dziesięciu autorskich tortów bento — od hitowego Oreo po tropikalną Pina Coladę. Każdy przepis sprawdzony w praktyce i opisany krok po kroku. Wybierz smak, aby dowiedzieć się więcej.',

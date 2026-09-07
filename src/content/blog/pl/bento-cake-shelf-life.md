@@ -52,7 +52,7 @@ Krem nie jest jedynym, co się psuje. Nadzienie często skraca termin mocniej ni
 | **Coulis owocowy / konfitura (gotowane)** | prawie nie wpływa | ustabilizowane, mniej wilgoci |
 | **Karmel, słony karmel** | nie wpływa | cukier jest konserwantem; uważajcie tylko, żeby nie «popłynął» w cieple |
 | **Nadzienia czekoladowe, praliny** | nie wpływa | stabilne |
-| **Ciastka, kruszonka waflowa (Oreo, Snickers)** | nie wpływa na termin, ale rozmięka | po 24 godzinach traci chrupkość — uprzedzajcie klienta |
+| **Ciastka, kruszonka waflowa ([Oreo](/pl/recipes/oreo-bento-cake/), [Snickers](/pl/recipes/snickers-bento-cake/))** | nie wpływa na termin, ale rozmięka | po 24 godzinach traci chrupkość — uprzedzajcie klienta |
 | **Świeżo ubita śmietana jako nadzienie** | minus 24 godziny | najbardziej niestabilne nadzienie |
 
 Ogólna zasada: **termin tortu = termin najbardziej wymagającego składnika**. Tort na stabilnym serku śmietankowym ze świeżą truskawką w środku trzyma się nie 72 godziny, a dobę.

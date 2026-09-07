@@ -32,7 +32,7 @@ Domowa cukiernia ustala cenę «700 hrywien, tak jak sąsiadka», traci pieniąd
 
 Pięć pozycji. Jeśli policzone są tylko pierwsze dwie — cena będzie błędna.
 
-**1. Produkty.** To, na co patrzy się jako pierwsze. Dla przeciętnego bento 12 cm to orientacyjnie **100–180 ₴**, a rozrzut jest ogromny właśnie ze względu na smak: czekoladowe i na bazie ciastek (Oreo, Snickers) są tańsze, orzechowe i owocowe (pistacja-malina, Raffaello, Ferrero Rocher) droższe 2–2,5 raza. Liczyć trzeba ściśle według gramatury przepisu, a nie «mniej więcej opakowanie sera».
+**1. Produkty.** To, na co patrzy się jako pierwsze. Dla przeciętnego bento 12 cm to orientacyjnie **100–180 ₴**, a rozrzut jest ogromny właśnie ze względu na smak: czekoladowe i na bazie ciastek ([Oreo](/pl/recipes/oreo-bento-cake/), [Snickers](/pl/recipes/snickers-bento-cake/)) są tańsze, orzechowe i owocowe (pistacja-malina, Raffaello, Ferrero Rocher) droższe 2–2,5 raza. Liczyć trzeba ściśle według gramatury przepisu, a nie «mniej więcej opakowanie sera».
 
 **2. Opakowanie dla klienta.** Pudełko + papier tłuszczoodporny + podkład + wstążka, często świeczka lub kartka — **45–90 ₴** za sztukę. Hurtowo taniej, ale pierwsze zamówienia zawsze idą na zakupach sztukowych.
 
@@ -88,8 +88,8 @@ Policzcie tak trzy-cztery smaki ze swojego menu — i zobaczycie, że «jedna ce
 
 Produkty nie są główną pozycją, ale to właśnie one tworzą różnicę między smakami. Umownie, jeśli chodzi o część produktową:
 
-- **Podstawowe (Oreo, Snickers, Cinnabon)** — czekolada, ciastka, karmel. Najniższy koszt produktowy.
-- **Średnie (Red Velvet, Pina Colada, mak-cytrus, wiśnia-czekolada)** — ser, kokos, świeże lub mrożone owoce.
+- **Podstawowe ([Oreo](/pl/recipes/oreo-bento-cake/), [Snickers](/pl/recipes/snickers-bento-cake/), Cinnabon)** — czekolada, ciastka, karmel. Najniższy koszt produktowy.
+- **Średnie ([Red Velvet](/pl/recipes/red-velvet-bento-cake/), Pina Colada, mak-cytrus, wiśnia-czekolada)** — ser, kokos, świeże lub mrożone owoce.
 - **Premium (pistacja-malina, Raffaello, Ferrero Rocher)** — pasta pistacjowa, migdały, dobra biała czekolada. Część produktowa 2–2,5 raza wyższa niż podstawowa.
 
 Rozsądnie jest utrzymać w cenniku **dwa-trzy poziomy cenowe** i tłumaczyć klientowi różnicę składem. To też podnosi średnią wartość zamówienia: «premium» smak wielu wybiera właśnie dlatego, że jest droższy.

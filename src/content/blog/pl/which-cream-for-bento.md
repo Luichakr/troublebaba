@@ -27,7 +27,7 @@ Baza czekoladowa. Stabilny, świetnie sprawdza się w czekoladowych smakach i po
 
 ## Mascarpone
 
-Delikatny śmietankowy smak, świetny do lekkich owocowych tortów jak „Red Velvet”. Mniej stabilny w cieple niż krem serowy na maśle.
+Delikatny śmietankowy smak, świetny do lekkich owocowych tortów jak [„Red Velvet”](/pl/recipes/red-velvet-bento-cake/). Mniej stabilny w cieple niż krem serowy na maśle.
 
 ## Co ważne dla każdego kremu
 
