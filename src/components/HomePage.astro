@@ -134,12 +134,35 @@ const previewPages = PREVIEW_PAGES[previewLang];
 
 // Customer reviews — one JSON file per language in src/data/reviews/.
 // Falls back to EN, then RU, if a locale file is missing at build time.
-const REVIEW_FILES = import.meta.glob<{ default: { text: string }[] }>(
+const REVIEW_FILES = import.meta.glob<{ default: { text: string; name?: string }[] }>(
   '../data/reviews/*.json',
   { eager: true },
 );
-const reviewsFor = (l: string): { text: string }[] =>
+const reviewsFor = (l: string): { text: string; name?: string }[] =>
   REVIEW_FILES[`../data/reviews/${l}.json`]?.default ?? [];
+// Плюрализация счётчика отзывов. «51 відгуків» — неграмотно: при числах,
+// що закінчуються на 1 (крім 11), потрібна однина. Те саме російською
+// та польською, у кожної мови свої правила.
+function pluralReviews(n: number, l: string): string {
+  const slavic = (one: string, few: string, many: string) => {
+    const m10 = n % 10, m100 = n % 100;
+    if (m10 === 1 && m100 !== 11) return one;
+    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+    return many;
+  };
+  switch (l) {
+    case 'uk': return slavic('відгук покупців', 'відгуки покупців', 'відгуків покупців');
+    case 'ru': return slavic('отзыв покупателей', 'отзыва покупателей', 'отзывов покупателей');
+    case 'pl': return slavic('opinia kupujących', 'opinie kupujących', 'opinii kupujących');
+    case 'de': return n === 1 ? 'Kundenbewertung' : 'Kundenbewertungen';
+    case 'fr': return n === 1 ? 'avis client' : 'avis clients';
+    case 'it': return n === 1 ? 'recensione dei clienti' : 'recensioni dei clienti';
+    case 'es': return n === 1 ? 'opinión de clientes' : 'opiniones de clientes';
+    case 'pt': return n === 1 ? 'avaliação de clientes' : 'avaliações de clientes';
+    default:   return n === 1 ? 'customer review' : 'customer reviews';
+  }
+}
+
 const reviews = (
   reviewsFor(lang).length ? reviewsFor(lang)
   : reviewsFor('en').length ? reviewsFor('en')
@@ -1192,15 +1215,16 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
         <h2 class="font-cabinet text-espresso mb-6" style="font-size:clamp(2.4rem,4.6vw,4rem);line-height:1.0;">
           {tr.testi_title}
         </h2>
-        <!-- Rating badge -->
-        <div class="inline-flex items-center gap-3 bg-warm-white rounded-full px-5 py-2.5" style="border:1px solid rgba(200,184,162,0.3);box-shadow:0 1px 6px rgba(139,115,85,0.05);">
-          <div class="flex items-center gap-0.5">
-            {[0,1,2,3,4].map(() => (
-              <Icon name="ph:star-fill" class="w-[17px] h-[17px]" />
-            ))}
-          </div>
-          <span class="font-outfit font-bold text-espresso text-[15px]">4.9</span>
-          <span class="font-outfit text-espresso/50 text-[12.5px] leading-tight" style="white-space:pre-line;">{tr.testi_rating_sub}</span>
+        <!-- Reviews count badge.
+             До 7 сентября 2026 здесь стояли пять звёзд и «4.9». Цифра была
+             захардкожена, а отзывы не содержат числовых оценок 1–5 — то есть
+             рейтинг ниоткуда не выводился. Убрано вместе с AggregateRating
+             в Layout.astro. Вернуть звёзды можно, когда покупатели начнут
+             ставить оценки и ratingValue будет считаться из данных. -->
+        <div class="inline-flex items-center gap-2.5 bg-warm-white rounded-full px-5 py-2.5" style="border:1px solid rgba(200,184,162,0.3);box-shadow:0 1px 6px rgba(139,115,85,0.05);">
+          <Icon name="ph:chat-circle-text" class="w-[17px] h-[17px]" />
+          <span class="font-outfit font-bold text-espresso text-[15px]">{reviews.length}</span>
+          <span class="font-outfit text-espresso/65 text-[12.5px] leading-tight">{pluralReviews(reviews.length, lang)}</span>
         </div>
       </div>
 
@@ -1213,13 +1237,12 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
             hidden={i >= REVIEWS_INITIAL}
             style="box-shadow:0 1px 6px rgba(139,115,85,0.05);border:1px solid rgba(200,184,162,0.22);"
           >
-            <div class="flex items-center gap-0.5 mb-3">
-              {[0,1,2,3,4].map(() => (
-                <Icon name="ph:star-fill" class="w-[14px] h-[14px]" />
-              ))}
-            </div>
             <p class="font-outfit text-espresso/75 text-[15px] leading-relaxed mb-4">{r.text}</p>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
+              {r.name && (
+                <span class="font-outfit font-semibold text-espresso text-[13px]">{r.name}</span>
+              )}
+              {r.name && <span class="text-taupe" aria-hidden="true">·</span>}
               <Icon name="ph:check-circle" class="w-[15px] h-[15px]" />
               <span class="font-outfit text-espresso/65 text-[13px] font-medium">{tr.testi_verified}</span>
             </div>
