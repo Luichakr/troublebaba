@@ -19,14 +19,30 @@
  * свёртка с известным ядром, а у текста сильные априорные признаки, так
  * что деконволюция такое читает. Пикселизация вскрывается тем же путём.
  *
- * Поэтому здесь информация не маскируется, а уничтожается: страница
- * сначала уменьшается в ~17 раз (1080 → 64 px), и размытие применяется
- * уже к уменьшенной. В файле остаётся 64×91 ≈ 5800 отсчётов на страницу,
- * где текста на 1000+ знаков — восстанавливать нечего. Апскейлер или
- * «реставратор» дорисует правдоподобный текст, но не тот, что был.
+ * Поэтому здесь информация не маскируется, а уничтожается и подменяется.
+ * Три шага, порядок принципиален:
  *
- * Побочный выигрыш: размытая страница весит ~0.3 КБ вместо ~90 КБ, и все
- * 50 закрытых страниц вместе занимают меньше одной читаемой.
+ *   1. Страница уменьшается в ~17 раз (1080 → 64 px). Текст книги гибнет
+ *      ИМЕННО здесь: в 64×91 остаётся ~5800 отсчётов там, где знаков за
+ *      тысячу. Остаётся только цвет и грубая раскладка.
+ *   2. На растянутую обратно основу кладётся decoy — уведомление об
+ *      авторском праве из конфига. С этого момента единственный текст
+ *      в картинке — наш, и вопрос «а вдруг расшифруют» снимается:
+ *      расшифровывать нечего, рецепта в файле нет ни в каком виде.
+ *   3. Всё вместе размывается. Это уже только внешний вид.
+ *
+ * Шаг 3 добавлен потому, что без него в разметке лежал файл шириной 64 px,
+ * и растягивал его браузер — страница выглядела кашей из цветных пятен.
+ * После обратного апскейла с размытием она читается как страница, снятая
+ * не в фокусе: видно колонки, заголовок, фото, абзацы — и ни одной буквы.
+ *
+ * blurSigma выбран на границе: глазу decoy не читается, а под шарпом с
+ * контрастом проступает — тот, кто потратит на это время, прочитает
+ * уведомление вместо рецепта. Крупный кегль переживает размытие лучше
+ * мелкого, поэтому заголовок и адрес набраны заметно крупнее текста.
+ *
+ * Побочный выигрыш остаётся: размытая страница весит ~3.5 КБ вместо ~90 КБ,
+ * и все 50 закрытых страниц вместе — меньше двух читаемых.
  *
  * Внимание: полноразмерный рендер живёт только во временной папке и
  * удаляется. В public/ уходит уже уничтоженная картинка — иначе оригинал
@@ -58,6 +74,40 @@ const pageCount = (pdf) => {
   if (!m) throw new Error(`не удалось прочитать число страниц: ${pdf}`);
   return Number(m[1]);
 };
+
+// Слой подмены: страница-уведомление в тех же пропорциях, что и разворот
+// книги. Кегли считаются от ширины вывода, чтобы конфиг можно было менять,
+// не пересчитывая вёрстку руками.
+const xmlEscape = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function decoyLayer(lang, w, h) {
+  const d = CFG.decoy?.[lang];
+  if (!d) return null;
+  const k = w / 560;                       // все размеры отмерены на 560 px
+  const pad = Math.round(38 * k);
+  const S = { title: 34 * k, body: 21 * k, url: 27 * k, sign: 24 * k };
+  const rows = [];
+  let y = Math.round(120 * k);
+
+  rows.push({ t: d.title, s: S.title, weight: 800 });
+  y += Math.round(S.title * 1.5);
+  for (const line of d.body ?? []) {
+    rows.push(line ? { t: line, s: S.body, weight: 600, y } : null);
+    y += Math.round(S.body * 1.75);
+  }
+  rows.push({ t: d.url, s: S.url, weight: 800, y: y + Math.round(10 * k) });
+  rows.push({ t: d.sign, s: S.sign, weight: 700, y: y + Math.round(S.url * 2.4) });
+
+  let cy = Math.round(120 * k);
+  const out = [];
+  for (const r of rows) {
+    if (!r) { cy += Math.round(S.body * 1.75); continue; }
+    const yy = r.y ?? cy;
+    out.push(`<text x="${pad}" y="${yy}" font-family="sans-serif" font-weight="${r.weight}" font-size="${r.s.toFixed(1)}" fill="#241a12">${xmlEscape(r.t)}</text>`);
+    cy = yy + Math.round(r.s * 1.5);
+  }
+  return Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">${out.join('')}</svg>`);
+}
 
 const only = process.argv.slice(2).filter((a) => !a.startsWith('-'));
 const langs = Object.keys(CFG.sources).filter((l) => !only.length || only.includes(l));
@@ -95,6 +145,12 @@ for (const lang of langs) {
       throw new Error(`отрендерено ${rendered.length} из ${total} страниц`);
     }
 
+    // Пропорция страницы берётся из первого рендера, а не задаётся
+    // константой: у другого PDF формат может оказаться не A4.
+    const probe = await sharp(join(tmp, rendered[0])).metadata();
+    const outW = CFG.blurOutWidth;
+    const outH = Math.round(outW * probe.height / probe.width);
+
     let clearBytes = 0, blurBytes = 0;
     for (const file of rendered) {
       const n = Number(file.match(/p-?0*(\d+)\.png$/)[1]);
@@ -106,11 +162,23 @@ for (const lang of langs) {
           .toFile(out);
         clearBytes += i.size;
       } else {
-        // Уменьшение — то, что уничтожает текст; размытие лишь убирает
-        // «лестницу» пикселей, чтобы страница читалась как страница.
-        const i = await sharp(join(tmp, file))
-          .resize({ width: CFG.blurWidth })
-          .blur(Math.max(0.4, CFG.blurWidth / 20))
+        // Шаг 1 — здесь и только здесь гибнет текст книги. Результат
+        // уходит в буфер, а не в файл: полноразмерный рендер в public/
+        // попасть не должен ни на каком этапе.
+        const base = await sharp(join(tmp, file))
+          .resize({ width: CFG.blurDestroyWidth })
+          .resize({ width: CFG.blurOutWidth, kernel: 'lanczos3' })
+          .toBuffer();
+        // Шаг 2 — подмена. composite в sharp выполняется В КОНЦЕ конвейера,
+        // поэтому размывать в этой же цепочке нельзя: текст остался бы
+        // резким поверх размытого фона. Отсюда отдельный toBuffer().
+        const layer = decoyLayer(lang, outW, outH);
+        const merged = layer
+          ? await sharp(base).composite([{ input: layer }]).png().toBuffer()
+          : base;
+        // Шаг 3 — размытие всего разом.
+        const i = await sharp(merged)
+          .blur(CFG.blurSigma)
           .webp({ quality: CFG.blurQuality })
           .toFile(out);
         blurBytes += i.size;
