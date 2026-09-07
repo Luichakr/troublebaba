@@ -766,43 +766,65 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
             {tr.inside_title}
           </h2>
 
-          <p class="font-outfit text-espresso/65 leading-relaxed mb-10 max-w-[460px]" style="font-size:0.95rem;line-height:1.65;">
-            {tr.inside_sub}
+          {/* Короткий лид. Полный текст (inside_sub) переехал во вторую
+              часть — «Що саме всередині», где он на месте рядом с
+              подробными карточками. Здесь работает обещание, не опись. */}
+          <p class="font-outfit text-espresso/65 leading-relaxed mb-9 max-w-[520px]" style="font-size:var(--text-lead);line-height:1.6;">
+            {tr.inside_sub_short}
           </p>
 
+          {/* Четыре карточки вместо шести цифр вразброс: «2 базові креми»
+              и «∞ доступ назавжди» ушли во вторую часть — здесь остаются
+              те, что читаются как характеристики товара. */}
           {tr.inside_facts && (
-            <ul class="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-5 mb-10 list-none p-0">
-              {(tr.inside_facts as [string, string][]).map(([num, label]) => (
-                <li>
-                  <div class="font-cabinet text-espresso leading-none" style="font-size:clamp(1.6rem,2.6vw,2.1rem);">{num}</div>
-                  <div class="font-outfit text-espresso/65 mt-1.5" style="font-size:0.78rem;line-height:1.35;">{label}</div>
+            <ul class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-9 list-none p-0">
+              {(tr.inside_facts as [string, string][]).slice(0, 4).map(([num, label], i) => (
+                <li class="bg-warm-white rounded-2xl px-4 py-5 flex flex-col items-center text-center" style="border:1px solid rgba(200,184,162,0.28);">
+                  <span class="w-9 h-9 rounded-full bg-cream flex items-center justify-center mb-3">
+                    <Icon name={['ph:file-text','ph:chef-hat','ph:table','ph:image'][i]} class="w-[17px] h-[17px] text-mocha" />
+                  </span>
+                  <span class="font-cabinet text-espresso leading-none" style="font-size:1.45rem;">{num}</span>
+                  <span class="font-outfit text-espresso/65 mt-1.5" style="font-size:0.76rem;line-height:1.3;">{label}</span>
                 </li>
               ))}
             </ul>
           )}
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 flex-1" id="inside-items">
-            {(() => {
-              // Phosphor, one 24x24 grid, one weight - was six hand-drawn SVGs
-              // on six different grids with four different stroke widths.
-              const icons = ['ph:scales', 'ph:shopping-bag', 'ph:cooking-pot', 'ph:table', 'ph:package', 'ph:cake'];
-              return (tr.inside_items as [string, string][]).map((item, i) => (
-                <div class={`reveal reveal-d${Math.min(i+1,5)} bg-warm-white rounded-2xl p-5 flex gap-4 items-start`} style="box-shadow:0 1px 6px rgba(139,115,85,0.05);">
-                  <Icon name={icons[i]} class="flex-shrink-0 w-7 h-7 text-mocha" />
-                  <div>
-                    <div class="font-outfit font-bold text-espresso text-[15px] leading-snug mb-1.5">{item[0]}</div>
-                    <div class="font-outfit text-espresso/50 text-[12.5px] leading-relaxed">{item[1]}</div>
-                  </div>
-                </div>
-              ));
-            })()}
+          {/* Разделитель по DESIGN.md §2: 1px Taupe Line, не «серая полоска». */}
+          <div class="h-px bg-taupe/40 mb-8"></div>
+
+          {/* Три опорных пункта — обобщение шести подробных карточек,
+              которые теперь живут во второй части секции. */}
+          {tr.inside_pillars && (
+            <ul class="flex flex-col gap-6 mb-10 list-none p-0">
+              {(tr.inside_pillars as [string, string][]).map(([title, text], i) => (
+                <li class="flex items-start gap-4">
+                  <span class="flex-shrink-0 w-11 h-11 rounded-full bg-warm-white flex items-center justify-center" style="border:1px solid rgba(200,184,162,0.28);">
+                    <Icon name={['ph:cake','ph:graduation-cap','ph:calculator'][i]} class="w-[19px] h-[19px] text-mocha" />
+                  </span>
+                  <span class="block">
+                    <span class="block font-outfit font-bold text-espresso text-[15px] leading-snug mb-1">{title}</span>
+                    <span class="block font-outfit text-espresso/65 text-[13px] leading-relaxed">{text}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {/* Две CTA: основная кнопка + текстовая ссылка на превью страниц. */}
+          <div class="flex flex-wrap items-center gap-x-7 gap-y-4 mt-auto">
+            <a href={anchor('price')}
+               class="min-h-[44px] inline-flex items-center justify-center gap-3 bg-mocha-dark text-warm-white font-outfit font-bold text-[15px] px-8 py-4 rounded-xl transition-colors"
+               style="box-shadow:0 8px 24px rgba(139,115,85,0.28);">
+              {tr.inside_cta_preview}
+              <Icon name="ph:arrow-right" class="w-[15px] h-[13px]" />
+            </a>
+            <button type="button" id="preview-open-pages"
+                    class="min-h-[44px] font-outfit font-semibold text-[14px] text-espresso/75 hover:text-espresso underline decoration-taupe/60 underline-offset-4 transition-colors">
+              {tr.inside_cta_pages}
+            </button>
           </div>
 
-          {/* Disclaimer: products are selected for UA/EU market */}
-          <div class="reveal mt-5 flex items-start gap-3 bg-cream/60 border border-taupe/25 rounded-2xl px-5 py-4">
-            <Icon name="ph:info" aria-hidden="true" class="flex-shrink-0 mt-0.5 w-[20px] h-[20px]" />
-            <p class="font-outfit text-espresso/65 text-[12.5px] leading-relaxed">{tr.inside_products_note}</p>
-          </div>
         </div>
 
         <div class="reveal reveal-d2">
@@ -866,6 +888,49 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
         </div>
 
       </div>
+    </div>
+  </section>
+
+  <!-- ── WHAT'S INSIDE · PART 2: the detailed breakdown ──
+       Разбито на две секции 7 сентября 2026. В одном блоке было слишком
+       много: короткое обещание, четыре характеристики, шесть подробных
+       карточек, дисклеймер про продукты и картинка — читатель не понимал,
+       на что смотреть. Часть 1 выше отвечает «что это и почему стоит»,
+       эта часть — «что именно внутри», для тех, кто уже заинтересовался. -->
+  <section class="bg-warm-white py-20 lg:py-28">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
+
+      <div class="reveal max-w-[640px] mb-12 lg:mb-14">
+        <SectionEyebrow label={tr.inside_detail_label} class="mb-6" />
+        <h2 class="font-cabinet text-espresso mb-6" style="font-size:var(--h-section);line-height:1.05;letter-spacing:-0.01em;">
+          {tr.inside_detail_title}
+        </h2>
+        <p class="font-outfit text-espresso/65 leading-relaxed" style="font-size:0.95rem;line-height:1.65;">
+          {tr.inside_sub}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5" id="inside-items">
+        {(() => {
+          const icons = ['ph:scales', 'ph:shopping-bag', 'ph:cooking-pot', 'ph:table', 'ph:package', 'ph:cake'];
+          return (tr.inside_items as [string, string][]).map((item, i) => (
+            <div class={`reveal reveal-d${Math.min(i + 1, 5)} flex flex-col bg-cream rounded-2xl p-6`} style="border:1px solid rgba(200,184,162,0.28);">
+              <span class="w-11 h-11 rounded-full bg-warm-white flex items-center justify-center mb-4" style="border:1px solid rgba(200,184,162,0.28);">
+                <Icon name={icons[i]} class="w-[19px] h-[19px] text-mocha" />
+              </span>
+              <div class="font-outfit font-bold text-espresso text-[15px] leading-snug mb-2">{item[0]}</div>
+              <div class="font-outfit text-espresso/65 text-[13px] leading-relaxed">{item[1]}</div>
+            </div>
+          ));
+        })()}
+      </div>
+
+      {/* Дисклеймер: продукты подобраны под UA/EU рынок. */}
+      <div class="reveal mt-6 flex items-start gap-3 bg-cream rounded-2xl px-5 py-4 max-w-[900px]" style="border:1px solid rgba(200,184,162,0.28);">
+        <Icon name="ph:info" aria-hidden="true" class="flex-shrink-0 mt-0.5 w-[20px] h-[20px] text-mocha" />
+        <p class="font-outfit text-espresso/65 text-[13px] leading-relaxed">{tr.inside_products_note}</p>
+      </div>
+
     </div>
   </section>
 
@@ -1192,8 +1257,13 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
           document.body.style.overflow = '';
         };
 
-        const first = document.getElementById('preview-open-first');
-        if (first) first.addEventListener('click', () => open(0));
+        // Лайтбокс открывают две кнопки: «Погортати сторінки» на картинке
+        // и текстовая ссылка «Подивитись приклади сторінок» под CTA,
+        // добавленная при разбиении секции на две части.
+        for (const id of ['preview-open-first', 'preview-open-pages']) {
+          const btn = document.getElementById(id);
+          if (btn) btn.addEventListener('click', () => open(0));
+        }
         document.getElementById('preview-close').addEventListener('click', close);
         document.getElementById('preview-prev').addEventListener('click', (e) => { e.stopPropagation(); show(i - 1); });
         document.getElementById('preview-next').addEventListener('click', (e) => { e.stopPropagation(); show(i + 1); });
