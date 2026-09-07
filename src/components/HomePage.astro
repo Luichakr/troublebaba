@@ -1205,7 +1205,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
 
   {/* Lightbox: the section promises a look inside, so the pages have to open
         full size. Arrows / swipe move between them; Esc or a click outside closes. */}
-    <div id="preview-lightbox" hidden data-pages={JSON.stringify(previewPages.map((p) => `/images/pdf-preview/${previewLang}/p${p}.jpg`))} class="fixed inset-0 z-[100] items-center justify-center p-4 md:p-8" style="background:rgba(26,20,14,0.92);backdrop-filter:blur(4px);">
+    <div id="preview-lightbox" hidden data-pages={JSON.stringify(previewPages.map((p) => `/images/pdf-preview/${previewLang}/p${p}.jpg`))} data-alt-tpl={tr.preview_page_alt} class="fixed inset-0 z-[100] items-center justify-center p-4 md:p-8" style="background:rgba(26,20,14,0.92);backdrop-filter:blur(4px);">
       <button type="button" id="preview-close" aria-label="Close" class="absolute top-4 right-4 md:top-6 md:right-6 w-11 h-11 rounded-full flex items-center justify-center text-warm-white/80 hover:text-warm-white" style="background:rgba(255,255,255,0.10);">
         <Icon name="ph:x" class="w-[20px] h-[20px]" />
       </button>
@@ -1229,9 +1229,15 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
         if (!srcs.length) return;
         let i = 0;
 
+        // alt меняется вместе с src: в разметке у картинки alt="" — это
+        // верно для прозрачной заглушки 1×1, но как только сюда встаёт
+        // страница книги, картинка становится содержанием, и пустой alt
+        // означает, что скринридер не объявляет ничего.
+        const altTpl = box.dataset.altTpl || '';
         const show = (n) => {
           i = (n + srcs.length) % srcs.length;
           img.src = srcs[i];
+          img.alt = altTpl.replace('{n}', i + 1).replace('{total}', srcs.length);
           counter.textContent = `${i + 1} / ${srcs.length}`;
         };
         const open = (n) => {
