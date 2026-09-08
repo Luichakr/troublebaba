@@ -1784,6 +1784,19 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
               <Icon name="ph:arrow-right" class="w-[16px] h-[14px]" />
             </a>
 
+            {/* Язык PDF. Раньше человек узнавал о нём только после клика,
+                когда выскакивала модалка с четырьмя кнопками — вопрос «а на
+                каком языке мне придёт файл» возникает раньше, чем решение
+                нажать. На es/de/fr/it/pt своего издания нет, и там строка
+                говорит прямо: файл английский. Языки не перечисляем: набор
+                зависит от страны посетителя, и статичный список врал бы. */}
+            {tr.pdf_lang_note && (
+              <div class="flex items-center gap-2 -mt-4 mb-7 lg:mb-9">
+                <Icon name="ph:translate" aria-hidden="true" class="w-[14px] h-[14px] text-warm-white/55 flex-shrink-0" />
+                <span class="font-outfit text-warm-white/60 text-[12.5px] leading-snug">{tr.pdf_lang_note}</span>
+              </div>
+            )}
+
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div class="flex items-start gap-2.5">
                 <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);">
@@ -2066,6 +2079,50 @@ const send = (name: string, params: Record<string, unknown> = {}) => {
   } catch { /* swallow */ }
 };
 
+// Локали, у которых PDF только английский: своего издания нет, и выбор
+// из четырёх для них — лишний шаг перед оплатой.
+const PDF_ONLY_EN = new Set(['es', 'de', 'fr', 'it', 'pt']);
+
+// Магазин Lemon Squeezy выбирается по языку СТРАНИЦЫ — от него зависит
+// валюта: uk → ₴800, ru → $20, pl → 80 zł, en и все европейские → €18.
+// Брать TR_LS_CHECKOUT напрямую нельзя: это гривневый магазин по
+// умолчанию, и посетитель с испанской страницы уехал бы платить ₴800.
+const storeUrlFor = (l: string): string =>
+  ((window as any).TR_LS_BY_LANG || {})[l] || ((window as any).TR_LS_CHECKOUT as string) || '';
+
+// Страна посетителя. Главная статическая и кешируется, поэтому страну
+// нельзя подставить при сборке — спрашиваем эндпоинт. Запрос уходит один
+// раз и заранее, а не в момент клика: иначе модалка ждала бы сеть.
+let geoCountry: string | null = null;
+const geoReady = fetch('/api/geo', { cache: 'no-store' })
+  .then(r => r.ok ? r.json() : null)
+  .then((d: any) => { geoCountry = typeof d?.country === 'string' ? d.country : null; })
+  .catch(() => { /* сеть подвела — остаётся null, показываем все языки */ });
+
+// Какие языки PDF прячем от этой страны.
+const HIDE_BY_COUNTRY: Record<string, string[]> = { RU: ['uk', 'pl'] };
+
+function applyGeoToModal(modal: HTMLElement) {
+  const hide = geoCountry ? (HIDE_BY_COUNTRY[geoCountry] ?? []) : [];
+  modal.querySelectorAll<HTMLButtonElement>('.pdf-lang-opt').forEach(btn => {
+    // hidden, а не display:none в стиле: сетка модалки перестроится сама,
+    // и две оставшиеся кнопки лягут в одну строку без пустых клеток.
+    btn.hidden = hide.includes(btn.dataset.pdfLang || '');
+  });
+}
+
+// Если ответ придёт уже после открытия модалки — перефильтруем.
+geoReady.then(() => {
+  const m = document.getElementById('pdf-lang-modal');
+  if (m && !m.classList.contains('hidden')) applyGeoToModal(m);
+});
+
+/** Ждём страну, но не дольше 600 мс: модалка не должна залипать на сети. */
+async function geoSettled() {
+  if (geoCountry !== null) return;
+  await Promise.race([geoReady, new Promise(r => setTimeout(r, 600))]);
+}
+
 document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
   a.addEventListener('click', async (e) => {
     const source   = a.dataset.buySource || 'unknown';
@@ -2096,16 +2153,40 @@ document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
     // to our webhook as meta.custom_data.lang → we sign the download token
     // for that language.
     e.preventDefault();
+
+    // PDF существует на четырёх языках: uk, ru, en, pl. Посетителю с
+    // испанской, итальянской, немецкой, французской или португальской
+    // страницы выбирать не из чего — читать он будет английский. Поэтому
+    // модалку не показываем и не заставляем принимать решение, которого
+    // нет: сразу английский, а на странице рядом с ценой об этом сказано.
+    if (PDF_ONLY_EN.has(pageLang)) {
+      const url = storeUrlFor(pageLang);
+      if (!url) return;
+      const sep = url.includes('?') ? '&' : '?';
+      send('pdf_lang_pick', { lang: 'en', site_lang: pageLang, auto: true });
+      window.location.href = url + sep +
+        'checkout[custom][lang]=en' +
+        '&checkout[custom][source]=' + encodeURIComponent(source);
+      return;
+    }
+
     const modal = document.getElementById('pdf-lang-modal');
     if (!modal) {
-      // fallback: no modal in DOM — use page language
+      // Аварийный путь: модалки нет в DOM. Здесь тоже брали магазин по
+      // умолчанию (гривневый) вместо магазина по языку страницы — валюта
+      // не совпала бы с ценой, которую человек только что видел.
       const validLang = ['uk','ru','en','pl'].includes(pageLang) ? pageLang : 'en';
-      const sep = lsUrl.includes('?') ? '&' : '?';
-      window.location.href = lsUrl + sep +
+      const url = storeUrlFor(pageLang);
+      if (!url) return;
+      const sep = url.includes('?') ? '&' : '?';
+      window.location.href = url + sep +
         'checkout[custom][lang]='   + encodeURIComponent(validLang) +
         '&checkout[custom][source]=' + encodeURIComponent(source);
       return;
     }
+
+    await geoSettled();
+    applyGeoToModal(modal);
     modal.classList.remove('hidden');
     modal.classList.add('flex');
     document.documentElement.style.overflow = 'hidden';
@@ -2140,8 +2221,7 @@ if (pdfModal) {
       // (uk site → UAH store, ru site → USD store, pl → PLN, en/de/… → EUR).
       // The PDF language they picked is independent and travels as custom_data.
       const pageLang = (document.documentElement.lang || 'uk').slice(0, 2);
-      const byLang   = ((window as any).TR_LS_BY_LANG || {}) as Record<string, string>;
-      const lsUrl    = byLang[pageLang] || (window as any).TR_LS_CHECKOUT as string;
+      const lsUrl    = storeUrlFor(pageLang);
       if (!lsUrl) { closeModal(); return; }
       send('pdf_lang_pick', { lang: chosen, site_lang: pageLang });
       const src = pdfModal?.dataset.buySource || 'unknown';
