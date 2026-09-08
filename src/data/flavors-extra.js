@@ -3,6 +3,17 @@
 // Only positioning, occasion, common problems (naming the pain, NOT the fix),
 // and FAQ that doesn't reveal recipe truths. The full craft lives in the paid PDF.
 
+// Локализованный текст для es/de/fr/it/pt лежит в файлах-сиблингах и
+// мерджится ниже — той же схемой, что flavors.<lang>.js в flavors.js.
+// До 8 сентября этих пяти языков не было вовсе: страницы вкусов на них
+// показывали английские FAQ, ошибки и подписи секций при остальном
+// тексте на своём языке.
+import { EXTRA_ES, SECTIONS_ES, DIFFICULTY_ES, TIME_ES } from './flavors-extra.es.js';
+import { EXTRA_DE, SECTIONS_DE, DIFFICULTY_DE, TIME_DE } from './flavors-extra.de.js';
+import { EXTRA_FR, SECTIONS_FR, DIFFICULTY_FR, TIME_FR } from './flavors-extra.fr.js';
+import { EXTRA_IT, SECTIONS_IT, DIFFICULTY_IT, TIME_IT } from './flavors-extra.it.js';
+import { EXTRA_PT, SECTIONS_PT, DIFFICULTY_PT, TIME_PT } from './flavors-extra.pt.js';
+
 // Global metadata (same across locales).
 // difficulty: 1 (easy), 2 (medium), 3 (hard) — based on how tricky the assembly is.
 // timeLabel: qualitative bucket, not exact time.
@@ -26,12 +37,22 @@ export const DIFFICULTY_LABEL = {
   ru: { 1: 'Простой',   2: 'Средний',     3: 'Сложный'     },
   pl: { 1: 'Łatwy',     2: 'Średni',      3: 'Zaawansowany'},
   en: { 1: 'Beginner',  2: 'Intermediate',3: 'Advanced'    },
+  es: DIFFICULTY_ES,
+  de: DIFFICULTY_DE,
+  fr: DIFFICULTY_FR,
+  it: DIFFICULTY_IT,
+  pt: DIFFICULTY_PT,
 };
 export const TIME_LABEL = {
   uk: { short: 'до 2 годин', medium: '2–3 години',  long: '3+ години'  },
   ru: { short: 'до 2 часов', medium: '2–3 часа',    long: '3+ часа'    },
   pl: { short: 'do 2 h',     medium: '2–3 h',       long: 'ponad 3 h'  },
   en: { short: 'under 2 h',  medium: '2–3 h',       long: 'over 3 h'   },
+  es: TIME_ES,
+  de: TIME_DE,
+  fr: TIME_FR,
+  it: TIME_IT,
+  pt: TIME_PT,
 };
 
 // Per-flavor, per-locale enrichment.
@@ -845,13 +866,29 @@ export const SECTIONS = {
     time:        'Assembly time',
     pdfCta:      'Get the full recipe in the PDF',
   },
+  es: SECTIONS_ES,
+  de: SECTIONS_DE,
+  fr: SECTIONS_FR,
+  it: SECTIONS_IT,
+  pt: SECTIONS_PT,
 };
+
+// Вливаем локализованный текст в FLAVOR_EXTRA[slug].t.<lang>.
+// Мутируем при загрузке модуля, а не в getExtra: слияние на каждый вызов
+// пересобирало бы объекты 90 раз за сборку.
+for (const [lang, table] of Object.entries({ es: EXTRA_ES, de: EXTRA_DE, fr: EXTRA_FR, it: EXTRA_IT, pt: EXTRA_PT })) {
+  for (const [slug, node] of Object.entries(table)) {
+    if (FLAVOR_EXTRA[slug]) FLAVOR_EXTRA[slug].t[lang] = node;
+  }
+}
 
 export function getExtra(slug, lang) {
   const extra = FLAVOR_EXTRA[slug];
   if (!extra) return null;
   return {
     related: extra.related || [],
+    // Фолбэк на uk намеренно оставлен последним: у всех девяти языков
+    // текст есть, и если фолбэк однажды сработает — это баг, а не норма.
     ...(extra.t[lang] || extra.t.uk),
   };
 }

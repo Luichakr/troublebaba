@@ -43,15 +43,17 @@ const BUNDLE_CARD: Record<string, { title: string; hint: string; price: string }
 const B = BUNDLE_CARD[lang] ?? BUNDLE_CARD.en;
 
 // Enrichment: difficulty badge + time + occasion + common mistakes + FAQ.
-// Only uk/ru/pl/en have curated copy; other locales fall back to English
-// section titles but skip the localized body content silently.
+// Текст есть на всех девяти языках (flavors-extra.<lang>.js), поэтому
+// язык больше не сводится к четырём. Раньше здесь стояло сужение до
+// uk/ru/pl/en, и es/de/fr/it/pt получали английские FAQ, ошибки и
+// подписи секций при остальной странице на своём языке. Фолбэк на en
+// оставлен как страховка: если он сработает — это баг в данных.
 const meta = (FLAVOR_META as any)[slug];
-const extraLang: 'uk' | 'ru' | 'pl' | 'en' =
-  (['uk','ru','pl','en'] as const).includes(lang as any) ? (lang as any) : 'en';
+const extraLang = ((SECTIONS as any)[lang] ? lang : 'en') as Lang;
 const extra = getExtra(slug, extraLang);
-const sec = SECTIONS[extraLang];
-const difficultyLabel = meta && DIFFICULTY_LABEL[extraLang][meta.difficulty];
-const timeLabel       = meta && TIME_LABEL[extraLang][meta.timeBucket];
+const sec = (SECTIONS as any)[extraLang];
+const difficultyLabel = meta && (DIFFICULTY_LABEL as any)[extraLang][meta.difficulty];
+const timeLabel       = meta && (TIME_LABEL as any)[extraLang][meta.timeBucket];
 
 // Curated internal linking to related flavors — 3 hand-picked siblings.
 const relatedFlavors = (extra?.related || [])
