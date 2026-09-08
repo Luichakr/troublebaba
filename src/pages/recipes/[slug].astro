@@ -30,7 +30,11 @@ const recipeJsonLd = {
   "recipeCategory": "Dessert",
   "recipeCuisine": "Modern",
   "keywords": ["bento cake", "bento-cake", f.name.toLowerCase(), "recipe", "pdf recipe book"].join(", "),
-  "recipeYield": "1 bento cake (~200 g)",
+  // Ø 10 см — тот диаметр, на который рассчитаны рецепты в сборнике.
+  // Было «~200 g», и это противоречило нашей же статье про размеры:
+  // src/content/blog/*/bento-cake-size.md говорит 350–450 г для 10 см.
+  // Схема не должна расходиться с текстом на том же сайте.
+  "recipeYield": "1 bento cake, \u00d8 10 cm (350\u2013450 g)",
   ...(ingredients && ingredients.length ? { "recipeIngredient": ingredients } : {}),
   "recipeInstructions": [
     {
