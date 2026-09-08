@@ -18,11 +18,11 @@ Una amiga te pide una tarta para su cumpleaños. Le dices que no porque «todav�
 
 **Una receta que funcione.** No diez: una. La que ya has horneado dos veces y sabes con certeza que sale bien. La segunda y la tercera las dominarás después de los primeros pedidos, cuando el cliente pregunte «¿y se puede con otro relleno?».
 
-**Inventario básico.** Una placa u horno, un molde de 16 cm, una batidora de mano económica y una báscula con precisión de 1 gramo. La amasadora profesional, los tapetes de silicona con termómetro o la freidora de aire los comprarás más adelante con el dinero de los primeros clientes.
+**Inventario básico.** Un horno, una batidora de mano, una báscula con precisión de un gramo y unas cuantas cosas pequeñas: la lista completa va en el recopilatorio junto con las recetas. La amasadora profesional y los tapetes caros pueden esperar al dinero de los primeros clientes.
 
 **Embalaje.** Una caja kraft tipo lunch-box, bases de papel y una cinta. Se compra en la tienda de repostería más cercana o por internet. El kit inicial para 5 pedidos cuesta muy poco.
 
-**Entender tu coste.** Sin esto, o vendes con pérdidas o te da miedo decir el precio y pierdes al cliente. Coges el ticket de la compra, lo divides por los gramos y lo multiplicas por el gramaje de la receta. Esa es la base; los detalles están en el recopilatorio en PDF.
+**Entender tu coste.** Sin esto, o vendes con pérdidas o te da miedo decir el precio y pierdes al cliente. Cómo calcularlo está en [cuánto cuesta un bento cake](/es/blog/bento-cake-cost/).
 
 ## Lo que no hace falta (todavía)
 

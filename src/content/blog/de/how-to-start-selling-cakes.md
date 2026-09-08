@@ -18,11 +18,11 @@ Kommt dir das bekannt vor? Schauen wir uns an, was du für den ersten bezahlten 
 
 **Ein funktionierendes Rezept.** Nicht zehn – eins. Das, das du schon zweimal gebacken hast und von dem du sicher weißt: Es gelingt. Das zweite und dritte lernst du nach den ersten Aufträgen, wenn der Kunde fragt: „Geht das auch mit dieser Füllung?"
 
-**Grundausstattung.** Herd oder Backofen, eine 16-cm-Form, ein Handmixer für rund 800 ₴ (ukrainischer Markt), eine Waage mit 1-Gramm-Genauigkeit. Profi-Küchenmaschine, Silikonmatten mit Thermometern, Heißluftfritteuse – das kaufst du später vom ersten Kundengeld.
+**Grundausstattung.** Backofen, Handmixer, eine Waage mit Gramm-Genauigkeit und ein paar Kleinigkeiten – die vollständige Liste liegt dem Sammelband bei den Rezepten bei. Profi-Küchenmaschine und teure Matten kaufst du später vom ersten Kundengeld.
 
 **Verpackung.** Eine Kraftbox im Lunchbox-Format, Papiereinlagen, Band. Gibt es im nächsten Konditoreibedarf oder online. Budget: bis 300 ₴ (ukrainischer Markt) für ein Startset, das für 5 Aufträge reicht.
 
-**Ein Gefühl für die Selbstkosten.** Ohne das verkaufst du entweder mit Verlust – oder du traust dich nicht, den Preis zu nennen, und verlierst den Kunden. Du nimmst den Kassenbon, teilst durch die Grammzahl, multiplizierst mit der Grammatur des Rezepts. Das ist die Basis – die Details stehen im PDF-Sammelband.
+**Ein Gefühl für die Selbstkosten.** Ohne das verkaufst du entweder mit Verlust – oder du traust dich nicht, den Preis zu nennen, und verlierst den Kunden. Wie man rechnet, steht in [was eine Bento-Torte kostet](/de/blog/bento-cake-cost/).
 
 ## Was du (noch) nicht brauchst
 

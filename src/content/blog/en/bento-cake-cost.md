@@ -40,7 +40,7 @@ Total: **€1.60–€2.50 per cake**. Buy boxes in batches of 50 — they cost 
 
 **3. Your time.** The number everyone underestimates. A first-order bento takes **3–4 hours** including sponge, cooling, cream, assembly, decoration, packaging and clean-up. Even at a modest €10/hour that's **€30–€40 of your time** per cake. This is the single biggest reason the "× 3" multiplier exists — it's not greed, it's covering the hours you already spent.
 
-**4. Utilities.** Oven at 170°C for 40 minutes, mixer, refrigerator time. Roughly €0.30–€0.60 per bento cake. Small individually, but adds up across a month of orders.
+**4. Utilities.** Oven time for the sponge, the mixer, and a night of fridge space. Roughly €0.30–€0.60 per bento cake. Small individually, but adds up across a month of orders.
 
 **5. Tool amortisation.** Silicone rings, offset spatula, piping bags and tips, thermometer, kitchen scales — around €80–€120 initial outlay, spread across the first 100 cakes = **€0.80–€1.20 per cake**.
 
@@ -54,12 +54,12 @@ Real numbers for a beginner in Europe (mid-2026 supermarket prices):
 
 | Line | Amount | Cost |
 |---|---|---|
-| Flour, sugar, eggs, cocoa | for one 12 cm sponge, two discs | €0.80 |
-| Cream cheese (Philadelphia or equivalent) | 250 g | €2.50 |
-| Butter | 120 g | €1.20 |
-| Icing sugar | 80 g | €0.30 |
+| Flour, sugar, eggs, cocoa | for one 12 cm sponge | €0.80 |
+| Cream cheese (Philadelphia or equivalent) | one tub | €2.50 |
+| Butter | part of a block | €1.20 |
+| Icing sugar | | €0.30 |
 | Oreo cookies (crumble + decoration) | 3 cookies + 1 whole | €0.60 |
-| Cherry coulis (frozen berries, sugar) | 40 g | €0.40 |
+| Cherry coulis (frozen berries, sugar) | one insert | €0.40 |
 | **Ingredients total** | | **€5.80** |
 | Bento box + insert + label | | €2.00 |
 | Utilities (oven + fridge overnight) | | €0.50 |
@@ -121,7 +121,7 @@ To scale past that, you need a proper commercial kitchen certification, a pastry
 
 ## What makes the cost calculation reliable
 
-The reason most starters can't price properly is that they don't know their own ingredient quantities. "About a pack of cream cheese" turns into 280 g one time and 350 g the next — and the cost per cake swings by €1.50 without you noticing.
+The reason most starters can't price properly is that they don't know their own ingredient quantities. "About a pack of cream cheese" means something different every time — and the cost per cake swings by more than a euro without you noticing. Working to weighed recipes is what removes that swing.
 
 The [PDF collection](/en/) gives you the exact gram list per flavour, a **conversion table across 11 diameters**, photographs of the actual product packages used (so you buy the same fat content, not a lookalike), and the full equipment list for a home setup. Once quantities are fixed, your cost per cake becomes a number you can rely on instead of an estimate.
 

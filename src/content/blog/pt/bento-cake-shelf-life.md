@@ -29,9 +29,9 @@ Antes de servir, tire o bolo da geladeira **com 15 a 20 minutos de antecedência
 
 ## Congelamento
 
-Não recomendamos. Depois de descongelar, o cream cheese e o mascarpone "talham" — solta líquido e a textura fica granulosa. A ganache suporta um pouco melhor o congelamento, mas os acabamentos finais (frutas frescas, pasta americana) ficam arruinados.
+Não recomendamos para um bolo já montado. Depois de descongelar, o creme de queijo e o mascarpone talham: sai líquido e a textura fica granulosa. O ganache aguenta o frio um pouco melhor, mas o acabamento — frutos frescos, elementos de chocolate, a mensagem escrita — não sobrevive de qualquer forma.
 
-Se for muito necessário, congele **antes da montagem do decor**, o pão de ló e o creme separadamente. Monte no dia de servir.
+O que acontece exatamente com o creme e o que responder ao cliente: [pode-se congelar um bento cake](/pt/blog/can-you-freeze-bento-cake/).
 
 ## O que dizer ao cliente na entrega
 
@@ -52,4 +52,6 @@ Se o creme está firme e não há cheiro ruim, sim. Mas continuar guardando já 
 **O que estraga primeiro — o creme ou o pão de ló?**
 O creme. Principalmente os à base de creme de leite ou com mascarpone. O pão de ló, embebido e envolto pelo creme, se mantém fresco por mais tempo — ele não fica em contato com o ar.
 
-> Todas as 10 receitas do [compêndio em PDF](/pt/recipes/) trazem o prazo de conservação recomendado para cada creme e recheio.
+---
+
+**Não publicamos receitas no blog.** A nossa [coletânea em PDF](/pt/recipes/) tem 10 receitas de bento cake com gramagens para 1, 2 e 3 bolos; os recheios feitos com antecedência trazem as suas próprias condições de conservação dentro da receita.

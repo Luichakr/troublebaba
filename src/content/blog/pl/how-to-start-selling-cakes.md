@@ -18,11 +18,11 @@ Znajome? Rozbierzmy, co naprawdę jest potrzebne do pierwszego płatnego zamówi
 
 **Jeden działający przepis.** Nie dziesięć — jeden. Ten, który już piekłaś dwa razy i wiesz na pewno: wychodzi. Drugi i trzeci opanujesz po pierwszych zamówieniach, gdy klient zapyta „a można jeszcze z taką masą”.
 
-**Podstawowy sprzęt.** Piekarnik, forma 16 cm, ręczny mikser za 200 zł, waga z dokładnością do 1 grama. Robot planetarny, silikonowe maty z termometrami, konwektomat — kupisz później za pierwsze pieniądze od klientów.
+**Podstawowy sprzęt.** Piekarnik, ręczny mikser, waga z dokładnością do grama i kilka drobiazgów — pełna lista idzie w zbiorze razem z przepisami. Robot planetarny i drogie maty kupisz później, za pierwsze pieniądze od klientów.
 
 **Opakowanie.** Krafowe pudełko lunchowe, papierowe podkładki, wstążka. Dostępne w najbliższym sklepie cukierniczym lub na Allegro. Budżet — do 100 zł startowy zestaw na 5 zamówień.
 
-**Zrozumienie kosztu własnego.** Bez tego albo sprzedasz na minusie, albo zbojkotujesz cenę i stracisz klienta. Bierzesz paragon ze sklepu, dzielisz na liczbę gramów, mnożysz na gramaturę przepisu. To baza — szczegóły w zbiorze PDF.
+**Zrozumienie kosztu własnego.** Bez tego albo sprzedasz na minusie, albo przestraszysz się podać cenę i stracisz klienta. Jak liczyć — w materiale [ile kosztuje tort bento](/pl/blog/bento-cake-cost/).
 
 ## Czego nie potrzebujesz (na razie)
 

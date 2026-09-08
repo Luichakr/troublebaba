@@ -29,9 +29,9 @@ Antes de servir, saca la tarta del frigorífico **15–20 minutos antes**: la cr
 
 ## Congelación
 
-No la recomendamos. Tras descongelar, la crema de queso y el mascarpone «se cortan»: sueltan líquido y la textura se vuelve granulosa. El ganache tolera algo mejor la congelación, pero las decoraciones finales (frutos rojos frescos, fondant) no sobreviven.
+No la recomendamos para una tarta ya montada. Tras descongelar, la crema de queso y el mascarpone «se cortan»: sueltan líquido y la textura se vuelve granulosa. El ganache tolera algo mejor el frío, pero la decoración final —frutos rojos, elementos de chocolate, el mensaje escrito— no sobrevive en ningún caso.
 
-Si es imprescindible, se congela **antes de montar la decoración**, por separado el bizcocho y la crema. El montaje se hace el día de servir.
+Qué le ocurre exactamente a la crema y qué responder al cliente: [¿se puede congelar un bento cake?](/es/blog/can-you-freeze-bento-cake/).
 
 ## Qué decirle al cliente al entregar
 
@@ -52,4 +52,6 @@ Si la crema mantiene la forma y no hay olor desagradable, sí. Pero a partir de 
 **¿Qué se estropea primero, la crema o el bizcocho?**
 La crema. Sobre todo la de nata o con mascarpone. El bizcocho, calado y envuelto en crema, se mantiene fresco más tiempo: no está en contacto con el aire.
 
-> Las 10 recetas del [recopilatorio en PDF](/es/recipes/) incluyen la indicación del tiempo de conservación recomendado para cada crema y relleno.
+---
+
+**No publicamos recetas en el blog.** Nuestro [recopilatorio en PDF](/es/recipes/) tiene 10 recetas de bento cake con gramajes para 1, 2 y 3 tartas, y los rellenos que se preparan por adelantado llevan sus propias condiciones de conservación dentro de la receta.

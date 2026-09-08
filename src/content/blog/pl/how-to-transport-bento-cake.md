@@ -29,7 +29,7 @@ Większość reklamacji klientów typu "krem spłynął" albo "tort przyjechał 
 
 ## Przygotowanie tortu przed wyjazdem
 
-Tort powinien być całkowicie schłodzony i ustabilizowany, zanim gdziekolwiek go zawieziesz - minimum 2-3 godziny w lodówce po złożeniu i dekorowaniu. Krem, który dopiero co naniesiono, jest jeszcze "ruchomy" i najbardziej podatny na wibracje i wstrząsy w drodze.
+Wieźć można wyłącznie tort całkowicie schłodzony. Krem naniesiony niedawno jest jeszcze „ruchomy" i najbardziej podatny na wibracje i wstrząsy w drodze — ile dokładnie musi postać w lodówce, zależy od kremu i jest podane w przepisie.
 
 Nie wyjmuj tortu z lodówki wcześniej "na zapas" - im dłużej stoi w temperaturze pokojowej przed wyjazdem, tym mniej zapasu wytrzymałości zostaje na samą drogę. Idealnie: wyjąć tort, od razu włożyć do pudełka i wyjeżdżać.
 
@@ -79,7 +79,7 @@ Jeśli to możliwe, napisz instrukcję wprost na wieczku pudełka dużymi litera
 
 Krótka lista, którą warto przejść przed każdym wydaniem z dostawą:
 
-1. Tort stał w lodówce minimum 2-3 godziny po dekorowaniu.
+1. Tort całkowicie schłodził się w lodówce po dekorowaniu.
 2. Tort wyjęto nie wcześniej niż 15-20 minut przed wyjazdem.
 3. Pudełko dokładnie na wymiar, podkład zamocowany.
 4. Latem - torba termiczna z wkładami chłodzącymi w samochodzie.

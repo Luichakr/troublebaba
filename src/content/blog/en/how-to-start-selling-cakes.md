@@ -18,11 +18,11 @@ Familiar? Let's separate what you actually need for a first paid order from what
 
 **One working recipe.** Not ten — one. The one you've already baked twice and know: it comes out. The second and third you'll pick up after your first orders, when a client asks “can we do it with a different filling?”
 
-**Basic equipment.** An oven, one 16 cm tin, a hand mixer under $30, a scale accurate to 1 gram. Stand mixer, silicone mats with thermometers, convection oven — buy those later, from client money.
+**Basic equipment.** An oven, a hand mixer, a scale accurate to a gram and a handful of small things — the full list comes with the recipes in the collection. Stand mixer and expensive mats can wait for client money.
 
 **Packaging.** A kraft lunch box, greaseproof liners, ribbon. Buy at any local baking supply or online. Budget — under $25 for a starter kit for 5 orders.
 
-**Costing awareness.** Without it you'll either sell at a loss or panic on the price and lose the client. You take a supermarket receipt, divide by grams, multiply by the recipe's gram weight. That's the base — full details in the PDF collection.
+**Costing awareness.** Without it you'll either sell at a loss or panic on the price and lose the client. How to work it out is in [how much a bento cake costs](/en/blog/bento-cake-cost/).
 
 ## What you don't need (yet)
 

@@ -15,7 +15,7 @@ faq:
   - q: "Ile tort bento może stać w temperaturze pokojowej?"
     a: "Nie dłużej niż 1–2 godziny przy +20…+24 °C, i to dla kremów maślanych. Przy kremach śmietanowych nadzienie zaczyna płynąć już po 30–40 minutach. W upały terminy są jeszcze krótsze."
   - q: "Czy można mrozić tort bento?"
-    a: "Gotowego, złożonego tortu nie polecamy: serek śmietankowy i mascarpone po rozmrożeniu się rozwarstwiają i stają się ziarniste, świeże owoce i dekor giną. Jeśli trzeba — mrozi się osobno biszkopt i krem przed złożeniem, a składa w dniu podania."
+    a: "Gotowego, złożonego tortu nie polecamy: serek śmietankowy i mascarpone po rozmrożeniu się rozwarstwiają i stają się ziarniste, świeże owoce i dekor giną. Co dokładnie dzieje się z kremem i jak odpowiadać klientowi — w osobnym materiale o mrożeniu."
   - q: "Na ile czasu wyjąć tort bento z lodówki przed podaniem?"
     a: "Na 15–20 minut. Krem ogrzeje się do właściwej temperatury i smak się rozwinie. Dłużej — krem zacznie mięknąć."
   - q: "Jak przewozić tort bento latem?"
@@ -65,16 +65,9 @@ Przed podaniem wyjmijcie tort z lodówki **na 15–20 minut**: krem ogrzeje się
 
 ## Czy można mrozić tort bento
 
-Gotowego, złożonego tortu **nie polecamy**. Po rozmrożeniu serek śmietankowy i mascarpone «się rozwarstwiają»: wydziela się płyn, konsystencja staje się ziarnista. Ganache znosi mrożenie nieco lepiej, ale ostateczny dekor (świeże owoce, lukier plastyczny, elementy czekoladowe) nie przetrwa.
+Gotowego, złożonego tortu — **nie polecamy**. Po rozmrożeniu krem serkowy i mascarpone się rozwarstwiają: występuje płyn, tekstura robi się ziarnista. Ganasz znosi zimno nieco lepiej, ale dekor wykończeniowy — świeże owoce, elementy czekoladowe, napis — nie przetrwa w żadnym wypadku.
 
-Jeśli mrożenie jest konieczne — na przykład żeby odciążyć dzień przed dużym zamówieniem:
-
-- mrozimy **przed złożeniem dekoru**: osobno biszkopt (szczelnie w folii) i osobno krem;
-- biszkopt spokojnie leży w zamrażarce 2–4 tygodnie, krem nie dłużej niż tydzień;
-- rozmrażajcie w lodówce, nie na blacie;
-- składajcie i dekorujcie w dniu podania.
-
-Całkowicie złożone bento do zamrażarki — tylko jeśli to tort «dla siebie» i smak tekstury nie jest krytyczny.
+Więcej o tym, co dokładnie dzieje się z kremem i co odpowiadać klientowi, w materiale [czy można mrozić tort bento](/pl/blog/can-you-freeze-bento-cake/).
 
 ## Transport: jak dowieźć bento w całości
 
@@ -144,4 +137,6 @@ Serek śmietankowy na maśle lub ganache. Trzymają i formę, i smak przez 48–
 **Czy można zrobić tort dwa dni przed uroczystością?**
 Na serku śmietankowym z masłem — tak, ale dekor ze świeżymi owocami dodajcie w dniu wydania.
 
-> Wszystkie 10 przepisów w [zbiorze PDF TROUBLEBABA](/pl/recipes/) ma podany zalecany termin przechowywania dla każdego kremu i nadzienia — wiecie, co napisać klientowi, zanim jeszcze upieczecie tort.
+---
+
+**Przepisów nie publikujemy na blogu.** W naszym [zbiorze PDF](/pl/recipes/) jest 10 przepisów na torty bento z gramaturami na 1, 2 i 3 torty, a nadzienia przygotowywane z wyprzedzeniem mają własne warunki i terminy przechowywania podane wprost w przepisie. To te same przepisy, według których autorka robi torty na sprzedaż.

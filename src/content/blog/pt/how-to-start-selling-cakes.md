@@ -18,11 +18,11 @@ Soa familiar? Vamos separar o que é realmente necessário para aceitar o primei
 
 **Uma receita que funciona.** Não dez — uma. Aquela que você já assou duas vezes e sabe com certeza: ela dá certo. A segunda e a terceira você domina depois dos primeiros pedidos, quando o cliente perguntar "e dá para fazer com outro recheio?".
 
-**Equipamento básico.** Fogão ou forno, forma de 16 cm, batedeira de mão simples, balança com precisão de 1 grama. Batedeira planetária profissional, tapetes de silicone com termômetro, air fryer — você compra depois, com o dinheiro dos primeiros clientes.
+**Equipamento básico.** Forno, batedeira de mão, balança com precisão de um grama e algumas coisas pequenas — a lista completa vem na coletânea junto com as receitas. Batedeira planetária e tapetes caros podem esperar pelo dinheiro dos primeiros clientes.
 
 **Embalagem.** Caixa kraft de marmita, forros de papel, fita. Encontra-se na loja de artigos de confeitaria mais próxima ou em marketplaces. Um kit inicial para 5 pedidos custa pouco.
 
-**Noção do custo de produção.** Sem isso, você ou vende no prejuízo, ou trava na hora de dizer o preço e perde o cliente. Pegue a nota fiscal do mercado, divida pela quantidade de gramas, multiplique pela gramatura da receita. Essa é a base — os detalhes estão no compêndio em PDF.
+**Noção do custo de produção.** Sem isso, você ou vende no prejuízo, ou trava na hora de dizer o preço e perde o cliente. Como calcular: [quanto custa um bento cake](/pt/blog/bento-cake-cost/).
 
 ## O que não é necessário (por enquanto)
 

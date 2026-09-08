@@ -29,9 +29,9 @@ Nimm die Torte vor dem Servieren **15–20 Minuten** vorher aus dem Kühlschrank
 
 ## Einfrieren
 
-Wir raten davon ab. Nach dem Auftauen „trennen" sich Frischkäse und Mascarpone – Flüssigkeit tritt aus, die Textur wird grießig. Ganache verträgt das Einfrieren etwas besser, aber der Finish-Dekor (frische Beeren, Fondant) geht kaputt.
+Für eine fertig montierte Torte nicht zu empfehlen. Nach dem Auftauen trennen sich Frischkäsecreme und Mascarpone: Flüssigkeit tritt aus, die Textur wird körnig. Ganache verträgt Kälte etwas besser, aber das Finish – frische Beeren, Schokoladenelemente, Schriftzug – überlebt so oder so nicht.
 
-Wenn es unbedingt sein muss – friert man **vor dem Dekor-Aufbau** ein, Biskuit und Creme getrennt. Zusammengebaut wird am Tag des Servierens.
+Was mit der Creme genau passiert und was du dem Kunden sagst: [Kann man eine Bento-Torte einfrieren](/de/blog/can-you-freeze-bento-cake/).
 
 ## Was du dem Kunden bei der Übergabe sagst
 
@@ -52,4 +52,6 @@ Wenn die Creme die Form hält und es keinen unangenehmen Geruch gibt – ja. Abe
 **Was verdirbt zuerst – die Creme oder der Biskuit?**
 Die Creme. Vor allem Sahnecreme oder mit Mascarpone. Der Biskuit, getränkt und von Creme umhüllt, bleibt länger frisch – er hat keinen Kontakt mit der Luft.
 
-> Alle 10 Rezepte im [PDF-Sammelband](/de/recipes/) sind mit der empfohlenen Haltbarkeit für jede Creme und Füllung versehen.
+---
+
+**Rezepte veröffentlichen wir im Blog nicht.** Unser [PDF-Sammelband](/de/recipes/) enthält 10 Bento-Rezepte mit Grammangaben für 1, 2 und 3 Torten; die vorbereitbaren Füllungen tragen ihre eigenen Lagerbedingungen direkt im Rezept.

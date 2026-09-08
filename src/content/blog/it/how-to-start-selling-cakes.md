@@ -18,11 +18,11 @@ Ti suona familiare? Vediamo cosa serve davvero per accettare il primo ordine a p
 
 **Una ricetta collaudata.** Non dieci — una. Quella che hai già preparato due volte e di cui sei sicura: viene bene. La seconda e la terza le imparerai dopo i primi ordini, quando il cliente chiederà «si può fare anche con quest'altra farcitura?».
 
-**Attrezzatura di base.** Un fornello o un forno, uno stampo da 16 cm, uno sbattitore elettrico economico, una bilancia con precisione al grammo. La planetaria professionale, i tappetini in silicone con termometro, la friggitrice ad aria — li comprerai più avanti con i primi soldi dei clienti.
+**Attrezzatura di base.** Un forno, uno sbattitore elettrico, una bilancia con precisione al grammo e qualche piccola cosa: l'elenco completo è nella raccolta insieme alle ricette. La planetaria professionale e i tappetini costosi possono aspettare i primi soldi dei clienti.
 
 **Confezionamento.** Una scatola kraft formato lunch box, tovagliette di carta, un nastro. Si trova nel negozio di articoli per pasticceria più vicino o online. Il kit di partenza per 5 ordini costa poco.
 
-**Capire il costo di produzione.** Senza questo, o vendi in perdita, o avrai paura di dire il prezzo e ti lascerai scappare il cliente. Prendi lo scontrino del supermercato, dividi per i grammi, moltiplichi per le grammature della ricetta. Questa è la base — i dettagli sono nella [raccolta PDF](/it/recipes/).
+**Capire il costo di produzione.** Senza questo, o vendi in perdita, o avrai paura di dire il prezzo e ti lascerai scappare il cliente. Come si calcola: [quanto costa una bento cake](/it/blog/bento-cake-cost/).
 
 ## Cosa non serve (per ora)
 

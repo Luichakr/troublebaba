@@ -29,9 +29,9 @@ Avant le service, sortez le gâteau du réfrigérateur **15 à 20 minutes à l'a
 
 ## La congélation
 
-Nous ne la recommandons pas. Après décongélation, le cream cheese et le mascarpone « tranchent » — du liquide ressort, la texture devient granuleuse. La ganache supporte un peu mieux la congélation, mais les décors de finition (fruits rouges frais, pâte à sucre) ne survivent pas.
+À éviter pour un gâteau déjà monté. Après décongélation, le cream cheese et le mascarpone tranchent : le liquide ressort et la texture devient granuleuse. La ganache supporte un peu mieux le froid, mais le décor de finition — fruits frais, éléments en chocolat, message écrit — n'y survit pas de toute façon.
 
-Si c'est vraiment nécessaire, on congèle **avant le montage du décor**, le biscuit et la crème séparément. On monte le jour du service.
+Ce qui arrive exactement à la crème et quoi répondre au client : [peut-on congeler un bento cake](/fr/blog/can-you-freeze-bento-cake/).
 
 ## Ce qu'il faut dire au client à la remise
 
@@ -52,4 +52,6 @@ Si la crème tient la forme et qu'il n'y a pas d'odeur désagréable — oui. Ma
 **Qu'est-ce qui s'abîme en premier — la crème ou le biscuit ?**
 La crème. Surtout celle à base de crème ou au mascarpone. Le biscuit, imbibé et enrobé de crème, reste frais plus longtemps — il n'est pas en contact avec l'air.
 
-> Les 10 recettes du [recueil PDF](/fr/recipes/) sont accompagnées de la durée de conservation recommandée pour chaque crème et chaque garniture.
+---
+
+**Nous ne publions pas de recettes sur le blog.** Notre [recueil PDF](/fr/recipes/) contient 10 recettes de bento cake avec les grammages pour 1, 2 et 3 gâteaux ; les inserts préparés à l'avance portent leurs propres conditions de conservation dans la recette.

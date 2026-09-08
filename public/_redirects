@@ -140,3 +140,9 @@ https://luichakr.github.io/troublebaba/*  https://troublebaba.com/:splat  301!
 /images/q10-480.webp    /images/red-velvet-bento-cake-480.webp    301
 /images/q10-768.webp    /images/red-velvet-bento-cake-768.webp    301
 /images/q10-1024.webp    /images/red-velvet-bento-cake-1024.webp    301
+
+# Стаття про крем для написів видалена 08.09.2026: у збірнику такого крему немає,
+# а текст був згенерованою технікою. Ведемо на статтю про вибір крему.
+/blog/cream-for-lettering/    /blog/which-cream-for-bento/    301
+/ru/blog/cream-for-lettering/    /ru/blog/which-cream-for-bento/    301
+/pl/blog/cream-for-lettering/    /pl/blog/which-cream-for-bento/    301

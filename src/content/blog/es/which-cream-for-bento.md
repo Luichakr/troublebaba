@@ -1,63 +1,40 @@
 ---
 title: "Qué crema elegir para un bento cake"
-description: "Crema de queso a base de nata o de mantequilla, ganache, mascarpone: en qué se diferencian y cuándo usar cada una en un bento cake."
+description: "Por qué un bento cake no tiene una crema universal, qué hace la crema dentro de la tarta y cómo responder al cliente sobre la composición. Las recetas de cremas están en el recopilatorio en PDF."
 lang: "es"
 slug: "which-cream-for-bento"
 publishedAt: "2026-06-03"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["crema", "técnica", "elección"]
+tags: ["crema", "pedidos"]
 draft: false
-excerpt: "En qué se diferencian las cremas principales y cuándo usar cada una."
+excerpt: "Por qué no existe una crema universal y qué hay realmente detrás de esa pregunta."
 ---
 
-La crema de un bento cake resuelve dos cosas a la vez: mantiene la forma y define el sabor. La elección depende de lo que lleve la tarta dentro y de las condiciones en que vaya a estar. Un resumen de las opciones más habituales.
+«¿Con qué crema hago un bento?» suena a pregunta con una sola respuesta. No la tiene, y eso no es una excusa: es el oficio.
 
-## Crema de queso
+## La crema hace dos trabajos distintos
 
-La más versátil para el bento. La hay de dos tipos:
+El primero es **el relleno**: la crema va entre los bizcochos, sostiene el borde y evita que el relleno se abra camino hacia fuera. El segundo es **el acabado**: la capa fina por la que se juzga la tarta con los ojos.
 
-- **a base de nata**: más ligera y suave, ideal para alisar y para el relleno;
-- **a base de mantequilla**: más densa y estable, mantiene mejor la forma con calor.
+Son exigencias distintas. Una crema que sostiene el borde a la perfección puede arrastrarse mal bajo la espátula. Por eso, en el trabajo profesional, la crema de relleno y la de cobertura no suelen ser la misma.
 
-Lo importante es usar un queso crema profesional para repostería: es más denso que el corriente y no «se derrite».
+## La crema se elige según la tarta, no según el pastelero
 
-## Ganache
+El relleno tiene carácter. Un coulis ácido de frutos rojos, un caramelo salado, un crujiente de frutos secos, una crema de cítricos: cada uno presiona la crema a su manera; uno suelta humedad, otro pesa más, el tercero discute con el sabor.
 
-Base de chocolate. Estable, perfecta para sabores chocolatados y para el acabado final. Requiere proporciones exactas de chocolate y nata; de lo contrario, se corta.
+De ahí la regla que más producto ahorra: la crema no se elige «en general», se empareja con una tarta concreta junto con su relleno. Justo por eso, en los recopilatorios de trabajo la crema no va en un capítulo aparte, sino dentro de cada tarta.
 
-## Mascarpone
+## Qué responder al cliente
 
-Sabor lácteo y delicado, ideal para tartas ligeras de frutos rojos como el «Red Velvet». Es menos estable con el calor que la crema de queso a base de mantequilla.
+El cliente pregunta por la crema por una de dos razones: teme un sabor empalagoso a mantequilla o tiene alergia. Ambas respuestas son cortas y no exigen revelar la receta: nombrar la base (queso crema, mascarpone, chocolate) y enumerar los alérgenos — frutos secos, lácteos, gluten.
 
-## Lo que importa en todas las cremas
+Anota la composición de cada una de tus tartas por adelantado, en una línea. Eso te ahorra la mitad de la conversación y te protege si el cliente reacciona.
 
-- El queso y la nata deben estar **fríos** (reposados en el frigorífico).
-- No batas en exceso: la crema «se corta» y queda granulosa.
-- Para el bento, la crema debe sostener el borde para que el relleno no se escape.
+## La crema y el calor
 
-Si la crema ya no aguanta el borde, consulta la lista de 6 puntos en el artículo [la crema no mantiene la forma](/es/blog/cream-not-holding-shape/).
+En verano cualquier crema láctea es el punto débil de la logística, no de la receta. Una tarta puede ser impecable en casa y estar deshecha en casa del cliente cuarenta minutos después. Qué hacer con los tiempos y el embalaje está en [cómo transportar un bento cake](/es/blog/how-to-transport-bento-cake/), y los plazos en [cuánto se conserva un bento cake](/es/blog/bento-cake-shelf-life/).
 
-## Qué crema elegir para la temporada de calor
+---
 
-En verano, con temperaturas de +25 °C o más, cualquier crema láctea rinde peor. En esas condiciones:
-
-- **usa crema de queso a base de mantequilla**: es la más estable;
-- evita el mascarpone y las cremas hechas con nata al 33 %;
-- si preparas una tarta para entrega a domicilio, ten en cuenta que en un coche sin aire acondicionado la crema puede «derretirse» en 20–30 minutos.
-
-## Tiempos de conservación según el tipo de crema
-
-Cada crema tiene su propia vida útil en el frigorífico. Esto importa de cara a lo que le dices al cliente al entregarle el pedido. Todas las referencias están en el artículo [cuánto dura un bento cake](/es/blog/bento-cake-shelf-life/).
-
-## Preguntas frecuentes
-
-**¿Qué crema es mejor para un relleno líquido (caramelo, confitura)?**
-Solo la crema de queso a base de mantequilla: es densa y sostiene el borde, sin dejar que el relleno abra un «camino» a través de la crema. Las cremas a base de nata y el mascarpone son demasiado flojos para esos rellenos.
-
-**¿Se pueden mezclar cremas?**
-Sí. Por ejemplo, una base de crema de queso con chocolate se consigue añadiendo a la crema de queso ya lista un ganache frío. Lo importante es respetar la temperatura de los componentes (ambos refrigerados).
-
-**¿Cuánta crema hace falta para un bento de 12 cm?**
-De media, 350–450 g por tarta (incluyendo relleno, borde y acabado). La cantidad exacta depende del número de capas y de la densidad de la decoración.
-
-> En el [recopilatorio en PDF](/es/recipes/), para cada una de las 10 tartas se indica qué crema usar exactamente, en qué proporciones y cómo lograr una textura estable.
+**No publicamos recetas de cremas en el blog.** En nuestro [recopilatorio en PDF](/es/recipes/) hay 8 cremas distintas para 10 tartas: cada tarta tiene la suya, con gramajes para 1, 2 y 3 tartas. Además se indica qué crema de otra tarta puede sustituirla, lo que permite montar dos sabores distintos con una sola tanda de crema.

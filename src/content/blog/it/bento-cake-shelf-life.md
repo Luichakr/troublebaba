@@ -29,9 +29,9 @@ Prima di servire, togli la torta dal frigorifero **15–20 minuti prima**: la cr
 
 ## Congelamento
 
-Non lo consigliamo. Dopo lo scongelamento la crema al formaggio e il mascarpone «si separano»: affiora del liquido e la consistenza diventa granulosa. La ganache regge un po' meglio il congelamento, ma le decorazioni finali (frutta fresca, pasta di zucchero) si rovinano.
+Sconsigliato per una torta già montata. Dopo lo scongelamento crema al formaggio e mascarpone impazziscono: esce liquido e la consistenza diventa granulosa. La ganache regge il freddo un po' meglio, ma il decoro finale — frutti freschi, elementi di cioccolato, la scritta — non sopravvive in nessun caso.
 
-Se proprio necessario, si congela **prima di applicare il decoro**, tenendo separati il pan di Spagna e la crema. Si assembla il giorno del servizio.
+Che cosa succede esattamente alla crema e cosa rispondere al cliente: [si può congelare una bento cake](/it/blog/can-you-freeze-bento-cake/).
 
 ## Cosa dire al cliente alla consegna
 
@@ -52,4 +52,6 @@ Se la crema tiene la forma e non ci sono odori sgradevoli, sì. Ma da quel momen
 **Cosa si deteriora per primo, la crema o il pan di Spagna?**
 La crema. Soprattutto quella a base di panna o con mascarpone. Il pan di Spagna, bagnato e avvolto dalla crema, resta fresco più a lungo, perché non è a contatto con l'aria.
 
-> Tutte le 10 ricette della [raccolta PDF](/it/recipes/) riportano il tempo di conservazione consigliato per ciascuna crema e farcitura.
+---
+
+**Ricette non le pubblichiamo sul blog.** La nostra [raccolta PDF](/it/recipes/) contiene 10 ricette di bento cake con le grammature per 1, 2 e 3 torte; gli inserti che si preparano in anticipo hanno le proprie condizioni di conservazione dentro la ricetta.

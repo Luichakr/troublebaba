@@ -18,11 +18,11 @@ Une amie vous demande de faire un gâteau pour son anniversaire. Vous refusez, p
 
 **Une recette qui fonctionne.** Pas dix — une seule. Celle que vous avez déjà faite deux fois et dont vous êtes sûre qu'elle réussit. Vous maîtriserez la deuxième et la troisième après les premières commandes, quand un client demandera « et avec une autre garniture, c'est possible ? ».
 
-**Le matériel de base.** Une plaque de cuisson ou un four, un moule de 16 cm, un batteur électrique à main premier prix, une balance précise au gramme. Le robot pâtissier professionnel, les tapis en silicone avec thermomètre, la friteuse à air — vous les achèterez plus tard, avec l'argent des premiers clients.
+**Le matériel de base.** Un four, un batteur à main, une balance précise au gramme et quelques petites choses — la liste complète accompagne les recettes dans le recueil. Le robot pâtissier et les tapis coûteux attendront l'argent des premiers clients.
 
 **L'emballage.** Une boîte kraft type lunch box, des supports en papier, un ruban. Tout cela se trouve dans le magasin de fournitures pour pâtisserie le plus proche ou en ligne. Budget de départ : un petit kit pour 5 commandes, quelques centaines de hryvnias (marché ukrainien) — l'équivalent de quelques euros par gâteau.
 
-**Comprendre son coût de revient.** Sans cela, soit vous vendez à perte, soit vous n'osez pas annoncer votre prix et vous laissez filer le client. Vous prenez le ticket de caisse, vous divisez par le nombre de grammes, vous multipliez par les grammages de la recette. C'est la base — les détails sont dans le [recueil PDF](/fr/recipes/).
+**Comprendre son coût de revient.** Sans cela, soit vous vendez à perte, soit vous n'osez pas annoncer votre prix et vous laissez filer le client. Comment le calculer : [combien coûte un bento cake](/fr/blog/bento-cake-cost/).
 
 ## Ce qui n'est pas nécessaire (pour l'instant)
 

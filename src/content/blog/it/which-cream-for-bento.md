@@ -1,63 +1,40 @@
 ---
-title: "Quale crema scegliere per la bento cake"
-description: "Crema al formaggio con panna o con burro, ganache, mascarpone: in cosa differiscono e quando usare ciascuna per la bento cake."
+title: "Quale crema scegliere per una bento cake"
+description: "Perché la bento cake non ha una crema universale, che cosa fa la crema dentro la torta e come rispondere al cliente sulla composizione."
 lang: "it"
 slug: "which-cream-for-bento"
 publishedAt: "2026-06-03"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["crema", "tecnica", "scelta"]
+tags: ["crema", "ordini"]
 draft: false
-excerpt: "In cosa differiscono le creme principali e quando usare ciascuna."
+excerpt: "Perché la crema universale non esiste e che cosa c'è davvero dietro questa domanda."
 ---
 
-La crema in una bento cake risolve subito due compiti: tiene la forma e definisce il gusto. La scelta della crema dipende da cosa c'è dentro la torta e dalle condizioni in cui resterà. In breve, le opzioni più diffuse.
+«Con quale crema faccio una bento?» suona come una domanda con una sola risposta. Non ce l'ha — e non è una scusa, è il mestiere.
 
-## Crema al formaggio
+## La crema fa due lavori diversi
 
-La più versatile per il bento. Esiste in due tipi:
+Il primo è **la farcitura**: la crema sta tra i dischi di pan di Spagna, tiene il bordo e non lascia che l'inserto si apra una strada verso l'esterno. Il secondo è **la finitura**: lo strato sottile con cui la torta viene giudicata a occhio.
 
-- **con panna**: più leggera e delicata, ottima per la stuccatura e per la farcitura;
-- **con burro**: più densa e stabile, tiene meglio la forma al caldo.
+Sono richieste diverse. Una crema che tiene benissimo il bordo può tirare male sotto la spatola. Per questo, nel lavoro professionale, la crema di farcitura e quella di copertura spesso non sono la stessa.
 
-L'importante è usare un formaggio cremoso professionale, pensato per la pasticceria: è più denso di quello comune e non «cola».
+## La crema si sceglie in base alla torta, non al pasticciere
 
-## Ganache
+L'inserto ha un carattere. Un coulis acidulo ai frutti rossi, un caramello salato, un croccante alle nocciole, un curd agli agrumi: ciascuno preme sulla crema a modo suo — uno cede umidità, un altro pesa di più, il terzo litiga con il gusto.
 
-Base al cioccolato. Stabile, perfetta per i gusti al cioccolato e per la copertura finale. Richiede proporzioni precise tra cioccolato e panna, altrimenti si separa.
+Da qui la regola che fa risparmiare più prodotto: la crema non si sceglie «in generale», si abbina a una torta precisa insieme al suo inserto. Proprio per questo, nelle raccolte di lavoro la crema non sta in un capitolo a parte, ma dentro ogni torta.
 
-## Mascarpone
+## Cosa rispondere al cliente
 
-Gusto cremoso e delicato, ottimo per torte leggere alla frutta come la «Red Velvet». È meno stabile al caldo rispetto alla crema al formaggio con burro.
+Il cliente chiede della crema per uno di due motivi: teme un sapore stucchevole di burro, oppure ha un'allergia. Entrambe le risposte sono brevi e non richiedono di svelare la ricetta: nominare la base (formaggio spalmabile, mascarpone, cioccolato) ed elencare gli allergeni — frutta a guscio, latticini, glutine.
 
-## Cosa conta per tutte le creme
+Scrivi la composizione di ogni tua torta in anticipo, una riga per ciascuna. Toglie metà della conversazione e ti protegge se un cliente reagisce.
 
-- Il formaggio e la panna devono essere **freddi** (tenuti in frigorifero).
-- Non montare troppo, altrimenti la crema «impazzisce» e diventa granulosa.
-- Per il bento la crema deve tenere il bordo, così la farcitura non fuoriesce.
+## Crema e caldo
 
-Se la crema ormai non regge più il bordo, dai un'occhiata alla checklist in 6 punti nell'articolo [la crema non tiene la forma](/it/blog/cream-not-holding-shape/).
+D'estate qualsiasi crema a base di latticini è il punto debole della logistica, non della ricetta. Una torta può essere impeccabile a casa e collassata dal cliente dopo quaranta minuti in auto. Che cosa fare su tempi e imballaggio: [come trasportare una bento cake](/it/blog/how-to-transport-bento-cake/), e le durate: [quanto si conserva una bento cake](/it/blog/bento-cake-shelf-life/).
 
-## Quale crema scegliere nella stagione calda
+---
 
-D'estate, con temperature di +25 °C e oltre, qualsiasi crema a base di panna lavora peggio. In queste condizioni:
-
-- **scegli la crema al formaggio con burro**: è la più stabile;
-- evita il mascarpone e le creme a base di panna al 33%;
-- se prepari una torta per la consegna, tieni presente che in un'auto senza climatizzazione la crema può «sciogliersi» in 20–30 minuti.
-
-## Tempi di conservazione per tipo di crema
-
-Ogni crema ha la sua durata in frigorifero. È importante per sapere cosa dire al cliente al momento della consegna. Tutti i riferimenti sono nell'articolo [quanto si conserva una bento cake](/it/blog/bento-cake-shelf-life/).
-
-## Domande frequenti
-
-**Qual è la crema migliore per una farcitura liquida (caramello, confettura)?**
-Solo la crema al formaggio con burro: è densa e tiene il bordo, impedendo alla farcitura di aprirsi un «varco» attraverso la crema. Le creme a base di panna e il mascarpone sono troppo deboli per queste farciture.
-
-**Si possono mescolare le creme?**
-Sì, per esempio si ottiene una base di crema al formaggio al cioccolato aggiungendo alla crema già pronta una ganache raffreddata. L'importante è rispettare la temperatura dei componenti (entrambi freddi).
-
-**Quanta crema serve per un bento da 12 cm?**
-In media 350–450 g a torta (compresi farcitura, bordo e finitura). La quantità esatta dipende dal numero di strati e dalla densità del decoro.
-
-> Nella [raccolta PDF](/it/recipes/), per ciascuna delle 10 torte è indicato quale crema usare esattamente, in quali proporzioni e come ottenere una consistenza stabile.
+**Ricette di creme non le pubblichiamo sul blog.** Nella nostra [raccolta PDF](/it/recipes/) su 10 torte ci sono 8 creme diverse: ogni torta ha la sua, con le grammature per 1, 2 e 3 torte. È indicato anche quale crema di un'altra torta può sostituirla, il che permette di montare due gusti diversi con una sola preparazione di crema.

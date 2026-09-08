@@ -1,63 +1,40 @@
 ---
 title: "Which cream to choose for a bento cake"
-description: "Cream cheese on cream or on butter, ganache, mascarpone — how they differ and when to reach for each in a bento cake."
+description: "Why a bento cake has no single universal cream, what the cream actually does inside the cake, and how to answer a client about the filling. Cream recipes are in the PDF collection."
 lang: "en"
 slug: "which-cream-for-bento"
 publishedAt: "2026-06-03"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["cream", "technique", "choice"]
+tags: ["cream", "orders"]
 draft: false
-excerpt: "How the main creams differ and when to reach for each."
+excerpt: "Why there is no universal cream, and what is really behind the question."
 ---
 
-The cream in a bento cake solves two jobs at once: it holds the shape and it carries the flavour. Which one you pick depends on what's inside and the conditions the cake will stand in. A short read on the go-to options.
+"Which cream should I use for bento" sounds like a question with one answer. There isn't one — and that is not a dodge, it is the job.
 
-## Cream cheese
+## The cream does two different jobs
 
-The most universal for bento. Two variants:
+The first is **the filling layer**: it sits between the sponges, holds the wall, and stops the filling from cutting a path out through the side. The second is **the finish**: the thin outer coat the cake is judged on by eye.
 
-- **on whipping cream** — lighter and softer, good for crumb-coat and layers;
-- **on butter** — denser and more stable, holds shape better in warm rooms.
+Those are different demands. A cream that holds a wall beautifully can drag badly under a spatula. That is why in professional work the layering cream and the coating cream are often not the same cream.
 
-The key is to use a proper pastry-grade cream cheese: it's denser than the supermarket kind and won't run.
+## The cream is chosen for the cake, not for the baker
 
-## Ganache
+A filling has a character. Sharp berry coulis, salted caramel, nut crunch, citrus curd — each one pushes on the cream differently: one gives off moisture, another is heavier, a third argues with the flavour.
 
-Chocolate base. Stable, great for chocolate flavours and the finish coat. It needs precise chocolate-to-cream ratios or it splits.
+Hence the rule that saves the most ingredients: you don't pick a cream in the abstract, you match it to a specific cake together with its filling. This is exactly why in working recipe collections the cream is not a separate chapter — it lives inside each cake.
 
-## Mascarpone
+## What to tell the client
 
-Soft dairy flavour, great for light berry cakes like Red Velvet. Less heat-stable than a butter-based cream cheese.
+A client asks about the cream for one of two reasons: they are afraid of a cloying buttercream, or they have an allergy. Both answers are short and require no recipe: name the base (cream cheese, mascarpone, chocolate) and list the allergens — nuts, dairy, gluten.
 
-## What matters for every cream
+Write the composition of each of your cakes down in advance, one line each. It removes half the messaging and protects you if a client reacts.
 
-- Cheese and cream must be **cold** (straight from the fridge).
-- Don't over-whip — the cream turns grainy.
-- For bento the cream has to hold the rim so the filling doesn't leak.
+## Cream and heat
 
-If your cream can't hold the rim, go through the six-point check in [cream not holding shape](/en/blog/cream-not-holding-shape/).
+In summer any dairy cream is a weak point of the logistics, not of the recipe. A cake can be flawless at home and collapsed at the client's after forty minutes in a car. What to do about timing and packaging is in [how to transport a bento cake](/en/blog/how-to-transport-bento-cake/), and shelf life in [how long a bento cake keeps](/en/blog/bento-cake-shelf-life/).
 
-## Which cream for hot season
+---
 
-At +25 °C and above any dairy cream works less well. In heat:
-
-- **use butter-based cream cheese** — it's the most stable;
-- avoid mascarpone and 33% dairy creams;
-- for delivery, remember that a car without AC can melt the cream in 20–30 minutes.
-
-## Shelf life by cream type
-
-Each cream has its own life in the fridge. That matters for what you tell the client at hand-off. The full reference is in [how long a bento cake lasts](/en/blog/bento-cake-shelf-life/).
-
-## FAQ
-
-**Which cream is best for a liquid filling (caramel, jam)?**
-Butter-based cream cheese only — it's dense enough to hold the rim, so the filling can't punch a channel through the cream. Whipped and mascarpone creams are too soft for that job.
-
-**Can I mix creams?**
-Yes — for example, a chocolate-cheese base is made by folding cooled ganache into ready cream cheese. The key is temperature discipline (both components chilled).
-
-**How much cream for a 12 cm bento?**
-Around 350–450 g total (layers, rim and finish). The exact amount depends on the number of layers and how dense the decor is.
-
-> The [PDF collection](/en/recipes/) lists, for each of 10 cakes, which specific cream to use, in what ratios, and how to hit the stable texture every time.
+**We do not publish cream recipes on the blog.** Our [PDF collection](/en/recipes/) carries 8 different creams across 10 cakes — each cake has its own, with weights for 1, 2 and 3 cakes. It also states which other cake's cream may be used instead, which lets you build two different flavours from a single batch of cream.

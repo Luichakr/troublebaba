@@ -41,12 +41,7 @@ Prendiamo la versione più semplice — la Oreo, il best-seller. Servono:
 - **Coulis di ciliegia** per il contrasto (opzionale, ma è la firma di questa versione)
 - **Decorazione**: mezzo biscotto Oreo intero sopra
 
-Le proporzioni indicative:
-- pan di Spagna: circa 220 g di massa cruda per un disco da 12 cm × 2,5 cm
-- crema totale per una bento cake: 350–450 g
-- crumble di biscotti: 30–40 g
-
-Le proporzioni esatte al grammo — che è il punto in cui succede la differenza tra "torta bella" e "torta che si tiene in piedi in vetrina per due giorni" — sono nel PDF.
+Le grammature esatte — il punto in cui si decide la differenza tra "torta bella" e "torta che regge due giorni in vetrina" — sono nel PDF, insieme all'ordine dei passaggi.
 
 ## Gli errori più tipici alla prima bento cake
 

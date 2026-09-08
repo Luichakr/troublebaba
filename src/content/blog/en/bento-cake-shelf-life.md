@@ -29,9 +29,9 @@ Take the cake out of the fridge **15–20 minutes** before serving — the cream
 
 ## Freezing
 
-Not recommended. After thawing, cream cheese and mascarpone split — liquid weeps out and the texture turns grainy. Ganache handles freezing a little better, but finishing decor (fresh berries, fondant) doesn't survive.
+Not recommended for an assembled cake. After thawing, cream cheese and mascarpone split — liquid weeps out and the texture turns grainy. Ganache handles cold a little better, but the finishing decor — fresh berries, chocolate elements, lettering — does not survive either way.
 
-If you absolutely have to, freeze **before decorating** — sponge and cream separately. Assemble on the day of serving.
+More on what exactly happens to the cream and what to tell the client: [can you freeze a bento cake](/en/blog/can-you-freeze-bento-cake/).
 
 ## What to tell the client at hand-off
 
@@ -63,18 +63,6 @@ The customer will call you if it happens. Have this list ready — it saves you 
 
 None of these are food-safety issues at 48 hours. They are texture and presentation issues. A cake sold at Friday for Saturday-lunch consumption is still safe on Monday if the fridge was clean and cold.
 
-## Freezing bento cake: what works and what doesn't
-
-Whole assembled bento cake with fresh berries — **do not freeze**. Berries lose structure, cream de-emulsifies on thaw, the result is unusable.
-
-Individual layers **before assembly** — freeze happily for 30 days.
-
-- Sponge: wrap in plastic, freeze up to 30 days. Thaw in the fridge for 6 hours before assembly.
-- Cream cheese frosting: freeze in an airtight container up to 14 days. Thaw in the fridge for 8 hours, then whip briefly with a spatula to restore texture.
-- Confit / coulis / caramel: freeze up to 30 days, thaw at room temperature 30 minutes.
-
-Practical rule: **freeze components, not the finished cake.** This is how professional bakeries handle unpredictable order flow — they hold layers in the freezer and assemble to order.
-
 ## What to write on the box
 
 The single-most-refund-preventing move is a small printed card inside the box that says:
@@ -87,7 +75,7 @@ The card is also how you handle the after-purchase claim: "the cream separated a
 
 ## What actually lets you say "I sold a cake that lasts"
 
-The PDF collection has, for each of the 10 flavours: which cream base it uses, how many hours it holds at hand-off, what to write on the box in the customer's language, and what to do if the customer asks for a same-day-longer-than-planned delivery. That last one is the reason a starter loses money — they say yes to Friday-pickup-Sunday-eat orders that always come back with complaints.
+Predictability. A cake whose shelf life you can state in one sentence, because you have made it before and know how it behaves, is a cake you can sell without dreading the message two days later. That is not a storage trick — it comes from working to a formula you already trust.
 
 See also: [what size to make](/en/blog/bento-cake-size/), [which cream lasts longest](/en/blog/which-cream-for-bento/), [why the sponge collapses](/en/blog/sponge-collapses/).
 
@@ -102,4 +90,6 @@ If the cream holds its shape and there's no off smell — yes. But don't keep it
 **What spoils first — the cream or the sponge?**
 The cream. Especially whipped-cream-based or mascarpone. The sponge, soaked and wrapped in cream, stays fresh longer — it doesn't touch the air.
 
-> All 10 recipes in the [PDF collection](/en/recipes/) come with the recommended shelf life for each cream and filling.
+---
+
+**We do not publish recipes on the blog.** Our [PDF collection](/en/recipes/) has 10 bento cake recipes with weights for 1, 2 and 3 cakes, and the make-ahead fillings carry their own storage conditions inside the recipe. Those are the same recipes the author bakes to sell.
