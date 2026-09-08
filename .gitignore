@@ -25,3 +25,7 @@ pnpm-debug.log*
 .indexnow-key
 .indexnow-state.json
 .wrangler/
+
+# Промежуточный PDF с подменённым текстом (63 МБ) — делается локально
+# из pdf-src/, в репозиторий не идёт: npm run pdf:substitute -- uk
+*-preview.pdf

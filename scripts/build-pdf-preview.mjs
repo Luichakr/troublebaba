@@ -14,39 +14,36 @@
  *            src/data/pdf-preview.json — манифест для компонента
  *            (сколько страниц у языка и какие из них читаемые).
  *
- * ── ПРО НЕОБРАТИМОСТЬ РАЗМЫТИЯ ──────────────────────────────────────
- * Размывать страницу в полном размере нельзя: гауссово размытие — это
- * свёртка с известным ядром, а у текста сильные априорные признаки, так
- * что деконволюция такое читает. Пикселизация вскрывается тем же путём.
+ * ── ДВА ПУТИ, И ОНИ НЕ РАВНОЦЕННЫ ──────────────────────────────────
+ * Если рядом с <lang>.pdf лежит <lang>-preview.pdf (его делает
+ * scripts/pdf-preview-substitute.py), рендерим из него. Там текст книги
+ * УДАЛЁН из самого PDF и заменён уведомлением об авторском праве, то
+ * есть секрета в файле нет вообще — и блюр нужен только для вида.
+ * Поэтому страница размывается по полному разрешению, мягко.
+ * Это основной путь: защита не зависит от того, насколько стойким
+ * окажется размытие.
  *
- * Поэтому здесь информация не маскируется, а уничтожается и подменяется.
- * Три шага, порядок принципиален:
+ * Если подменённого файла нет, работает старый путь: страница сначала
+ * уменьшается в ~17 раз (текст гибнет здесь), потом растягивается
+ * обратно и размывается. Он тоже надёжен, но выглядит хуже — блюр
+ * по восстановленной из 64 px основе получается вязким, не мягким.
+ * Размывать оригинал в полном размере БЕЗ подмены нельзя: гауссово
+ * размытие — свёртка с известным ядром, у текста сильные априорные
+ * признаки, и деконволюция такое читает.
  *
- *   1. Страница уменьшается в ~17 раз (1080 → 64 px). Текст книги гибнет
- *      ИМЕННО здесь: в 64×91 остаётся ~5800 отсчётов там, где знаков за
- *      тысячу. Остаётся только цвет и грубая раскладка.
- *   2. На растянутую обратно основу кладётся decoy — уведомление об
- *      авторском праве из конфига. С этого момента единственный текст
- *      в картинке — наш, и вопрос «а вдруг расшифруют» снимается:
- *      расшифровывать нечего, рецепта в файле нет ни в каком виде.
- *   3. Всё вместе размывается. Это уже только внешний вид.
+ * ── ПРО «ДОРОГОЕ» СТЕКЛО ────────────────────────────────────────────
+ * Одного blur() для материала недостаточно — получается плоское мыло.
+ * Стекло у Apple складывается из пяти вещей, и здесь собраны все:
+ *   большой радиус · поднятая насыщенность (vibrancy) · молочный тинт ·
+ *   мелкое зерно · световой блик по верхней кромке.
+ * Зерно и блик — не украшение: без них ровная заливка выдаёт подделку,
+ * а с ними глаз читает поверхность как физическое стекло.
  *
- * Шаг 3 добавлен потому, что без него в разметке лежал файл шириной 64 px,
- * и растягивал его браузер — страница выглядела кашей из цветных пятен.
- * После обратного апскейла с размытием она читается как страница, снятая
- * не в фокусе: видно колонки, заголовок, фото, абзацы — и ни одной буквы.
+ * Поверх стекла ложится короткий знак «© TROUBLEBABA · troublebaba.com».
+ * Он резкий и единственный читаемый текст на закрытой странице: под
+ * стеклянной сигмой уведомление из PDF не вытягивается даже шарпом,
+ * поэтому адресат сообщения — обычный посетитель, а не «взломщик».
  *
- * blurSigma выбран на границе: глазу decoy не читается, а под шарпом с
- * контрастом проступает — тот, кто потратит на это время, прочитает
- * уведомление вместо рецепта. Крупный кегль переживает размытие лучше
- * мелкого, поэтому заголовок и адрес набраны заметно крупнее текста.
- *
- * Побочный выигрыш остаётся: размытая страница весит ~3.5 КБ вместо ~90 КБ,
- * и все 50 закрытых страниц вместе — меньше двух читаемых.
- *
- * Внимание: полноразмерный рендер живёт только во временной папке и
- * удаляется. В public/ уходит уже уничтоженная картинка — иначе оригинал
- * лежал бы в открытом доступе рядом с размытым.
  */
 import sharp from 'sharp';
 import { execFileSync } from 'node:child_process';
@@ -59,6 +56,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const CFG = JSON.parse(readFileSync(join(ROOT, 'scripts/pdf-preview.config.json'), 'utf8'));
 const OUT_DIR = join(ROOT, 'public/images/pdf-preview');
 const MANIFEST = join(ROOT, 'src/data/pdf-preview.json');
+const G = CFG.glass ?? {};
 
 function have(bin) {
   try { execFileSync('which', [bin], { stdio: 'pipe' }); return true; } catch { return false; }
@@ -80,34 +78,56 @@ const pageCount = (pdf) => {
 // не пересчитывая вёрстку руками.
 const xmlEscape = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-function decoyLayer(lang, w, h) {
+const svgWrap = (w, h, inner) =>
+  Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">${inner}</svg>`);
+
+// Полное уведомление. Кегли отмерены на 560 px и масштабируются, поэтому
+// blurOutWidth можно менять, не пересчитывая вёрстку руками. Крупный
+// кегль переживает размытие лучше мелкого — отсюда большой заголовок.
+function noticeLayer(lang, w, h, opacity) {
   const d = CFG.decoy?.[lang];
-  if (!d) return null;
-  const k = w / 560;                       // все размеры отмерены на 560 px
-  const pad = Math.round(38 * k);
-  const S = { title: 34 * k, body: 21 * k, url: 27 * k, sign: 24 * k };
+  if (!d || !opacity) return null;
+  const k = w / 560;
+  const x = Math.round(40 * k);
+  const t = (y, size, weight, text) =>
+    `<text x="${x}" y="${(y * k).toFixed(0)}" font-weight="${weight}" font-size="${(size * k).toFixed(1)}">${xmlEscape(text)}</text>`;
+
   const rows = [];
-  let y = Math.round(120 * k);
+  const title = (d.title ?? '').split(' ');            // заголовок в две строки
+  rows.push(t(130, 44, 800, title.slice(0, 1).join(' ')));
+  if (title.length > 1) rows.push(t(180, 44, 800, title.slice(1).join(' ')));
+  (d.body ?? []).filter(Boolean).forEach((line, i) => rows.push(t(236 + i * 34, 23, 700, line)));
+  rows.push(t(420, 34, 800, d.url ?? ''));
+  rows.push(t(478, 28, 800, d.sign ?? ''));
 
-  rows.push({ t: d.title, s: S.title, weight: 800 });
-  y += Math.round(S.title * 1.5);
-  for (const line of d.body ?? []) {
-    rows.push(line ? { t: line, s: S.body, weight: 600, y } : null);
-    y += Math.round(S.body * 1.75);
-  }
-  rows.push({ t: d.url, s: S.url, weight: 800, y: y + Math.round(10 * k) });
-  rows.push({ t: d.sign, s: S.sign, weight: 700, y: y + Math.round(S.url * 2.4) });
-
-  let cy = Math.round(120 * k);
-  const out = [];
-  for (const r of rows) {
-    if (!r) { cy += Math.round(S.body * 1.75); continue; }
-    const yy = r.y ?? cy;
-    out.push(`<text x="${pad}" y="${yy}" font-family="sans-serif" font-weight="${r.weight}" font-size="${r.s.toFixed(1)}" fill="#241a12">${xmlEscape(r.t)}</text>`);
-    cy = yy + Math.round(r.s * 1.5);
-  }
-  return Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">${out.join('')}</svg>`);
+  return svgWrap(w, h, `<g font-family="sans-serif" fill="#1a140e" fill-opacity="${opacity}">${rows.join('')}</g>`);
 }
+
+// Короткий знак для обычного посетителя — низ страницы, как на превью
+// стоковой картинки. Отдельно от уведомления: длинный текст про «вы
+// добрались до этого слоя» адресован не ему.
+function markLayer(lang, w, h, opacity) {
+  const d = CFG.decoy?.[lang];
+  if (!d || !opacity) return null;
+  const k = w / 560;
+  const s = 17 * k;
+  return svgWrap(w, h,
+    `<text x="${(w / 2).toFixed(0)}" y="${(h - 34 * k).toFixed(0)}" text-anchor="middle"` +
+    ` font-family="sans-serif" font-weight="700" font-size="${s.toFixed(1)}"` +
+    ` letter-spacing="${(0.06 * s).toFixed(2)}" fill="#1a140e" fill-opacity="${opacity}">` +
+    `${xmlEscape(`${d.sign ?? ''} · ${d.url ?? ''}`)}</text>`);
+}
+
+// Слои материала.
+const tintLayer  = (w, h, color, a) => svgWrap(w, h, `<rect width="${w}" height="${h}" fill="${color}" fill-opacity="${a}"/>`);
+const sheenLayer = (w, h, top, bottom) => svgWrap(w, h,
+  `<defs><linearGradient id="s" x1="0" y1="0" x2="0.3" y2="1">` +
+  `<stop offset="0" stop-color="#fff" stop-opacity="${top}"/>` +
+  `<stop offset="0.45" stop-color="#fff" stop-opacity="0"/>` +
+  `<stop offset="1" stop-color="#fff" stop-opacity="${bottom}"/></linearGradient></defs>` +
+  `<rect width="${w}" height="${h}" fill="url(#s)"/>`);
+const grainLayer = (w, h, sigma) =>
+  sharp({ create: { width: w, height: h, channels: 3, noise: { type: 'gaussian', mean: 128, sigma } } }).png().toBuffer();
 
 const only = process.argv.slice(2).filter((a) => !a.startsWith('-'));
 const langs = Object.keys(CFG.sources).filter((l) => !only.length || only.includes(l));
@@ -118,7 +138,13 @@ const manifest = existsSync(MANIFEST) ? JSON.parse(readFileSync(MANIFEST, 'utf8'
 let totalBytes = 0;
 
 for (const lang of langs) {
-  const pdf = resolve(ROOT, CFG.sources[lang]);
+  const original = resolve(ROOT, CFG.sources[lang]);
+  // Если текст уже подменён в PDF (pdf-preview-substitute.py), рендерим
+  // из подменённого: тогда уничтожать информацию уменьшением не нужно,
+  // и блюр может быть честным полноразмерным.
+  const substituted = original.replace(/\.pdf$/i, '-preview.pdf');
+  const pdf = existsSync(substituted) ? substituted : original;
+  const isSubstituted = pdf === substituted;
   if (!existsSync(pdf)) {
     console.error(`  ${lang}: нет файла ${CFG.sources[lang]} — пропущен, картинки не тронуты`);
     continue;
@@ -148,7 +174,7 @@ for (const lang of langs) {
     // Пропорция страницы берётся из первого рендера, а не задаётся
     // константой: у другого PDF формат может оказаться не A4.
     const probe = await sharp(join(tmp, rendered[0])).metadata();
-    const outW = CFG.blurOutWidth;
+    const outW = isSubstituted ? CFG.clearWidth : CFG.blurOutWidth;
     const outH = Math.round(outW * probe.height / probe.width);
 
     let clearBytes = 0, blurBytes = 0;
@@ -162,23 +188,36 @@ for (const lang of langs) {
           .toFile(out);
         clearBytes += i.size;
       } else {
-        // Шаг 1 — здесь и только здесь гибнет текст книги. Результат
-        // уходит в буфер, а не в файл: полноразмерный рендер в public/
-        // попасть не должен ни на каком этапе.
-        const base = await sharp(join(tmp, file))
-          .resize({ width: CFG.blurDestroyWidth })
-          .resize({ width: CFG.blurOutWidth, kernel: 'lanczos3' })
-          .toBuffer();
-        // Шаг 2 — подмена. composite в sharp выполняется В КОНЦЕ конвейера,
-        // поэтому размывать в этой же цепочке нельзя: текст остался бы
-        // резким поверх размытого фона. Отсюда отдельный toBuffer().
-        const layer = decoyLayer(lang, outW, outH);
-        const merged = layer
-          ? await sharp(base).composite([{ input: layer }]).png().toBuffer()
-          : base;
-        // Шаг 3 — размытие всего разом.
-        const i = await sharp(merged)
+        // Текст книги уже удалён из PDF, если рендерим из -preview.pdf:
+        // тогда уменьшать страницу незачем и блюр идёт по полному
+        // разрешению — он мягкий, а не «каша из пятен».
+        // Для языка без подмены остаётся старый путь: сначала уничтожаем
+        // текст уменьшением в 17 раз, и только потом размываем.
+        const base = isSubstituted
+          ? await sharp(join(tmp, file)).resize({ width: outW }).toBuffer()
+          : await sharp(join(tmp, file))
+              .resize({ width: CFG.blurDestroyWidth })
+              .resize({ width: outW, kernel: 'lanczos3' })
+              .toBuffer();
+
+        // Стекло: радиус, вибрантность, молочный тинт…
+        const frosted = await sharp(base)
           .blur(CFG.blurSigma)
+          .modulate({ saturation: G.saturation, brightness: G.brightness })
+          .composite([{ input: tintLayer(outW, outH, G.tint, G.tintOpacity) }])
+          .png().toBuffer();
+
+        // …и поверх — зерно, блик и текстовые слои. Зерно идёт в soft-light,
+        // а не обычным наложением: так оно ложится текстурой поверхности,
+        // не поднимая и не гася общую яркость.
+        const over = [
+          { input: await grainLayer(outW, outH, G.grainSigma), blend: 'soft-light' },
+          { input: sheenLayer(outW, outH, G.sheenTop, G.sheenBottom) },
+          markLayer(lang, outW, outH, G.markOver),
+        ].filter((l) => l && (l.input ?? l));
+
+        const i = await sharp(frosted)
+          .composite(over.map((l) => (l.input ? l : { input: l })))
           .webp({ quality: CFG.blurQuality })
           .toFile(out);
         blurBytes += i.size;
@@ -196,7 +235,7 @@ for (const lang of langs) {
     manifest[lang] = { total, visible };
     totalBytes += clearBytes + blurBytes;
     console.log(
-      `  ${lang}: ${total} страниц — ${visible.length} читаемых ${(clearBytes / 1024).toFixed(0)} КБ` +
+      `  ${lang}${isSubstituted ? ' (текст подменён в PDF)' : ''}: ${total} страниц — ${visible.length} читаемых ${(clearBytes / 1024).toFixed(0)} КБ` +
       ` + ${total - visible.length} размытых ${(blurBytes / 1024).toFixed(1)} КБ`
     );
   } finally {
