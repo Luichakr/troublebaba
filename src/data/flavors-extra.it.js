@@ -142,6 +142,7 @@ export const EXTRA_IT = {
 };
 
 export const SECTIONS_IT = {
+  reviews: 'Cosa dicono gli acquirenti di questo gusto',
   occasion: 'Quando funziona',
   mistakes: 'Errori tipici con questo gusto',
   mistakesHelp: 'I punti critici sono noti: le soluzioni esatte (grammature, temperatura, stabilizzazione) sono nella raccolta PDF a pagamento.',

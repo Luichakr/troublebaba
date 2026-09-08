@@ -835,6 +835,7 @@ export const SECTIONS = {
     difficulty:  'Складність',
     time:        'Час на збірку',
     pdfCta:      'Отримати повний рецепт у PDF',
+    reviews:     'Що кажуть покупці про цей смак',
   },
   ru: {
     occasion:    'Когда он работает',
@@ -845,6 +846,7 @@ export const SECTIONS = {
     difficulty:  'Сложность',
     time:        'Время на сборку',
     pdfCta:      'Получить полный рецепт в PDF',
+    reviews:     'Что говорят покупатели об этом вкусе',
   },
   pl: {
     occasion:    'Kiedy się sprawdza',
@@ -855,6 +857,7 @@ export const SECTIONS = {
     difficulty:  'Trudność',
     time:        'Czas montażu',
     pdfCta:      'Odbierz pełny przepis w PDF',
+    reviews:     'Co mówią kupujący o tym smaku',
   },
   en: {
     occasion:    'When it works',
@@ -865,6 +868,7 @@ export const SECTIONS = {
     difficulty:  'Difficulty',
     time:        'Assembly time',
     pdfCta:      'Get the full recipe in the PDF',
+    reviews:     'What buyers say about this flavour',
   },
   es: SECTIONS_ES,
   de: SECTIONS_DE,

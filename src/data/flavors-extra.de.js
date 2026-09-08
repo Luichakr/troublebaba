@@ -142,6 +142,7 @@ export const EXTRA_DE = {
 };
 
 export const SECTIONS_DE = {
+  reviews: 'Was Käuferinnen über diese Sorte sagen',
   occasion: 'Wann sie passt',
   mistakes: 'Typische Fehler bei dieser Sorte',
   mistakesHelp: 'Die Schwachstellen sind bekannt — die genauen Lösungen (Gramm, Temperatur, Stabilisierung) stehen in der kostenpflichtigen PDF-Sammlung.',

@@ -5,6 +5,7 @@ import SiteFooter from './SiteFooter.astro';
 import { FLAVORS, FLAVOR_BY_SLUG, RECIPES_HUB, INGREDIENTS_BY_SLUG, INGREDIENTS_COPY } from '../data/flavors.js';
 import { FLAVOR_META, DIFFICULTY_LABEL, TIME_LABEL, SECTIONS, getExtra } from '../data/flavors-extra.js';
 import { t } from '../i18n/translations.js';
+import { reviewsForFlavor } from '../data/flavor-review-keys.js';
 import { SITE } from '../config/site.js';
 
 type Lang = 'uk' | 'ru' | 'pl' | 'en' | 'es' | 'de' | 'fr' | 'it' | 'pt';
@@ -54,6 +55,17 @@ const extra = getExtra(slug, extraLang);
 const sec = (SECTIONS as any)[extraLang];
 const difficultyLabel = meta && (DIFFICULTY_LABEL as any)[extraLang][meta.difficulty];
 const timeLabel       = meta && (TIME_LABEL as any)[extraLang][meta.timeBucket];
+
+// Отзывы про ЭТОТ вкус. Показываем только те, где он реально упомянут —
+// подбор в flavor-review-keys.js. Отзывы есть на uk/ru/pl/en; остальные
+// локали берут английские, как и на главной.
+// Схему Review не выводим: у отзывов нет числовых оценок, а выдумывать
+// их мы отказались (см. HomePage.astro про AggregateRating).
+const REVIEW_FILES = import.meta.glob('../data/reviews/*.json', { eager: true });
+const reviewKey = (l: string) => `../data/reviews/${l}.json`;
+const reviewLang = (REVIEW_FILES as any)[reviewKey(lang)] ? lang : 'en';
+const allReviews = ((REVIEW_FILES as any)[reviewKey(reviewLang)]?.default ?? []) as { text: string; name?: string }[];
+const flavorReviews = reviewsForFlavor(allReviews, slug);
 
 // Curated internal linking to related flavors — 3 hand-picked siblings.
 const relatedFlavors = (extra?.related || [])
@@ -242,7 +254,30 @@ const faqJsonLd = extra?.faq?.length
       </section>
     )}
 
+    {/* Отзывы именно про этот вкус. Секции нет, если упоминаний нет —
+        пустой блок «что говорят покупатели» хуже отсутствующего. */}
+    {flavorReviews.length > 0 && (
+      <section class="mt-24 lg:mt-32">
+        <h2 class="font-cabinet text-espresso mb-10" style="font-size:clamp(2rem,3.4vw,2.75rem);line-height:1.05;letter-spacing:-0.01em;">{sec.reviews}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+          {flavorReviews.map((r) => (
+            <div class="flex flex-col bg-warm-white rounded-3xl p-6 lg:p-7"
+                 style="box-shadow:0 1px 6px rgba(139,115,85,0.05);border:1px solid rgba(200,184,162,0.22);">
+              <p class="font-outfit text-espresso/75 text-[15px] leading-relaxed mb-5">{r.text}</p>
+              <div class="flex items-center gap-2 flex-wrap mt-auto">
+                {r.name && <span class="font-outfit font-semibold text-espresso text-[13px]">{r.name}</span>}
+                {r.name && <span class="text-taupe" aria-hidden="true">·</span>}
+                <Icon name="ph:check-circle" class="w-[15px] h-[15px]" />
+                <span class="font-outfit text-espresso/65 text-[13px] font-medium">{tr.testi_verified}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
     {relatedFlavors.length > 0 && (
+
       <section class="mt-24 lg:mt-32">
         <h2 class="font-cabinet text-espresso mb-10" style="font-size:clamp(2rem,3.4vw,2.75rem);line-height:1.05;letter-spacing:-0.01em;">{sec.related}</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">

@@ -142,6 +142,7 @@ export const EXTRA_PT = {
 };
 
 export const SECTIONS_PT = {
+  reviews: 'O que os compradores dizem sobre este sabor',
   occasion: 'Quando funciona',
   mistakes: 'Erros comuns com este sabor',
   mistakesHelp: 'As dores são conhecidas — as soluções exatas (gramagens, temperatura, estabilização) estão na coleção PDF paga.',

@@ -145,6 +145,7 @@ export const EXTRA_ES = {
 };
 
 export const SECTIONS_ES = {
+  reviews: 'Lo que dicen los compradores sobre este sabor',
   occasion: 'Cuándo funciona',
   mistakes: 'Fallos habituales con este sabor',
   mistakesHelp: 'Los puntos de dolor son conocidos; las soluciones exactas (gramos, temperatura, estabilización) están en la colección PDF de pago.',

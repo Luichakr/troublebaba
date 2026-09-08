@@ -142,6 +142,7 @@ export const EXTRA_FR = {
 };
 
 export const SECTIONS_FR = {
+  reviews: 'Ce que disent les acheteurs de ce parfum',
   occasion: 'Quand il fonctionne',
   mistakes: 'Ratés fréquents avec ce parfum',
   mistakesHelp: 'Les points de douleur sont connus — les solutions exactes (grammages, température, stabilisation) sont dans la collection PDF payante.',
