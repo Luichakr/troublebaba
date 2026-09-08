@@ -5,9 +5,10 @@
  * упомянут. Один отзыв может попасть на несколько страниц — «мій топ:
  * Вишня в шоколаді, Мак-цитрус, Фісташка-малина» относится к трём.
  *
- * Ключи — распознавательные корни на всех языках, где есть отзывы
- * (uk/ru/pl/en). Локали без своих отзывов показывают английские, поэтому
- * проверяются все ключи сразу, независимо от языка страницы.
+ * Ключи — распознавательные корни на всех девяти языках отзывов
+ * (uk/ru/pl/en/es/de/fr/it/pt). Проверяются все ключи сразу, независимо
+ * от языка страницы: так один список работает везде и не надо держать
+ * девять почти одинаковых таблиц.
  *
  * Почему корни, а не полные названия: в славянских языках имя склоняется
  * («Фісташку-малину», «Wiśnię w czekoladzie», «Pina Coladę»), и матчинг
@@ -16,14 +17,18 @@
 export const FLAVOR_REVIEW_KEYS = {
   'oreo-bento-cake':               ['oreo', 'орео'],
   'red-velvet-bento-cake':         ['red velvet', 'velvet', 'оксамит', 'бархат', 'aksamit'],
-  'poppy-seed-citrus-bento-cake':  ['мак-цитрус', 'poppy', 'makowo', 'цитрус', 'cytrus'],
+  'poppy-seed-citrus-bento-cake':  ['мак-цитрус', 'poppy', 'makowo', 'цитрус', 'cytrus',
+                                    'amapola', 'mohn', 'pavot', 'papaver', 'papoul',
+                                    'cítric', 'citric', 'agrum', 'zitrus'],
   'snickers-bento-cake':           ['snickers', 'сникерс', 'снікерс'],
   'raffaello-bento-cake':          ['raffaello', 'рафаэлло', 'рафаелло'],
   'ferrero-rocher-bento-cake':     ['ferrero', 'рошер', 'роше'],
   'cinnabon-bento-cake':           ['cinnabon', 'синнабон', 'сіннабон'],
-  'pistachio-raspberry-bento-cake':['фісташ', 'фисташ', 'pistac', 'pistasz'],
-  'pina-colada-bento-cake':        ['pina colad', 'піна колад', 'пина колад', 'ананас', 'ananas', 'pineapple'],
-  'cherry-chocolate-bento-cake':   ['вишн', 'cherry', 'wiśni', 'wisni', 'черешн'],
+  'pistachio-raspberry-bento-cake':['фісташ', 'фисташ', 'pistac', 'pistasz', 'pistaz'],
+  'pina-colada-bento-cake':        ['pina colad', 'піна колад', 'пина колад', 'ананас', 'ananas',
+                                    'ananá', 'pineapple', 'piña', 'abacaxi'],
+  'cherry-chocolate-bento-cake':   ['вишн', 'cherry', 'wiśni', 'wisni', 'черешн',
+                                    'cerez', 'kirsch', 'ceris', 'cilieg', 'cerej'],
 };
 
 /**
