@@ -1,79 +1,62 @@
 ---
-title: "Cheesecake de morango com OREO sem forno"
-description: "Receita de cheesecake de morango com biscoito Oreo sem forno: gramaturas exatas para forma de 18 cm, montagem passo a passo e vídeo do processo."
+title: "Cheesecake de morango com OREO sem forno — por que firma"
+description: "Cheesecake de morango com base de Oreo sem forno: por que firma sem forno, o que faz o corte escorrer, quanto tempo dura e como usá-lo como camada dentro de um bento cake."
 lang: "pt"
 slug: "strawberry-oreo-cheesecake"
 publishedAt: "2026-06-04"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["cheesecake", "sem forno", "oreo", "receita"]
+tags: ["cheesecake", "sem forno", "oreo", "conservação"]
 draft: false
-excerpt: "Cheesecake delicado de morango com Oreo sem forno — gramaturas exatas e montagem passo a passo."
-recipe:
-  name: "Cheesecake de morango com OREO sem forno"
-  yield: "1200–1270 g (forma de 18 cm de diâmetro)"
-  category: "Sobremesa"
-  cuisine: "Autoral"
-  ingredients:
-    - "150 g de biscoito Oreo (para a base)"
-    - "50 g de manteiga derretida"
-    - "200 g de purê de morango"
-    - "200 g de chocolate branco"
-    - "200 g de creme de leite fresco 33–36%"
-    - "350 g de cream cheese"
-    - "5 g de gelatina + 15 ml de água gelada"
-    - "6–10 biscoitos Oreo (para dentro)"
-    - "Camada superior opcional: coulis de morango com pectina ou chocolate amargo com óleo de girassol"
-  steps:
-    - "Forre o aro de confeitaria com filme de acetato e coloque sobre uma superfície plana."
-    - "Base: triture o biscoito junto com o recheio até virar farofa, acrescente a manteiga derretida e misture. Despeje na forma, compacte e leve à geladeira enquanto prepara o cheesecake."
-    - "Hidrate a gelatina na água gelada e deixe descansar por 10 minutos."
-    - "Aqueça o purê de morango. No purê quente, adicione a gelatina hidratada e o chocolate branco, mexendo até dissolver por completo."
-    - "Bata o cream cheese com o creme de leite, acrescente o purê de morango e misture com o fouet."
-    - "Despeje metade da massa sobre a base, distribua os biscoitos Oreo e cubra com o restante da massa. Leve à geladeira por no mínimo 6 horas."
-    - "Se quiser, cubra com coulis de morango na pectina ou com chocolate amargo com óleo de girassol."
-  videoUrl: "https://www.instagram.com/reels/DXo_cxuOQfp/"
+excerpt: "Por que um cheesecake sem forno firma com gelatina, o que faz o corte escorrer e como usá-lo como camada dentro de um bento cake."
 ---
 
-Um cheesecake de morango delicado e sem forno, com base de biscoito Oreo — uma das sobremesas mais simples do nosso feed. Não precisa de forno: toda a montagem se sustenta na gelatina e na refrigeração. Abaixo estão as gramaturas exatas para uma forma de 18 cm de diâmetro e o passo a passo do processo.
+Um cheesecake de morango sobre base de biscoitos Oreo é uma sobremesa que se monta sem forno. Toda a estrutura se apoia na gelatina e no frio — e é justamente por isso que os erros aparecem onde ninguém espera.
 
-> O vídeo do processo desta receita está no [nosso Instagram](https://www.instagram.com/reels/DXo_cxuOQfp/).
+> O processo em vídeo — no [nosso Instagram](https://www.instagram.com/reels/DXo_cxuOQfp/).
 
-## Ingredientes
+## Por que firma sem forno
 
-**Forma:** aro de 18 cm de diâmetro. Rendimento — cerca de 1200 a 1270 g.
+Num cheesecake clássico a estrutura vem do ovo, que coagula com o calor. Aqui não há ovo: no lugar dele trabalham três coisas ao mesmo tempo — gelatina, chocolate branco e frio.
 
-### Base
-- 150 g de biscoito Oreo
-- 50 g de manteiga derretida
+A gelatina monta a estrutura. O chocolate branco é manteiga de cacau, que endurece ao esfriar e acrescenta densidade. A geladeira fixa os dois processos. Tire um dos três e a massa continua sendo um creme que não segura o corte.
 
-### Cheesecake
-- 200 g de purê de morango
-- 200 g de chocolate branco
-- 200 g de creme de leite fresco 33–36%
-- 350 g de cream cheese
-- 5 g de gelatina + 15 ml de água gelada
-- 6–10 biscoitos Oreo (distribuídos por dentro)
+Daí a regra principal: **tempo em vez de temperatura**. Um cheesecake de forno está pronto quando assou. Este está pronto quando firmou por completo, e não há nada com que encurtar essa etapa.
 
-### Camada superior (opcional)
-Pode dispensar. No original — coulis de morango com pectina. Alternativa — chocolate amargo com óleo de girassol.
+## O que faz o corte escorrer
 
-## Modo de preparo
+A reclamação mais comum em cheesecakes sem forno não é a rachadura, e sim justamente o corte que escorre. As causas são quase sempre estas quatro.
 
-1. **Prepare a forma.** Forre o aro de confeitaria com filme de acetato e coloque sobre uma superfície plana.
-2. **Base.** Triture o biscoito junto com o recheio até virar farofa, acrescente a manteiga derretida e misture. Despeje na forma, compacte e leve à geladeira enquanto prepara o cheesecake.
-3. **Gelatina.** Hidrate na água gelada e deixe descansar por 10 minutos.
-4. **Base de morango.** Aqueça o purê de morango. No purê quente, adicione a gelatina hidratada e o chocolate branco, mexendo até dissolver por completo.
-5. **Cheesecake.** Bata o cream cheese com o creme de leite, acrescente o purê de morango e misture com o fouet.
-6. **Montagem.** Despeje metade da massa sobre a base, distribua os biscoitos Oreo e cubra com o restante. Leve à geladeira por no mínimo 6 horas.
-7. **Acabamento (opcional).** Cubra com coulis de morango na pectina ou com chocolate amargo com óleo de girassol.
+**Pouco tempo no frio.** A massa parece firme já depois de duas ou três horas, mas engana: a gelatina ainda não atingiu toda a força. Uma noite na geladeira não é excesso de cuidado, é a norma para esta construção.
 
-## Detalhes importantes
+**Ingredientes em temperatura ambiente.** Queijo e creme em temperatura ambiente dão uma massa que estabiliza mais devagar e de forma irregular. Frios, firmam mais rápido e mais parelho.
 
-- **Cor.** No vídeo a cor não é natural — foi adicionado corante vermelho. Sem corante, o cheesecake fica num rosa suave.
-- **Queijo e creme de leite** devem estar gelados — assim a massa se estabiliza melhor.
-- **Tempo.** No mínimo 6 horas na geladeira, de preferência uma noite inteira: o cheesecake precisa firmar por completo, senão a fatia "escorre".
-- **Quanto tempo dura** o cheesecake pronto — veja no material [quanto tempo dura um bento cake](/pt/blog/bento-cake-shelf-life/) (os prazos de cremes e cheesecakes são parecidos).
+**Gelatina em grânulos.** Se você a incorpora num purê muito quente — ou, ao contrário, quase frio — ela não se distribui de forma uniforme. No corte isso aparece como pontinhos transparentes, e essa massa segura pior.
+
+**Base sem compactar.** A base de farofa com manteiga precisa ser bem prensada e gelada antes de receber o recheio. Uma base solta absorve umidade do recheio e desmancha sob a faca.
+
+## A cor
+
+No vídeo a cor está mais intensa que a natural: foi adicionado corante. Sem ele o cheesecake sai de um rosa suave, e esse é o resultado normal — o purê de morango sozinho não dá um tom saturado.
+
+## Conservação e serviço
+
+Um cheesecake à base de cream cheese vive na geladeira **até 3 dias** em recipiente fechado. Mais que isso, perde textura e começa a absorver odores.
+
+Deixe-o em temperatura ambiente **15–20 minutos** antes de servir: frio o sabor fica abafado, morno abre a cremosidade. Não deixe mais tempo, sobretudo no verão.
+
+Corte com uma faca molhada em água quente, secando depois de cada fatia. Caso contrário o corte leva a camada de cima consigo.
+
+Mais sobre prazos — no artigo sobre [quanto tempo dura um bento cake](/blog/bento-cake-shelf-life/): as janelas para cremes e cheesecakes são parecidas.
+
+## Como usá-lo dentro de um bento cake
+
+Este cheesecake funciona não só como sobremesa por si só, mas também como **camada dentro de um bento cake**: um disco fino congelado entre os pães de ló dá um contraste de texturas que nenhum creme dá.
+
+A lógica é simples: montar num aro de diâmetro menor, gelar por completo, congelar — e colocar ainda congelado durante a montagem. Descongela junto com o bolo enquanto ele descansa na geladeira.
+
+Sobre como um bolo assim se comporta no transporte — [em separado](/blog/how-to-transport-bento-cake/).
 
 ---
 
-Esta é uma das centenas de receitas gratuitas do nosso canal. Mais vídeos passo a passo estão no [blog](/pt/blog/) e no [feed de shorts](/pt/shorts/). Já o [compêndio em PDF Bento Cake by TROUBLEBABA](/pt/recipes/) traz 10 receitas autorais de bento cakes, com gramaturas exatas e tabela de conversão.
+**Gramagens exatas e a montagem passo a passo não publicamos mais no blog.** Nossas receitas de bento cake estão na [coleção PDF Bento Cake by TROUBLEBABA](/recipes/): 10 sabores autorais com gramagens para 1, 2 e 3 bolos e uma tabela de conversão para 11 diâmetros. O cheesecake não está entre eles — é uma sobremesa à parte, do nosso canal.

@@ -1,79 +1,62 @@
 ---
-title: "Cheesecake alla fragola e OREO senza cottura"
-description: "Ricetta della cheesecake alla fragola con biscotti Oreo senza cottura: grammature precise per uno stampo da 18 cm."
+title: "Cheesecake alla fragola e OREO senza cottura — perché tiene"
+description: "Cheesecake alla fragola con base di Oreo senza cottura: perché rassoda senza forno, cosa fa colare il taglio, quanto si conserva e come usarlo come strato dentro una bento cake."
 lang: "it"
 slug: "strawberry-oreo-cheesecake"
 publishedAt: "2026-06-04"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["cheesecake", "senza cottura", "oreo", "ricetta"]
+tags: ["cheesecake", "senza cottura", "oreo", "conservazione"]
 draft: false
-excerpt: "Una delicata cheesecake alla fragola con Oreo senza cottura: grammature precise e montaggio passo passo."
-recipe:
-  name: "Cheesecake alla fragola e OREO senza cottura"
-  yield: "1200–1270 g (stampo di diametro 18 cm)"
-  category: "Dessert"
-  cuisine: "D'autore"
-  ingredients:
-    - "150 g di biscotti Oreo (per la base)"
-    - "50 g di burro fuso"
-    - "200 g di purea di fragole"
-    - "200 g di cioccolato bianco"
-    - "200 g di panna 33–36%"
-    - "350 g di formaggio cremoso"
-    - "5 g di gelatina + 15 ml di acqua fredda"
-    - "6–10 biscotti Oreo (all'interno)"
-    - "Strato superiore facoltativo: coulis di fragole alla pectina o cioccolato fondente con olio di semi di girasole"
-  steps:
-    - "Rivestire un anello da pasticceria con pellicola di acetato e appoggiarlo su una superficie piana."
-    - "Base: tritare i biscotti insieme alla loro farcitura fino a ridurli in briciole, aggiungere il burro fuso e mescolare. Versare nello stampo, compattare e riporre in frigorifero mentre si prepara la cheesecake."
-    - "Idratare la gelatina in acqua fredda e lasciar riposare per 10 minuti."
-    - "Scaldare la purea di fragole. Nella purea calda aggiungere la gelatina idratata e il cioccolato bianco, mescolare fino a completo scioglimento."
-    - "Montare il formaggio cremoso con la panna, aggiungere la purea di fragole e amalgamare con la frusta."
-    - "Versare metà del composto sulla base, disporre i biscotti Oreo, versare la seconda parte. Riporre in frigorifero per almeno 6 ore."
-    - "A piacere, ricoprire con coulis di fragole alla pectina o con cioccolato fondente e olio di semi di girasole."
-  videoUrl: "https://www.instagram.com/reels/DXo_cxuOQfp/"
+excerpt: "Perché un cheesecake senza cottura tiene sulla gelatina, cosa fa colare il taglio e come usarlo come strato dentro una bento cake."
 ---
 
-Una delicata cheesecake alla fragola senza cottura con base di biscotti Oreo: uno dei dessert più semplici del nostro feed. Non serve il forno: tutto il montaggio si regge sulla gelatina e sulla refrigerazione. Qui sotto trovi le grammature precise per uno stampo da 18 cm di diametro e il procedimento passo passo.
+Un cheesecake alla fragola su una base di biscotti Oreo è un dolce che si monta senza forno. Tutta la struttura poggia sulla gelatina e sul freddo — ed è proprio per questo che gli errori arrivano dove non te li aspetti.
 
-> Il video di questa ricetta è sul [nostro Instagram](https://www.instagram.com/reels/DXo_cxuOQfp/).
+> Il processo in video — sul [nostro Instagram](https://www.instagram.com/reels/DXo_cxuOQfp/).
 
-## Ingredienti
+## Perché rassoda senza forno
 
-**Stampo:** anello di diametro 18 cm. Resa: circa 1200–1270 g.
+In un cheesecake classico la struttura la dà l'uovo, che coagula col calore. Qui l'uovo non c'è: al suo posto lavorano tre cose insieme — gelatina, cioccolato bianco e freddo.
 
-### Base
-- 150 g di biscotti Oreo
-- 50 g di burro fuso
+La gelatina costruisce l'impalcatura. Il cioccolato bianco è burro di cacao, che indurisce raffreddandosi e aggiunge densità. Il frigorifero fissa entrambi i processi. Togli uno dei tre e la massa resta una crema che non tiene il taglio.
 
-### Cheesecake
-- 200 g di purea di fragole
-- 200 g di cioccolato bianco
-- 200 g di panna 33–36%
-- 350 g di formaggio cremoso
-- 5 g di gelatina + 15 ml di acqua fredda
-- 6–10 biscotti Oreo (da disporre all'interno)
+Da qui la regola principale: **tempo invece di temperatura**. Un cheesecake al forno è pronto quando è cotto. Questo è pronto quando ha rassodato del tutto, e non c'è niente con cui accorciare quella fase.
 
-### Strato superiore (facoltativo)
-Si può anche omettere. Nell'originale è un coulis di fragole alla pectina. In alternativa, cioccolato fondente con olio di semi di girasole.
+## Cosa fa colare il taglio
 
-## Preparazione
+La lamentela più comune sui cheesecake senza cottura non è la crepa, ma proprio il taglio che cola. Le cause sono quasi sempre queste quattro.
 
-1. **Prepara lo stampo.** Rivesti un anello da pasticceria con pellicola di acetato e appoggialo su una superficie piana.
-2. **Base.** Trita i biscotti insieme alla loro farcitura fino a ridurli in briciole, aggiungi il burro fuso e mescola. Versa nello stampo, compatta e riponi in frigorifero mentre prepari la cheesecake.
-3. **Gelatina.** Idratala in acqua fredda e lasciala gonfiare per 10 minuti.
-4. **Base di fragole.** Scalda la purea di fragole. Nella purea calda aggiungi la gelatina idratata e il cioccolato bianco, mescola fino a completo scioglimento.
-5. **Cheesecake.** Monta il formaggio cremoso con la panna, aggiungi la purea di fragole e amalgama con la frusta.
-6. **Montaggio.** Versa metà del composto sulla base, disponi i biscotti Oreo, versa la seconda parte. Riponi in frigorifero per almeno 6 ore.
-7. **Finitura (facoltativa).** Ricopri con coulis di fragole alla pectina o con cioccolato fondente e olio di semi di girasole.
+**Troppo poco tempo in freddo.** La massa sembra compatta già dopo due o tre ore, ma inganna: la gelatina non ha ancora raggiunto la sua piena forza. Una notte in frigorifero non è eccesso di prudenza, è la norma per questa costruzione.
 
-## Dettagli importanti
+**Ingredienti a temperatura ambiente.** Formaggio e panna a temperatura ambiente danno una massa che si stabilizza più lentamente e in modo irregolare. Freddi, rassodano prima e in modo più uniforme.
 
-- **Colore.** Nel video il colore non è naturale: è stato aggiunto colorante rosso. Senza colorante la cheesecake risulta di un delicato rosa.
-- **Formaggio e panna** devono essere freddi: così il composto si stabilizza meglio.
-- **Tempo.** Almeno 6 ore in frigorifero, meglio se una notte intera: la cheesecake deve rassodarsi completamente, altrimenti il taglio «si sfalda».
-- **Quanto si conserva** la cheesecake pronta: vedi l'articolo [quanto si conserva una bento cake](/it/blog/bento-cake-shelf-life/) (i tempi per creme e cheesecake sono simili).
+**Gelatina in granelli.** Se la incorpori in una purea troppo calda — o, al contrario, quasi fredda — non si distribuisce in modo uniforme. Nel taglio si vede come puntini trasparenti, e quella massa tiene peggio.
+
+**Base non compattata.** La base di briciole e burro va premuta bene e raffreddata prima di versare. Una base friabile assorbe umidità dal ripieno e si sbriciola sotto il coltello.
+
+## Il colore
+
+Nel video il colore è più intenso di quello naturale: è stato aggiunto un colorante. Senza, il cheesecake esce di un rosa tenue, e questo è il risultato normale — la purea di fragola da sola non dà una tonalità satura.
+
+## Conservazione e servizio
+
+Un cheesecake a base di formaggio fresco vive in frigorifero **fino a 3 giorni** in un contenitore chiuso. Più a lungo perde texture e comincia ad assorbire odori.
+
+Lascialo a temperatura ambiente **15–20 minuti** prima di servire: freddo sa di poco, intiepidito apre la sua cremosità. Non lasciarlo oltre, soprattutto d'estate.
+
+Taglialo con un coltello bagnato in acqua calda, asciugandolo dopo ogni fetta. Altrimenti il taglio si porta dietro lo strato superiore.
+
+Più dettagli sui tempi — nell'articolo su [quanto si conserva una bento cake](/blog/bento-cake-shelf-life/): le finestre per creme e cheesecake sono simili.
+
+## Come usarlo dentro una bento cake
+
+Questo cheesecake funziona non solo come dolce a sé, ma anche come **strato dentro una bento cake**: un disco sottile congelato tra i pan di Spagna dà un contrasto di texture che nessuna crema può dare.
+
+La logica è semplice: montarlo in un anello di diametro minore, raffreddarlo completamente, congelarlo — e posizionarlo ancora congelato durante il montaggio. Si scongela insieme alla torta mentre riposa in frigorifero.
+
+Su come si comporta una torta così in trasporto — [a parte](/blog/how-to-transport-bento-cake/).
 
 ---
 
-Questa è una delle centinaia di ricette gratuite del nostro canale. Altri video passo passo sono nel [blog](/it/blog/) e nel [feed degli shorts](/it/shorts/). La [raccolta PDF Bento Cake by TROUBLEBABA](/it/recipes/), invece, raccoglie 10 ricette d'autore proprio di bento cake, con grammature precise e tabella di conversione.
+**Le grammature esatte e il montaggio passo a passo non li pubblichiamo più sul blog.** Le nostre ricette di bento cake sono nella [raccolta PDF Bento Cake by TROUBLEBABA](/recipes/): 10 gusti d'autore con le grammature per 1, 2 e 3 torte e una tabella di conversione per 11 diametri. Il cheesecake non è tra questi — è un dolce a parte, dal nostro canale.

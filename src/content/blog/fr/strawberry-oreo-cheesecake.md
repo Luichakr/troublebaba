@@ -1,79 +1,62 @@
 ---
-title: "Cheesecake fraise OREO sans cuisson"
-description: "Recette de cheesecake à la fraise et aux biscuits Oreo sans cuisson : grammages précis pour un cercle de 18 cm, montage pas à pas et vidéo du processus."
+title: "Cheesecake fraise OREO sans cuisson — pourquoi il tient"
+description: "Cheesecake à la fraise sur base d'Oreo sans cuisson : pourquoi il prend sans four, ce qui fait couler la découpe, combien de temps il se garde et comment l'utiliser en couche dans un bento cake."
 lang: "fr"
 slug: "strawberry-oreo-cheesecake"
 publishedAt: "2026-06-04"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["cheesecake", "sans cuisson", "oreo", "recette"]
+tags: ["cheesecake", "sans cuisson", "oreo", "conservation"]
 draft: false
-excerpt: "Un cheesecake fraise délicat aux Oreo sans cuisson — grammages précis et montage pas à pas."
-recipe:
-  name: "Cheesecake fraise OREO sans cuisson"
-  yield: "1200–1270 g (cercle de 18 cm de diamètre)"
-  category: "Dessert"
-  cuisine: "Création maison"
-  ingredients:
-    - "150 g de biscuits Oreo (pour la base)"
-    - "50 g de beurre fondu"
-    - "200 g de purée de fraises"
-    - "200 g de chocolat blanc"
-    - "200 g de crème 33–36 %"
-    - "350 g de fromage frais"
-    - "5 g de gélatine + 15 ml d'eau froide"
-    - "6 à 10 biscuits Oreo (à l'intérieur)"
-    - "Couche supérieure facultative : coulis de fraise à la pectine ou chocolat noir à l'huile de tournesol"
-  steps:
-    - "Chemiser un cercle à pâtisserie de film acétate et le poser sur une surface plane."
-    - "Base : mixer les biscuits avec leur fourrage en chapelure, ajouter le beurre fondu et mélanger. Verser dans le cercle, tasser et réserver au réfrigérateur pendant que vous préparez le cheesecake."
-    - "Faire gonfler la gélatine dans l'eau froide pendant 10 minutes."
-    - "Chauffer la purée de fraises. Dans la purée chaude, ajouter la gélatine gonflée et le chocolat blanc, mélanger jusqu'à dissolution complète."
-    - "Monter le fromage frais avec la crème, ajouter la purée de fraises et mélanger au fouet."
-    - "Verser la moitié de l'appareil sur la base, disposer les biscuits Oreo, verser la seconde moitié. Réserver au réfrigérateur au moins 6 heures."
-    - "Au choix, recouvrir d'un coulis de fraise à la pectine ou de chocolat noir à l'huile de tournesol."
-  videoUrl: "https://www.instagram.com/reels/DXo_cxuOQfp/"
+excerpt: "Pourquoi un cheesecake sans cuisson tient sur la gélatine, ce qui fait couler la découpe et comment l'utiliser en couche dans un bento cake."
 ---
 
-Un cheesecake fraise délicat sans cuisson, sur une base de biscuits Oreo — l'un des desserts les plus simples de notre fil. Pas besoin de four : tout le montage repose sur la gélatine et la prise au froid. Ci-dessous, les grammages précis pour un cercle de 18 cm de diamètre et le déroulé pas à pas.
+Un cheesecake à la fraise sur une base de biscuits Oreo est un dessert qui se monte sans four. Toute la structure repose sur la gélatine et le froid — et c'est précisément pour cela que les erreurs surviennent là où on ne les attend pas.
 
-> La vidéo de cette recette est sur [notre Instagram](https://www.instagram.com/reels/DXo_cxuOQfp/).
+> Le processus en vidéo — sur [notre Instagram](https://www.instagram.com/reels/DXo_cxuOQfp/).
 
-## Ingrédients
+## Pourquoi il prend sans four
 
-**Cercle :** 18 cm de diamètre. Rendement : environ 1200 à 1270 g.
+Dans un cheesecake classique, la structure vient de l'œuf qui coagule à la chaleur. Ici il n'y a pas d'œuf : trois choses travaillent à sa place, en même temps — la gélatine, le chocolat blanc et le froid.
 
-### Base
-- 150 g de biscuits Oreo
-- 50 g de beurre fondu
+La gélatine construit l'ossature. Le chocolat blanc, c'est du beurre de cacao, qui durcit en refroidissant et apporte de la densité. Le réfrigérateur fixe les deux processus. Retirez l'un des trois et la masse reste une crème qui ne tient pas la découpe.
 
-### Cheesecake
-- 200 g de purée de fraises
-- 200 g de chocolat blanc
-- 200 g de crème 33–36 %
-- 350 g de fromage frais
-- 5 g de gélatine + 15 ml d'eau froide
-- 6 à 10 biscuits Oreo (à disposer à l'intérieur)
+D'où la règle principale : **le temps au lieu de la température**. Un cheesecake cuit est prêt quand il est cuit. Celui-ci est prêt quand il a complètement pris, et rien ne permet de raccourcir cette étape.
 
-### Couche supérieure (facultative)
-On peut s'en passer. À l'origine : un coulis de fraise à la pectine. Variante : du chocolat noir à l'huile de tournesol.
+## Ce qui fait couler la découpe
 
-## Préparation
+La plainte la plus fréquente sur les cheesecakes sans cuisson n'est pas la fissure, mais justement la découpe qui coule. Les causes sont presque toujours ces quatre-là.
 
-1. **Préparez le cercle.** Chemisez un cercle à pâtisserie de film acétate et posez-le sur une surface plane.
-2. **La base.** Mixez les biscuits avec leur fourrage en chapelure, ajoutez le beurre fondu et mélangez. Versez dans le cercle, tassez et réservez au réfrigérateur pendant que vous préparez le cheesecake.
-3. **La gélatine.** Couvrez d'eau froide et laissez gonfler 10 minutes.
-4. **La base à la fraise.** Chauffez la purée de fraises. Dans la purée chaude, ajoutez la gélatine gonflée et le chocolat blanc, mélangez jusqu'à dissolution complète.
-5. **Le cheesecake.** Montez le fromage frais avec la crème, ajoutez la purée de fraises et mélangez au fouet.
-6. **Le montage.** Versez la moitié de l'appareil sur la base, disposez les biscuits Oreo, versez la seconde moitié. Réservez au réfrigérateur au moins 6 heures.
-7. **La finition (facultative).** Recouvrez d'un coulis de fraise à la pectine ou de chocolat noir à l'huile de tournesol.
+**Trop peu de temps au froid.** La masse paraît ferme au bout de deux ou trois heures, mais c'est trompeur : la gélatine n'a pas encore atteint toute sa force. Une nuit au réfrigérateur n'est pas un excès de prudence, c'est la norme pour cette construction.
 
-## Détails importants
+**Des produits à température ambiante.** Le fromage et la crème à température ambiante donnent une masse qui se stabilise plus lentement et de façon inégale. Froids, ils prennent plus vite et plus régulièrement.
 
-- **La couleur.** Sur la vidéo, la couleur n'est pas naturelle — un colorant rouge a été ajouté. Sans colorant, le cheesecake prend une teinte rose tendre.
-- **Le fromage et la crème** doivent être bien froids — l'appareil se stabilise ainsi plus facilement.
-- **Le temps.** Au minimum 6 heures au réfrigérateur, idéalement une nuit : le cheesecake doit prendre complètement, sinon la coupe « coule ».
-- **Combien de temps se conserve** le cheesecake terminé — voyez l'article [combien de temps se conserve un bento cake](/fr/blog/bento-cake-shelf-life/) (les durées pour les crèmes et les cheesecakes sont similaires).
+**De la gélatine en grains.** Si vous l'incorporez dans une purée trop chaude — ou à l'inverse presque froide — elle ne se répartit pas uniformément. Sur la découpe, cela se voit en points transparents, et cette masse tient moins bien.
+
+**Une base non tassée.** La base de biscuits et de beurre doit être bien tassée et refroidie avant de couler l'appareil. Une base meuble absorbe l'humidité de la garniture et s'effrite sous le couteau.
+
+## La couleur
+
+Sur la vidéo, la couleur est plus vive que la couleur naturelle : un colorant a été ajouté. Sans lui, le cheesecake ressort d'un rose tendre, et c'est le résultat normal — la purée de fraise seule ne donne pas de teinte saturée.
+
+## Conservation et service
+
+Un cheesecake au fromage frais vit au réfrigérateur **jusqu'à 3 jours** dans un récipient fermé. Plus longtemps, il perd sa texture et commence à absorber les odeurs.
+
+Laissez-le à température ambiante **15–20 minutes** avant de servir : froid il a un goût sourd, réchauffé il ouvre son côté crémeux. Ne le laissez pas plus longtemps, surtout en été.
+
+Coupez-le avec un couteau trempé dans l'eau chaude, en l'essuyant après chaque part. Sinon la découpe emporte la couche supérieure avec elle.
+
+Plus de détails sur les durées — dans l'article [combien de temps se garde un bento cake](/blog/bento-cake-shelf-life/) : les fenêtres pour les crèmes et les cheesecakes sont proches.
+
+## Comment l'utiliser dans un bento cake
+
+Ce cheesecake fonctionne non seulement comme dessert à part entière, mais aussi comme **couche à l'intérieur d'un bento cake** : un disque fin congelé entre les génoises donne un contraste de textures qu'aucune crème ne donnera.
+
+La logique est simple : le monter dans un cercle de plus petit diamètre, le refroidir complètement, le congeler — et le poser encore congelé pendant le montage. Il décongèle avec le gâteau pendant le repos au réfrigérateur.
+
+Sur le comportement d'un tel gâteau en transport — [à part](/blog/how-to-transport-bento-cake/).
 
 ---
 
-C'est l'une des centaines de recettes gratuites de notre chaîne. Plus de vidéos pas à pas dans le [blog](/fr/blog/) et le [fil de shorts](/fr/shorts/). Quant au [recueil PDF Bento Cake by TROUBLEBABA](/fr/recipes/), ce sont 10 recettes maison de vrais bento cakes, avec des grammages précis et un tableau de conversion.
+**Nous ne publions plus les grammages exacts ni le montage étape par étape sur le blog.** Nos recettes de bento cakes sont dans le [recueil PDF Bento Cake by TROUBLEBABA](/recipes/) : 10 parfums d'auteur avec les grammages pour 1, 2 et 3 gâteaux et un tableau de conversion pour 11 diamètres. Le cheesecake n'y figure pas — c'est un dessert à part, issu de notre chaîne.

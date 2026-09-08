@@ -1,79 +1,62 @@
 ---
-title: "No-bake strawberry OREO cheesecake"
-description: "No-bake strawberry cheesecake with Oreo cookies: exact weights for an 18 cm ring, step-by-step assembly and a video of the process."
+title: "No-bake strawberry OREO cheesecake — how it holds together"
+description: "Strawberry cheesecake with Oreo base, no baking: why it sets without an oven, what makes the cut run, how long it keeps, and how to use it as a layer inside a bento cake."
 lang: "en"
 slug: "strawberry-oreo-cheesecake"
 publishedAt: "2026-06-04"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["cheesecake", "no-bake", "oreo", "recipe"]
+tags: ["cheesecake", "no-bake", "oreo", "storage"]
 draft: false
-excerpt: "A delicate no-bake strawberry Oreo cheesecake — exact weights and step-by-step assembly."
-recipe:
-  name: "No-bake strawberry OREO cheesecake"
-  yield: "1200–1270 g (18 cm ring)"
-  category: "Dessert"
-  cuisine: "Original"
-  ingredients:
-    - "150 g Oreo cookies (for the base)"
-    - "50 g melted butter"
-    - "200 g strawberry purée"
-    - "200 g white chocolate"
-    - "200 g whipping cream 33–36%"
-    - "350 g cream cheese"
-    - "5 g gelatin + 15 ml cold water"
-    - "6–10 Oreo cookies (inside)"
-    - "Optional top layer: strawberry coulis on pectin, or dark chocolate with sunflower oil"
-  steps:
-    - "Line a pastry ring with acetate film and set it on a flat surface."
-    - "Base: blitz the cookies, filling and all, into crumbs, add the melted butter, mix. Tip into the ring, press down firmly and refrigerate while you make the cheesecake."
-    - "Pour the cold water over the gelatin and leave for 10 minutes."
-    - "Heat the strawberry purée. Add the bloomed gelatin and white chocolate to the hot purée and stir until fully dissolved."
-    - "Whip the cream cheese with the whipping cream, add the strawberry purée and mix with a whisk."
-    - "Pour half the mixture onto the base, lay out the Oreo cookies, pour in the rest. Refrigerate for at least 6 hours."
-    - "Optionally top with strawberry coulis on pectin or dark chocolate with sunflower oil."
-  videoUrl: "https://www.instagram.com/reels/DXo_cxuOQfp/"
+excerpt: "Why a no-bake cheesecake holds on gelatine, what makes the cut run, and how to use it as a layer inside a bento cake."
 ---
 
-A delicate no-bake strawberry cheesecake on an Oreo cookie base — one of the simplest desserts in our feed. No oven needed: the whole build relies on gelatin and chilling. Below are the exact weights for an 18 cm ring and the step-by-step process.
+A strawberry cheesecake on an Oreo cookie base is a dessert that comes together without an oven. The whole structure rests on gelatine and chilling — which is exactly why people go wrong in places they don't expect.
 
-> Watch the video of this recipe on [our Instagram](https://www.instagram.com/reels/DXo_cxuOQfp/).
+> The process on video — on [our Instagram](https://www.instagram.com/reels/DXo_cxuOQfp/).
 
-## Ingredients
+## Why it sets without an oven
 
-**Mould:** an 18 cm pastry ring. Yield — about 1200–1270 g.
+In a classic cheesecake the structure comes from egg setting in the heat. There is no egg here — three things work instead, all at once: gelatine, white chocolate and cold.
 
-### Base
-- 150 g Oreo cookies
-- 50 g melted butter
+Gelatine builds the frame. White chocolate is cocoa butter, which firms up as it cools and adds density. The fridge locks both processes in. Remove any one of the three and the mass stays a cream that won't hold a cut.
 
-### Cheesecake
-- 200 g strawberry purée
-- 200 g white chocolate
-- 200 g whipping cream 33–36%
-- 350 g cream cheese
-- 5 g gelatin + 15 ml cold water
-- 6–10 Oreo cookies (layered inside)
+Hence the main rule: **time instead of temperature**. A baked cheesecake is done when it's baked through. This one is done when it has fully set, and there is nothing you can shorten that stage with.
 
-### Top layer (optional)
-You can skip it. The original uses a strawberry coulis on pectin. The alternative is dark chocolate with sunflower oil.
+## What makes the cut run
 
-## Method
+The most common complaint about no-bake cheesecakes isn't a crack — it's a running cut. The causes are almost always these four.
 
-1. **Prepare the mould.** Line a pastry ring with acetate film and set it on a flat surface.
-2. **Base.** Blitz the cookies, filling and all, into crumbs, add the melted butter and mix. Tip into the ring, press down firmly and refrigerate while you make the cheesecake.
-3. **Gelatin.** Pour the cold water over it and leave for 10 minutes to bloom.
-4. **Strawberry base.** Heat the strawberry purée. Add the bloomed gelatin and white chocolate to the hot purée and stir until fully dissolved.
-5. **Cheesecake.** Whip the cream cheese with the whipping cream, add the strawberry purée and mix with a whisk.
-6. **Assembly.** Pour half the mixture onto the base, lay out the Oreo cookies, pour in the rest. Refrigerate for at least 6 hours.
-7. **Finish (optional).** Top with strawberry coulis on pectin or dark chocolate with sunflower oil.
+**Not enough time in the cold.** The mass looks firm after two or three hours, but that's deceptive: the gelatine hasn't reached full strength yet. A night in the fridge isn't over-caution, it's the norm for this construction.
 
-## Key details
+**Room-temperature ingredients.** Cheese and cream at room temperature give a mass that stabilises more slowly and unevenly. Cold ones set faster and more uniformly.
 
-- **Colour.** The colour in the video isn't natural — red food colouring was added. Without it the cheesecake comes out a soft pink.
-- **The cheese and cream** must be cold — the mixture stabilises better that way.
-- **Time.** At least 6 hours in the fridge, ideally overnight: the cheesecake must set completely, or the cut will smear.
-- **How long it keeps** — see [how long a bento cake lasts](/en/blog/bento-cake-shelf-life/) (the timings for creams and cheesecakes are similar).
+**Gelatine in grains.** Add it to purée that's too hot — or, the other way round, almost cold — and it won't disperse evenly. You see it in the cut as clear specks, and that mass holds worse.
+
+**An uncompressed base.** The crumb-and-butter base has to be pressed down firmly and chilled before you pour. A loose base soaks up moisture from the filling and crumbles under the knife.
+
+## Colour
+
+The colour on the video is brighter than natural — food colouring was added. Without it the cheesecake comes out softly pink, and that's the normal result: strawberry purée on its own doesn't give a saturated shade.
+
+## Storage and serving
+
+A cream-cheese cheesecake lives in the fridge for **up to 3 days** in a closed container. Longer, and it loses texture and starts absorbing smells.
+
+Let it stand at room temperature for **15–20 minutes** before serving: a cold cheesecake tastes muted, a warmed one opens up its creaminess. Don't leave it longer, especially in summer.
+
+Cut it with a knife dipped in hot water, wiping it dry after every slice. Otherwise the cut drags the top layer along with it.
+
+More on shelf life — in the piece on [how long a bento cake keeps](/blog/bento-cake-shelf-life/): the windows for creams and cheesecakes are similar.
+
+## How to use it inside a bento cake
+
+This cheesecake works not only as a dessert in its own right but also as a **layer inside a bento cake**: a thin frozen disc between the sponges gives a texture contrast no cream can.
+
+The logic is simple: assemble it in a smaller-diameter ring, chill it fully, freeze it — and place it still frozen during assembly. It thaws along with the cake while it rests in the fridge.
+
+For how such a cake behaves in transport — [separately](/blog/how-to-transport-bento-cake/).
 
 ---
 
-This is one of hundreds of free recipes from our channel. More step-by-step videos in the [blog](/en/blog/) and the [shorts feed](/shorts/). And the [Bento Cake by TROUBLEBABA PDF collection](/en/recipes/) is 10 original bento cake recipes with exact weights and a conversion table.
+**We no longer publish exact gram weights or step-by-step assembly on the blog.** Our bento cake recipes live in the [Bento Cake by TROUBLEBABA PDF collection](/recipes/): 10 original flavours with gram weights for 1, 2 and 3 cakes plus a conversion table for 11 diameters. The cheesecake isn't among them — it's a separate dessert from our feed.
