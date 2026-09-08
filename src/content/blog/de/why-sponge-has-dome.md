@@ -29,8 +29,8 @@ Haushaltsöfen weichen regelmäßig um 10–25 Grad ab, und zwar in beide Richtu
 
 Eine Bento-Torte ist 6–8 cm hoch, das sind nur 2–3 Böden. Jede Wölbung muss abgeschnitten werden, und das kostet 2–3 mm nutzbare Höhe pro Boden. Bei einer großen Torte fällt dieser Verlust nicht auf, bei einer Bento frisst er die Proportionen.
 
-Wenn du jedes Mal eine hohe Wölbung abschneiden musst, ist das keine Kosmetik mehr, sondern Produktverlust. Mehr zu den Proportionen im Beitrag [Größe einer Bento-Torte](/blog/bento-cake-size/).
+Wenn du jedes Mal eine hohe Wölbung abschneiden musst, ist das keine Kosmetik mehr, sondern Produktverlust. Mehr zu den Proportionen im Beitrag [Größe einer Bento-Torte](/de/blog/bento-cake-size/).
 
 ---
 
-**Temperaturen, Zeiten und die Reihenfolge der Schritte für die einzelnen Biskuits veröffentlichen wir im Blog nicht.** Alle zehn Rezepte unserer [PDF-Sammlung](/recipes/) enthalten die genauen Backeinstellungen, Grammangaben für 1, 2 und 3 Torten sowie eigene Hinweise für jene Biskuits, bei denen die Wölbung das typische Problem ist. Genau dafür ist die Sammlung da.
+**Temperaturen, Zeiten und die Reihenfolge der Schritte für die einzelnen Biskuits veröffentlichen wir im Blog nicht.** Alle zehn Rezepte unserer [PDF-Sammlung](/de/recipes/) enthalten die genauen Backeinstellungen, Grammangaben für 1, 2 und 3 Torten sowie eigene Hinweise für jene Biskuits, bei denen die Wölbung das typische Problem ist. Genau dafür ist die Sammlung da.

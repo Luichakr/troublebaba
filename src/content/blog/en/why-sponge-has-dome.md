@@ -29,8 +29,8 @@ Domestic ovens routinely lie by 10–25 degrees, in both directions, and gas and
 
 A bento cake is 6–8 cm tall, which is only 2–3 layers. Every dome has to be trimmed, and that's 2–3 mm of usable height gone from each layer. On a large cake the loss is invisible; on a bento it eats the proportions.
 
-If you're trimming a tall dome every single time, that's no longer cosmetic — it's product loss. More on proportions in the piece on [bento cake size](/blog/bento-cake-size/).
+If you're trimming a tall dome every single time, that's no longer cosmetic — it's product loss. More on proportions in the piece on [bento cake size](/en/blog/bento-cake-size/).
 
 ---
 
-**We don't publish temperatures, times or the order of steps for individual sponges on the blog.** All ten recipes in our [PDF collection](/recipes/) carry exact baking settings, gram weights for 1, 2 and 3 cakes, and separate notes for the sponges where doming is the typical problem. That's the part of the work the collection is there for.
+**We don't publish temperatures, times or the order of steps for individual sponges on the blog.** All ten recipes in our [PDF collection](/en/recipes/) carry exact baking settings, gram weights for 1, 2 and 3 cakes, and separate notes for the sponges where doming is the typical problem. That's the part of the work the collection is there for.

@@ -47,7 +47,7 @@ Deixe-o em temperatura ambiente **15–20 minutos** antes de servir: frio o sabo
 
 Corte com uma faca molhada em água quente, secando depois de cada fatia. Caso contrário o corte leva a camada de cima consigo.
 
-Mais sobre prazos — no artigo sobre [quanto tempo dura um bento cake](/blog/bento-cake-shelf-life/): as janelas para cremes e cheesecakes são parecidas.
+Mais sobre prazos — no artigo sobre [quanto tempo dura um bento cake](/pt/blog/bento-cake-shelf-life/): as janelas para cremes e cheesecakes são parecidas.
 
 ## Como usá-lo dentro de um bento cake
 
@@ -55,8 +55,6 @@ Este cheesecake funciona não só como sobremesa por si só, mas também como **
 
 A lógica é simples: montar num aro de diâmetro menor, gelar por completo, congelar — e colocar ainda congelado durante a montagem. Descongela junto com o bolo enquanto ele descansa na geladeira.
 
-Sobre como um bolo assim se comporta no transporte — [em separado](/blog/how-to-transport-bento-cake/).
-
 ---
 
-**Gramagens exatas e a montagem passo a passo não publicamos mais no blog.** Nossas receitas de bento cake estão na [coleção PDF Bento Cake by TROUBLEBABA](/recipes/): 10 sabores autorais com gramagens para 1, 2 e 3 bolos e uma tabela de conversão para 11 diâmetros. O cheesecake não está entre eles — é uma sobremesa à parte, do nosso canal.
+**Gramagens exatas e a montagem passo a passo não publicamos mais no blog.** Nossas receitas de bento cake estão na [coleção PDF Bento Cake by TROUBLEBABA](/pt/recipes/): 10 sabores autorais com gramagens para 1, 2 e 3 bolos e uma tabela de conversão para 11 diâmetros. O cheesecake não está entre eles — é uma sobremesa à parte, do nosso canal.

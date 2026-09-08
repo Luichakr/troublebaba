@@ -1,66 +1,44 @@
 ---
-title: "Dimensioni bento cake: diametro, porzioni e peso"
-description: "I diametri standard della bento cake, per quante persone è pensata, quanto pesa e perché una «bento» non è semplicemente una torta piccola."
+title: "Dimensioni della bento cake: per quante persone e perché 12 cm"
+description: "Quale diametro si considera bento, per quante persone basta una torta da 10 e 12 cm e perché 16 cm non è più una bento. Il ricalcolo della ricetta su altri diametri è nella raccolta PDF."
 lang: "it"
 slug: "bento-cake-size"
 publishedAt: "2026-06-04"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["dimensioni", "tecnica", "vendita"]
+tags: ["dimensioni", "porzioni", "ordini"]
 draft: false
-excerpt: "Lo standard di diametro, peso e porzioni, e perché conta per il prezzo."
+excerpt: "Quale diametro si considera bento, per quante persone basta e dove passa il confine con la mini torta."
 ---
 
-La bento cake è un dessert «per una o due persone», servito in un lunch box. La dimensione determina tutto il resto: ricetta, prezzo, packaging, percezione da parte del cliente. Vediamo quali misure sono considerate standard.
+La bento cake è nata come dessert per una o due persone, che sta in una scatola e si mangia direttamente da lì. Da qui la misura: tutto ciò che è più grande smette di funzionare come bento, anche se l'aspetto è simile.
 
-## Il diametro standard
+## Quale diametro si considera bento
 
-La bento cake classica ha un **diametro di 10–12 cm** e un'**altezza di 6–8 cm**. Sono le proporzioni che entrano in una scatola standard in kraft per il pranzo da 13×13×8 cm.
+L'intervallo di lavoro è **10 e 12 centimetri**. Dieci sono per una persona, dodici per due, ed è proprio il dodici quello che si ordina più spesso.
 
-- **10 cm**: piccola, per una persona. Perfetta come regalo «per sé» o come mini-sorpresa.
-- **12 cm**: media, per due. La misura più diffusa per le coppie e per i regali a due.
+L'altezza è di solito 6–8 cm. Non è un numero casuale: la torta deve chiudersi sotto il coperchio della scatola e restare proporzionata. Una bento bassa e larga sembra un biscotto, una troppo alta non entra.
 
-Oltre i 13 cm il bento perde di senso: diventa una normale torta piccola, e nemmeno la scatola va più bene.
+## Dove passa il confine
 
-## Per quante persone
+Quattordici centimetri è la misura di passaggio: sono già 3–4 porzioni e la scatola smette di essere un lunch box.
 
-- Bento 10 cm: **1 porzione** (oppure 2 fettine piccole).
-- Bento 12 cm: **2 porzioni complete**.
+Sedici **non è più una bento, ma una mini torta**. La differenza non sta nel nome: cambia l'occasione. La bento si compra come pensiero per una persona o una coppia, la mini torta per un gruppo. Se un cliente chiede «una bento per sei», in realtà sta chiedendo una torta piccola, ed è così che va impostata la conversazione.
 
-Si tratta di porzioni da dessert, non di portate principali. Se la torta arriva «come dolce dopo cena», basta per due persone senza problemi. Se invece il bento è pensato come dessert-sorpresa a sé, è meglio una torta per ogni ospite.
+## Perché «piccolo» non vuol dire «economico»
 
-## Quanto pesa
+L'obiezione più frequente in fase di ordine. La logica del cliente: torta più piccola, quindi meno cara.
 
-Una bento cake finita, montata e con la crema, pesa:
+In realtà il costo delle materie prime di una bento è davvero più basso, ma non è mai stato la voce principale. Il tempo per il montaggio, la stuccatura, il decoro e il confezionamento è **quasi lo stesso** di una torta grande: stesse fasi, stessa cura, stesso frigorifero. Il tempo cala di un venti per cento circa, non di tre volte.
 
-- 10 cm: **350–450 g**;
-- 12 cm: **500–700 g**.
+Da qui la regola: la bento si calcola dal lavoro, non «in proporzione alla misura». Più in dettaglio in [quanto costa una bento cake](/it/blog/bento-cake-cost/).
 
-La variazione dipende dall'altezza, dalla densità del pan di Spagna e dalla quantità di farcitura. Se realizzi una torta «d'effetto» (con pasta di zucchero o decoro elaborato), aggiungi 100–150 g.
+## Dimensione e conservazione
 
-## Perché «piccola» non significa «economica»
+Più la torta è piccola, più in fretta si scalda fuori dal frigorifero: la superficie rispetto alla massa è maggiore. Una bento da 10 cm perde la forma prima di una torta da 20 cm, e vale la pena tenerne conto nella consegna.
 
-Il prezzo del bento **non è proporzionale al peso**. Richiede:
-- lo stesso tempo di montaggio e stuccatura di una torta da 16 cm;
-- lo stesso costo dei prodotti professionali (formaggio, cioccolato, frutta);
-- lo stesso tempo per il decoro, spesso di più, perché la miniatura richiede precisione.
+Tempi e condizioni in un articolo a parte: [quanto si conserva una bento cake](/it/blog/bento-cake-shelf-life/).
 
-Per questo il prezzo medio di un bento sul mercato è di **600–1200 ₴** (o l'equivalente nella valuta locale), e non «1/3 del prezzo di una torta grande».
+---
 
-## Altezza: cosa considerare
-
-Con 6–8 cm di altezza, in un bento entrano **2–3 strati di pan di Spagna** e **2 farciture di crema**. È ciò che dà un bel taglio senza appesantire. Se l'altezza è maggiore, si perde l'estetica della «torta piccola nella scatolina».
-
-Per ottenere dischi di altezza uniforme, leggi [perché il pan di Spagna viene a cupola](/it/blog/why-sponge-has-dome/).
-
-## Domande frequenti
-
-**Si può fare un bento da 15 cm?**
-Tecnicamente sì, ma non è più un bento. Serve un'altra scatola e cambia anche la percezione del cliente, che si aspetta «una torta piccola per due».
-
-**Qual è la dimensione minima?**
-8 cm è il limite inferiore. Più piccolo è ormai un cupcake o un pasticcino, non una torta.
-
-**La dimensione influisce sui tempi di conservazione?**
-Influisce, ma poco. Una torta piccola «si scalda» più in fretta alla consegna: ha bisogno di meno tempo a temperatura ambiente prima del servizio. I dettagli sono nell'articolo [quanto si conserva una bento cake](/it/blog/bento-cake-shelf-life/).
-
-> Tutte le 10 ricette della [raccolta PDF](/it/recipes/) sono calcolate per un bento da 12 cm. Per la misura da 10 cm basta ridurre le grammature del 25%.
+**Come ricalcolare la ricetta per un altro diametro non lo pubblichiamo sul blog.** Nella nostra [raccolta PDF](/it/recipes/) c'è una tabella di conversione su 11 diametri — da 10 a 30 cm — e le grammature di ognuna delle dieci ricette sono già date per 1, 2 e 3 torte. Questo toglie la calcolatrice dal lavoro sugli ordini.

@@ -29,8 +29,8 @@ Los hornos domésticos mienten de forma habitual entre 10 y 25 grados, y en ambo
 
 Una tarta bento mide 6–8 cm de alto, lo que son apenas 2–3 capas. Cada copete hay que recortarlo, y eso son 2–3 mm de altura útil menos por capa. En una tarta grande la pérdida no se ve; en un bento se come las proporciones.
 
-Si recortas un copete alto cada vez, ya no es cosmética: es pérdida de producto. Más sobre proporciones en el artículo sobre [el tamaño de una tarta bento](/blog/bento-cake-size/).
+Si recortas un copete alto cada vez, ya no es cosmética: es pérdida de producto. Más sobre proporciones en el artículo sobre [el tamaño de una tarta bento](/es/blog/bento-cake-size/).
 
 ---
 
-**No publicamos en el blog temperaturas, tiempos ni el orden de los pasos de cada bizcocho.** Las diez recetas de nuestra [colección PDF](/recipes/) llevan los parámetros exactos de horneado, los gramajes para 1, 2 y 3 tartas y notas específicas para los bizcochos en los que el copete es el problema habitual. Esa es la parte del trabajo de la que responde la colección.
+**No publicamos en el blog temperaturas, tiempos ni el orden de los pasos de cada bizcocho.** Las diez recetas de nuestra [colección PDF](/es/recipes/) llevan los parámetros exactos de horneado, los gramajes para 1, 2 y 3 tartas y notas específicas para los bizcochos en los que el copete es el problema habitual. Esa es la parte del trabajo de la que responde la colección.

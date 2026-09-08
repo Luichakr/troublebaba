@@ -1,67 +1,44 @@
 ---
-title: "Tamaño del bento cake: diámetro, porciones y peso"
-description: "Diámetros estándar de un bento cake, para cuántas personas está pensado, cuánto pesa y por qué un «bento» no es simplemente una tarta pequeña."
+title: "Tamaño del bento cake: para cuántas personas y por qué 12 cm"
+description: "Qué diámetro se considera bento, para cuántas personas alcanza una tarta de 10 y 12 cm y por qué 16 cm ya no es un bento. El recálculo de la receta a otro diámetro está en el recopilatorio en PDF."
 lang: "es"
 slug: "bento-cake-size"
 publishedAt: "2026-06-04"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["tamaño", "técnica", "venta"]
+tags: ["tamaño", "raciones", "pedidos"]
 draft: false
-excerpt: "El estándar de diámetro, peso y raciones, y por qué importa para el precio."
+excerpt: "Qué diámetro se considera bento, para cuántas personas alcanza y dónde está la frontera con la mini tarta."
 ---
 
-El bento cake es un postre «para una o dos personas», presentado en una caja tipo lunch-box. El tamaño lo define todo lo demás: la receta, el precio, el embalaje y la percepción del cliente. Veamos qué tamaños se consideran estándar.
+El bento cake se concibió como un postre para una o dos personas que cabe en una caja y se come directamente de ella. De ahí el tamaño: todo lo que sea mayor deja de funcionar como bento, aunque lo parezca.
 
-## Diámetro estándar
+## Qué diámetro se considera bento
 
-El bento cake clásico mide **10–12 cm de diámetro** y **6–8 cm de alto**. Son las proporciones que caben en la caja estándar de cartón kraft para almuerzos de 13×13×8 cm.
+El rango de trabajo es de **10 y 12 centímetros**. Diez son para una persona, doce para dos, y son precisamente los doce los que más se piden.
 
-- **10 cm**: pequeño, para una persona. Ideal como regalo «para uno mismo» o como mini sorpresa.
-- **12 cm**: mediano, para dos. El tamaño más demandado para parejas y regalos de dos.
+La altura suele ser de 6–8 cm. No es una cifra al azar: la tarta debe cerrarse con la tapa de la caja y verse proporcionada. Un bento bajo y ancho parece una galleta; uno demasiado alto no entra.
 
-Un bento de más de 13 cm pierde su sentido: se convierte en una tarta pequeña normal, y la caja del embalaje tampoco encaja.
+## Dónde está la frontera
 
-## Para cuántas personas
+Catorce centímetros es una medida de transición: ya son 3–4 raciones y la caja deja de ser un lunch box.
 
-- Bento de 10 cm: **1 ración** (o 2 porciones pequeñas).
-- Bento de 12 cm: **2 raciones completas**.
-
-Son raciones de postre, no de plato principal. Si la tarta va «de postre tras la cena», alcanza para dos personas sin problema. Si el bento se plantea como postre-sorpresa completo, mejor calcular una tarta por invitado.
-
-## Cuánto pesa
-
-Un bento cake ya montado, con su crema, pesa:
-
-- 10 cm: **350–450 g**;
-- 12 cm: **500–700 g**.
-
-La diferencia depende de la altura, la densidad del bizcocho y la cantidad de relleno. Si haces una tarta «de impacto» (con fondant o decoración compleja), suma 100–150 g más.
+Dieciséis **ya no es un bento, sino una mini tarta**. La diferencia no está en el nombre: cambia la ocasión. El bento se compra como detalle para una persona o una pareja; la mini tarta, para un grupo. Si un cliente pide «un bento para seis», en realidad está pidiendo una tarta pequeña, y así conviene llevar la conversación.
 
 ## Por qué «pequeño» no significa «barato»
 
-El precio del bento **no es proporcional al peso**. Requiere:
+La objeción más habitual al tomar un pedido. La lógica del cliente: la tarta es más pequeña, luego más barata.
 
-- el mismo tiempo de montaje y alisado que una tarta de 16 cm;
-- el mismo coste de productos profesionales (queso, chocolate, frutos rojos);
-- el mismo tiempo de decoración, y a menudo más, porque la miniatura exige precisión.
+En realidad el coste de los ingredientes de un bento sí es menor, pero nunca fue la partida principal. El tiempo de montaje, alisado, decoración y empaquetado en un bento es **casi el mismo** que en una tarta grande: las mismas etapas, el mismo cuidado, la misma nevera. El tiempo baja alrededor de un veinte por ciento, no tres veces.
 
-Por eso el precio medio del bento en el mercado es de **600–1200 ₴** (o su equivalente en moneda local), y no «1/3 del precio de una tarta grande».
+De ahí la regla: el bento se calcula desde el trabajo, no «en proporción al tamaño». Más detalles en [cuánto cuesta un bento cake](/es/blog/bento-cake-cost/).
 
-## Altura: lo que conviene tener en cuenta
+## Tamaño y conservación
 
-Con 6–8 cm de alto, en el bento caben **2–3 capas de bizcocho** y **2 capas de crema**. Eso da un corte bonito sin sobrecargar. Si la altura es mayor, se pierde la estética del «tartita en su cajita».
+Cuanto más pequeña es la tarta, más rápido se calienta fuera de la nevera: su superficie en relación con la masa es mayor. Un bento de 10 cm pierde la forma antes que una tarta de 20 cm, y conviene tenerlo en cuenta en el reparto.
 
-Para que la plancha salga uniforme en altura, lee [por qué el bizcocho sale con copete](/es/blog/why-sponge-has-dome/).
+Plazos y condiciones, en un material aparte: [cuánto se conserva un bento cake](/es/blog/bento-cake-shelf-life/).
 
-## Preguntas frecuentes
+---
 
-**¿Se puede hacer un bento de 15 cm?**
-Técnicamente sí, pero entonces ya no es un bento. Necesita otra caja, y la percepción del cliente también cambia: él espera «una tartita para dos».
-
-**¿Cuál es el tamaño mínimo?**
-8 cm es el límite inferior. Menos que eso ya es un cupcake o un pastelito, no una tarta.
-
-**¿Influye el tamaño en los tiempos de conservación?**
-Influye, pero poco. Una tarta pequeña «se atempera» más rápido al entregarla al cliente: necesita menos tiempo a temperatura ambiente antes de servirse. Más detalles en el artículo [cuánto dura un bento cake](/es/blog/bento-cake-shelf-life/).
-
-> Las 10 recetas del [recopilatorio en PDF](/es/recipes/) están calculadas para un bento de 12 cm. Para el tamaño de 10 cm, simplemente reduce los gramajes un 25 %.
+**Cómo recalcular la receta para otro diámetro no lo publicamos en el blog.** En nuestro [recopilatorio en PDF](/es/recipes/) hay una tabla de conversión para 11 diámetros —de 10 a 30 cm— y los gramajes de cada una de las diez recetas vienen dados ya para 1, 2 y 3 tartas. Eso quita la calculadora del trabajo con pedidos.

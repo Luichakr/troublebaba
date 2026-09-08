@@ -38,4 +38,4 @@ A na małej średnicy błąd jest bardziej widoczny: w formie 10 cm struktura tr
 
 ---
 
-**Dokładnych parametrów, kolejności działań ani uwag dla poszczególnych biszkoptów nie publikujemy na blogu.** Wszystkie dziesięć przepisów w naszym [zbiorze PDF](/recipes/) opisano krok po kroku: co i w jakiej kolejności wprowadzać, w jakiej temperaturze piec, ile trzymać przed składaniem. Plus dwa bazowe kremy do wyrównywania i tabela przeliczeń na 11 średnic.
+**Dokładnych parametrów, kolejności działań ani uwag dla poszczególnych biszkoptów nie publikujemy na blogu.** Wszystkie dziesięć przepisów w naszym [zbiorze PDF](/pl/recipes/) opisano krok po kroku: co i w jakiej kolejności wprowadzać, w jakiej temperaturze piec, ile trzymać przed składaniem. Plus dwa bazowe kremy do wyrównywania i tabela przeliczeń na 11 średnic.

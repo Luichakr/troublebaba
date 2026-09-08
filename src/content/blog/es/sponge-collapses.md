@@ -38,4 +38,4 @@ Y en un diámetro pequeño el error se nota más: en un molde de 10 cm la estruc
 
 ---
 
-**No publicamos en el blog parámetros, orden de pasos ni notas por bizcocho.** Las diez recetas de nuestra [colección PDF](/recipes/) están desarrolladas paso a paso: qué añadir y en qué orden, a qué temperatura hornear, cuánto reposar antes del montaje. Además, dos cremas base para alisar y una tabla de conversión para 11 diámetros.
+**No publicamos en el blog parámetros, orden de pasos ni notas por bizcocho.** Las diez recetas de nuestra [colección PDF](/es/recipes/) están desarrolladas paso a paso: qué añadir y en qué orden, a qué temperatura hornear, cuánto reposar antes del montaje. Además, dos cremas base para alisar y una tabla de conversión para 11 diámetros.

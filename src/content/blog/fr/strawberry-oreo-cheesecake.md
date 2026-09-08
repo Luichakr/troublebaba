@@ -47,7 +47,7 @@ Laissez-le à température ambiante **15–20 minutes** avant de servir : froid 
 
 Coupez-le avec un couteau trempé dans l'eau chaude, en l'essuyant après chaque part. Sinon la découpe emporte la couche supérieure avec elle.
 
-Plus de détails sur les durées — dans l'article [combien de temps se garde un bento cake](/blog/bento-cake-shelf-life/) : les fenêtres pour les crèmes et les cheesecakes sont proches.
+Plus de détails sur les durées — dans l'article [combien de temps se garde un bento cake](/fr/blog/bento-cake-shelf-life/) : les fenêtres pour les crèmes et les cheesecakes sont proches.
 
 ## Comment l'utiliser dans un bento cake
 
@@ -55,8 +55,6 @@ Ce cheesecake fonctionne non seulement comme dessert à part entière, mais auss
 
 La logique est simple : le monter dans un cercle de plus petit diamètre, le refroidir complètement, le congeler — et le poser encore congelé pendant le montage. Il décongèle avec le gâteau pendant le repos au réfrigérateur.
 
-Sur le comportement d'un tel gâteau en transport — [à part](/blog/how-to-transport-bento-cake/).
-
 ---
 
-**Nous ne publions plus les grammages exacts ni le montage étape par étape sur le blog.** Nos recettes de bento cakes sont dans le [recueil PDF Bento Cake by TROUBLEBABA](/recipes/) : 10 parfums d'auteur avec les grammages pour 1, 2 et 3 gâteaux et un tableau de conversion pour 11 diamètres. Le cheesecake n'y figure pas — c'est un dessert à part, issu de notre chaîne.
+**Nous ne publions plus les grammages exacts ni le montage étape par étape sur le blog.** Nos recettes de bento cakes sont dans le [recueil PDF Bento Cake by TROUBLEBABA](/fr/recipes/) : 10 parfums d'auteur avec les grammages pour 1, 2 et 3 gâteaux et un tableau de conversion pour 11 diamètres. Le cheesecake n'y figure pas — c'est un dessert à part, issu de notre chaîne.

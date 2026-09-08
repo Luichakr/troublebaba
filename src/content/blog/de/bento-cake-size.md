@@ -1,66 +1,44 @@
 ---
-title: "Bento-Torte Größe: Durchmesser, Portionen, Gewicht"
-description: "Standarddurchmesser einer Bento-Torte, für wie viele Personen sie reicht, wie viel sie wiegt und warum „Bento“ nicht einfach eine kleine Torte ist."
+title: "Größe einer Bento-Torte: für wie viele Personen und warum 12 cm"
+description: "Welcher Durchmesser als Bento gilt, für wie viele Personen eine Torte mit 10 und 12 cm reicht und warum 16 cm keine Bento-Torte mehr ist. Das Umrechnen des Rezepts auf andere Durchmesser steht im PDF-Sammelband."
 lang: "de"
 slug: "bento-cake-size"
 publishedAt: "2026-06-04"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["Größe", "Technik", "Verkauf"]
+tags: ["Größe", "Portionen", "Bestellungen"]
 draft: false
-excerpt: "Der Standard bei Durchmesser, Gewicht und Portionen – und warum das für den Preis zählt."
+excerpt: "Welcher Durchmesser als Bento gilt, für wie viele Personen er reicht und wo die Grenze zur Mini-Torte verläuft."
 ---
 
-Eine Bento-Torte ist ein Dessert „für eine bis zwei Personen", serviert in einer Lunchbox. Die Größe gibt alles andere vor: Rezeptur, Preis, Verpackung, die Wahrnehmung beim Kunden. Schauen wir uns an, welche Größen als Standard gelten.
+Die Bento-Torte war als Dessert für ein bis zwei Personen gedacht, das in eine Box passt und direkt daraus gegessen wird. Daher die Größe: Alles Größere funktioniert nicht mehr als Bento, auch wenn es ähnlich aussieht.
 
-## Der Standarddurchmesser
+## Welcher Durchmesser gilt als Bento
 
-Eine klassische Bento-Torte hat **10–12 cm Durchmesser** und eine Höhe von **6–8 cm**. Das sind die Proportionen, die in eine Standard-Kraftbox für Lunch von 13×13×8 cm passen.
+Der Arbeitsbereich liegt bei **10 und 12 Zentimetern**. Zehn sind für eine Person gedacht, zwölf für zwei – und zwölf werden am häufigsten bestellt.
 
-- **10 cm** – klein, für eine Person. Ideal als Geschenk „an dich selbst" oder als Mini-Überraschung.
-- **12 cm** – mittel, für zwei. Die gängigste Größe für Paare und Geschenke zu zweit.
+Die Höhe beträgt meist 6–8 cm. Das ist keine zufällige Zahl: Die Torte muss sich mit dem Deckel schließen lassen und dabei proportional wirken. Eine niedrige, breite Bento wirkt wie ein Keks, eine zu hohe passt nicht hinein.
 
-Eine Bento über 13 cm ergibt keinen Sinn mehr – das wird eine gewöhnliche kleine Torte, und auch die Verpackungsbox passt nicht mehr.
+## Wo die Grenze verläuft
 
-## Für wie viele Personen
+Vierzehn Zentimeter sind die Übergangsgröße: Das sind bereits 3–4 Portionen, und die Box ist keine Lunchbox mehr.
 
-- Bento 10 cm – **1 Portion** (oder 2 kleine Stücke).
-- Bento 12 cm – **2 vollwertige Portionen**.
-
-Das sind Dessert-, keine Hauptportionen. Wird die Torte „zum Nachtisch nach dem Essen" gereicht – reicht sie für zwei problemlos. Ist die Bento als vollwertiges Überraschungsdessert gedacht – nimm besser eine Torte pro Gast.
-
-## Wie viel sie wiegt
-
-Eine fertige Bento-Torte samt Aufbau und Creme wiegt:
-
-- 10 cm – **350–450 g**;
-- 12 cm – **500–700 g**.
-
-Die Spanne hängt von der Höhe, der Dichte des Biskuits und der Menge der Füllung ab. Machst du die Torte „aufs Maximum" (mit Fondant oder aufwendigem Dekor) – rechne 100–150 g obendrauf.
+Sechzehn **ist keine Bento mehr, sondern eine Mini-Torte**. Der Unterschied liegt nicht im Namen: Der Anlass ändert sich. Eine Bento kauft man als Aufmerksamkeit für eine Person oder ein Paar, eine Mini-Torte für eine Runde. Wenn eine Kundin „eine Bento für sechs" verlangt, meint sie in Wahrheit eine kleine Torte – und so sollte das Gespräch auch laufen.
 
 ## Warum „klein" nicht „billig" heißt
 
-Der Preis einer Bento ist **nicht proportional zum Gewicht**. Sie verschlingt:
-- genauso viel Zeit für Aufbau und Glättung wie eine 16-cm-Torte;
-- denselben Einsatz an professionellen Produkten (Käse, Schokolade, Beeren);
-- dieselbe Zeit für den Dekor – oft sogar mehr, weil das Miniaturformat Präzision verlangt.
+Der häufigste Einwand bei der Bestellung. Die Logik der Kundschaft: kleinere Torte, also billiger.
 
-Deshalb liegt der durchschnittliche Marktpreis einer Bento bei **600–1200 ₴** (oder dem Gegenwert in der lokalen Währung) – und nicht bei „einem Drittel des Preises einer großen Torte".
+Tatsächlich sind die Warenkosten einer Bento niedriger, aber sie waren nie der Hauptposten. Die Zeit für Aufbau, Glätten, Dekor und Verpacken ist bei einer Bento **fast dieselbe** wie bei einer großen Torte: dieselben Schritte, dieselbe Sorgfalt, derselbe Kühlschrank. Der Zeitaufwand sinkt um etwa zwanzig Prozent, nicht um das Dreifache.
 
-## Höhe: was du beachten solltest
+Daraus die Regel: Eine Bento wird nicht „proportional zur Größe" kalkuliert, sondern über die Arbeit. Mehr dazu unter [was eine Bento-Torte kostet](/de/blog/bento-cake-cost/).
 
-Bei 6–8 cm Höhe passen in eine Bento **2–3 Biskuitschichten** und **2 Cremeschichten**. Das ergibt einen schönen Anschnitt ohne Überladung. Ist die Höhe größer – geht die Ästhetik der „kleinen Torte in der Box" verloren.
+## Größe und Lagerung
 
-Damit der Boden gleichmäßig in der Höhe gelingt – lies [warum der Biskuit eine Wölbung bekommt](/de/blog/why-sponge-has-dome/).
+Je kleiner die Torte, desto schneller erwärmt sie sich außerhalb des Kühlschranks – ihre Oberfläche im Verhältnis zur Masse ist größer. Eine Bento mit 10 cm verliert ihre Form schneller als eine Torte mit 20 cm, und das sollte man bei der Lieferung einplanen.
 
-## Häufige Fragen
+Fristen und Bedingungen stehen gesondert unter [wie lange sich eine Bento-Torte hält](/de/blog/bento-cake-shelf-life/).
 
-**Kann man eine Bento mit 15 cm machen?**
-Technisch ja, aber das ist dann keine Bento mehr. Du brauchst eine andere Box, und auch die Wahrnehmung beim Kunden ändert sich – er erwartet „eine kleine Torte für zwei".
+---
 
-**Welche Mindestgröße gibt es?**
-8 cm – die Untergrenze. Kleiner – das ist schon ein Cupcake oder ein Törtchen, keine Torte.
-
-**Beeinflusst die Größe die Haltbarkeit?**
-Ja, aber nur schwach. Eine kleine Torte „erwärmt" sich bei der Übergabe an den Kunden schneller – sie braucht weniger Zeit bei Raumtemperatur vor dem Servieren. Details findest du im Beitrag [wie lange eine Bento-Torte haltbar ist](/de/blog/bento-cake-shelf-life/).
-
-> Alle 10 Rezepte im [PDF-Sammelband](/de/recipes/) sind für eine Bento mit 12 cm berechnet. Für die Größe 10 cm reduzierst du die Grammangaben einfach um 25 %.
+**Wie man ein Rezept auf einen anderen Durchmesser umrechnet, veröffentlichen wir im Blog nicht.** In unserem [PDF-Sammelband](/de/recipes/) gibt es dafür eine Umrechnungstabelle für 11 Durchmesser – von 10 bis 30 cm – und die Grammangaben in jedem der zehn Rezepte stehen direkt für 1, 2 und 3 Torten. Das nimmt den Taschenrechner aus der Auftragsarbeit heraus.

@@ -12,8 +12,14 @@ import { Icon } from 'astro-icon/components';
 import { t } from '../i18n/translations.js';
 
 type Lang = 'uk' | 'ru' | 'pl' | 'en' | 'es' | 'de' | 'fr' | 'it' | 'pt';
-interface Props { lang: Lang }
-const { lang } = Astro.props;
+interface Props {
+  lang: Lang;
+  // Локали, в которых существует текущая страница. Если задано, переключатель
+  // языка ведёт не на 404, а на fallbackPath той локали.
+  availableLangs?: string[];
+  fallbackPath?: string;
+}
+const { lang, availableLangs, fallbackPath } = Astro.props;
 const tr = (t as any)[lang] as Record<string, any>;
 const isUk = lang === 'uk';
 // Preserve the current path when switching language. E.g. on
@@ -26,6 +32,11 @@ const _headIsLang = _parts.length > 0 && SUPPORTED.has(_parts[0]);
 const subPath   = _headIsLang ? _parts.slice(1).join('/') : _parts.join('/');
 const langUrl  = (l) => {
   const base = l === 'uk' ? '/' : `/${l}/`;
+  // Статья есть не во всех локалях (блог: 16 текстов на uk/ru/pl, 10-11 на
+  // остальных). Раньше переключатель слепо подставлял язык в путь и давал 404.
+  if (availableLangs && !availableLangs.includes(l)) {
+    return fallbackPath ? base + fallbackPath : base;
+  }
   return subPath ? base + subPath + '/' : base;
 };
 const blogHref = isUk ? '/blog/' : `/${lang}/blog/`;

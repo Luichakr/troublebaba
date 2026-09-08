@@ -1,66 +1,44 @@
 ---
-title: "Bento cake size: diameter, servings and weight"
-description: "Standard bento cake diameters, how many people they serve, how much they weigh, and why a bento is not just a small cake."
+title: "Bento cake size: how many people and why 12 cm"
+description: "Which diameter counts as bento, how many people a 10 cm and a 12 cm cake serve, and why 16 cm is no longer a bento. Scaling a recipe to another diameter is in the PDF collection."
 lang: "en"
 slug: "bento-cake-size"
 publishedAt: "2026-06-04"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["size", "technique", "sales"]
+tags: ["size", "servings", "orders"]
 draft: false
-excerpt: "The standard diameter, weight and servings — and why it matters for the price."
+excerpt: "Which diameter counts as bento, how many people it serves, and where the line with a mini cake runs."
 ---
 
-A bento cake is a dessert "for one or two" served in a lunch box. The size sets everything else: the recipe, the price, the packaging, how the client perceives it. Let's look at what counts as standard.
+The bento cake was conceived as a dessert for one or two people that fits in a box and gets eaten straight out of it. Hence the size: anything bigger stops working as a bento, even if it looks similar.
 
-## Standard diameter
+## Which diameter counts as bento
 
-A classic bento cake is **10–12 cm in diameter** and **6–8 cm tall**. Those are the proportions that fit a standard 13×13×8 cm kraft lunch box.
+The working range is **10 and 12 centimetres**. Ten is for one person, twelve for two — and twelve is what gets ordered most often.
 
-- **10 cm** — small, for one. Perfect for a treat-yourself gift or a mini surprise.
-- **12 cm** — medium, for two. The most popular size for couples and gifts.
+Height is usually 6–8 cm. That is not an arbitrary number: the cake has to close under the box lid and still look proportional. A low, wide bento reads as a cookie; too tall a one does not fit.
 
-Anything above 13 cm stops making sense as a bento — it becomes an ordinary small cake, and the box no longer fits either.
+## Where the line runs
 
-## How many people it serves
+Fourteen centimetres is the transitional size: that is already 3–4 servings, and the box stops being a lunch box.
 
-- A 10 cm bento — **1 serving** (or 2 small slices).
-- A 12 cm bento — **2 full servings**.
+Sixteen is **no longer a bento — it is a mini cake**. The difference is not the name: the occasion changes. A bento is bought as a gesture for one person or a couple; a mini cake is bought for a group. If a client asks for "a bento for six", what they are actually asking for is a small cake, and the conversation should be run on those terms.
 
-These are dessert portions, not main ones. If the cake is "the sweet after dinner", two people are fine. If the bento is billed as a full dessert surprise, better plan one cake per guest.
+## Why "small" does not mean "cheap"
 
-## How much it weighs
+The most common objection when taking an order. The client's logic: smaller cake, therefore cheaper.
 
-An assembled bento cake with cream weighs:
+In reality the ingredient cost of a bento is genuinely lower, but it was never the main line item. The time spent assembling, smoothing, decorating and packing a bento is **almost the same** as for a large cake: the same stages, the same care, the same fridge. Time drops by about twenty percent, not threefold.
 
-- 10 cm — **350–450 g**;
-- 12 cm — **500–700 g**.
+Hence the rule: price a bento from the work, not "in proportion to the size". More on this in [how much a bento cake costs](/en/blog/bento-cake-cost/).
 
-The spread depends on height, sponge density and the amount of filling. If you're making a loaded cake (fondant or elaborate decor), add another 100–150 g on top.
+## Size and storage
 
-## Why "small" doesn't mean "cheap"
+The smaller the cake, the faster it warms up outside the fridge — its surface area relative to mass is larger. A 10 cm bento loses its shape faster than a 20 cm cake, and that is worth accounting for on delivery.
 
-The price of a bento is **not proportional to its weight**. It takes:
-- as much time to assemble and smooth as a 16 cm cake;
-- the same cost of professional ingredients (cheese, chocolate, berries);
-- the same time on decor — often more, because miniature work demands precision.
+Times and conditions are covered separately in [how long a bento cake keeps](/en/blog/bento-cake-shelf-life/).
 
-That's why the average market price of a bento is **600–1200 ₴**, not "a third of a big cake".
+---
 
-## Height: what to keep in mind
-
-At 6–8 cm tall, a bento fits **2–3 sponge layers** and **2 cream layers**. That gives a pretty cut without overloading. Go taller and you lose the "little cake in a box" aesthetic.
-
-To get layers that come out even in height, read [why the sponge comes out with a dome](/en/blog/why-sponge-has-dome/).
-
-## FAQ
-
-**Can I make a 15 cm bento?**
-Technically yes, but it's no longer a bento. It needs a different box, and the client's expectations shift too — they expect "a small cake for two".
-
-**What's the minimum size?**
-8 cm is the lower limit. Below that it's a cupcake or a pastry, not a cake.
-
-**Does size affect shelf life?**
-It does, but weakly. A small cake warms up faster at hand-off — it needs less time at room temperature before serving. Details in [how long a bento cake lasts](/en/blog/bento-cake-shelf-life/).
-
-> All 10 recipes in the [PDF collection](/en/recipes/) are sized for a 12 cm bento. For a 10 cm size, simply reduce the weights by 25%.
+**We do not publish how to scale a recipe to another diameter.** Our [PDF collection](/en/recipes/) has a conversion table for 11 diameters — from 10 to 30 cm — and the weights in each of the ten recipes are given straight away for 1, 2 and 3 cakes. That takes the calculator out of order work.

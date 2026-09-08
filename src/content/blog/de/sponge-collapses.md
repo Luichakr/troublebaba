@@ -38,4 +38,4 @@ Und beim kleinen Durchmesser fällt der Fehler stärker auf: in einer 10-cm-Form
 
 ---
 
-**Einstellungen, Schrittfolgen und Hinweise zu einzelnen Biskuits veröffentlichen wir im Blog nicht.** Alle zehn Rezepte unserer [PDF-Sammlung](/recipes/) sind Schritt für Schritt beschrieben: was in welcher Reihenfolge dazukommt, bei welcher Temperatur gebacken wird, wie lange vor dem Aufbau geruht wird. Dazu zwei Basiscremes zum Einstreichen und eine Umrechnungstabelle für 11 Durchmesser.
+**Einstellungen, Schrittfolgen und Hinweise zu einzelnen Biskuits veröffentlichen wir im Blog nicht.** Alle zehn Rezepte unserer [PDF-Sammlung](/de/recipes/) sind Schritt für Schritt beschrieben: was in welcher Reihenfolge dazukommt, bei welcher Temperatur gebacken wird, wie lange vor dem Aufbau geruht wird. Dazu zwei Basiscremes zum Einstreichen und eine Umrechnungstabelle für 11 Durchmesser.

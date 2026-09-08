@@ -38,4 +38,4 @@ Et sur un petit diamètre l'erreur se voit davantage : dans un moule de 10 cm la
 
 ---
 
-**Nous ne publions pas sur le blog les réglages, l'ordre des étapes ni les notes propres à chaque génoise.** Les dix recettes de notre [recueil PDF](/recipes/) sont détaillées pas à pas : quoi ajouter et dans quel ordre, à quelle température cuire, combien de temps laisser reposer avant le montage. Plus deux crèmes de base pour le masquage et un tableau de conversion pour 11 diamètres.
+**Nous ne publions pas sur le blog les réglages, l'ordre des étapes ni les notes propres à chaque génoise.** Les dix recettes de notre [recueil PDF](/fr/recipes/) sont détaillées pas à pas : quoi ajouter et dans quel ordre, à quelle température cuire, combien de temps laisser reposer avant le montage. Plus deux crèmes de base pour le masquage et un tableau de conversion pour 11 diamètres.

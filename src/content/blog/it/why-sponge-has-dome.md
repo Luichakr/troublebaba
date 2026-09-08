@@ -29,8 +29,8 @@ I forni domestici sbagliano regolarmente di 10–25 gradi, e in entrambe le dire
 
 Una bento cake è alta 6–8 cm, cioè solo 2–3 dischi. Ogni cupola va tagliata, e sono 2–3 mm di altezza utile in meno per disco. Su una torta grande la perdita non si nota; su una bento si mangia le proporzioni.
 
-Se tagli una cupola alta ogni volta, non è più estetica: è perdita di prodotto. Più sulle proporzioni nell'articolo sulla [dimensione di una bento cake](/blog/bento-cake-size/).
+Se tagli una cupola alta ogni volta, non è più estetica: è perdita di prodotto. Più sulle proporzioni nell'articolo sulla [dimensione di una bento cake](/it/blog/bento-cake-size/).
 
 ---
 
-**Sul blog non pubblichiamo temperature, tempi né l'ordine dei passaggi delle singole basi.** Tutte e dieci le ricette della nostra [raccolta PDF](/recipes/) riportano i parametri di cottura esatti, le grammature per 1, 2 e 3 torte e note dedicate alle basi in cui la cupola è il problema tipico. È esattamente la parte di lavoro di cui risponde la raccolta.
+**Sul blog non pubblichiamo temperature, tempi né l'ordine dei passaggi delle singole basi.** Tutte e dieci le ricette della nostra [raccolta PDF](/it/recipes/) riportano i parametri di cottura esatti, le grammature per 1, 2 e 3 torte e note dedicate alle basi in cui la cupola è il problema tipico. È esattamente la parte di lavoro di cui risponde la raccolta.

@@ -75,8 +75,6 @@ Individual layers **before assembly** — freeze happily for 30 days.
 
 Practical rule: **freeze components, not the finished cake.** This is how professional bakeries handle unpredictable order flow — they hold layers in the freezer and assemble to order.
 
-Read the full article on [whether you can freeze bento cake](/en/blog/can-you-freeze-bento-cake/) for the full breakdown per flavour.
-
 ## What to write on the box
 
 The single-most-refund-preventing move is a small printed card inside the box that says:

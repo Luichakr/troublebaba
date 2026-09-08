@@ -26,7 +26,7 @@ export async function getStaticPaths() {
   });
 }
 
-type Lang = 'ru' | 'pl' | 'en';
+type Lang = 'ru' | 'pl' | 'en' | 'es' | 'de' | 'fr' | 'it' | 'pt';
 const { post, slugLangs, related } = Astro.props as { post: any; slugLangs: string[]; related: { slug: string; title: string }[] };
 const { lang } = Astro.params as { lang: Lang };
 const tr = (t as any)[lang];
@@ -34,7 +34,7 @@ const { Content } = await render(post);
 const langPrefix = '/' + lang;
 ---
 <Layout title={`${post.data.title} | TROUBLEBABA`} description={post.data.description} lang={lang} path={`${lang}/blog/${post.data.slug}`} pageType="content" hreflangLangs={slugLangs} ogImage={post.data.cover} breadcrumb={{ name: tr.blog_all, url: `${langPrefix}/blog/` }} articleMeta={{ publishedAt: post.data.publishedAt, updatedAt: post.data.updatedAt, author: 'TROUBLEBABA' }}>
-  <SiteHeader lang={lang} />
+  <SiteHeader lang={lang} availableLangs={slugLangs} fallbackPath="blog/" />
   <article class="min-h-[100dvh] py-12 lg:py-20" style="background:#F5EFE8;">
     <div class="max-w-[820px] mx-auto px-6 lg:px-10">
       <a href={`${langPrefix}/blog/`} class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10">

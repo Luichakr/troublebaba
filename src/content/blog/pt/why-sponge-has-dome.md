@@ -29,8 +29,8 @@ Fornos domésticos erram com frequência de 10 a 25 graus, e nos dois sentidos; 
 
 Um bento cake tem 6–8 cm de altura, ou seja, apenas 2–3 discos. Cada barriga precisa ser cortada, e isso são 2–3 mm de altura útil a menos por disco. Num bolo grande a perda não se vê; num bento ela come as proporções.
 
-Se você corta uma barriga alta toda vez, já não é estética: é perda de produto. Mais sobre proporções no artigo sobre [o tamanho de um bento cake](/blog/bento-cake-size/).
+Se você corta uma barriga alta toda vez, já não é estética: é perda de produto. Mais sobre proporções no artigo sobre [o tamanho de um bento cake](/pt/blog/bento-cake-size/).
 
 ---
 
-**No blog não publicamos temperaturas, tempos nem a ordem dos passos de cada base.** As dez receitas da nossa [coleção PDF](/recipes/) trazem os parâmetros de forno exatos, as gramagens para 1, 2 e 3 bolos e observações próprias para as bases em que a barriga é o problema típico. É exatamente a parte do trabalho pela qual a coleção responde.
+**No blog não publicamos temperaturas, tempos nem a ordem dos passos de cada base.** As dez receitas da nossa [coleção PDF](/pt/recipes/) trazem os parâmetros de forno exatos, as gramagens para 1, 2 e 3 bolos e observações próprias para as bases em que a barriga é o problema típico. É exatamente a parte do trabalho pela qual a coleção responde.

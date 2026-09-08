@@ -38,4 +38,4 @@ E sul diametro piccolo l'errore si vede di più: in uno stampo da 10 cm la strut
 
 ---
 
-**Sul blog non pubblichiamo parametri, ordine dei passaggi né note sulle singole basi.** Tutte e dieci le ricette della nostra [raccolta PDF](/recipes/) sono descritte passo per passo: cosa aggiungere e in quale ordine, a quale temperatura cuocere, quanto far riposare prima del montaggio. Più due creme base per la stuccatura e una tabella di conversione per 11 diametri.
+**Sul blog non pubblichiamo parametri, ordine dei passaggi né note sulle singole basi.** Tutte e dieci le ricette della nostra [raccolta PDF](/it/recipes/) sono descritte passo per passo: cosa aggiungere e in quale ordine, a quale temperatura cuocere, quanto far riposare prima del montaggio. Più due creme base per la stuccatura e una tabella di conversione per 11 diametri.

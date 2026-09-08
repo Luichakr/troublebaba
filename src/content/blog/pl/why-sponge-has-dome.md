@@ -29,8 +29,8 @@ Domowe piekarniki regularnie mylą się o 10–25 stopni, i to w obie strony, a 
 
 W torcie bento wysokość 6–8 cm to zaledwie 2–3 blaty. Każdą górkę trzeba ściąć, a to minus 2–3 mm użytecznej wysokości z każdego blatu. W dużym torcie taka strata jest niewidoczna, w bento — zjada proporcje.
 
-Jeśli górkę trzeba ścinać za każdym razem i jest wysoka — to już nie kosmetyka, a strata produktu. Więcej o proporcjach — w materiale [rozmiar tortu bento](/blog/bento-cake-size/).
+Jeśli górkę trzeba ścinać za każdym razem i jest wysoka — to już nie kosmetyka, a strata produktu. Więcej o proporcjach — w materiale [rozmiar tortu bento](/pl/blog/bento-cake-size/).
 
 ---
 
-**Temperatur, czasów i kolejności działań dla poszczególnych biszkoptów nie publikujemy na blogu.** Wszystkie dziesięć przepisów z naszego [zbioru PDF](/recipes/) zawiera dokładne parametry pieczenia, gramatury na 1, 2 i 3 torty oraz osobne uwagi dla tych biszkoptów, w których górka jest typowym problemem. To właśnie ta część pracy, za którą odpowiada zbiór.
+**Temperatur, czasów i kolejności działań dla poszczególnych biszkoptów nie publikujemy na blogu.** Wszystkie dziesięć przepisów z naszego [zbioru PDF](/pl/recipes/) zawiera dokładne parametry pieczenia, gramatury na 1, 2 i 3 torty oraz osobne uwagi dla tych biszkoptów, w których górka jest typowym problemem. To właśnie ta część pracy, za którą odpowiada zbiór.

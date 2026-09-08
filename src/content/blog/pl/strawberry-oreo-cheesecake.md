@@ -47,7 +47,7 @@ Przed podaniem daj mu postać w temperaturze pokojowej **15–20 minut**: zimny 
 
 Kroić — nożem zmoczonym w gorącej wodzie, wycierając do sucha po każdym kawałku. Inaczej przekrój ciągnie za sobą wierzchnią warstwę.
 
-Więcej o terminach — w materiale [ile przechowuje się tort bento](/blog/bento-cake-shelf-life/): dla kremów i serników są podobne.
+Więcej o terminach — w materiale [ile przechowuje się tort bento](/pl/blog/bento-cake-shelf-life/): dla kremów i serników są podobne.
 
 ## Jak użyć go w torcie bento
 
@@ -55,8 +55,8 @@ Ten sernik działa nie tylko jako samodzielny deser, ale i jako **warstwa w torc
 
 Logika jest prosta: złożyć w ringu o mniejszej średnicy, całkowicie wychłodzić, zamrozić — i już zamrożony układać w składaniu. Rozmraża się razem z tortem w czasie leżakowania w lodówce.
 
-O tym, jak taki tort zachowuje się w transporcie, — [osobno](/blog/how-to-transport-bento-cake/).
+O tym, jak taki tort zachowuje się w transporcie, — [osobno](/pl/blog/how-to-transport-bento-cake/).
 
 ---
 
-**Dokładnych gramatur i składania krok po kroku nie publikujemy już na blogu.** Nasze przepisy na torty bento są w [zbiorze PDF Bento Cake by TROUBLEBABA](/recipes/): 10 autorskich smaków z gramaturami na 1, 2 i 3 torty oraz tabelą przeliczeń na 11 średnic. Sernika wśród nich nie ma — to osobny deser z naszego kanału.
+**Dokładnych gramatur i składania krok po kroku nie publikujemy już na blogu.** Nasze przepisy na torty bento są w [zbiorze PDF Bento Cake by TROUBLEBABA](/pl/recipes/): 10 autorskich smaków z gramaturami na 1, 2 i 3 torty oraz tabelą przeliczeń na 11 średnic. Sernika wśród nich nie ma — to osobny deser z naszego kanału.

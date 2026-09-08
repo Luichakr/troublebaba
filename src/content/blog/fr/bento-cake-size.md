@@ -1,66 +1,44 @@
 ---
-title: "Taille d'un bento cake : diamètre, portions et poids"
-description: "Les diamètres standards d'un bento cake, le nombre de personnes auquel il est destiné, son poids et pourquoi un « bento » n'est pas simplement un petit gâteau."
+title: "Taille d'un bento cake : pour combien de personnes et pourquoi 12 cm"
+description: "Quel diamètre compte comme bento, pour combien de personnes suffit un gâteau de 10 et 12 cm et pourquoi 16 cm n'est plus un bento. Le recalcul de la recette pour un autre diamètre se trouve dans le recueil PDF."
 lang: "fr"
 slug: "bento-cake-size"
 publishedAt: "2026-06-04"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["taille", "technique", "vente"]
+tags: ["taille", "portions", "commandes"]
 draft: false
-excerpt: "Le standard en diamètre, poids et portions — et pourquoi c'est important pour le prix."
+excerpt: "Quel diamètre compte comme bento, pour combien de personnes il suffit et où passe la frontière avec le mini-gâteau."
 ---
 
-Le bento cake est un dessert « pour une à deux personnes », servi dans une lunch box. La taille définit tout le reste : la recette, le prix, l'emballage, la perception du client. Voyons quelles tailles font office de standard.
+Le bento cake a été conçu comme un dessert pour une ou deux personnes, qui tient dans une boîte et se mange directement dedans. D'où la taille : tout ce qui est plus grand cesse de fonctionner comme un bento, même si l'aspect est proche.
 
-## Le diamètre standard
+## Quel diamètre compte comme bento
 
-Le bento cake classique fait **10 à 12 cm de diamètre** et **6 à 8 cm de haut**. Ce sont les proportions qui tiennent dans une boîte kraft standard pour lunch de 13×13×8 cm.
+La plage de travail est de **10 et 12 centimètres**. Dix pour une personne, douze pour deux — et c'est douze que l'on commande le plus souvent.
 
-- **10 cm** — petit, pour une personne. Idéal pour un cadeau « à soi-même » ou une mini-surprise.
-- **12 cm** — moyen, pour deux. La taille la plus demandée pour les couples et les cadeaux à deux.
+La hauteur est généralement de 6–8 cm. Ce n'est pas un chiffre arbitraire : le gâteau doit se fermer sous le couvercle de la boîte tout en restant proportionné. Un bento bas et large ressemble à un biscuit, un bento trop haut n'entre pas.
 
-Au-delà de 13 cm, le bento perd son sens — il devient un simple petit gâteau, et la boîte d'emballage ne convient plus non plus.
+## Où passe la frontière
 
-## Pour combien de personnes
+Quatorze centimètres est une taille de transition : cela fait déjà 3–4 parts, et la boîte cesse d'être une lunch box.
 
-- Bento 10 cm — **1 portion** (ou 2 petites parts).
-- Bento 12 cm — **2 portions complètes**.
+Seize, **ce n'est plus un bento mais un mini-gâteau**. La différence n'est pas dans le nom : l'occasion change. Le bento s'achète comme une attention pour une personne ou un couple, le mini-gâteau pour un groupe. Si un client demande « un bento pour six », il demande en réalité un petit gâteau, et c'est ainsi qu'il faut mener la conversation.
 
-Ce sont des portions de dessert, pas des plats principaux. Si le gâteau arrive « pour le sucré après le dîner », deux personnes suffisent sans problème. Si le bento est présenté comme un véritable dessert-surprise, mieux vaut prévoir un gâteau par invité.
+## Pourquoi « petit » ne veut pas dire « pas cher »
 
-## Combien il pèse
+L'objection la plus fréquente à la prise de commande. La logique du client : gâteau plus petit, donc moins cher.
 
-Un bento cake terminé, monté et crémé, pèse :
+En réalité, le coût matière d'un bento est effectivement plus faible, mais il n'a jamais été le poste principal. Le temps de montage, de lissage, de décor et d'emballage est **presque le même** que pour un grand gâteau : mêmes étapes, même soin, même réfrigérateur. Le temps baisse d'environ vingt pour cent, pas de trois fois.
 
-- 10 cm — **350 à 450 g** ;
-- 12 cm — **500 à 700 g**.
+D'où la règle : un bento se chiffre à partir du travail, pas « proportionnellement à la taille ». Plus de détails dans [combien coûte un bento cake](/fr/blog/bento-cake-cost/).
 
-L'écart dépend de la hauteur, de la densité du biscuit et de la quantité de garniture. Si vous faites un gâteau « tout en haut de gamme » (avec pâte à sucre ou décor complexe), ajoutez 100 à 150 g de plus.
+## Taille et conservation
 
-## Pourquoi « petit » ne veut pas dire « bon marché »
+Plus le gâteau est petit, plus vite il se réchauffe hors du réfrigérateur — sa surface est grande par rapport à sa masse. Un bento de 10 cm perd sa forme plus vite qu'un gâteau de 20 cm, et cela se prend en compte à la livraison.
 
-Le prix d'un bento **n'est pas proportionnel au poids**. Il demande :
-- autant de temps de montage et de masquage qu'un gâteau de 16 cm ;
-- le même coût de produits professionnels (fromage, chocolat, fruits rouges) ;
-- le même temps de décor — souvent plus, car la miniature exige de la précision.
+Durées et conditions dans un article à part : [combien de temps se conserve un bento cake](/fr/blog/bento-cake-shelf-life/).
 
-C'est pourquoi le prix moyen d'un bento sur le marché est de **600 à 1200 ₴** (ou l'équivalent en monnaie locale), et non « 1/3 du prix d'un grand gâteau ».
+---
 
-## La hauteur : ce qu'il faut prendre en compte
-
-Sur 6 à 8 cm de haut, le bento accueille **2 à 3 couches de biscuit** et **2 couches de crème**. Cela donne une belle coupe sans surcharge. Au-delà, on perd l'esthétique du « petit gâteau dans sa boîte ».
-
-Pour que la génoise soit régulière en hauteur, lisez [pourquoi le biscuit forme une bosse](/fr/blog/why-sponge-has-dome/).
-
-## Questions fréquentes
-
-**Peut-on faire un bento de 15 cm ?**
-Techniquement oui, mais ce n'est plus un bento. Il faut une autre boîte, et la perception du client change aussi — il attend un « petit gâteau pour deux ».
-
-**Quelle est la taille minimale ?**
-8 cm — la limite basse. En dessous, c'est un cupcake ou une pâtisserie individuelle, pas un gâteau.
-
-**La taille influence-t-elle la durée de conservation ?**
-Oui, mais faiblement. Un petit gâteau « se réchauffe » plus vite à la remise au client — il a besoin de moins de temps à température ambiante avant le service. Détails dans l'article [combien de temps se conserve un bento cake](/fr/blog/bento-cake-shelf-life/).
-
-> Les 10 recettes du [recueil PDF](/fr/recipes/) sont calculées pour un bento de 12 cm. Pour une taille de 10 cm, il suffit de réduire les grammages de 25 %.
+**Nous ne publions pas sur le blog comment recalculer une recette pour un autre diamètre.** Notre [recueil PDF](/fr/recipes/) contient pour cela un tableau de conversion sur 11 diamètres — de 10 à 30 cm — et les grammages de chacune des dix recettes sont donnés d'emblée pour 1, 2 et 3 gâteaux. Cela retire la calculatrice du travail sur commandes.

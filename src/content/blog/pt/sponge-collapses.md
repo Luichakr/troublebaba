@@ -38,4 +38,4 @@ E no diâmetro pequeno o erro aparece mais: numa forma de 10 cm a estrutura segu
 
 ---
 
-**No blog não publicamos parâmetros, ordem dos passos nem observações sobre cada base.** As dez receitas da nossa [coleção PDF](/recipes/) estão descritas passo a passo: o que adicionar e em que ordem, em que temperatura assar, quanto descansar antes da montagem. Além de dois cremes base para alisar e uma tabela de conversão para 11 diâmetros.
+**No blog não publicamos parâmetros, ordem dos passos nem observações sobre cada base.** As dez receitas da nossa [coleção PDF](/pt/recipes/) estão descritas passo a passo: o que adicionar e em que ordem, em que temperatura assar, quanto descansar antes da montagem. Além de dois cremes base para alisar e uma tabela de conversão para 11 diâmetros.

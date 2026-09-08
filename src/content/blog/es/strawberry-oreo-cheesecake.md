@@ -47,7 +47,7 @@ Déjalo a temperatura ambiente **15–20 minutos** antes de servir: frío sabe a
 
 Córtalo con un cuchillo mojado en agua caliente, secándolo después de cada porción. Si no, el corte se lleva la capa superior consigo.
 
-Más sobre plazos — en el artículo sobre [cuánto dura una tarta bento](/blog/bento-cake-shelf-life/): las ventanas para cremas y cheesecakes son parecidas.
+Más sobre plazos — en el artículo sobre [cuánto dura una tarta bento](/es/blog/bento-cake-shelf-life/): las ventanas para cremas y cheesecakes son parecidas.
 
 ## Cómo usarlo dentro de una tarta bento
 
@@ -55,8 +55,6 @@ Este cheesecake funciona no solo como postre por sí mismo, sino también como *
 
 La lógica es simple: montarlo en un aro de menor diámetro, enfriarlo por completo, congelarlo — y colocarlo aún congelado durante el montaje. Se descongela junto con la tarta mientras reposa en la nevera.
 
-Sobre cómo se comporta una tarta así en el transporte — [aparte](/blog/how-to-transport-bento-cake/).
-
 ---
 
-**Ya no publicamos gramajes exactos ni el montaje paso a paso en el blog.** Nuestras recetas de tartas bento están en la [colección PDF Bento Cake by TROUBLEBABA](/recipes/): 10 sabores de autor con gramajes para 1, 2 y 3 tartas y una tabla de conversión para 11 diámetros. El cheesecake no está entre ellos — es un postre aparte de nuestro canal.
+**Ya no publicamos gramajes exactos ni el montaje paso a paso en el blog.** Nuestras recetas de tartas bento están en la [colección PDF Bento Cake by TROUBLEBABA](/es/recipes/): 10 sabores de autor con gramajes para 1, 2 y 3 tartas y una tabla de conversión para 11 diámetros. El cheesecake no está entre ellos — es un postre aparte de nuestro canal.

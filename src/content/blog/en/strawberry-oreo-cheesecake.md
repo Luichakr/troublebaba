@@ -47,7 +47,7 @@ Let it stand at room temperature for **15–20 minutes** before serving: a cold 
 
 Cut it with a knife dipped in hot water, wiping it dry after every slice. Otherwise the cut drags the top layer along with it.
 
-More on shelf life — in the piece on [how long a bento cake keeps](/blog/bento-cake-shelf-life/): the windows for creams and cheesecakes are similar.
+More on shelf life — in the piece on [how long a bento cake keeps](/en/blog/bento-cake-shelf-life/): the windows for creams and cheesecakes are similar.
 
 ## How to use it inside a bento cake
 
@@ -55,8 +55,6 @@ This cheesecake works not only as a dessert in its own right but also as a **lay
 
 The logic is simple: assemble it in a smaller-diameter ring, chill it fully, freeze it — and place it still frozen during assembly. It thaws along with the cake while it rests in the fridge.
 
-For how such a cake behaves in transport — [separately](/blog/how-to-transport-bento-cake/).
-
 ---
 
-**We no longer publish exact gram weights or step-by-step assembly on the blog.** Our bento cake recipes live in the [Bento Cake by TROUBLEBABA PDF collection](/recipes/): 10 original flavours with gram weights for 1, 2 and 3 cakes plus a conversion table for 11 diameters. The cheesecake isn't among them — it's a separate dessert from our feed.
+**We no longer publish exact gram weights or step-by-step assembly on the blog.** Our bento cake recipes live in the [Bento Cake by TROUBLEBABA PDF collection](/en/recipes/): 10 original flavours with gram weights for 1, 2 and 3 cakes plus a conversion table for 11 diameters. The cheesecake isn't among them — it's a separate dessert from our feed.

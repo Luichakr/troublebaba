@@ -38,4 +38,4 @@ And on a small diameter the error shows more: in a 10 cm tin the structure holds
 
 ---
 
-**We don't publish settings, step order or per-sponge notes on the blog.** All ten recipes in our [PDF collection](/recipes/) are laid out step by step: what to add and in what order, what temperature to bake at, how long to rest before assembly. Plus two base coating creams and a conversion table for 11 diameters.
+**We don't publish settings, step order or per-sponge notes on the blog.** All ten recipes in our [PDF collection](/en/recipes/) are laid out step by step: what to add and in what order, what temperature to bake at, how long to rest before assembly. Plus two base coating creams and a conversion table for 11 diameters.

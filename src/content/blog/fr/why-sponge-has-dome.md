@@ -29,8 +29,8 @@ Les fours domestiques se trompent régulièrement de 10 à 25 degrés, dans les 
 
 Un bento cake mesure 6–8 cm de haut, soit seulement 2–3 disques. Chaque dôme doit être coupé, et cela retire 2–3 mm de hauteur utile par disque. Sur un grand gâteau la perte ne se voit pas ; sur un bento elle mange les proportions.
 
-Si vous coupez un dôme haut à chaque fois, ce n'est plus de la cosmétique, c'est de la perte produit. Plus sur les proportions dans l'article sur [la taille d'un bento cake](/blog/bento-cake-size/).
+Si vous coupez un dôme haut à chaque fois, ce n'est plus de la cosmétique, c'est de la perte produit. Plus sur les proportions dans l'article sur [la taille d'un bento cake](/fr/blog/bento-cake-size/).
 
 ---
 
-**Nous ne publions pas sur le blog les températures, les temps ni l'ordre des étapes des génoises.** Les dix recettes de notre [recueil PDF](/recipes/) contiennent les réglages de cuisson exacts, les grammages pour 1, 2 et 3 gâteaux et des notes propres aux génoises pour lesquelles le dôme est le problème habituel. C'est précisément la part du travail dont le recueil se charge.
+**Nous ne publions pas sur le blog les températures, les temps ni l'ordre des étapes des génoises.** Les dix recettes de notre [recueil PDF](/fr/recipes/) contiennent les réglages de cuisson exacts, les grammages pour 1, 2 et 3 gâteaux et des notes propres aux génoises pour lesquelles le dôme est le problème habituel. C'est précisément la part du travail dont le recueil se charge.
