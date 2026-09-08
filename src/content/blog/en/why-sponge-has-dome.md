@@ -1,45 +1,36 @@
 ---
-title: "Why the sponge comes out with a dome and how to avoid it"
-description: "The main reason a bento cake sponge rises into a dome, and simple techniques to get an even layer."
+title: "Why a sponge comes out domed — the cause"
+description: "Why a bento cake sponge rises into a peak in the middle: what happens in the oven and what it tells you. Exact temperatures and times for every sponge are in the PDF collection."
 lang: "en"
 slug: "why-sponge-has-dome"
 publishedAt: "2026-06-03"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["sponge", "mistakes", "technique"]
+tags: ["sponge", "mistakes"]
 draft: false
-excerpt: "The main cause of the dome on a sponge — and what to do about it."
+excerpt: "Why a sponge rises into a peak in the middle and what that tells you."
 ---
 
-An even sponge is half the success of a bento cake: it's easier to assemble, holds its shape better and looks neat in the cut. But for beginners the layer often rises into a dome in the centre. Let's figure out why.
+A flat sponge is half the battle with a bento cake: it's easier to assemble, holds its shape better and looks tidier on the cut. But for beginners the layer often rises into a peak in the middle.
 
-## Why the dome appears
+## What happens in the oven
 
-When the tin sits in the oven, the edges of the batter heat faster than the centre. The edges set first while the centre keeps rising — and you get a dome. The higher the temperature and the smaller the tin, the more pronounced the effect.
+The walls of the tin heat first. The batter around the edge sets and forms a rigid rim — while the centre is still liquid. It has nowhere to go but up. Hence the cone in the middle, and sometimes a crack across the top.
 
-## What helps
+The higher the temperature and the smaller the tin, the stronger the effect. At bento diameters of 10–12 cm it shows up especially clearly: a small tin heats fast at the edges, while the centre needs the same time it would in a large one.
 
-- **Don't overheat the oven.** A moderate temperature lets the batter rise more evenly.
-- **Preheat the oven** to a stable temperature in advance instead of putting the tin into one that's still heating.
-- **Cover the tin with foil** at the start of the bake and remove it towards the end — the surface doesn't race upward ahead of the centre.
-- **Don't open the door** during the first half of the bake.
+## What it tells you
 
-## If the dome appeared anyway
+A dome almost always means one thing: **the oven is too hot for this size of tin**. Not "the wrong recipe", not "bad flour" and not "weak baking powder".
 
-It's not a disaster. Cool the layer, wrap it in cling film and let it rest — it settles a little. Before assembly, trim the top carefully to get a level surface.
+Domestic ovens routinely lie by 10–25 degrees, in both directions, and gas and electric behave differently. So the temperature that gives you a flat layer is always a pair — "this specific sponge plus this specific oven" — never a single number off the internet.
 
-## Why this matters especially for bento
+## Why it matters more for bento
 
-In a bento cake the 6–8 cm height is just 2–3 layers. Every dome costs 2–3 mm of usable height, because the top has to be trimmed. Even layers make assembling a bento simpler and neater. More on proportions in [bento cake size](/en/blog/bento-cake-size/).
+A bento cake is 6–8 cm tall, which is only 2–3 layers. Every dome has to be trimmed, and that's 2–3 mm of usable height gone from each layer. On a large cake the loss is invisible; on a bento it eats the proportions.
 
-## FAQ
+If you're trimming a tall dome every single time, that's no longer cosmetic — it's product loss. More on proportions in the piece on [bento cake size](/blog/bento-cake-size/).
 
-**Can I press the dome down with a towel straight out of the oven?**
-You can, but gently. Cover the layer with parchment and set a flat board with a light weight on top. The sponge should still be hot but not scorching — otherwise it settles unevenly.
+---
 
-**Why does the same recipe give a dome in one oven and a flat layer in another?**
-Ovens heat unevenly in different ways. Gas ovens often produce a dome (the bottom runs hotter than the top); an electric oven with convection is usually more even. Dial in the temperature for your oven by experiment.
-
-**Are baking strips worth using?**
-These are wet fabric strips wrapped around the sides of the tin. They slow the heating of the sides and help the layer bake more evenly. They work on a 12 cm bento, but at a moderate temperature you can do without them.
-
-> Exact temperatures, times and proportions for every sponge in the collection are in the [PDF collection](/en/recipes/). It also explains which sponges you can skip soaking, and why.
+**We don't publish temperatures, times or the order of steps for individual sponges on the blog.** All ten recipes in our [PDF collection](/recipes/) carry exact baking settings, gram weights for 1, 2 and 3 cakes, and separate notes for the sponges where doming is the typical problem. That's the part of the work the collection is there for.

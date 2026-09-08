@@ -1,45 +1,36 @@
 ---
-title: "Por que o pão de ló fica com barriga e como evitar"
-description: "Analisamos a principal causa da 'cupola' no pão de ló para bento cake e truques simples para a massa sair plana."
+title: "Por que o pão de ló fica com barriga — a causa"
+description: "Por que o pão de ló de um bento cake sobe em ponta no centro: o que acontece no forno e o que isso indica. Temperaturas e tempos exatos de cada base estão na coleção PDF."
 lang: "pt"
 slug: "why-sponge-has-dome"
 publishedAt: "2026-06-03"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["pão de ló", "erros", "técnica"]
+tags: ["pão de ló", "erros"]
 draft: false
-excerpt: "A principal causa da 'barriga' no pão de ló — e o que fazer com ela."
+excerpt: "Por que o pão de ló sobe em ponta no centro e o que isso indica."
 ---
 
-Um pão de ló plano é metade do sucesso de um bento cake: fica mais fácil de montar, sustenta melhor a forma e tem um corte mais bonito. Mas, com os iniciantes, a massa costuma estufar formando uma "cúpula" no centro. Vamos entender por que isso acontece.
+Um pão de ló plano é metade do trabalho num bento cake: monta-se mais fácil, segura melhor a forma e dá um corte mais limpo. Mas para quem começa o disco costuma subir em ponta no centro.
 
-## Por que surge a barriga
+## O que acontece no forno
 
-Quando a forma está no forno, as bordas da massa aquecem mais rápido que o centro. As bordas "firmam" primeiro, enquanto o centro continua crescendo e sobe — formando uma cúpula. Quanto mais alta a temperatura e menor a forma, mais evidente fica o efeito.
+As paredes da forma esquentam primeiro. A massa da borda firma e cria um aro rígido — enquanto o centro ainda está líquido. Não lhe resta senão crescer para cima. Daí o cone no meio e, às vezes, uma rachadura no topo.
 
-## O que ajuda
+Quanto mais alta a temperatura e menor a forma, mais forte o efeito. Nos diâmetros bento de 10–12 cm ele aparece de forma especialmente clara: uma forma pequena esquenta rápido nas bordas, e o centro precisa do mesmo tempo que numa grande.
 
-- **Não superaquecer o forno.** Uma temperatura moderada faz a massa crescer de maneira mais uniforme.
-- **Pré-aquecer o forno** com antecedência até uma temperatura estável, em vez de colocar a forma num forno ainda frio.
-- **Cobrir a forma com papel-alumínio** no início do forneamento e retirá-lo perto do fim — assim a superfície não "dispara" para cima antes do centro.
-- **Não abrir a porta** na primeira metade do forneamento.
+## O que isso indica
 
-## Se a barriga apareceu mesmo assim
+Uma barriga quase sempre significa uma coisa: **o forno está quente demais para este tamanho de forma**. Não é «a receita errada», nem «farinha ruim», nem «pó de bolo fraco».
 
-Não é uma catástrofe. Deixe a massa esfriar, embrulhe em filme plástico e deixe estabilizar — ela cede um pouco. Antes da montagem, corte com cuidado a parte de cima para obter uma superfície plana.
+Fornos domésticos erram com frequência de 10 a 25 graus, e nos dois sentidos; além disso o a gás e o elétrico se comportam de maneiras diferentes. A temperatura que dá um disco plano é sempre um par — «esta base específica com este forno específico» — nunca um número tirado da internet.
 
-## Por que isso é especialmente importante para o bento
+## Por que no bento pesa mais
 
-Num bento cake, a altura de 6 a 8 cm corresponde a apenas 2 ou 3 camadas de massa. Cada barriga significa 2 a 3 mm a menos de altura útil, porque a parte de cima terá de ser cortada. Quando as camadas saem planas, montar o bento fica mais fácil e mais caprichado. Saiba mais sobre as proporções no material [tamanho do bento cake](/pt/blog/bento-cake-size/).
+Um bento cake tem 6–8 cm de altura, ou seja, apenas 2–3 discos. Cada barriga precisa ser cortada, e isso são 2–3 mm de altura útil a menos por disco. Num bolo grande a perda não se vê; num bento ela come as proporções.
 
-## Perguntas frequentes
+Se você corta uma barriga alta toda vez, já não é estética: é perda de produto. Mais sobre proporções no artigo sobre [o tamanho de um bento cake](/blog/bento-cake-size/).
 
-**Dá para "achatar" a barriga com um pano logo que sai do forno?**
-Dá, mas com cuidado. Cubra a massa com papel manteiga e coloque por cima uma tábua plana com um peso leve. O pão de ló deve ainda estar quente, mas não fervendo — senão cede de forma irregular.
+---
 
-**Por que a mesma receita dá barriga num forno e sai plana em outro?**
-Fornos diferentes aquecem de formas diferentes. O a gás costuma dar barriga (a base aquece mais que o topo); o elétrico com convecção geralmente sai mais plano. A temperatura ideal para o seu forno se acerta na prática.
-
-**Vale a pena usar "faixas umidificadoras" na forma?**
-São faixas de tecido úmido que se enrolam nas laterais da forma. Elas retardam o aquecimento das bordas e ajudam a massa a assar de maneira mais uniforme. Num bento de 12 cm funcionam, mas, com temperatura moderada, dá para dispensar.
-
-> As temperaturas, tempos e proporções exatas para cada pão de ló da coleção estão no [compêndio em PDF](/pt/recipes/). Lá também está descrito quais pães de ló podem dispensar a calda e por quê.
+**No blog não publicamos temperaturas, tempos nem a ordem dos passos de cada base.** As dez receitas da nossa [coleção PDF](/recipes/) trazem os parâmetros de forno exatos, as gramagens para 1, 2 e 3 bolos e observações próprias para as bases em que a barriga é o problema típico. É exatamente a parte do trabalho pela qual a coleção responde.

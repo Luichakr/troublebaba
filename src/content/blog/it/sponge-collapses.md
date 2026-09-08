@@ -1,47 +1,41 @@
 ---
-title: "Il pan di Spagna si affloscia: 5 cause e rimedi"
-description: "Analizziamo perché il pan di Spagna per la bento cake si affloscia quando lo si sforna o durante il raffreddamento, e come evitarlo nella propria cucina."
+title: "Il pan di Spagna si abbassa dopo il forno — perché"
+description: "Perché una base per bento cake si affossa dopo la cottura: cosa cede esattamente nella struttura e in quale fase. Parametri esatti e ordine dei passaggi nella raccolta PDF."
 lang: "it"
 slug: "sponge-collapses"
-publishedAt: "2026-09-01"
+publishedAt: "2026-06-03"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["pan di spagna", "errori", "tecnica"]
+tags: ["pan di spagna", "errori"]
 draft: false
-excerpt: "Il pan di Spagna è lievitato, spegni il forno — e in 5 minuti si affloscia al centro. Vediamo perché."
+excerpt: "Cosa cede esattamente in una base quando si abbassa dopo il forno."
 ---
 
-Scena classica: il forno suona, apri lo sportello, il pan di Spagna è alto e dorato. Un minuto dopo — un «cratere» al centro e la crosta ondulata. Vediamo da dove viene.
+La base è cresciuta in forno e sembrava perfetta — poi cinque minuti sul piano e si è abbassata diventando compatta. È la lamentela più comune di chi inizia, e la causa è sempre la stessa per natura.
 
-## 1. Hai aperto lo sportello troppo presto
+## Cosa tiene su una base
 
-Il pan di Spagna «tiene» la forma grazie all'aria calda che espande le bolle. Aprire il forno prima del 25° minuto significa far entrare aria fredda e «sgonfiare» la schiuma all'istante.
+Finché l'impasto è in forno, la sua altezza è tenuta da **vapore e aria nelle bollicine**. Albume, amido e farina costruiscono nel frattempo la struttura che deve fissare quell'altezza.
 
-**Cosa fare:** non aprire il forno per i primi 25-30 minuti. Mai. Guarda attraverso il vetro, con la torcia del telefono, come vuoi — ma non aprire.
+Se la struttura rassoda in tempo, la base resta alta anche dopo il raffreddamento. Se no, il vapore esce, le bollicine si sgonfiano e tutto si ripiega sotto il proprio peso. Abbassarsi significa sempre: **la struttura non è stata al passo del gas**.
 
-## 2. Hai spento il forno di colpo
+## Dove si decide
 
-Togliere il pan di Spagna dal calore quando è ancora caldo e fragile è uno shock per la struttura. Ha bisogno di un adattamento graduale.
+Le ragioni per cui la struttura resta indietro non sono molte, e sono tutte una questione di tecnica, non di ricetta:
 
-**Cosa fare:** spegni il forno, socchiudi lo sportello di 5-7 cm e lascia il pan di Spagna dentro per altri 10 minuti. Poi sfornalo. Non è un «passaggio in più» — è l'assicurazione contro il cedimento.
+- il rapporto tra liquidi e farina nell'impasto;
+- come è stato incorporato l'albume e se ha perso volume nel mescolare;
+- temperatura e tempo in forno;
+- come è stata raffreddata la base e se le è stato dato riposo prima del montaggio.
 
-## 3. Troppo liquido nell'impasto
+Ognuno di questi punti ha un valore corretto preciso — e cambia per una base al cioccolato, al papavero, al pistacchio o al cocco. Un unico numero universale qui non esiste, ed è proprio per questo che i consigli generici trovati in rete spesso non funzionano.
 
-La bento cake si cuoce in uno stampo piccolo, da 14-16 cm. Stampo piccolo → colonna d'impasto alta → più peso che preme sugli strati inferiori. Se l'impasto è liquido, non fa in tempo a rapprendersi prima che il centro «ceda» sotto il proprio peso.
+## Perché sulla bento fa più male
 
-**Cosa fare:** rispetta le proporzioni al grammo. Non «a occhio». Vale soprattutto per acqua, latte e burro fuso: bastano 15 grammi di grasso in più per trasformare un pan di Spagna soffice in una frittella. Le grammature precise sono nella [raccolta PDF](/it/recipes/).
+Una bento cake ha solo 2–3 dischi su 6–8 cm di altezza. Una base abbassata non è «un po' più bassa»: sono proporzioni rovinate, la crema comincia a dominare e il taglio sembra pesante.
 
-## 4. Albumi montati male
+E sul diametro piccolo l'errore si vede di più: in uno stampo da 10 cm la struttura tiene peggio che in uno da 20, perché c'è meno struttura a sostenerla.
 
-Se monti gli albumi con lo zucchero solo a picchi morbidi, in cottura rilasceranno l'aria. Servono picchi fermi, quando la puntina resta dritta e non si piega.
+---
 
-**Cosa fare:** monta gli albumi in una ciotola pulita e asciutta (nessuna traccia di grasso!), aggiungi lo zucchero poco alla volta, arriva a una massa lucida e a picchi fermi. Sono 3-4 minuti con uno sbattitore elettrico potente.
-
-## 5. Non hai lasciato «maturare» il pan di Spagna
-
-Un pan di Spagna appena sfornato è umido e fragile allo stesso tempo. Stuccarlo con la crema subito dopo il forno è una deformazione della torta quasi garantita.
-
-**Cosa fare:** lascia raffreddare il pan di Spagna a temperatura ambiente, poi avvolgilo nella pellicola e mettilo in frigorifero per 6-12 ore. In questo tempo l'umidità si ridistribuisce, la struttura «si assesta», la consistenza diventa elastica. Solo allora tagli e monti — e la torta tiene la forma fino all'ultima fetta.
-
-## Cosa dà questa sicurezza in modo sistematico
-
-Ogni ricetta della [raccolta PDF](/it/recipes/) di TROUBLEBABA riporta: le grammature precise al grammo, la temperatura del forno per quella specifica misura di stampo, quanti minuti cuocere, quanto tempo lasciare dentro dopo lo spegnimento, quante ore far «maturare» prima del montaggio. Cioè esattamente i punti in cui di solito nasce il «cratere al centro». Con i numeri al posto dell'«a occhio», il pan di Spagna smette di afflosciarsi già dal secondo tentativo.
+**Sul blog non pubblichiamo parametri, ordine dei passaggi né note sulle singole basi.** Tutte e dieci le ricette della nostra [raccolta PDF](/recipes/) sono descritte passo per passo: cosa aggiungere e in quale ordine, a quale temperatura cuocere, quanto far riposare prima del montaggio. Più due creme base per la stuccatura e una tabella di conversione per 11 diametri.

@@ -1,47 +1,41 @@
 ---
-title: "El bizcocho se hunde al salir del horno: 5 causas"
-description: "Analizamos por qué el bizcocho para bento cake se hunde al desmoldarlo o al enfriarse, y cómo evitarlo en tu propia cocina."
+title: "El bizcocho se baja al salir del horno — por qué pasa"
+description: "Por qué el bizcocho de una tarta bento se hunde tras el horneado: qué cede exactamente en la estructura y en qué etapa. Los parámetros exactos y el orden de pasos están en la colección PDF."
 lang: "es"
 slug: "sponge-collapses"
-publishedAt: "2026-09-01"
+publishedAt: "2026-06-03"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["bizcocho", "errores", "técnica"]
+tags: ["bizcocho", "errores"]
 draft: false
-excerpt: "El bizcocho ha subido, apagas el horno y a los 5 minutos se hunde por el centro. Veamos por qué."
+excerpt: "Qué cede exactamente en un bizcocho cuando se baja al salir del horno."
 ---
 
-La escena clásica: suena el horno, abres la puerta y el bizcocho está alto y dorado. Un minuto después: un «cráter» en el centro y la corteza ondulada. Veamos de dónde sale esto.
+El bizcocho subió en el horno y se veía perfecto — y cinco minutos sobre la mesa después se hundió y quedó compacto. Es la queja más habitual de quien empieza, y la causa es siempre la misma por naturaleza.
 
-## 1. Abriste la puerta demasiado pronto
+## Qué sostiene un bizcocho
 
-El bizcocho «sostiene» su forma gracias al aire caliente que expande las burbujas. Abrir el horno antes del minuto 25 es dejar entrar aire frío y «desinflar» la espuma al instante.
+Mientras la masa está en el horno, su altura la sostienen **el vapor y el aire de las burbujas**. La clara, el almidón y la harina construyen entretanto el armazón que debe fijar esa altura.
 
-**Qué hacer:** no abrir el horno durante los primeros 25-30 minutos. En absoluto. Mirar a través del cristal, con la linterna del móvil, como quieras, pero sin abrir.
+Si el armazón cuaja a tiempo, el bizcocho se queda alto también al enfriarse. Si no, el vapor se escapa, las burbujas se desinflan y la estructura se pliega bajo su propio peso. Hundirse siempre significa que **el armazón no siguió el ritmo del gas**.
 
-## 2. Apagaste el horno de golpe
+## Dónde se decide
 
-Sacar el bizcocho del calor cuando está caliente y frágil es un choque para su estructura. Necesita una adaptación gradual.
+No son muchas las razones por las que el armazón se queda atrás, y todas son cuestión de técnica, no de receta:
 
-**Qué hacer:** apagar el horno, entreabrir la puerta unos 5-7 cm y dejar el bizcocho dentro 10 minutos más. Luego sacarlo. No es «un paso de más»: es el seguro contra el hundimiento.
+- la proporción de líquido y harina en la masa;
+- cómo se incorporó la clara y si perdió volumen al mezclar;
+- temperatura y tiempo en el horno;
+- cómo se enfrió el bizcocho y si se le dio reposo antes del montaje.
 
-## 3. Demasiado líquido en la masa
+Cada uno de estos puntos tiene un valor correcto concreto — y es distinto para un bizcocho de chocolate, de amapola, de pistacho o de coco. Aquí no existe un número universal, y por eso mismo los consejos genéricos de internet a menudo no funcionan.
 
-El bento cake se hornea en un molde pequeño, de 14-16 cm. Molde pequeño → columna de masa alta → más peso presionando las capas inferiores. Si la masa está demasiado líquida, no le da tiempo a cuajar antes de que el centro «ceda» bajo su propio peso.
+## Por qué en bento duele más
 
-**Qué hacer:** respetar las proporciones al gramo. Nada de «a ojo». Sobre todo con el agua, la leche y la mantequilla fundida: incluso 15 gramos de grasa de más convierten un bizcocho esponjoso en una plasta. Los gramajes exactos están en el [recopilatorio en PDF](/es/recipes/).
+Una tarta bento tiene solo 2–3 capas en 6–8 cm de altura. Un bizcocho hundido no es «un poco más bajo»: son proporciones arruinadas, la crema empieza a dominar y el corte se ve pesado.
 
-## 4. Claras poco montadas
+Y en un diámetro pequeño el error se nota más: en un molde de 10 cm la estructura aguanta peor que en uno de 20, porque hay menos armazón que la sostenga.
 
-Si montas las claras con el azúcar solo hasta picos blandos, soltarán el aire durante el horneado. Hacen falta picos firmes: cuando la punta se mantiene recta y no se dobla.
+---
 
-**Qué hacer:** montar las claras en un recipiente limpio y seco (¡ni rastro de grasa!), añadir el azúcar poco a poco y llevarlas hasta el brillo y los picos firmes. Son 3-4 minutos con una batidora de mano potente.
-
-## 5. No dejaste que el bizcocho «madurara»
-
-Un bizcocho recién horneado es húmedo y frágil a la vez. Ponerle la crema nada más salir del horno es una deformación de la tarta casi garantizada.
-
-**Qué hacer:** enfriar el bizcocho a temperatura ambiente, envolverlo en film y dejarlo en la nevera 6-12 horas. En ese tiempo la humedad se redistribuye, la estructura «se asienta» y la textura se vuelve elástica. Entonces lo cortas y montas, y la tarta mantiene la forma hasta el último trozo.
-
-## Qué te da esa seguridad de forma sistemática
-
-Cada receta del [recopilatorio en PDF](/es/recipes/) de TROUBLEBABA incluye: gramajes exactos al gramo, la temperatura del horno para cada tamaño de molde, cuántos minutos hornear, cuánto tiempo dejar dentro tras apagar y cuántas horas «madurar» antes del montaje. Es decir, justo los puntos donde suele aparecer el «cráter en el centro». Con cifras en lugar del «a ojo», el bizcocho deja de hundirse a partir del segundo intento.
+**No publicamos en el blog parámetros, orden de pasos ni notas por bizcocho.** Las diez recetas de nuestra [colección PDF](/recipes/) están desarrolladas paso a paso: qué añadir y en qué orden, a qué temperatura hornear, cuánto reposar antes del montaje. Además, dos cremas base para alisar y una tabla de conversión para 11 diámetros.

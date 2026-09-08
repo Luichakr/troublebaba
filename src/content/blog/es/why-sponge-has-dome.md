@@ -1,45 +1,36 @@
 ---
-title: "Por qué el bizcocho sale con copete y cómo evitarlo"
-description: "Analizamos la causa principal del «copete» en el bizcocho para bento cake y los trucos sencillos para que la plancha salga plana."
+title: "Por qué el bizcocho sale con copete — la causa"
+description: "Por qué el bizcocho para tarta bento sube en pico por el centro: qué pasa en el horno y qué te está diciendo. Las temperaturas y tiempos exactos de cada bizcocho están en la colección PDF."
 lang: "es"
 slug: "why-sponge-has-dome"
 publishedAt: "2026-06-03"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["bizcocho", "errores", "técnica"]
+tags: ["bizcocho", "errores"]
 draft: false
-excerpt: "La causa principal del «copete» en el bizcocho, y qué hacer con ella."
+excerpt: "Por qué el bizcocho sube en pico por el centro y qué te está diciendo."
 ---
 
-Un bizcocho plano es media batalla ganada en un bento cake: se monta más fácil, mantiene mejor la forma y luce limpio en el corte. Pero a los principiantes se les hincha a menudo en un «copete» en el centro. Veamos por qué ocurre.
+Un bizcocho plano es media batalla ganada en una tarta bento: se monta más fácil, aguanta mejor la forma y queda más limpio en el corte. Pero a quien empieza le sube a menudo en pico por el centro.
 
-## Por qué aparece el copete
+## Qué pasa en el horno
 
-Cuando el molde está en el horno, los bordes de la masa se calientan más rápido que el centro. Los bordes «cuajan» primero, mientras el centro sigue creciendo y subiendo: así se forma la cúpula. Cuanto más alta es la temperatura y más pequeño el molde, más evidente es el efecto.
+Las paredes del molde se calientan primero. La masa del borde cuaja y forma un aro rígido, mientras el centro sigue líquido. No le queda otra que crecer hacia arriba. De ahí el cono central y, a veces, una grieta en la cima.
 
-## Qué ayuda
+Cuanto más alta la temperatura y más pequeño el molde, más fuerte el efecto. En diámetros bento de 10–12 cm se ve especialmente claro: un molde pequeño se calienta rápido por los bordes, y el centro necesita el mismo tiempo que en uno grande.
 
-- **No sobrecalentar el horno.** Una temperatura moderada hace que la masa suba de forma más uniforme.
-- **Precalentar el horno con antelación** hasta una temperatura estable, en lugar de meter el molde en un horno poco caliente.
-- **Cubrir el molde con papel de aluminio** al inicio de la cocción y retirarlo hacia el final: así la superficie no «se escapa» hacia arriba antes que el centro.
-- **No abrir la puerta** durante la primera mitad de la cocción.
+## Qué te está diciendo
 
-## Si aun así aparece el copete
+El copete casi siempre significa una cosa: **el horno está demasiado caliente para este tamaño de molde**. No es «la receta equivocada», ni «harina mala», ni «levadura floja».
 
-No es una catástrofe. Deja enfriar la plancha, envuélvela en film y déjala estabilizar: bajará un poco. Antes del montaje, se recorta la parte superior con cuidado para obtener una superficie plana.
+Los hornos domésticos mienten de forma habitual entre 10 y 25 grados, y en ambos sentidos; además el de gas y el eléctrico se comportan distinto. Por eso la temperatura que da un bizcocho plano es siempre una pareja —«este bizcocho concreto con este horno concreto»— y nunca un número sacado de internet.
 
-## Por qué esto importa especialmente en el bento
+## Por qué en bento importa más
 
-En un bento cake, con una altura de 6–8 cm, hablamos de apenas 2–3 planchas. Cada copete supone perder 2–3 mm de altura útil, porque hay que recortar la parte superior. Si las planchas salen planas, montar el bento es más fácil y queda más limpio. Más sobre proporciones en el artículo [el tamaño del bento cake](/es/blog/bento-cake-size/).
+Una tarta bento mide 6–8 cm de alto, lo que son apenas 2–3 capas. Cada copete hay que recortarlo, y eso son 2–3 mm de altura útil menos por capa. En una tarta grande la pérdida no se ve; en un bento se come las proporciones.
 
-## Preguntas frecuentes
+Si recortas un copete alto cada vez, ya no es cosmética: es pérdida de producto. Más sobre proporciones en el artículo sobre [el tamaño de una tarta bento](/blog/bento-cake-size/).
 
-**¿Se puede «aplastar» el copete con un paño nada más sacarlo del horno?**
-Se puede, pero con cuidado. Cubre la plancha con papel vegetal y coloca encima una tabla plana con un peso ligero. El bizcocho debe estar aún caliente, pero no abrasador; de lo contrario, bajará de forma desigual.
+---
 
-**¿Por qué la misma receta da copete en un horno y plancha plana en otro?**
-Cada horno calienta de forma distinta. El de gas suele dar copete (el fondo está más caliente que la parte de arriba); el eléctrico con convección suele ser más uniforme. La temperatura para tu horno se ajusta probando.
-
-**¿Conviene usar «tiras humidificadoras» en el molde?**
-Son tiras de tela mojadas con las que se envuelven las paredes del molde. Ralentizan el calentamiento de los laterales y ayudan a que la plancha se cocine de forma más uniforme. En un bento de 12 cm funcionan, pero también puedes prescindir de ellas con una temperatura moderada.
-
-> Las temperaturas, tiempos y proporciones exactas de cada bizcocho de la colección están en el [recopilatorio en PDF](/es/recipes/). Allí también se detalla qué bizcochos no hace falta calar y por qué.
+**No publicamos en el blog temperaturas, tiempos ni el orden de los pasos de cada bizcocho.** Las diez recetas de nuestra [colección PDF](/recipes/) llevan los parámetros exactos de horneado, los gramajes para 1, 2 y 3 tartas y notas específicas para los bizcochos en los que el copete es el problema habitual. Esa es la parte del trabajo de la que responde la colección.

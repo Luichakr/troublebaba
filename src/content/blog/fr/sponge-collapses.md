@@ -1,47 +1,41 @@
 ---
-title: "Le biscuit retombe à la sortie du four : 5 causes"
-description: "Pourquoi la génoise d'un bento cake s'affaisse au démoulage ou au refroidissement, et comment l'éviter dans votre cuisine."
+title: "La génoise retombe après le four — pourquoi"
+description: "Pourquoi une génoise de bento cake s'affaisse après la cuisson : ce qui cède exactement dans la structure et à quelle étape. Réglages exacts et ordre des étapes dans le recueil PDF."
 lang: "fr"
 slug: "sponge-collapses"
-publishedAt: "2026-09-01"
+publishedAt: "2026-06-03"
+updatedAt: "2026-09-08"
 cover: "/images/blog-cover.webp"
-tags: ["biscuit", "erreurs", "technique"]
+tags: ["génoise", "erreurs"]
 draft: false
-excerpt: "La génoise a bien levé, vous éteignez le four — et 5 minutes plus tard elle s'affaisse au centre. On explique pourquoi."
+excerpt: "Ce qui cède exactement dans une génoise quand elle retombe après le four."
 ---
 
-Scène classique : le four sonne, vous ouvrez la porte, le biscuit est haut et doré. Une minute plus tard — un « creux » au centre et une croûte ondulée. Voyons d'où cela vient.
+La génoise a levé au four et paraissait parfaite — puis cinq minutes sur le plan de travail et elle s'est affaissée et compactée. C'est la plainte la plus fréquente des débutantes, et la cause est toujours la même par nature.
 
-## 1. Vous avez ouvert la porte trop tôt
+## Ce qui tient une génoise
 
-Le biscuit « tient » sa forme grâce à l'air chaud qui dilate les bulles. Ouvrir le four avant la 25e minute, c'est laisser entrer de l'air froid et « dégonfler » la mousse instantanément.
+Tant que la pâte est au four, sa hauteur est tenue par **la vapeur et l'air des bulles**. Le blanc d'œuf, l'amidon et la farine construisent pendant ce temps l'ossature censée fixer cette hauteur.
 
-**Que faire :** ne pas ouvrir le four pendant les 25-30 premières minutes. Pas du tout. Regardez à travers la vitre, avec la lampe du téléphone, comme vous voulez — mais sans ouvrir.
+Si l'ossature prend à temps, la génoise reste haute même après refroidissement. Sinon, la vapeur s'échappe, les bulles se dégonflent et la structure se replie sous son propre poids. S'affaisser signifie toujours : **l'ossature n'a pas suivi le gaz**.
 
-## 2. Vous avez sorti la génoise d'un coup
+## Où cela se décide
 
-Retirer le biscuit du four quand il est brûlant et fragile, c'est un choc pour sa structure. Il a besoin d'une transition progressive.
+Les raisons pour lesquelles l'ossature prend du retard ne sont pas nombreuses, et toutes relèvent de la technique, pas de la recette :
 
-**Que faire :** éteindre le four, entrouvrir la porte de 5-7 cm, laisser le biscuit à l'intérieur encore 10 minutes. Puis seulement le sortir. Ce n'est pas une « étape en trop » — c'est l'assurance contre l'affaissement.
+- le rapport liquide/farine dans la pâte ;
+- comment le blanc a été incorporé et s'il a perdu du volume au mélange ;
+- la température et le temps au four ;
+- comment la génoise a été refroidie et si on l'a laissée reposer avant le montage.
 
-## 3. Trop de liquide dans la pâte
+Chacun de ces points a une valeur juste bien précise — et elle diffère pour une génoise au chocolat, au pavot, à la pistache ou à la noix de coco. Il n'existe pas ici de nombre universel, et c'est exactement pour cela que les conseils génériques d'internet ne fonctionnent souvent pas.
 
-Le bento cake se cuit dans un petit moule — 14-16 cm. Petit moule → colonne de pâte haute → plus de poids qui pèse sur les couches du bas. Si la pâte est trop liquide, elle n'a pas le temps de prendre avant que le centre ne « s'écrase » sous son propre poids.
+## Pourquoi cela fait plus mal sur un bento
 
-**Que faire :** respecter les proportions au gramme près. Pas « au jugé ». Cela vaut surtout pour l'eau, le lait et le beurre fondu — 15 g de gras en trop suffisent à transformer une génoise aérienne en galette. Les grammages exacts sont dans le [recueil PDF](/fr/recipes/).
+Un bento cake ne compte que 2–3 disques sur 6–8 cm de hauteur. Une génoise affaissée, ce n'est pas « un peu plus bas » : ce sont des proportions gâchées — la crème se met à dominer et la découpe paraît lourde.
 
-## 4. Des blancs pas assez montés
+Et sur un petit diamètre l'erreur se voit davantage : dans un moule de 10 cm la structure tient moins bien que dans un 20 cm, parce qu'il y a moins d'ossature.
 
-Si vous montez les blancs avec le sucre jusqu'au bec d'oiseau souple seulement, ils rendront leur air pendant la cuisson. Il faut des pics fermes : la pointe se tient droite et ne plie pas.
+---
 
-**Que faire :** monter les blancs dans un récipient propre et sec (pas la moindre trace de gras !), ajouter le sucre progressivement, aller jusqu'au brillant et aux pics fermes. Cela prend 3-4 minutes avec un batteur à main puissant.
-
-## 5. Vous n'avez pas laissé le biscuit « mûrir »
-
-Une génoise fraîchement sortie du four est à la fois humide et fragile. La masquer de crème directement après cuisson, c'est presque garantir la déformation du gâteau.
-
-**Que faire :** laisser refroidir la génoise à température ambiante, puis l'envelopper de film et la placer au réfrigérateur 6 à 12 heures. Pendant ce temps, l'humidité se répartit, la structure se stabilise, la texture devient élastique. Alors seulement vous coupez et montez — et le gâteau tient sa forme jusqu'à la dernière part.
-
-## Ce qui donne cette assurance de façon systématique
-
-Chaque recette du [recueil PDF](/fr/recipes/) TROUBLEBABA indique : les grammages au gramme près, la température du four pour la taille de moule concernée, le temps de cuisson, le temps de repos après extinction du four, le nombre d'heures de « maturation » avant le montage. Autrement dit, exactement les points où apparaît d'habitude le « creux au centre ». Avec des chiffres à la place du « au jugé », la génoise arrête de retomber dès la deuxième fois.
+**Nous ne publions pas sur le blog les réglages, l'ordre des étapes ni les notes propres à chaque génoise.** Les dix recettes de notre [recueil PDF](/recipes/) sont détaillées pas à pas : quoi ajouter et dans quel ordre, à quelle température cuire, combien de temps laisser reposer avant le montage. Plus deux crèmes de base pour le masquage et un tableau de conversion pour 11 diamètres.
