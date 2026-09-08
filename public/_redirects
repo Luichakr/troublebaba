@@ -94,3 +94,49 @@ https://luichakr.github.io/troublebaba/*  https://troublebaba.com/:splat  301!
 /:lang/blog/razmer-bento-torta/*  /:lang/blog/bento-cake-size/   301
 /:lang/blog/skolko-hranitsya-bento-tort    /:lang/blog/bento-cake-shelf-life/   301
 /:lang/blog/skolko-hranitsya-bento-tort/*  /:lang/blog/bento-cake-shelf-life/   301
+# Фото рецептов переименованы 8 сентября 2026: q1..q10 → *-bento-cake.
+# Старые имена могли попасть в Google Картинки, поэтому 301 на каждый
+# файл и каждый адаптивный вариант — 40 адресов. Без этого картинки
+# в выдаче стали бы битыми, а вес ссылок потерялся.
+# Имена совпадают со слагами страниц рецептов: Google связывает
+# картинку со страницей, на которой она стоит.
+/images/q1.webp    /images/raffaello-bento-cake.webp    301
+/images/q1-480.webp    /images/raffaello-bento-cake-480.webp    301
+/images/q1-768.webp    /images/raffaello-bento-cake-768.webp    301
+/images/q1-1024.webp    /images/raffaello-bento-cake-1024.webp    301
+/images/q2.webp    /images/pistachio-raspberry-bento-cake.webp    301
+/images/q2-480.webp    /images/pistachio-raspberry-bento-cake-480.webp    301
+/images/q2-768.webp    /images/pistachio-raspberry-bento-cake-768.webp    301
+/images/q2-1024.webp    /images/pistachio-raspberry-bento-cake-1024.webp    301
+/images/q3.webp    /images/poppy-seed-citrus-bento-cake.webp    301
+/images/q3-480.webp    /images/poppy-seed-citrus-bento-cake-480.webp    301
+/images/q3-768.webp    /images/poppy-seed-citrus-bento-cake-768.webp    301
+/images/q3-1024.webp    /images/poppy-seed-citrus-bento-cake-1024.webp    301
+/images/q4.webp    /images/cherry-chocolate-bento-cake.webp    301
+/images/q4-480.webp    /images/cherry-chocolate-bento-cake-480.webp    301
+/images/q4-768.webp    /images/cherry-chocolate-bento-cake-768.webp    301
+/images/q4-1024.webp    /images/cherry-chocolate-bento-cake-1024.webp    301
+/images/q5.webp    /images/ferrero-rocher-bento-cake.webp    301
+/images/q5-480.webp    /images/ferrero-rocher-bento-cake-480.webp    301
+/images/q5-768.webp    /images/ferrero-rocher-bento-cake-768.webp    301
+/images/q5-1024.webp    /images/ferrero-rocher-bento-cake-1024.webp    301
+/images/q6.webp    /images/cinnabon-bento-cake.webp    301
+/images/q6-480.webp    /images/cinnabon-bento-cake-480.webp    301
+/images/q6-768.webp    /images/cinnabon-bento-cake-768.webp    301
+/images/q6-1024.webp    /images/cinnabon-bento-cake-1024.webp    301
+/images/q7.webp    /images/pina-colada-bento-cake.webp    301
+/images/q7-480.webp    /images/pina-colada-bento-cake-480.webp    301
+/images/q7-768.webp    /images/pina-colada-bento-cake-768.webp    301
+/images/q7-1024.webp    /images/pina-colada-bento-cake-1024.webp    301
+/images/q8.webp    /images/snickers-bento-cake.webp    301
+/images/q8-480.webp    /images/snickers-bento-cake-480.webp    301
+/images/q8-768.webp    /images/snickers-bento-cake-768.webp    301
+/images/q8-1024.webp    /images/snickers-bento-cake-1024.webp    301
+/images/q9.webp    /images/oreo-bento-cake.webp    301
+/images/q9-480.webp    /images/oreo-bento-cake-480.webp    301
+/images/q9-768.webp    /images/oreo-bento-cake-768.webp    301
+/images/q9-1024.webp    /images/oreo-bento-cake-1024.webp    301
+/images/q10.webp    /images/red-velvet-bento-cake.webp    301
+/images/q10-480.webp    /images/red-velvet-bento-cake-480.webp    301
+/images/q10-768.webp    /images/red-velvet-bento-cake-768.webp    301
+/images/q10-1024.webp    /images/red-velvet-bento-cake-1024.webp    301

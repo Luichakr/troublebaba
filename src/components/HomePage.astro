@@ -33,25 +33,31 @@ const turnstileKey = SITE.turnstile?.siteKey || '';
 const communityBonus = SITE.community?.enabled === true;
 
 const RECIPE_IMAGES = [
-  'images/q9.webp',   // 0: Oreo
-  'images/q10.webp',  // 1: Red Velvet
-  'images/q3.webp',   // 2: Poppy-Citrus
-  'images/q8.webp',   // 3: Snickers
-  'images/q1.webp',   // 4: Raffaello
-  'images/q5.webp',   // 5: Ferrero Rocher
-  'images/q6.webp',   // 6: Cinnabon
-  'images/q2.webp',   // 7: Pistachio-Raspberry
-  'images/q7.webp',   // 8: Pina Colada
-  'images/q4.webp',   // 9: Cherry Chocolate
+  '/images/oreo-bento-cake.webp',   // 0: Oreo
+  '/images/red-velvet-bento-cake.webp',  // 1: Red Velvet
+  '/images/poppy-seed-citrus-bento-cake.webp',   // 2: Poppy-Citrus
+  '/images/snickers-bento-cake.webp',   // 3: Snickers
+  '/images/raffaello-bento-cake.webp',   // 4: Raffaello
+  '/images/ferrero-rocher-bento-cake.webp',   // 5: Ferrero Rocher
+  '/images/cinnabon-bento-cake.webp',   // 6: Cinnabon
+  '/images/pistachio-raspberry-bento-cake.webp',   // 7: Pistachio-Raspberry
+  '/images/pina-colada-bento-cake.webp',   // 8: Pina Colada
+  '/images/cherry-chocolate-bento-cake.webp',   // 9: Cherry Chocolate
 ];
 
 // Адаптивные варианты для карточек рецептов. Файлы лежат в public/, поэтому
 // Astro их не обрабатывает — варианты 480/768/1024 генерирует
 // `npm run img:responsive` (scripts/build-responsive-images.mjs).
 // Без этого телефон тянул оригинал 1122×1122 (~420 КБ) на карточку 327 px.
+// Пути в RECIPE_IMAGES абсолютные, поэтому слэш здесь больше не
+// приклеиваем. Раньше массив хранил 'images/…' без слэша, и атрибут src
+// получался относительным: на главной он разрешался верно, а на /en/,
+// /ru/ и остальных — в /en/images/… и отдавал 404. Браузеры это скрывали,
+// потому что брали srcset (там путь был абсолютный), но краулер читает
+// именно src — и для Google Картинок восемь локалей из девяти вели в никуда.
 const recipeSrcSet = (src: string) => {
   const stem = src.replace(/\.webp$/, '');
-  return [480, 768, 1024].map(w => `/${stem}-${w}.webp ${w}w`).join(', ') + `, /${src} 1122w`;
+  return [480, 768, 1024].map(w => `${stem}-${w}.webp ${w}w`).join(', ') + `, ${src} 1122w`;
 };
 const RECIPE_SIZES = '(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 30vw';
 

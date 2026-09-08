@@ -12,7 +12,7 @@ import { FLAVORS_PT, HUB_PT } from './flavors.pt.js';
 export const FLAVORS = [
   {
     slug: 'oreo-bento-cake',
-    image: '/images/q9.webp',
+    image: '/images/oreo-bento-cake.webp',
     bestseller: true,
     t: {
       uk: {
@@ -51,7 +51,7 @@ export const FLAVORS = [
   },
   {
     slug: 'red-velvet-bento-cake',
-    image: '/images/q10.webp',
+    image: '/images/red-velvet-bento-cake.webp',
     t: {
       uk: {
         name: 'Червоний оксамит',
@@ -89,7 +89,7 @@ export const FLAVORS = [
   },
   {
     slug: 'poppy-seed-citrus-bento-cake',
-    image: '/images/q3.webp',
+    image: '/images/poppy-seed-citrus-bento-cake.webp',
     t: {
       uk: {
         name: 'Мак-цитрус',
@@ -127,7 +127,7 @@ export const FLAVORS = [
   },
   {
     slug: 'snickers-bento-cake',
-    image: '/images/q8.webp',
+    image: '/images/snickers-bento-cake.webp',
     t: {
       uk: {
         name: 'Snickers',
@@ -165,7 +165,7 @@ export const FLAVORS = [
   },
   {
     slug: 'raffaello-bento-cake',
-    image: '/images/q1.webp',
+    image: '/images/raffaello-bento-cake.webp',
     t: {
       uk: {
         name: 'Raffaello',
@@ -203,7 +203,7 @@ export const FLAVORS = [
   },
   {
     slug: 'ferrero-rocher-bento-cake',
-    image: '/images/q5.webp',
+    image: '/images/ferrero-rocher-bento-cake.webp',
     t: {
       uk: {
         name: 'Ferrero Rocher',
@@ -241,7 +241,7 @@ export const FLAVORS = [
   },
   {
     slug: 'cinnabon-bento-cake',
-    image: '/images/q6.webp',
+    image: '/images/cinnabon-bento-cake.webp',
     t: {
       uk: {
         name: 'Cinnabon',
@@ -279,7 +279,7 @@ export const FLAVORS = [
   },
   {
     slug: 'pistachio-raspberry-bento-cake',
-    image: '/images/q2.webp',
+    image: '/images/pistachio-raspberry-bento-cake.webp',
     t: {
       uk: {
         name: 'Фісташка-малина',
@@ -317,7 +317,7 @@ export const FLAVORS = [
   },
   {
     slug: 'pina-colada-bento-cake',
-    image: '/images/q7.webp',
+    image: '/images/pina-colada-bento-cake.webp',
     t: {
       uk: {
         name: 'Pina Colada',
@@ -355,7 +355,7 @@ export const FLAVORS = [
   },
   {
     slug: 'cherry-chocolate-bento-cake',
-    image: '/images/q4.webp',
+    image: '/images/cherry-chocolate-bento-cake.webp',
     t: {
       uk: {
         name: 'Вишня в шоколаді',
