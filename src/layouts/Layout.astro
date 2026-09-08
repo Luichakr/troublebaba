@@ -117,21 +117,9 @@ const OG_IMAGE_ALT = OG_IMAGE_ALT_BY_LANG[lang] || OG_IMAGE_ALT_BY_LANG.uk;
 // Localized product:price:amount + currency — matches the LS store for that
 // language so social/shopping crawlers don't advertise $20 on a /pl/ page
 // showing 80 zł. Keep values in sync with SITE.checkout.buyUrls.
-const PRICE_BY_LANG: Record<Lang, { amount: string; currency: string }> = {
-  uk: { amount: '800', currency: 'UAH' },
-  ru: { amount: '20',  currency: 'USD' },
-  pl: { amount: '80',  currency: 'PLN' },
-  en: { amount: '18',  currency: 'EUR' },
-  // es/de/fr/it/pt делят EUR-магазин с английским (site.js → checkoutByLang).
-  // Пока их тут не было, фолбэк уводил на uk и все пять локалей объявляли
-  // 800 UAH в og:price и в JSON-LD Product — при витрине в евро. Для Google
-  // это расхождение разметки с видимой ценой, то есть риск снятия rich results.
-  de: { amount: '18',  currency: 'EUR' },
-  fr: { amount: '18',  currency: 'EUR' },
-  it: { amount: '18',  currency: 'EUR' },
-  es: { amount: '18',  currency: 'EUR' },
-  pt: { amount: '18',  currency: 'EUR' },
-};
+// Таблица цен переехала в src/config/site.js: она нужна ещё двум шаблонам
+// страниц вкусов, а три копии со временем разъехались бы.
+const PRICE_BY_LANG = SITE.pricesByLang as Record<Lang, { amount: string; currency: string }>;
 const priceMeta = PRICE_BY_LANG[lang] || PRICE_BY_LANG.uk;
 
 // Hreflang alternates — emit for home and legal pages (skip 404/error).

@@ -2,6 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import FlavorPage from '../../../components/FlavorPage.astro';
 import { FLAVORS, FLAVOR_BY_SLUG } from '../../../data/flavors.js';
+import { SITE } from '../../../config/site.js';
 
 export function getStaticPaths() {
   const langs = ['ru', 'pl', 'en', 'es', 'de', 'fr', 'it', 'pt'] as const;
@@ -13,10 +14,41 @@ export function getStaticPaths() {
   }
   return paths;
 }
-type Lang = 'ru' | 'pl' | 'en';
+// Тип был сужен до 'ru' | 'pl' | 'en', хотя getStaticPaths отдаёт восемь
+// языков — es/de/fr/it/pt в него не попадали.
+type Lang = 'ru' | 'pl' | 'en' | 'es' | 'de' | 'fr' | 'it' | 'pt';
 const { lang, slug } = Astro.params as { lang: Lang; slug: string };
-const f = (FLAVOR_BY_SLUG as any)[slug].t[lang] ?? (FLAVOR_BY_SLUG as any)[slug].t.en;
+const flavor = (FLAVOR_BY_SLUG as any)[slug];
+const f = flavor.t[lang] ?? flavor.t.en;
+const heroImage = SITE.url + '/' + flavor.image.replace(/^\/+/, '');
+
+// Product, а не Recipe — по той же причине, что и в корневом шаблоне
+// (src/pages/recipes/[slug].astro, там подробный разбор). Коротко:
+// страница сознательно тизер, продукты без граммовок и без шагов, так
+// что тип Recipe заявлял бы Google то, чего на странице нет.
+// Раньше у этих 80 страниц разметки товара не было вовсе — только
+// хлебные крошки и FAQ. Теперь набор одинаковый на всех девяти языках.
+const price = (SITE.pricesByLang as any)[lang] ?? (SITE.pricesByLang as any).en;
+const productJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": SITE.productName,
+  "description": f.metaDesc,
+  "image": [heroImage],
+  "brand": { "@type": "Brand", "name": SITE.name },
+  "sku": "troublebaba-bento-cake-pdf",
+  "inLanguage": lang,
+  "offers": {
+    "@type": "Offer",
+    "price": price.amount,
+    "priceCurrency": price.currency,
+    "availability": "https://schema.org/InStock",
+    "itemCondition": "https://schema.org/NewCondition",
+    "url": SITE.url + `/${lang}/recipes/${slug}/`,
+    "seller": { "@type": "Organization", "name": SITE.name },
+  },
+};
 ---
-<Layout title={f.metaTitle} description={f.metaDesc} lang={lang} path={`${lang}/recipes/${slug}`} pageType="content">
+<Layout title={f.metaTitle} description={f.metaDesc} lang={lang} path={`${lang}/recipes/${slug}`} pageType="content" ogImage={flavor.image} jsonLd={productJsonLd}>
   <FlavorPage lang={lang} slug={slug} homeUrl={`/${lang}/`} recipesUrl={`/${lang}/recipes/`} />
 </Layout>

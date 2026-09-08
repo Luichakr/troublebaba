@@ -48,6 +48,24 @@ export const SITE = {
   // are OFF (owner decision). `priceSingle` + `bundleSaving` are kept as
   // constants for legacy backend code paths that are no longer wired to any
   // customer CTA; do not surface them in UI.
+  // Цена по языку страницы — для og:price и JSON-LD Offer. Держать
+  // в синхроне с checkoutByLang ниже: там выбирается магазин, здесь
+  // объявляется цена, и расхождение между ними Google читает как
+  // разметку, не совпадающую с видимой ценой.
+  // Лежит здесь, а не в Layout.astro, потому что нужна ещё двум
+  // шаблонам страниц вкусов — три копии таблицы разъехались бы.
+  pricesByLang: {
+    uk: { amount: '800', currency: 'UAH' },
+    ru: { amount: '20',  currency: 'USD' },
+    pl: { amount: '80',  currency: 'PLN' },
+    en: { amount: '18',  currency: 'EUR' },
+    de: { amount: '18',  currency: 'EUR' },
+    fr: { amount: '18',  currency: 'EUR' },
+    it: { amount: '18',  currency: 'EUR' },
+    es: { amount: '18',  currency: 'EUR' },
+    pt: { amount: '18',  currency: 'EUR' },
+  },
+
   price:       20,            // full bundle — all 10 recipes
   priceSingle: 5,             // legacy — not sold, unused in UI
   currency:    'USD',

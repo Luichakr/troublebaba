@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import FlavorPage from '../../components/FlavorPage.astro';
-import { FLAVORS, FLAVOR_BY_SLUG, INGREDIENTS_BY_SLUG } from '../../data/flavors.js';
+import { FLAVORS, FLAVOR_BY_SLUG } from '../../data/flavors.js';
 import { SITE } from '../../config/site.js';
 
 export function getStaticPaths() {
@@ -11,39 +11,48 @@ const lang = 'uk' as const;
 const { slug } = Astro.params as { slug: string };
 const flavor = (FLAVOR_BY_SLUG as any)[slug];
 const f = flavor.t[lang];
-const ingredients: string[] | undefined = (INGREDIENTS_BY_SLUG as any)[slug]?.[lang];
 const heroImage = SITE.url + '/' + flavor.image.replace(/^\/+/, '');
 
-// Recipe JSON-LD — targets Google's Recipe rich result. Ingredients list is
-// shown in the SERP card; recipeInstructions stays intentionally minimal
-// because full step-by-step is inside the paid PDF (schema requires at least
-// a placeholder for the rich-result to trigger, so we point to the PDF).
-const recipeJsonLd = {
+// РАЗМЕТКА: Product, а НЕ Recipe. Здесь стоял Recipe с комментарием
+// «схеме нужна хотя бы заглушка, чтобы сниппет сработал» — и это была
+// ставка, которая не выдерживает проверки.
+//
+// Тип Recipe заявляет Google: на странице лежит рецепт. А страница —
+// сознательно тизер: она сама пишет «Показані лише базові продукти,
+// точні грамажі — у PDF-збірнику», перечисляет продукты БЕЗ количеств
+// и не даёт ни одного шага приготовления. recipeInstructions состоял
+// из одного HowToStep, внутри которого была не инструкция, а реклама
+// сборника.
+//
+// Google сверяет разметку с видимым содержимым. При таком расхождении
+// расширенный результат в лучшем случае не выдаётся, в худшем — это
+// spammy structured data, а это ручные меры на весь домен. Отдавать
+// настоящий рецепт мы не будем (решение владельца), значит правдивым
+// Recipe тут стать не может — и тип убран.
+//
+// Product правдив: страница действительно продаёт сборник по этой цене
+// и с этой кнопкой. Это и даёт законный шанс на цену в выдаче.
+// aggregateRating сюда НЕ добавляем: отзывы живут на главной, а Google
+// просит размечать оценку только там, где она видна на странице.
+const price = (SITE.pricesByLang as any)[lang] ?? (SITE.pricesByLang as any).uk;
+const productJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Recipe",
-  "name": f.name,
-  "description": f.lead,
+  "@type": "Product",
+  "name": SITE.productName,
+  "description": f.metaDesc,
   "image": [heroImage],
-  "author": { "@type": "Person", "name": "Yevgeniya Golitsyna", "url": SITE.url + '/about/' },
-  "publisher": { "@type": "Organization", "name": SITE.name, "url": SITE.url + '/' },
+  "brand": { "@type": "Brand", "name": SITE.name },
+  "sku": "troublebaba-bento-cake-pdf",
   "inLanguage": lang,
-  "recipeCategory": "Dessert",
-  "recipeCuisine": "Modern",
-  "keywords": ["bento cake", "bento-cake", f.name.toLowerCase(), "recipe", "pdf recipe book"].join(", "),
-  // Ø 10 см — тот диаметр, на который рассчитаны рецепты в сборнике.
-  // Было «~200 g», и это противоречило нашей же статье про размеры:
-  // src/content/blog/*/bento-cake-size.md говорит 350–450 г для 10 см.
-  // Схема не должна расходиться с текстом на том же сайте.
-  "recipeYield": "1 bento cake, \u00d8 10 cm (350\u2013450 g)",
-  ...(ingredients && ingredients.length ? { "recipeIngredient": ingredients } : {}),
-  "recipeInstructions": [
-    {
-      "@type": "HowToStep",
-      "name": "Full step-by-step recipe",
-      "text": `Detailed step-by-step method with exact grams, timings and photos is inside the Bento Cake PDF collection by TROUBLEBABA.`,
-      "url": SITE.url + '/#price',
-    },
-  ],
+  "offers": {
+    "@type": "Offer",
+    "price": price.amount,
+    "priceCurrency": price.currency,
+    "availability": "https://schema.org/InStock",
+    "itemCondition": "https://schema.org/NewCondition",
+    "url": SITE.url + `/recipes/${slug}/`,
+    "seller": { "@type": "Organization", "name": SITE.name },
+  },
 };
 ---
 <Layout
@@ -53,7 +62,7 @@ const recipeJsonLd = {
   path={`recipes/${slug}`}
   pageType="content"
   ogImage={flavor.image}
-  jsonLd={recipeJsonLd}
+  jsonLd={productJsonLd}
   breadcrumb={{ name: 'Рецепти', url: '/recipes/' }}
 >
   <FlavorPage lang={lang} slug={slug} homeUrl="/" recipesUrl="/recipes/" />
