@@ -66,7 +66,7 @@ bentocake-landing/
 - **Flavor pages** (`src/data/flavors.js`): `/recipes/` hub + 10 `/recipes/<slug>/` per language. PREVIEW ONLY — never publish the actual recipe (no grams/steps).
 - **Blog** (`src/content/blog/`): markdown posts, `draft:true` keeps them out of the build until reviewed. RU live; uk/pl/en fill as translated.
 - **RecipeSchema.astro**: reusable Recipe JSON-LD — use ONLY on the future free-recipe page (where the full recipe is actually shown). Pass `aggregateRating` only once real reviews exist.
-- **IndexNow**: `npm run indexnow` after each deploy pushes the sitemap URLs to Bing/Yandex (Google ignores IndexNow but crawls on its own).
+- **IndexNow**: runs automatically on every push to `main` (`.github/workflows/indexnow.yml`) — it builds, waits until Cloudflare Pages has actually served the new build, then submits only the pages whose **text changed** to Bing/Yandex/Seznam. Google ignores IndexNow and crawls on its own. Manual: `npm run build && npm run indexnow` (`--dry-run` to preview, `--all` to force the whole list). State lives in `.indexnow-state.json` (gitignored locally, Actions cache in CI).
 
 ## Where to change things
 
