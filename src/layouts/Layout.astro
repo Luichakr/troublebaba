@@ -83,11 +83,11 @@ function stripLangPrefix(p: string): string {
 // Localized URL for the SAME logical page in a different language.
 function altUrlFor(l: Lang): string {
   const sub = stripLangPrefix(path);
-  return SITE_URL + homePathFor(l) + sub;
+  return SITE_URL + homePathFor(l) + (sub ? sub + '/' : '');
 }
 
 const CANONICAL = SITE_URL + (path
-  ? '/' + path.replace(/^\/+/, '').replace(/\/+$/, '') + (pageType === 'home' ? '/' : '')
+  ? '/' + path.replace(/^\/+/, '').replace(/\/+$/, '') + '/'
   : '/');
 
 // Per-page OG image override — accept absolute URL or root-relative path.
