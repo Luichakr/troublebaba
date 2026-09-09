@@ -381,15 +381,20 @@ const loadGA = (loadGAOverride ?? (pageType !== 'error')) && !!SITE.gaId;
           "worstRating": "1",
         }
       } : {}),
+      ...(_scored.length > 0 ? {
+        "review": _scored.map(r => ({
+          "@type": "Review",
+          "author": { "@type": "Person", "name": r.name || "Customer" },
+          "reviewRating": { "@type": "Rating", "ratingValue": String(r.rating), "bestRating": "5", "worstRating": "1" },
+          "reviewBody": r.text,
+        })),
+      } : {}),
       "offers": {
         "@type": "Offer",
         "price": priceMeta.amount,
         "priceCurrency": priceMeta.currency,
         "availability": "https://schema.org/InStock",
         "itemCondition": "https://schema.org/NewCondition",
-        // Offer.url должен вести на страницу, где товар покупается.
-        // Раньше здесь стоял SITE.paymentUrl — ссылка на несуществующий
-        // Gumroad, то есть разметка Product уводила Google в никуда.
         "url": CANONICAL,
         "seller": { "@type": "Organization", "name": SITE.name },
       }

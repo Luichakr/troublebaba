@@ -53,8 +53,6 @@ Więcej o terminach — w materiale [ile przechowuje się tort bento](/pl/blog/b
 
 Ten sernik działa nie tylko jako samodzielny deser, ale i jako **warstwa w torcie bento**: cienki zamrożony krążek między blatami daje kontrast tekstur, jakiego nie da żaden krem.
 
-Logika jest prosta: złożyć w ringu o mniejszej średnicy, całkowicie wychłodzić, zamrozić — i już zamrożony układać w składaniu. Rozmraża się razem z tortem w czasie leżakowania w lodówce.
-
 O tym, jak taki tort zachowuje się w transporcie, — [osobno](/pl/blog/how-to-transport-bento-cake/).
 
 ---

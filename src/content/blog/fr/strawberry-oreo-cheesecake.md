@@ -53,8 +53,6 @@ Plus de détails sur les durées — dans l'article [combien de temps se garde u
 
 Ce cheesecake fonctionne non seulement comme dessert à part entière, mais aussi comme **couche à l'intérieur d'un bento cake** : un disque fin congelé entre les génoises donne un contraste de textures qu'aucune crème ne donnera.
 
-La logique est simple : le monter dans un cercle de plus petit diamètre, le refroidir complètement, le congeler — et le poser encore congelé pendant le montage. Il décongèle avec le gâteau pendant le repos au réfrigérateur.
-
 ---
 
 **Nous ne publions plus les grammages exacts ni le montage étape par étape sur le blog.** Nos recettes de bento cakes sont dans le [recueil PDF Bento Cake by TROUBLEBABA](/fr/recipes/) : 10 parfums d'auteur avec les grammages pour 1, 2 et 3 gâteaux et un tableau de conversion pour 11 diamètres. Le cheesecake n'y figure pas — c'est un dessert à part, issu de notre chaîne.

@@ -53,8 +53,6 @@ Mais sobre prazos — no artigo sobre [quanto tempo dura um bento cake](/pt/blog
 
 Este cheesecake funciona não só como sobremesa por si só, mas também como **camada dentro de um bento cake**: um disco fino congelado entre os pães de ló dá um contraste de texturas que nenhum creme dá.
 
-A lógica é simples: montar num aro de diâmetro menor, gelar por completo, congelar — e colocar ainda congelado durante a montagem. Descongela junto com o bolo enquanto ele descansa na geladeira.
-
 ---
 
 **Gramagens exatas e a montagem passo a passo não publicamos mais no blog.** Nossas receitas de bento cake estão na [coleção PDF Bento Cake by TROUBLEBABA](/pt/recipes/): 10 sabores autorais com gramagens para 1, 2 e 3 bolos e uma tabela de conversão para 11 diâmetros. O cheesecake não está entre eles — é uma sobremesa à parte, do nosso canal.

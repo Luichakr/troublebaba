@@ -1,5 +1,5 @@
 ---
-title: "La crème ne prend pas : pourquoi cela arrive"
+title: "La crème ne prend pas : pourquoi et que faire"
 description: "Pourquoi la crème d'un bento cake reste liquide et ne monte pas : température, matière grasse et proportions à l'œil. Recettes éprouvées dans le recueil PDF."
 lang: "fr"
 slug: "cream-not-thickening"

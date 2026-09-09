@@ -53,8 +53,6 @@ Más sobre plazos — en el artículo sobre [cuánto dura una tarta bento](/es/b
 
 Este cheesecake funciona no solo como postre por sí mismo, sino también como **capa dentro de una tarta bento**: un disco fino congelado entre los bizcochos da un contraste de texturas que no da ninguna crema.
 
-La lógica es simple: montarlo en un aro de menor diámetro, enfriarlo por completo, congelarlo — y colocarlo aún congelado durante el montaje. Se descongela junto con la tarta mientras reposa en la nevera.
-
 ---
 
 **Ya no publicamos gramajes exactos ni el montaje paso a paso en el blog.** Nuestras recetas de tartas bento están en la [colección PDF Bento Cake by TROUBLEBABA](/es/recipes/): 10 sabores de autor con gramajes para 1, 2 y 3 tartas y una tabla de conversión para 11 diámetros. El cheesecake no está entre ellos — es un postre aparte de nuestro canal.

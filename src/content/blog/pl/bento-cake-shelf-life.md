@@ -1,5 +1,5 @@
 ---
-title: "Ile trzyma się tort bento: terminy i warunki"
+title: "Termin przydatności tortu bento: ile wytrzyma w lodówce"
 description: "Ile przechowywać tort bento w lodówce i w temperaturze pokojowej w zależności od kremu i nadzienia, czy można go mrozić."
 lang: "pl"
 slug: "bento-cake-shelf-life"

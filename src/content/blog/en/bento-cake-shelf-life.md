@@ -1,5 +1,5 @@
 ---
-title: "How long a bento cake lasts: shelf life and storage"
+title: "Bento cake shelf life: how long it lasts in the fridge"
 description: "How long to keep a bento cake in the fridge and at room temperature, and what to say to the client at hand-off to avoid complaints."
 lang: "en"
 slug: "bento-cake-shelf-life"

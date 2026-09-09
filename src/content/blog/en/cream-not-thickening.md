@@ -1,5 +1,5 @@
 ---
-title: "Cream won't thicken: why it happens"
+title: "Cream won't thicken: why and what to do"
 description: "Why bento cake cream stays liquid and never comes together: temperature, fat content, and ratios by eye. Tested cream recipes are in the PDF collection."
 lang: "en"
 slug: "cream-not-thickening"

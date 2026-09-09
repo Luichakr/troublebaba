@@ -53,8 +53,6 @@ Mehr zu den Zeiten — im Beitrag [wie lange eine Bento-Torte hält](/de/blog/be
 
 Dieser Cheesecake funktioniert nicht nur als eigenständiges Dessert, sondern auch als **Schicht in einer Bento-Torte**: eine dünne gefrorene Scheibe zwischen den Böden gibt einen Texturkontrast, den keine Creme liefert.
 
-Die Logik ist einfach: in einem Ring mit kleinerem Durchmesser aufbauen, vollständig durchkühlen, einfrieren — und noch gefroren beim Zusammenbau einlegen. Er taut zusammen mit der Torte auf, während sie im Kühlschrank ruht.
-
 ---
 
 **Genaue Grammangaben und den Aufbau Schritt für Schritt veröffentlichen wir im Blog nicht mehr.** Unsere Bento-Torten-Rezepte stehen in der [PDF-Sammlung Bento Cake by TROUBLEBABA](/de/recipes/): 10 eigene Sorten mit Grammangaben für 1, 2 und 3 Torten und einer Umrechnungstabelle für 11 Durchmesser. Der Cheesecake ist nicht dabei — er ist ein eigenes Dessert aus unserem Kanal.

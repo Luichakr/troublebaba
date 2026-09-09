@@ -1,5 +1,5 @@
 ---
-title: "O creme não engrossa: por que acontece"
+title: "O creme não engrossa: por que e o que fazer"
 description: "Por que o creme para um bento cake fica líquido e não ganha corpo: temperatura, teor de gordura e proporções a olho. Receitas testadas na coletânea em PDF."
 lang: "pt"
 slug: "cream-not-thickening"

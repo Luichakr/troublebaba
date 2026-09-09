@@ -1,5 +1,5 @@
 ---
-title: "La crema no espesa: por qué ocurre"
+title: "La crema no espesa: por qué y qué hacer"
 description: "Por qué la crema de un bento cake se queda líquida y no cuaja: temperatura, materia grasa y proporciones a ojo. Recetas probadas, en el recopilatorio en PDF."
 lang: "es"
 slug: "cream-not-thickening"

@@ -1,5 +1,5 @@
 ---
-title: "Krem nie gęstnieje: dlaczego tak się dzieje"
+title: "Krem nie gęstnieje: dlaczego i co zrobić"
 description: "Dlaczego krem do tortu bento zostaje rzadki i się nie zbiera: temperatura, zawartość tłuszczu i proporcja na oko. Sprawdzone przepisy na kremy — w zbiorze PDF."
 lang: "pl"
 slug: "cream-not-thickening"

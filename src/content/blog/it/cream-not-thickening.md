@@ -1,5 +1,5 @@
 ---
-title: "La crema non si monta: perché succede"
+title: "La crema non si monta: perché e cosa fare"
 description: "Perché la crema per una bento cake resta liquida e non si monta: temperatura, percentuale di grasso e proporzioni a occhio. Ricette collaudate nella raccolta PDF."
 lang: "it"
 slug: "cream-not-thickening"

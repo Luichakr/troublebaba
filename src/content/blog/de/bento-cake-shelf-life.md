@@ -1,5 +1,5 @@
 ---
-title: "Wie lange ist eine Bento-Torte haltbar: Fristen"
+title: "Haltbarkeit der Bento-Torte: wie lange hält sie im Kühlschrank"
 description: "Wie lange du eine Bento-Torte im Kühlschrank und bei Raumtemperatur aufbewahren kannst und was du dem Kunden bei der Übergabe unbedingt sagen solltest."
 lang: "de"
 slug: "bento-cake-shelf-life"

@@ -53,8 +53,6 @@ More on shelf life — in the piece on [how long a bento cake keeps](/en/blog/be
 
 This cheesecake works not only as a dessert in its own right but also as a **layer inside a bento cake**: a thin frozen disc between the sponges gives a texture contrast no cream can.
 
-The logic is simple: assemble it in a smaller-diameter ring, chill it fully, freeze it — and place it still frozen during assembly. It thaws along with the cake while it rests in the fridge.
-
 ---
 
 **We no longer publish exact gram weights or step-by-step assembly on the blog.** Our bento cake recipes live in the [Bento Cake by TROUBLEBABA PDF collection](/en/recipes/): 10 original flavours with gram weights for 1, 2 and 3 cakes plus a conversion table for 11 diameters. The cheesecake isn't among them — it's a separate dessert from our feed.

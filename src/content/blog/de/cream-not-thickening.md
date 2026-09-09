@@ -1,5 +1,5 @@
 ---
-title: "Creme wird nicht fest: warum das passiert"
+title: "Creme wird nicht fest: warum und was tun"
 description: "Warum die Creme für eine Bento-Torte flüssig bleibt und nicht zusammenkommt: Temperatur, Fettgehalt und Mengen nach Augenmaß. Erprobte Rezepte im PDF-Sammelband."
 lang: "de"
 slug: "cream-not-thickening"

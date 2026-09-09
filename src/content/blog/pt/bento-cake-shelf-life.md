@@ -1,5 +1,5 @@
 ---
-title: "Quanto tempo dura um bento cake: prazos e condições"
+title: "Validade do bento cake: quanto tempo dura na geladeira"
 description: "Por quanto tempo conservar o bento cake na geladeira e em temperatura ambiente, e o que é importante dizer ao cliente na entrega para evitar reclamações."
 lang: "pt"
 slug: "bento-cake-shelf-life"

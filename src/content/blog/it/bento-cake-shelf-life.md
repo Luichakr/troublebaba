@@ -1,5 +1,5 @@
 ---
-title: "Quanto si conserva una bento cake: tempi e condizioni"
+title: "Conservazione della bento cake: quanto dura in frigo"
 description: "Per quanto tempo conservare una bento cake in frigorifero e a temperatura ambiente, e cosa è importante dire al cliente alla consegna per evitare reclami."
 lang: "it"
 slug: "bento-cake-shelf-life"

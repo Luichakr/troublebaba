@@ -53,8 +53,6 @@ Più dettagli sui tempi — nell'articolo su [quanto si conserva una bento cake]
 
 Questo cheesecake funziona non solo come dolce a sé, ma anche come **strato dentro una bento cake**: un disco sottile congelato tra i pan di Spagna dà un contrasto di texture che nessuna crema può dare.
 
-La logica è semplice: montarlo in un anello di diametro minore, raffreddarlo completamente, congelarlo — e posizionarlo ancora congelato durante il montaggio. Si scongela insieme alla torta mentre riposa in frigorifero.
-
 ---
 
 **Le grammature esatte e il montaggio passo a passo non li pubblichiamo più sul blog.** Le nostre ricette di bento cake sono nella [raccolta PDF Bento Cake by TROUBLEBABA](/it/recipes/): 10 gusti d'autore con le grammature per 1, 2 e 3 torte e una tabella di conversione per 11 diametri. Il cheesecake non è tra questi — è un dolce a parte, dal nostro canale.
