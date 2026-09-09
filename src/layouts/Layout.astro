@@ -444,6 +444,45 @@ const loadGA = (loadGAOverride ?? (pageType !== 'error')) && !!SITE.gaId;
   {extraJsonLd.map(block => (
     <script type="application/ld+json" set:html={JSON.stringify(block)} />
   ))}
+
+  {loadGA && pageType !== 'home' && (
+    <script is:inline define:vars={{ pageLang: lang, pageKind: pageType }}>
+      (function(){
+        var g = window.gtag;
+        function send(name, params) {
+          params = params || {};
+          if (typeof g === 'function') g('event', name, params);
+          try {
+            var body = JSON.stringify({
+              type: name,
+              source: params.source || undefined,
+              lang: pageLang,
+              path: location.pathname,
+              ref: document.referrer ? document.referrer.slice(0, 200) : undefined,
+            });
+            if (navigator.sendBeacon) {
+              navigator.sendBeacon('/api/track', new Blob([body], { type: 'application/json' }));
+            } else {
+              fetch('/api/track', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true }).catch(function(){});
+            }
+          } catch(e) {}
+        }
+        send('pageview', { page_lang: pageLang, page_kind: pageKind });
+        document.addEventListener('click', function(e) {
+          var a = e.target.closest('a[href*="#price"], a[href*="/recipes/"], a[href*="lemonsqueezy.com"]');
+          if (!a) return;
+          var href = a.getAttribute('href') || '';
+          if (href.indexOf('lemonsqueezy.com') !== -1) {
+            send('click_buy', { source: pageKind, page_lang: pageLang });
+          } else if (href.indexOf('#price') !== -1) {
+            send('click_buy', { source: pageKind + '_cta', page_lang: pageLang });
+          } else if (href.indexOf('/recipes/') !== -1) {
+            send('click_flavor', { source: pageKind, page_lang: pageLang, flavor: href });
+          }
+        });
+      })();
+    </script>
+  )}
 </head>
 <body>
   <slot />
