@@ -1869,7 +1869,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
 </div>
 
 <!-- Expose translated buy-button states + presale flag + LS checkout to the bundled script. -->
-<script is:inline define:vars={{ buyLoading: tr.buy_loading, buyError: tr.buy_error, presale, notifySuccess: tr.notify_success, notifyError: tr.notify_error, pageLang: lang, turnstileKey, lsCheckoutUrl: SITE.lemonsqueezy?.enabled ? SITE.lemonsqueezy.checkoutUrl : '', lsCheckoutByLang: SITE.lemonsqueezy?.enabled ? (SITE.lemonsqueezy.checkoutByLang || {}) : {} }}>
+<script is:inline define:vars={{ buyLoading: tr.buy_loading, buyError: tr.buy_error, presale, notifySuccess: tr.notify_success, notifyError: tr.notify_error, pageLang: lang, turnstileKey, lsCheckoutUrl: SITE.lemonsqueezy?.enabled ? SITE.lemonsqueezy.checkoutUrl : '', lsCheckoutByLang: SITE.lemonsqueezy?.enabled ? (SITE.lemonsqueezy.checkoutByLang || {}) : {}, priceData: (SITE.pricesByLang)[lang] || { amount: '20', currency: 'USD' } }}>
   window.TR_BUY_LOADING     = buyLoading;
   window.TR_BUY_ERROR       = buyError;
   window.TR_PRESALE         = presale;
@@ -1879,6 +1879,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
   window.TR_TURNSTILE       = turnstileKey;
   window.TR_LS_CHECKOUT     = lsCheckoutUrl;
   window.TR_LS_BY_LANG      = lsCheckoutByLang;
+  window.TR_PRICE           = priceData;
 </script>
 {turnstileKey && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>}
 
@@ -2134,8 +2135,17 @@ document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
     const source   = a.dataset.buySource || 'unknown';
     const pageLang = (document.documentElement.lang || 'uk').slice(0, 2);
 
-    // Always fire the GA "click_buy" event.
+    // D1 tracker keeps click_buy for the operator dashboard.
     send('click_buy', { source, page_lang: pageLang });
+    // GA4 recommended event for e-commerce funnel reports.
+    if (typeof gtag === 'function') {
+      const p = (window as any).TR_PRICE || { amount: '20', currency: 'USD' };
+      gtag('event', 'begin_checkout', {
+        currency: p.currency,
+        value: parseFloat(p.amount),
+        items: [{ item_name: 'Bento Cake PDF', price: parseFloat(p.amount), quantity: 1 }],
+      });
+    }
 
     // Pre-launch: don't open checkout. Scroll to the e-mail capture and focus it.
     if ((window as any).TR_PRESALE) {

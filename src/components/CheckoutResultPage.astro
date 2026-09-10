@@ -101,10 +101,12 @@ const accent    = isSuccess ? '#8B7355' : '#A12B2B';
 
         // Fire GA conversion only on confirmed success.
         if (data.status === 'success' && (window as any).gtag) {
+          const val = (data.finalAmount ?? data.amount) / 100;
           (window as any).gtag('event', 'purchase', {
             transaction_id: data.invoiceId,
-            value: (data.finalAmount ?? data.amount) / 100,
+            value: val,
             currency: ccyName,
+            items: [{ item_name: 'Bento Cake PDF', price: val, quantity: 1 }],
           });
         }
       } catch (e) {

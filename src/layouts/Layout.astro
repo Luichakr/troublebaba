@@ -446,7 +446,7 @@ const loadGA = (loadGAOverride ?? (pageType !== 'error')) && !!SITE.gaId;
   ))}
 
   {loadGA && pageType !== 'home' && (
-    <script is:inline define:vars={{ pageLang: lang, pageKind: pageType }}>
+    <script is:inline define:vars={{ pageLang: lang, pageKind: pageType, priceAmt: ((SITE.pricesByLang as any)[lang] || { amount: '20', currency: 'USD' }).amount, priceCcy: ((SITE.pricesByLang as any)[lang] || { amount: '20', currency: 'USD' }).currency }}>
       (function(){
         var g = window.gtag;
         function send(name, params) {
@@ -474,6 +474,7 @@ const loadGA = (loadGAOverride ?? (pageType !== 'error')) && !!SITE.gaId;
           var href = a.getAttribute('href') || '';
           if (href.indexOf('lemonsqueezy.com') !== -1) {
             send('click_buy', { source: pageKind, page_lang: pageLang });
+            if (typeof g === 'function') g('event', 'begin_checkout', { currency: priceCcy, value: parseFloat(priceAmt), items: [{ item_name: 'Bento Cake PDF', price: parseFloat(priceAmt), quantity: 1 }] });
           } else if (href.indexOf('#price') !== -1) {
             send('click_buy', { source: pageKind + '_cta', page_lang: pageLang });
           } else if (href.indexOf('/recipes/') !== -1) {
