@@ -26,6 +26,8 @@ const ALLOWED_TYPES = new Set([
   'lead_submit', 'language_switch', 'faq_open',
   'social_card_click', 'social_profile_click',
   'pageview', 'waitlist_signup',
+  'purchase', 'pdf_lang_pick',
+  'modal_close', 'checkout_redirect',
 ]);
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {

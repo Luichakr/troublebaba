@@ -2256,6 +2256,7 @@ document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
       if (!url) return;
       const sep = url.includes('?') ? '&' : '?';
       send('pdf_lang_pick', { lang: 'en', site_lang: pageLang, auto: true });
+      send('checkout_redirect', { source, page_lang: pageLang, pdf_lang: 'en', store_currency: 'EUR' });
       window.location.href = url + sep +
         'checkout[custom][lang]=en' +
         '&checkout[custom][source]=' + encodeURIComponent(source);
@@ -2271,6 +2272,7 @@ document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
       const url = storeUrlFor(pageLang);
       if (!url) return;
       const sep = url.includes('?') ? '&' : '?';
+      send('checkout_redirect', { source, page_lang: pageLang, pdf_lang: validLang, store_currency: url.includes('troublebaba-ru') ? 'USD' : url.includes('troublebaba-pl') ? 'PLN' : url.includes('troublebaba-en') ? 'EUR' : 'UAH' });
       window.location.href = url + sep +
         'checkout[custom][lang]='   + encodeURIComponent(validLang) +
         '&checkout[custom][source]=' + encodeURIComponent(source);
@@ -2296,7 +2298,13 @@ document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
 // PDF-language modal: close on backdrop / X, redirect on option click.
 const pdfModal = document.getElementById('pdf-lang-modal');
 if (pdfModal) {
+  let modalWasPicked = false;
   const closeModal = () => {
+    if (!modalWasPicked && !pdfModal.classList.contains('hidden')) {
+      const pageLang = (document.documentElement.lang || 'uk').slice(0, 2);
+      send('modal_close', { source: pdfModal.dataset.buySource || 'unknown', page_lang: pageLang });
+    }
+    modalWasPicked = false;
     pdfModal.classList.add('hidden');
     pdfModal.classList.remove('flex');
     document.documentElement.style.overflow = '';
@@ -2308,6 +2316,7 @@ if (pdfModal) {
   });
   pdfModal.querySelectorAll<HTMLButtonElement>('.pdf-lang-opt').forEach(btn => {
     btn.addEventListener('click', () => {
+      modalWasPicked = true;
       const chosen = btn.dataset.pdfLang || 'uk';
       // Store URL is chosen by the SITE language the buyer clicked from
       // (uk site → UAH store, ru site → USD store, pl → PLN, en/de/… → EUR).
@@ -2318,9 +2327,11 @@ if (pdfModal) {
       send('pdf_lang_pick', { lang: chosen, site_lang: pageLang });
       const src = pdfModal?.dataset.buySource || 'unknown';
       const sep = lsUrl.includes('?') ? '&' : '?';
-      window.location.href = lsUrl + sep +
+      const finalUrl = lsUrl + sep +
         'checkout[custom][lang]='   + encodeURIComponent(chosen) +
         '&checkout[custom][source]=' + encodeURIComponent(src);
+      send('checkout_redirect', { source: src, page_lang: pageLang, pdf_lang: chosen, store_currency: lsUrl.includes('troublebaba-ru') ? 'USD' : lsUrl.includes('troublebaba-pl') ? 'PLN' : lsUrl.includes('troublebaba-en') ? 'EUR' : 'UAH' });
+      window.location.href = finalUrl;
     });
   });
 }

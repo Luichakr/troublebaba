@@ -28,6 +28,7 @@ type Env = ResendEnv & TGEnv & GaServerEnv & {
   /** Comma-separated Telegram chat ids that get a "new sale" ping. */
   TELEGRAM_ADMIN_CHAT_IDS?: string;
   PDF_BUCKET?: R2Bucket;
+  DB?: D1Database;
 };
 
 // Human-readable names for the four per-currency stores, so the Telegram
@@ -169,6 +170,30 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
         try { await sendMessage(env, chatId, text, { parse_mode: 'HTML' }); }
         catch (e: any) { console.warn('[tg] sale notify failed', chatId, e?.message); }
       }
+    }
+
+    // D1 purchase event — so the operator dashboard can show purchases
+    // alongside click_buy without needing GA4 access.
+    if (env.DB && orderId) {
+      const total    = (Number(attrs.total ?? 0) / 100).toFixed(2);
+      const currency = String(attrs.currency ?? '') || 'USD';
+      const storeId  = String(attrs.store_id ?? '');
+      try {
+        await env.DB.prepare(
+          `INSERT INTO events (ts, type, source, page_lang, page_path, user_agent, ip_country, ref, extra)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+        ).bind(
+          Date.now(),
+          'purchase',
+          buyBtn || 'webhook',
+          pickLang(lang, storeId),
+          null,
+          null,
+          null,
+          null,
+          JSON.stringify({ order_id: orderId, total, currency, store_id: storeId, email: email?.slice(0, 60) }),
+        ).run();
+      } catch (e: any) { console.warn('[d1] purchase write failed', e?.message); }
     }
   }
 
