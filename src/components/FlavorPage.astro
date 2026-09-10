@@ -219,6 +219,17 @@ const faqJsonLd = extra?.faq?.length
       </section>
     )}
 
+    {extra?.description?.length && (
+      <section class="mt-24 lg:mt-32 max-w-[720px]">
+        <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha mb-6">{sec.about}</div>
+        <div class="space-y-5">
+          {extra.description.map((p: string) => (
+            <p class="font-outfit text-espresso/75 text-base leading-relaxed">{p}</p>
+          ))}
+        </div>
+      </section>
+    )}
+
     {extra?.faq?.length && (
       <section class="mt-24 lg:mt-32 faq-section">
         <div class="grid lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] gap-10 lg:gap-16 xl:gap-24 items-start">
