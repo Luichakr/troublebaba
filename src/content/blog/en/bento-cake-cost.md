@@ -117,13 +117,13 @@ At 3 bento cakes a week from home:
 
 Not a career. But if the goal is "cover ingredient costs of my main hobby and put €200 aside," it works.
 
-To scale past that, you need a proper commercial kitchen certification, a pastry cabinet, and 10+ orders a week — which is a different business entirely. Bento is a great **starter** business, not a great **destination** business.
+To scale past that, you need a proper commercial kitchen certification, a pastry cabinet, and 10+ orders a week — which is a different business entirely.
 
 ## What makes the cost calculation reliable
 
 The reason most starters can't price properly is that they don't know their own ingredient quantities. "About a pack of cream cheese" means something different every time — and the cost per cake swings by more than a euro without you noticing. Working to weighed recipes is what removes that swing.
 
-The [PDF collection](/en/) gives you the exact gram list per flavour, a **conversion table across 11 diameters**, photographs of the actual product packages used (so you buy the same fat content, not a lookalike), and the full equipment list for a home setup. Once quantities are fixed, your cost per cake becomes a number you can rely on instead of an estimate.
+The [PDF collection](/en/) gives you the exact gram list per flavour, a **conversion table across 11 diameters**, guidance on choosing the right products (so you buy the right fat content, not a lookalike), and the full equipment list for a home setup. Once quantities are fixed, your cost per cake becomes a number you can rely on instead of an estimate.
 
 For storage and portioning at a general level, see the [shelf-life article](/en/blog/bento-cake-shelf-life/) and the [size guide](/en/blog/bento-cake-size/).
 

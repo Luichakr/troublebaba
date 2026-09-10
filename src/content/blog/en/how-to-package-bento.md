@@ -10,7 +10,7 @@ draft: false
 excerpt: "The basic packaging kit and what to say to the client."
 ---
 
-Packaging is half the impression of a bento cake. Considered presentation raises the perceived value and drives repeat orders. Let's lay out the basic kit and what to keep in mind.
+Packaging is half the impression of a bento cake. Considered presentation raises the perceived value and drives repeat orders.
 
 ## The basic packaging kit
 

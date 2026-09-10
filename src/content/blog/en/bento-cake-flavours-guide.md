@@ -14,7 +14,7 @@ faq:
   - q: "Which bento cake flavour lasts longest in the fridge?"
     a: "Chocolate-based cakes with cheese-and-butter cream (Oreo, Snickers, Ferrero Rocher) hold shape 48–72 hours. Cakes with fresh berries and light cream (Pistachio-Raspberry, Cherry Chocolate) are safest served within 24 hours. Details in the shelf-life article."
   - q: "Are the recipes in the PDF the same as in social videos?"
-    a: "No. Reels show the assembly, the PDF gives the exact grams, cream ratios, timing per size (8–16 cm) and the mistakes that ruin each flavour. The 10-second video is the trailer, the PDF is the recipe card."
+    a: "No. Reels show the assembly, the PDF gives the exact grams, cream ratios, timing per size (10–30 cm) and the mistakes that ruin each flavour. The 10-second video is the trailer, the PDF is the recipe card."
 ---
 
 If you're starting to sell bento cakes and can't decide which flavour to lead with, here's a quick side-by-side of the ten we make on order. Each of them earned its place — no filler on the list.
@@ -55,4 +55,4 @@ Costs, portion sizes and pricing for each flavour are detailed in the [cost brea
 
 ## What's actually in the PDF
 
-Every flavour on this page has a full recipe card in the [PDF collection](/en/): exact grams for 12 cm (with a conversion table for 8, 10, 14 and 16 cm), the specific cream and cocoa brand that gives the intended texture, oven temperature and time per size, common mistakes, and the timing so you can pull an assembly plan for a Friday delivery. If you're going to sell more than three of these, buying the collection pays back on the second order.
+Every flavour on this page has a full recipe card in the [PDF collection](/en/): exact grams for 12 cm (with a conversion table for 11 diameters from 10 to 30 cm), the specific cream and cocoa brand that gives the intended texture, oven temperature and time per size, common mistakes, and the timing so you can pull an assembly plan for a Friday delivery. If you're going to sell more than three of these, buying the collection pays back on the second order.

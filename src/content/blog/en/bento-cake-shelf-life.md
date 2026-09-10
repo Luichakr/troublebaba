@@ -10,7 +10,7 @@ draft: false
 excerpt: "Shelf life by cream type + what to tell the client at hand-off."
 ---
 
-How long a made-to-order bento cake keeps is a frequent question from both clients and beginner bakers. There's no universal answer: it all depends on the cream, the filling and the storage conditions. Let's break it down.
+How long a made-to-order bento cake keeps is a frequent question from both clients and beginner bakers. There's no universal answer: it all depends on the cream, the filling and the storage conditions. Below — the shelf life by cream type, the room-temperature rules, and a ready note for the client.
 
 ## Fridge: guidelines by cream type
 
@@ -72,10 +72,6 @@ The single-most-refund-preventing move is a small printed card inside the box th
 Print it once, tuck one into every box. Cost: essentially zero. Result: the client can't say "you didn't tell me."
 
 The card is also how you handle the after-purchase claim: "the cream separated after 2 days." Your reply is a copy of the card. The claim goes away.
-
-## What actually lets you say "I sold a cake that lasts"
-
-Predictability. A cake whose shelf life you can state in one sentence, because you have made it before and know how it behaves, is a cake you can sell without dreading the message two days later. That is not a storage trick — it comes from working to a formula you already trust.
 
 See also: [what size to make](/en/blog/bento-cake-size/), [which cream lasts longest](/en/blog/which-cream-for-bento/), [why the sponge collapses](/en/blog/sponge-collapses/).
 
