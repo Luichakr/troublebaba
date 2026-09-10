@@ -899,12 +899,12 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
   <section class="bg-warm-white py-20 lg:py-28">
     <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
 
-      <div class="reveal max-w-[640px] mb-12 lg:mb-14">
+      <div class="reveal mb-12 lg:mb-14">
         <SectionEyebrow label={tr.inside_detail_label} class="mb-6" />
-        <h2 class="font-cabinet text-espresso mb-6" style="font-size:var(--h-section);line-height:1.05;letter-spacing:-0.01em;">
+        <h2 class="font-cabinet text-espresso mb-6 max-w-[900px]" style="font-size:var(--h-section);line-height:1.05;letter-spacing:-0.01em;">
           {tr.inside_detail_title}
         </h2>
-        <p class="font-outfit text-espresso/65 leading-relaxed" style="font-size:0.95rem;line-height:1.65;">
+        <p class="font-outfit text-espresso/65 leading-relaxed max-w-[900px]" style="font-size:0.95rem;line-height:1.65;">
           {tr.inside_sub}
         </p>
       </div>
@@ -925,7 +925,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
       </div>
 
       {/* Дисклеймер: продукты подобраны под UA/EU рынок. */}
-      <div class="reveal mt-6 flex items-start gap-3 bg-cream rounded-2xl px-5 py-4 max-w-[900px]" style="border:1px solid rgba(200,184,162,0.28);">
+      <div class="reveal mt-6 flex items-start gap-3 bg-cream rounded-2xl px-5 py-4" style="border:1px solid rgba(200,184,162,0.28);">
         <Icon name="ph:info" aria-hidden="true" class="flex-shrink-0 mt-0.5 w-[20px] h-[20px] text-mocha" />
         <p class="font-outfit text-espresso/65 text-[13px] leading-relaxed">{tr.inside_products_note}</p>
       </div>
