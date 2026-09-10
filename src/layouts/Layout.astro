@@ -487,5 +487,50 @@ const loadGA = (loadGAOverride ?? (pageType !== 'error')) && !!SITE.gaId;
 </head>
 <body>
   <slot />
+  <script is:inline define:vars={{ geoPrices: SITE.priceByCountry || {} }}>
+    window.TR_GEO_PRICES = geoPrices;
+  </script>
+  <script>
+    // Geo-price swap: show local currency for visitors from specific countries.
+    // Only replaces text in elements marked with data-geo-price; checkout URL untouched.
+    (function () {
+      const gp = (window as any).TR_GEO_PRICES || {};
+      if (!Object.keys(gp).length) return;
+
+      fetch('/api/geo', { cache: 'no-store' })
+        .then(r => r.ok ? r.json() : null)
+        .then((d: any) => {
+          const country = typeof d?.country === 'string' ? d.country : null;
+          if (!country) return;
+          const loc = gp[country];
+          if (!loc) return;
+          const pageLang = (document.documentElement.lang || 'uk').slice(0, 2);
+          if (loc.lang && loc.lang !== pageLang) return;
+
+          const map: Record<string, string> = {
+            'display':     loc.display,
+            'display-old': loc.displayOld,
+            'nav':         loc.nav,
+            'hero-cta':    loc.heroCta,
+            'price-cta':   loc.priceCta,
+          };
+          for (const [role, text] of Object.entries(map)) {
+            if (!text) continue;
+            document.querySelectorAll<HTMLElement>(`[data-geo-price="${role}"]`).forEach(el => {
+              el.textContent = text;
+            });
+          }
+          if (loc.disclaimer) {
+            const dd = document.getElementById('geo-price-disclaimer');
+            if (dd) {
+              const span = dd.querySelector('span');
+              if (span) span.textContent = loc.disclaimer;
+              dd.hidden = false;
+            }
+          }
+        })
+        .catch(() => {});
+    })();
+  </script>
 </body>
 </html>

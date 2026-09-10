@@ -66,6 +66,20 @@ export const SITE = {
     pt: { amount: '18',  currency: 'EUR' },
   },
 
+  // Display-only ruble price for visitors from Russia on the /ru/ page.
+  // Checkout stays in USD ($20) via Lemon Squeezy — this is cosmetic.
+  priceByCountry: {
+    RU: {
+      lang:       'ru',
+      display:    '≈ 1 800 ₽',
+      displayOld: '≈ 2 700 ₽',
+      nav:        'Купить PDF — ≈ 1 800 ₽',
+      heroCta:    'Скачать PDF — ≈ 1 800 ₽',
+      priceCta:   'Купить за ≈ 1 800 ₽',
+      disclaimer: 'Цена указана в рублях для удобства. Оплата будет списана в долларах ($20).',
+    },
+  },
+
   price:       20,            // full bundle — all 10 recipes
   priceSingle: 5,             // legacy — not sold, unused in UI
   currency:    'USD',

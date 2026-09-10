@@ -278,7 +278,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
         <!-- CTA -->
         <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="header"
            class="min-h-[44px] flex items-center gap-1.5 bg-mocha-dark text-warm-white font-outfit font-semibold text-[11.5px] lg:text-[13px] px-3 lg:px-5 py-2 lg:py-2.5 rounded-full hover:bg-mocha-dark transition-colors whitespace-nowrap">
-          {tr.nav_buy}
+          <span data-geo-price="nav">{tr.nav_buy}</span>
         </a>
         <!-- Mobile burger menu -->
         <button id="mobile-menu-btn" type="button" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden w-11 h-11 rounded-full flex items-center justify-center text-espresso hover:bg-taupe/15 transition-colors flex-shrink-0" aria-label="Menu">
@@ -389,7 +389,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
         <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="hero"
            class="btn-pulse inline-flex items-center justify-center gap-3 bg-mocha-dark text-warm-white font-outfit font-semibold text-base px-7 py-3 lg:py-4 rounded-xl hover:bg-mocha-dark transition-colors shadow-md w-full lg:w-auto lg:self-start whitespace-nowrap">
           <Icon name="ph:arrow-down" class="flex-shrink-0 w-[18px] h-[18px]" />
-          <span>{presale ? tr.notify_cta_short : tr.hero_cta}</span>
+          <span data-geo-price="hero-cta">{presale ? tr.notify_cta_short : tr.hero_cta}</span>
         </a>
         <a href={anchor('recipes')}
            class="min-h-[44px] inline-flex items-center justify-center lg:justify-start font-outfit font-medium text-espresso/65 text-base py-2 lg:py-4 px-2 hover:text-mocha transition-colors whitespace-nowrap">
@@ -1593,9 +1593,9 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
             </ul>
 
             <div class="flex items-end gap-3 mb-4">
-              <span class="font-outfit font-black text-espresso leading-none" style="font-size:2.6rem;letter-spacing:-0.03em;">{tr.price_display}</span>
+              <span class="font-outfit font-black text-espresso leading-none" data-geo-price="display" style="font-size:2.6rem;letter-spacing:-0.03em;">{tr.price_display}</span>
               <div class="flex items-center gap-2 mb-1.5">
-                <span class="font-outfit text-espresso/65 text-[17px] line-through">{tr.price_display_old}</span>
+                <span class="font-outfit text-espresso/65 text-[17px] line-through" data-geo-price="display-old">{tr.price_display_old}</span>
                 <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.08em] text-mocha bg-mocha/12 rounded px-2 py-0.5" style="background:rgba(139,115,85,0.14);">{tr.price_discount}</span>
               </div>
             </div>
@@ -1603,7 +1603,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
             <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="price"
               class="flex items-center justify-center gap-2 w-full text-warm-white font-outfit font-semibold text-base py-[17px] rounded-2xl transition-colors btn-pulse mb-3"
               style="background:#6E5C43;box-shadow:0 8px 24px rgba(139,115,85,0.35);">
-              {tr.price_cta}
+              <span data-geo-price="price-cta">{tr.price_cta}</span>
             </a>
 
             <div class="grid grid-cols-2 gap-2 mb-3">
@@ -1633,6 +1633,10 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
                 <Icon name="simple-icons:google" class="w-[11px] h-[11px]" />
                 <span class="font-outfit font-semibold text-[11px] text-espresso">Pay</span>
               </span>
+            </div>
+            <div id="geo-price-disclaimer" hidden class="mt-3 flex items-start gap-2 rounded-lg px-3 py-2.5" style="background:rgba(139,115,85,0.08);border:1px solid rgba(139,115,85,0.18);">
+              <svg class="w-[14px] h-[14px] flex-shrink-0 mt-[2px] text-mocha" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <span class="font-outfit text-espresso/70 text-[12px] leading-snug"></span>
             </div>
           </div>
         </div>
@@ -1851,8 +1855,8 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
             <p class="font-outfit text-warm-white/60 text-[15px] lg:text-[17px] leading-relaxed mb-7 lg:mb-8 max-w-[520px]">{tr.cta_final_sub || tr.cta_sub}</p>
 
             <div class="flex items-baseline gap-3 mb-5">
-              <span class="font-outfit font-black text-warm-white leading-none" style="font-size:clamp(2rem,3vw,2.6rem);letter-spacing:-0.03em;">{tr.price_display}</span>
-              <span class="font-outfit text-warm-white/55 text-[17px] line-through">{tr.price_display_old}</span>
+              <span class="font-outfit font-black text-warm-white leading-none" data-geo-price="display" style="font-size:clamp(2rem,3vw,2.6rem);letter-spacing:-0.03em;">{tr.price_display}</span>
+              <span class="font-outfit text-warm-white/55 text-[17px] line-through" data-geo-price="display-old">{tr.price_display_old}</span>
               <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.08em] text-warm-white rounded-full px-2.5 py-1" style="background:rgba(139,115,85,0.55);">{tr.price_discount}</span>
             </div>
 
@@ -1918,7 +1922,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
   <a id="sticky-cta" href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="sticky-mobile"
      class="md:hidden fixed bottom-4 left-4 right-4 z-40 bg-mocha-dark text-warm-white font-outfit font-bold text-[15px] flex items-center justify-center gap-2 py-4 rounded-2xl shadow-2xl opacity-0 pointer-events-none translate-y-4 transition-all duration-300"
      style="box-shadow:0 8px 28px rgba(139,115,85,0.45);">
-    {tr.nav_buy}
+    <span data-geo-price="nav">{tr.nav_buy}</span>
   </a>
 
 <!-- PDF-language modal shown after a Buy click, before the LS redirect. -->
