@@ -933,6 +933,78 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
     </div>
   </section>
 
+  {/* ── PRINT QUALITY + PRACTICAL TOOLS (tasks 27-28) ──
+       Секція з'являється тільки на локалях, де є переклад.
+       Зараз — uk; після аппрувалу додається решта 8 мов. */}
+  {tr.pdf_format_title && (
+  <section class="bg-cream py-20 lg:py-28">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
+
+      <div class="reveal grid lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-16 items-center mb-16 lg:mb-20">
+
+        <div>
+          <SectionEyebrow label={tr.pdf_format_label} class="mb-6" />
+          <h2 class="font-cabinet text-espresso mb-6" style="font-size:var(--h-section);line-height:1.05;letter-spacing:-0.01em;">
+            {tr.pdf_format_title}
+          </h2>
+          <p class="font-outfit text-espresso/65 leading-relaxed max-w-[520px]" style="font-size:0.95rem;line-height:1.65;">
+            {tr.pdf_format_text}
+          </p>
+        </div>
+
+        <div class="reveal reveal-d2 bg-warm-white rounded-3xl p-8 lg:p-10 flex flex-col items-center text-center" style="border:1px solid rgba(200,184,162,0.22);box-shadow:0 8px 32px rgba(139,115,85,0.08);">
+          <span class="w-14 h-14 rounded-full bg-cream flex items-center justify-center mb-5" style="border:1px solid rgba(200,184,162,0.28);">
+            <Icon name="ph:printer" class="w-[24px] h-[24px] text-mocha" />
+          </span>
+          <span class="font-cabinet text-espresso leading-none mb-2" style="font-size:2.4rem;">{tr.pdf_format_badge}</span>
+          <span class="font-outfit text-espresso/65 text-[13px] mb-6">{tr.pdf_format_badge_sub}</span>
+          {tr.pdf_format_points && (
+            <ul class="list-none p-0 space-y-4 text-left w-full">
+              {(tr.pdf_format_points as [string, string][]).map(([title, text]) => (
+                <li class="flex items-start gap-3">
+                  <Icon name="ph:check-circle" class="flex-shrink-0 mt-0.5 w-[18px] h-[18px] text-mocha" />
+                  <span class="block">
+                    <span class="block font-outfit font-bold text-espresso text-[14px] leading-snug">{title}</span>
+                    <span class="block font-outfit text-espresso/65 text-[13px] leading-relaxed">{text}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+      </div>
+
+      {tr.pdf_tools_items && (
+        <div>
+          <div class="reveal mb-8">
+            <SectionEyebrow label={tr.pdf_tools_label} class="mb-6" />
+            <h3 class="font-cabinet text-espresso" style="font-size:1.6rem;line-height:1.15;letter-spacing:-0.01em;">
+              {tr.pdf_tools_title}
+            </h3>
+          </div>
+
+          <div class="grid sm:grid-cols-3 gap-4 lg:gap-5">
+            {(() => {
+              const icons = ['ph:table', 'ph:clipboard-text', 'ph:shopping-bag'];
+              return (tr.pdf_tools_items as [string, string][]).map((item, i) => (
+                <div class={`reveal reveal-d${Math.min(i + 1, 3)} bg-warm-white rounded-2xl p-6`} style="border:1px solid rgba(200,184,162,0.28);">
+                  <span class="w-11 h-11 rounded-full bg-cream flex items-center justify-center mb-4" style="border:1px solid rgba(200,184,162,0.28);">
+                    <Icon name={icons[i]} class="w-[19px] h-[19px] text-mocha" />
+                  </span>
+                  <div class="font-outfit font-bold text-espresso text-[15px] leading-snug mb-2">{item[0]}</div>
+                  <div class="font-outfit text-espresso/65 text-[13px] leading-relaxed">{item[1]}</div>
+                </div>
+              ));
+            })()}
+          </div>
+        </div>
+      )}
+
+    </div>
+  </section>
+  )}
+
   <!-- ── WHO IT'S FOR ── -->
   <section id="who" class="bg-warm-white py-24 lg:py-32">
     <div class="max-w-[1440px] mx-auto px-6 lg:px-16">

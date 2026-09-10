@@ -156,6 +156,25 @@ export const t = {
     inside_price_sub:   'PDF · миттєве завантаження',
     inside_fmt_photo:   'Фото',
     inside_fmt_table:   'Таблиця',
+
+    // Print quality + practical tools (tasks 27-28)
+    pdf_format_label:     'Формат',
+    pdf_format_title:     'Роздрукуйте й тримайте на кухні.',
+    pdf_format_text:      'Збірник у якості 300 dpi — як у професійній поліграфії. Роздрукуйте вдома або в друкарні й покладіть поруч із робочою зоною. Не потрібно розблоковувати телефон брудними руками й шукати потрібну сторінку на екрані.',
+    pdf_format_badge:     '300 dpi',
+    pdf_format_badge_sub: 'якість для друку',
+    pdf_format_points: [
+      ['Друкуйте будь-де', 'Домашній кольоровий принтер, копі-центр або друкарня — файл готовий, підлаштовувати нічого не треба.'],
+      ['Завантажуйте назавжди', 'Доступ без обмежень: завантажуйте скільки потрібно, на будь-який пристрій.'],
+    ],
+    pdf_tools_label: 'Інструменти',
+    pdf_tools_title: 'Більше, ніж рецепти.',
+    pdf_tools_items: [
+      ['Таблиця перерахунку на 11 діаметрів', 'Від 10 до 30 см — помножте інгредієнти на готовий коефіцієнт із таблиці. Без калькулятора, без формул, без помилок.'],
+      ['Чек-лист інвентарю для старту', 'Список усього, що потрібно для перших замовлень, — і нічого зайвого. Відкрийте перед першою закупівлею й ідіть по пунктах.'],
+      ['Гід по продуктах', 'Які продукти обирають професійні кондитери і чому. За якими ознаками шукати аналог у вашій країні — жирність, склад, текстура.'],
+    ],
+
     price_plan_short: 'РЕЦЕПТІВ',
 
     // Recipes
@@ -585,6 +604,25 @@ testi_more:  'Показати всі відгуки',
     inside_price_sub:   'PDF · мгновенное скачивание',
     inside_fmt_photo:   'Фото',
     inside_fmt_table:   'Таблица',
+
+    // Print quality + practical tools (tasks 27-28)
+    pdf_format_label:     'Формат',
+    pdf_format_title:     'Распечатайте и держите на кухне.',
+    pdf_format_text:      'Сборник в качестве 300 dpi — как в профессиональной полиграфии. Распечатайте дома или в типографии и положите рядом с рабочей зоной. Не нужно разблокировать телефон грязными руками и искать нужную страницу на экране.',
+    pdf_format_badge:     '300 dpi',
+    pdf_format_badge_sub: 'качество для печати',
+    pdf_format_points: [
+      ['Печатайте где угодно', 'Домашний цветной принтер, копи-центр или типография — файл готов, подстраивать ничего не нужно.'],
+      ['Скачивайте навсегда', 'Доступ без ограничений: скачивайте сколько нужно, на любое устройство.'],
+    ],
+    pdf_tools_label: 'Инструменты',
+    pdf_tools_title: 'Больше, чем рецепты.',
+    pdf_tools_items: [
+      ['Таблица пересчёта на 11 диаметров', 'От 10 до 30 см — умножьте ингредиенты на готовый коэффициент из таблицы. Без калькулятора, без формул, без ошибок.'],
+      ['Чек-лист инвентаря для старта', 'Список всего, что нужно для первых заказов, — и ничего лишнего. Откройте перед первой закупкой и идите по пунктам.'],
+      ['Гид по продуктам', 'Какие продукты выбирают профессиональные кондитеры и почему. По каким признакам искать аналог в вашей стране — жирность, состав, текстура.'],
+    ],
+
     price_plan_short: 'РЕЦЕПТОВ',
     recipes_label: 'Коллекция рецептов',
     recipes_title: '10 вкусов, за которыми клиенты возвращаются.',
@@ -979,6 +1017,25 @@ testi_more:  'Показать все отзывы',
     inside_price_sub:   'PDF · natychmiastowe pobranie',
     inside_fmt_photo:   'Zdjęcia',
     inside_fmt_table:   'Tabela',
+
+    // Print quality + practical tools (tasks 27-28)
+    pdf_format_label:     'Format',
+    pdf_format_title:     'Wydrukuj i trzymaj w kuchni.',
+    pdf_format_text:      'Zbiór w jakości 300 dpi — jak profesjonalna poligrafia. Wydrukuj w domu lub w drukarni i połóż obok strefy roboczej. Nie musisz odblokowywać telefonu brudnymi rękami i szukać właściwej strony na ekranie.',
+    pdf_format_badge:     '300 dpi',
+    pdf_format_badge_sub: 'jakość do druku',
+    pdf_format_points: [
+      ['Drukuj gdziekolwiek', 'Domowa drukarka kolorowa, punkt ksero lub drukarnia — plik jest gotowy, nie trzeba niczego dopasowywać.'],
+      ['Pobieraj bez limitu', 'Dostęp bez ograniczeń: pobieraj ile razy chcesz, na dowolne urządzenie.'],
+    ],
+    pdf_tools_label: 'Narzędzia',
+    pdf_tools_title: 'Więcej niż przepisy.',
+    pdf_tools_items: [
+      ['Tabela przeliczeń na 11 średnic', 'Od 10 do 30 cm — pomnóż składniki przez gotowy współczynnik z tabeli. Bez kalkulatora, bez wzorów, bez pomyłek.'],
+      ['Checklista sprzętu na start', 'Lista wszystkiego, co potrzebne do pierwszych zamówień — i niczego zbędnego. Otwórz przed pierwszymi zakupami i idź punkt po punkcie.'],
+      ['Przewodnik po produktach', 'Jakie produkty wybierają profesjonalni cukiernicy i dlaczego. Po jakich cechach szukać zamiennika w Twoim kraju — tłuszcz, skład, tekstura.'],
+    ],
+
     price_plan_short: 'PRZEPISÓW',
     recipes_label: 'Kolekcja przepisów',
     recipes_title: '10 smaków, po które klienci wracają.',
@@ -1375,6 +1432,25 @@ testi_more:  'Pokaż wszystkie opinie',
     inside_price_sub:   'PDF · instant download',
     inside_fmt_photo:   'Photos',
     inside_fmt_table:   'Table',
+
+    // Print quality + practical tools (tasks 27-28)
+    pdf_format_label:     'Format',
+    pdf_format_title:     'Print it and keep it in the kitchen.',
+    pdf_format_text:      'The collection is 300 dpi — professional print quality. Print it at home or at a copy shop and keep it next to your workstation. No need to unlock your phone with messy hands and scroll for the right page.',
+    pdf_format_badge:     '300 dpi',
+    pdf_format_badge_sub: 'print quality',
+    pdf_format_points: [
+      ['Print anywhere', 'Home color printer, copy center or print shop — the file is ready, no adjustments needed.'],
+      ['Download forever', 'Unlimited access: download as many times as you need, to any device.'],
+    ],
+    pdf_tools_label: 'Tools',
+    pdf_tools_title: 'More than recipes.',
+    pdf_tools_items: [
+      ['Scaling table for 11 diameters', 'From 10 to 30 cm — multiply ingredients by the ready-made coefficient from the table. No calculator, no formulas, no mistakes.'],
+      ['Starter equipment checklist', 'Everything you need for your first orders — and nothing extra. Open it before your first supply run and go item by item.'],
+      ['Ingredient guide', 'Which products professional pastry chefs choose and why. How to find the right substitute in your country — fat content, composition, texture.'],
+    ],
+
     price_plan_short: 'RECIPES',
     recipes_label: 'Recipe collection',
     recipes_title: '10 flavors customers come back for.',
@@ -1770,6 +1846,25 @@ testi_more:  'Show all reviews',
     inside_price_sub:   'PDF · descarga instantánea',
     inside_fmt_photo:   'Fotos',
     inside_fmt_table:   'Tabla',
+
+    // Print quality + practical tools (tasks 27-28)
+    pdf_format_label:     'Formato',
+    pdf_format_title:     'Imprímelo y tenlo en la cocina.',
+    pdf_format_text:      'La colección tiene 300 dpi — calidad de imprenta profesional. Imprímela en casa o en una copistería y tenla junto a tu zona de trabajo. Sin necesidad de desbloquear el móvil con las manos sucias ni buscar la página correcta en la pantalla.',
+    pdf_format_badge:     '300 dpi',
+    pdf_format_badge_sub: 'calidad de impresión',
+    pdf_format_points: [
+      ['Imprime donde quieras', 'Impresora doméstica a color, copistería o imprenta — el archivo está listo, no necesitas ajustar nada.'],
+      ['Descarga para siempre', 'Acceso ilimitado: descárgalo tantas veces como necesites, en cualquier dispositivo.'],
+    ],
+    pdf_tools_label: 'Herramientas',
+    pdf_tools_title: 'Más que recetas.',
+    pdf_tools_items: [
+      ['Tabla de conversión para 11 diámetros', 'De 10 a 30 cm — multiplica los ingredientes por el coeficiente de la tabla. Sin calculadora, sin fórmulas, sin errores.'],
+      ['Checklist de equipamiento para empezar', 'La lista de todo lo que necesitas para tus primeros pedidos — y nada de más. Ábrela antes de tu primera compra y ve punto por punto.'],
+      ['Guía de ingredientes', 'Qué productos eligen los pasteleros profesionales y por qué. Cómo encontrar el sustituto adecuado en tu país — grasa, composición, textura.'],
+    ],
+
     price_plan_short: 'RECETAS',
     recipes_label: 'Colección de recetas',
     recipes_title: '10 sabores por los que los clientes vuelven.',
@@ -2165,6 +2260,25 @@ testi_more:  'Ver todas las opiniones',
     inside_price_sub:   'PDF · sofortiger Download',
     inside_fmt_photo:   'Fotos',
     inside_fmt_table:   'Tabelle',
+
+    // Print quality + practical tools (tasks 27-28)
+    pdf_format_label:     'Format',
+    pdf_format_title:     'Ausdrucken und in der Küche aufbewahren.',
+    pdf_format_text:      'Die Sammlung hat 300 dpi — wie professioneller Druck. Drucke sie zu Hause oder im Copyshop aus und lege sie neben deinen Arbeitsplatz. Kein Entsperren des Handys mit schmutzigen Händen, kein Suchen nach der richtigen Seite auf dem Bildschirm.',
+    pdf_format_badge:     '300 dpi',
+    pdf_format_badge_sub: 'Druckqualität',
+    pdf_format_points: [
+      ['Überall drucken', 'Farbdrucker zu Hause, Copyshop oder Druckerei — die Datei ist fertig, nichts muss angepasst werden.'],
+      ['Für immer herunterladen', 'Unbegrenzter Zugang: so oft herunterladen wie nötig, auf jedes Gerät.'],
+    ],
+    pdf_tools_label: 'Werkzeuge',
+    pdf_tools_title: 'Mehr als Rezepte.',
+    pdf_tools_items: [
+      ['Umrechnungstabelle für 11 Durchmesser', 'Von 10 bis 30 cm — multipliziere die Zutaten mit dem fertigen Koeffizienten aus der Tabelle. Ohne Taschenrechner, ohne Formeln, ohne Fehler.'],
+      ['Ausstattungs-Checkliste für den Start', 'Alles, was du für deine ersten Bestellungen brauchst — und nichts Überflüssiges. Öffne sie vor deinem ersten Einkauf und gehe Punkt für Punkt durch.'],
+      ['Produktguide', 'Welche Produkte professionelle Konditoren wählen und warum. Woran du den passenden Ersatz in deinem Land erkennst — Fettgehalt, Zusammensetzung, Textur.'],
+    ],
+
     price_plan_short: 'REZEPTE',
     recipes_label: 'Rezeptkollektion',
     recipes_title: '10 Sorten, für die Kunden wiederkommen.',
@@ -2560,6 +2674,25 @@ testi_more:  'Alle Bewertungen anzeigen',
     inside_price_sub:   'PDF · téléchargement instantané',
     inside_fmt_photo:   'Photos',
     inside_fmt_table:   'Tableau',
+
+    // Print quality + practical tools (tasks 27-28)
+    pdf_format_label:     'Format',
+    pdf_format_title:     'Imprimez-le et gardez-le en cuisine.',
+    pdf_format_text:      'La collection est en 300 dpi — qualité d’impression professionnelle. Imprimez-la chez vous ou dans un centre de copie et posez-la à côté de votre plan de travail. Plus besoin de déverrouiller le téléphone avec les mains sales ni de chercher la bonne page sur l’écran.',
+    pdf_format_badge:     '300 dpi',
+    pdf_format_badge_sub: 'qualité d\'impression',
+    pdf_format_points: [
+      ['Imprimez où vous voulez', 'Imprimante couleur maison, centre de copie ou imprimerie — le fichier est prêt, rien à ajuster.'],
+      ['Téléchargez à vie', 'Accès illimité : téléchargez autant de fois que nécessaire, sur n\'importe quel appareil.'],
+    ],
+    pdf_tools_label: 'Outils',
+    pdf_tools_title: 'Plus que des recettes.',
+    pdf_tools_items: [
+      ['Tableau de conversion pour 11 diamètres', 'De 10 à 30 cm — multipliez les ingrédients par le coefficient du tableau. Sans calculette, sans formule, sans erreur.'],
+      ['Checklist d\'équipement pour démarrer', 'La liste de tout ce qu\'il faut pour vos premières commandes — et rien de superflu. Ouvrez-la avant votre premier achat et suivez point par point.'],
+      ['Guide des ingrédients', 'Quels produits les pâtissiers professionnels choisissent et pourquoi. Comment trouver le bon substitut dans votre pays — matières grasses, composition, texture.'],
+    ],
+
     price_plan_short: 'RECETTES',
     recipes_label: 'Collection de recettes',
     recipes_title: '10 saveurs pour lesquelles les clients reviennent.',
@@ -2955,6 +3088,25 @@ testi_more:  'Voir tous les avis',
     inside_price_sub:   'PDF · download immediato',
     inside_fmt_photo:   'Foto',
     inside_fmt_table:   'Tabella',
+
+    // Print quality + practical tools (tasks 27-28)
+    pdf_format_label:     'Formato',
+    pdf_format_title:     'Stampalo e tienilo in cucina.',
+    pdf_format_text:      'La raccolta è a 300 dpi — qualità di stampa professionale. Stampala a casa o in copisteria e tienila accanto alla tua postazione di lavoro. Niente più telefono da sbloccare con le mani sporche e pagine da cercare sullo schermo.',
+    pdf_format_badge:     '300 dpi',
+    pdf_format_badge_sub: 'qualità di stampa',
+    pdf_format_points: [
+      ['Stampa ovunque', 'Stampante a colori di casa, centro copie o tipografia — il file è pronto, non serve adattare nulla.'],
+      ['Scarica per sempre', 'Accesso illimitato: scarica quante volte vuoi, su qualsiasi dispositivo.'],
+    ],
+    pdf_tools_label: 'Strumenti',
+    pdf_tools_title: 'Più che ricette.',
+    pdf_tools_items: [
+      ['Tabella di conversione per 11 diametri', 'Da 10 a 30 cm — moltiplica gli ingredienti per il coefficiente della tabella. Senza calcolatrice, senza formule, senza errori.'],
+      ['Checklist dell\'attrezzatura per iniziare', 'Tutto ciò che serve per i primi ordini — e nient\'altro. Aprila prima del primo acquisto e segui punto per punto.'],
+      ['Guida agli ingredienti', 'Quali prodotti scelgono i pasticceri professionisti e perché. Come trovare il sostituto giusto nel tuo paese — grassi, composizione, consistenza.'],
+    ],
+
     price_plan_short: 'RICETTE',
     recipes_label: 'Raccolta di ricette',
     recipes_title: '10 gusti per cui i clienti tornano.',
@@ -3350,6 +3502,25 @@ testi_more:  'Mostra tutte le recensioni',
     inside_price_sub:   'PDF · download imediato',
     inside_fmt_photo:   'Fotos',
     inside_fmt_table:   'Tabela',
+
+    // Print quality + practical tools (tasks 27-28)
+    pdf_format_label:     'Formato',
+    pdf_format_title:     'Imprima e tenha à mão na cozinha.',
+    pdf_format_text:      'A coleção tem 300 dpi — qualidade de impressão profissional. Imprima em casa ou numa gráfica e deixe ao lado da sua área de trabalho. Sem precisar desbloquear o celular com as mãos sujas nem procurar a página certa na tela.',
+    pdf_format_badge:     '300 dpi',
+    pdf_format_badge_sub: 'qualidade de impressão',
+    pdf_format_points: [
+      ['Imprima em qualquer lugar', 'Impressora colorida em casa, gráfica rápida ou tipografia — o arquivo está pronto, sem ajustes.'],
+      ['Baixe para sempre', 'Acesso ilimitado: baixe quantas vezes precisar, em qualquer dispositivo.'],
+    ],
+    pdf_tools_label: 'Ferramentas',
+    pdf_tools_title: 'Mais do que receitas.',
+    pdf_tools_items: [
+      ['Tabela de conversão para 11 diâmetros', 'De 10 a 30 cm — multiplique os ingredientes pelo coeficiente da tabela. Sem calculadora, sem fórmulas, sem erros.'],
+      ['Checklist de equipamentos para começar', 'Tudo o que você precisa para os primeiros pedidos — e nada a mais. Abra antes da primeira compra e siga item por item.'],
+      ['Guia de ingredientes', 'Quais produtos os confeiteiros profissionais escolhem e por quê. Como encontrar o substituto certo no seu país — gordura, composição, textura.'],
+    ],
+
     price_plan_short: 'RECEITAS',
     recipes_label: 'Coleção de receitas',
     recipes_title: '10 sabores pelos quais os clientes voltam.',
