@@ -5,6 +5,11 @@
 export const EXTRA_DE = {
   'oreo-bento-cake': {
     occasion: 'Der sichere Publikumsliebling: für einen Geburtstag, ein kleines Trostgeschenk oder einfach ein Dessert zum Kaffee.',
+    description: [
+      'Oreo ist der beliebteste Geschmack der Sammlung und unser erster Vorschlag für den Einstieg in den Verkauf. Dichter Schokoladenbiskuit, zarter Frischkäse-Butter-Creme und knusprige Kekskrümel ergeben einen vertrauten Geschmack, der dem Kunden keine Erklärung braucht. Das Kirsch-Coulis bringt eine leichte Säure und einen hübschen Kontrast im Anschnitt — genau deshalb sammelt dieses Foto die meisten Saves.',
+      'Bestellt wird zu jedem Anlass: Geburtstage, Abschlussfeiern, Kollegengeschenke, „einfach für mich". Altersgrenzen gibt es keine — der Kuchen passt für Kinder, weil weder Alkohol noch scharfe Gewürze drinstecken. Für den Hobbykonditor ist das der sicherste erste Auftrag: bekannter Geschmack, verzeihend bei kleinen Montagefehlern, und der Kunde weiß vorher, was er bekommt.',
+      'Die Herstellungskosten gehören zu den niedrigsten im Sortiment: alle Hauptzutaten gibt es im Supermarkt. Das erlaubt einen wettbewerbsfähigen Preis und Übung an Fehlern ohne spürbaren Verlust. Nach unserer Käuferstatistik bringt genau Oreo die ersten Folgebestellungen.',
+    ],
     mistakes: [
       'Die Oreo-Krümel werden weich und nach einer Nacht im Kühlschrank zu Paste.',
       'Die Frischkäsecreme drückt sich zur Seite und die knusprigen Schichten verschwinden im Anschnitt.',
@@ -20,6 +25,11 @@ export const EXTRA_DE = {
   },
   'red-velvet-bento-cake': {
     occasion: 'Ein Klassiker für Valentinstag, ein Jubiläum, einen Junggesellinnenabschied. Der rote Biskuit vor weißer Creme fotografiert wunderbar.',
+    description: [
+      'Red Velvet ist ein Kuchen, der sich über die Augen verkauft. Der leuchtend rote Biskuit vor weißer Mascarponecreme ergibt einen Anschnitt, den Kunden selbst fotografieren und posten. Das Erdbeer-Coulis bringt eine frische Beerennote und dient als Säurebalance zur Süße der Creme.',
+      'Die Hauptzielgruppe sind romantische Anlässe: Valentinstag, Jahrestage, Heiratsanträge. Aber auch zu Junggesellinnenabschieden und Frauentagen läuft er gut. Red Velvet wird am häufigsten mit einer Aufschrift bestellt — die glatte weiße Oberfläche eignet sich perfekt für Beschriftungen mit Lebensmittelfarbe.',
+      'Der Schwierigkeitsgrad ist mittel: beim Zusammenbau liegt der Fokus auf der Arbeit mit Mascarpone (die Creme braucht die richtige Temperatur und Konsistenz) und der korrekten Biskuitfarbe. Die Kosten liegen etwas über Oreo wegen Mascarpone und hochwertigem Farbstoff, aber der Preis darf dank des „Premium"-Looks 15–20 % über der Basislinie liegen.',
+    ],
     mistakes: [
       'Das Rot verblasst beim Backen und die Krume wird trüb-braun.',
       'Die Mascarponecreme weint im Anschnitt und verwischt die Schichtlinien.',
@@ -35,6 +45,11 @@ export const EXTRA_DE = {
   },
   'poppy-seed-citrus-bento-cake': {
     occasion: 'Die Sommerwahl für alle, die nicht hinter Schokolade herlaufen. Leicht und frisch — passt zu einem Brunch oder einer Brautparty.',
+    description: [
+      'Mohn-Zitrus ist der leichteste Geschmack im Sortiment. Mohnbiskuit mit zarter Struktur, leuchtender Zitruscurd und Frischkäsecreme, die die Säure abfedert — ein Dessert für alle, die nichts Schokoladiges wollen. Frisch, dezent „erwachsen", ohne aufdringliche Süße.',
+      'Die stärksten Verkaufsmonate sind April bis Juni: Kunden wechseln von winterlichen Schokoladengeschmäckern zu etwas Leichterem. Gut für Brunch-Bestellungen, Junggesellinnenabschiede und Geschenke an ältere Frauen, die nicht zu viel Süßes mögen. Mohn-Zitrus ist der Geschmack, der dein Sortiment über „noch eine Schokotorte" hinausbringt.',
+      'Die Herstellungskosten liegen im Mittelfeld: Mohn und Butter kosten moderat, der Hauptposten sind hochwertige Zitrusfrüchte für den Curd. Auf Fotos wirkt die Torte ordentlich und ungewöhnlich, weshalb Kunden häufig nachbestellen, selbst wenn sie ihn anfangs nur „zum Probieren" gewählt haben.',
+    ],
     mistakes: [
       'Der Mohn wird bitter und walzt den Curd-Geschmack platt.',
       'Die Frischkäsecreme gerinnt, sobald der Zitrussaft dazukommt.',
@@ -48,6 +63,11 @@ export const EXTRA_DE = {
   },
   'snickers-bento-cake': {
     occasion: 'Der «Männergeburtstag»-Geschmack: dicht und großzügig, zu Hause auf der Party eines Freundes, bei einer Firmenbestellung, als Vatertagsgeschenk.',
+    description: [
+      'Snickers ist der sättigendste Geschmack im Sortiment. Schokoladenbiskuit, eine Schicht Salzkaramell, Erdnüsse und Schoko-Frischkäsecreme ergeben einen satten „Schokoriegel"-Geschmack, den Kunden vom ersten Bissen an wiedererkennen. Ein Kuchen für alle, die ein großes Dessert im kleinen Format wollen.',
+      'Im Verkauf belegt Snickers stabil den zweiten bis dritten Platz hinter Oreo. Am häufigsten wird er als „Geschenk für den Freund" oder für Firmenbestellungen geordert, wo ein risikofreier Geschmack gefragt ist. Die Erdnüsse im Rezept sind die einzige Einschränkung: bei Kinderbestellungen sollte man Allergien vorher klären.',
+      'Er ist eine der schwersten Bento-Torten: Karamell und Nüsse bringen Gewicht, deshalb fühlt sich die 12-cm-Portion sättigend an. Die Kosten liegen auf dem Level der Basisgeschmäcker (Schokolade, Erdnüsse, Zucker für Karamell), was bei einem durchschnittlichen Marktpreis eine gute Marge ergibt.',
+    ],
     mistakes: [
       'Das Karamell kristallisiert und hinterlässt einen sandigen Biss im Anschnitt.',
       'Die Erdnüsse werden in der Creme weich und verlieren ihren typischen Crunch.',
@@ -63,6 +83,11 @@ export const EXTRA_DE = {
   },
   'raffaello-bento-cake': {
     occasion: 'Die Sanfte, Feminine. Passt zu einem Jubiläum, einem Sweet Table zur Hochzeit, einem Frühlingsgeschenk.',
+    description: [
+      'Raffaello ist ein Kuchen mit dem sofort erkennbaren Geschmack von Kokos und Mandel. Vanillebiskuit, zarte Kokoscreme und eine ganze Raffaello-Praline obenauf machen ihn zu einem der „geschenktauglichsten" Geschmäcker im Sortiment. Zart, süß, ohne Schokolade, ohne Säure, ohne Kontraste.',
+      'Die Bestellspitze liegt im Frühling: Frauentag, Hochzeits-Sweet-Tables, Festtagsbrunchs. Raffaello steht stabil in den Top 3 nach Bestellmenge, besonders in der Hochzeitssaison. Kunden, die diesen Geschmack wählen, wissen in der Regel bereits, was sie wollen — sie brauchen keine Überzeugungsarbeit.',
+      'Die Kosten liegen über dem Durchschnitt wegen Kokos, Mandeln und gezuckerter Kondensmilch. Aber die „Premium"-Wahrnehmung erlaubt es mühelos, den Preis 20–30 % über der Basislinie zu setzen. Auf Fotos wirkt die Torte elegant — weiß, sauber, mit der Textur der Kokosraspel.',
+    ],
     mistakes: [
       'Die Kokosnuss hinterlässt faserige Fäden, die zwischen den Zähnen hängen bleiben.',
       'Der Mandelcrunch wird unter der Creme weich und verschwindet.',
@@ -76,6 +101,11 @@ export const EXTRA_DE = {
   },
   'ferrero-rocher-bento-cake': {
     occasion: 'Die Premium-Präsentation: ein Jubiläum, eine Firmenbestellung, ein Geschenk für den wichtigsten Kunden. Sie sieht teuer aus und fotografiert wie eine Markenaufnahme.',
+    description: [
+      'Ferrero Rocher ist der teuerste und anspruchsvollste Geschmack der Sammlung. Schokoladenbiskuit, Haselnuss-Ganache, Waffelschicht und eine ganze Ferrero-Rocher-Praline obenauf ergeben ein texturreiches Dessert, bei dem sich jede Schicht von der vorherigen unterscheidet. Der Geschmack ist tief schokoladig-nussig, ohne übertriebene Süße.',
+      'Das ist die „Firmentorte": bestellt wird sie zu Firmenjubiläen, Partnergeschenken, VIP-Grüßen. Ferrero Rocher sieht auf Fotos premium aus — goldene Akzente, komplexe Struktur — und der Kunde ist bereit, mehr dafür zu zahlen. Laut unserer Statistik liegt der durchschnittliche Bestellwert bei diesem Geschmack 30–40 % über der Basislinie.',
+      'Der Schwierigkeitsgrad beim Zusammenbau ist der höchste aller zehn Geschmäcker: die Ganache verlangt ein genaues Temperaturfenster, die Waffelschicht ein sauberes Timing. Aber genau diese Komplexität macht den Kuchen zu etwas, das der Kunde zu Hause nicht nachmachen kann — und deshalb zu dir zurückkommt.',
+    ],
     mistakes: [
       'Die Ganache bleibt zu dünn und die Waffelschicht beginnt zu schwimmen.',
       'Vollmilchschokolade treibt die Süße zu weit und der Charakter verschwindet.',
@@ -89,6 +119,11 @@ export const EXTRA_DE = {
   },
   'cinnabon-bento-cake': {
     occasion: 'Eine Wahl für die kalte Jahreszeit. Passt zu einem Herbstgeburtstag, einer gemütlichen Kaffeerunde, einem Festtagstisch.',
+    description: [
+      'Cinnabon ist der einzige „würzige" Geschmack im Sortiment. Warmer Zimtbiskuit, Mascarpone-Frischkäsecreme und eine feine Karamellspirale ergeben den Effekt einer Cinnabon-Rolle, umgedacht als Torte. Gemütlich, süß, mit einer leichten Gewürznote — ideal zu Kaffee oder heißer Schokolade.',
+      'Die Verkaufssaison ist Oktober bis Dezember: Herbstgeburtstage, Halloween, Weihnachtsbestellungen. In der kalten Jahreszeit steht Cinnabon stabil in den Top 5, im Sommer fällt die Nachfrage fast auf Null. Das macht ihn zur idealen saisonalen Ergänzung der Produktlinie — Zutaten müssen nicht ganzjährig vorrätig sein.',
+      'Die Herstellungskosten gehören zu den niedrigsten: Zimt, Mascarpone und Karamell kosten moderat. Die einzige Herausforderung ist die exakte Zimtdosierung: der Unterschied zwischen „gemütlich" und „kratzt im Hals" sind wenige Gramm. Genau diese Präzision liefert das PDF-Rezept.',
+    ],
     mistakes: [
       'Der Zimt kratzt im Hals, wenn man die Menge überzieht.',
       'Die Mascarponecreme rutscht auf einem noch warmen Biskuit weg.',
@@ -102,6 +137,11 @@ export const EXTRA_DE = {
   },
   'pistachio-raspberry-bento-cake': {
     occasion: 'Eine der Premium-Bestellungen 2026. Passt zu einem Hochzeits-Sweet-Table, einem Studioshooting, einem Geschenk fürs Instagram-Bild.',
+    description: [
+      'Pistazie-Himbeere ist der Top-Premium-Geschmack der Sammlung und der absolute Spitzenreiter in Sachen Fotogenität. Pistazienbiskuit, Frischkäsecreme mit echter Pistazienpaste und Himbeer-Confiture ergeben einen leuchtenden Kontrast aus Farben und Aromen: nussige Süße trifft auf Beerensäure. Der Anschnitt — grün, rosa, weiß — wirkt wie das Cover eines Konditorei-Magazins.',
+      'Er ist der beliebteste Geschmack für Hochzeits-Sweet-Tables und „Instagram"-Bestellungen. Kunden, die Pistazie-Himbeere wählen, haben diesen Kuchen in der Regel schon in jemandes Feed gesehen und wollen genau diesen. Der durchschnittliche Bestellwert ist der höchste aller zehn Geschmäcker, und die Kunden verhandeln nicht.',
+      'Die Herstellungskosten sind die höchsten im Sortiment wegen der Pistazienpaste: hochwertige kostet ein Vielfaches jeder anderen Zutat. Aber die Marge ist ebenfalls die höchste — die „Premium"-Positionierung erlaubt einen Preis 40–60 % über der Basislinie. An genau diesem Geschmack spürt der Hobbykonditor den Unterschied zwischen „Nebenverdienst" und „Geschäft".',
+    ],
     mistakes: [
       'Die Pistazienpaste kippt ins Graue und der Geschmack wird grasig.',
       'Das Himbeer-Coulis läuft in den Biskuit und färbt die Creme trüb-rosa.',
@@ -115,6 +155,11 @@ export const EXTRA_DE = {
   },
   'pina-colada-bento-cake': {
     occasion: 'Urlaubsstimmung. Passt zu einem Strandshooting, einem Kindergeburtstag mit Meeresmotto (alkoholfreie Variante), einer Sommerpicknick-Bestellung.',
+    description: [
+      'Piña Colada ist der Sommerhit der Sammlung. Kokosbiskuit, Ananas-Confiture und Sahnecreme erzeugen tropische Stimmung, die in den heißen Monaten am besten funktioniert. Leicht, frisch, mit der Säure der Ananas und der Zartheit der Kokosnuss — das genaue Gegenteil der winterlichen Schokovarianten.',
+      'In der Sammlung gibt es zwei Versionen: eine „Kinder"-Variante (ohne Alkohol) und eine „Erwachsenen"-Variante (mit dezenter Rum-Note). Das macht Piña Colada universell für Sommerbestellungen: Kindergeburtstage, Strandpartys, tropische Mottopartys. Die Nachfrage ist rein saisonal: Juni bis August, danach fällt sie auf Null.',
+      'Die Kosten liegen im Mittelfeld, aber es gibt eine Nuance bei der Ananas: Dosenware ist günstiger, frische bringt den besseren Geschmack. Das PDF erklärt, wie man mit beiden Varianten arbeitet. Auf Fotos wirkt die Torte hell und ungewöhnlich — gelbe Confiture auf weißer Creme — und hebt sich so vom Rest der Linie ab.',
+    ],
     mistakes: [
       'Das Ananas-Coulis bleibt zu dünn und läuft unter dem Biskuit breit.',
       'Die Kokosraspel reißen den Geschmack an sich und dämpfen die Ananas.',
@@ -128,6 +173,11 @@ export const EXTRA_DE = {
   },
   'cherry-chocolate-bento-cake': {
     occasion: 'Schwarzwälder Kirsch als Bento gedacht. Passt zum Silvestertisch, einem Wintergeburtstag, einem Geschenk für die Mutter.',
+    description: [
+      'Kirsch-Schoko ist der Schwarzwälder-Klassiker im Bento-Format. Schokoladenbiskuit, Kirsch-Coulis und Frischkäsecreme ergeben den seit der Kindheit vertrauten Geschmack: tiefe Schokolade mit säuerlicher Kirschnote. Ein Kuchen für alle, die bewährte Kombinationen ohne Experimente mögen.',
+      'Die Hauptzielgruppe sind Winterbestellungen: Silvester, Weihnachten, Wintergeburtstage. Außerdem wird er stabil als Geschenk für Mutter oder Großmutter geordert — ein Geschmack, den die ältere Generation kennt. Der Anschnitt sieht auf Fotos stark aus: dunkler Biskuit, leuchtendes Kirsch-Coulis, weiße Creme.',
+      'Der Schwierigkeitsgrad gehört zu den niedrigsten: Kirsch-Schoko ist ein guter zweiter Kuchen nach Oreo. Die Kosten hängen von der Saison ab: im Sommer sind frische Kirschen günstig, im Winter muss man tiefgefrorene nehmen. Das PDF erklärt, wie man mit beiden arbeitet und warum die Wahl die Struktur der Confiture beeinflusst.',
+    ],
     mistakes: [
       'Das Kirsch-Coulis läuft in den Schokoladenbiskuit und der Anschnitt sieht trüb aus.',
       'Die Ganache zieht den Biskuit beim Abkühlen nach innen und die Torte sinkt ein.',
@@ -143,6 +193,7 @@ export const EXTRA_DE = {
 
 export const SECTIONS_DE = {
   reviews: 'Was Käuferinnen über diese Sorte sagen',
+  about: 'Über diesen Geschmack',
   occasion: 'Wann sie passt',
   mistakes: 'Typische Fehler bei dieser Sorte',
   mistakesHelp: 'Die Schwachstellen sind bekannt — die genauen Lösungen (Gramm, Temperatur, Stabilisierung) stehen in der kostenpflichtigen PDF-Sammlung.',

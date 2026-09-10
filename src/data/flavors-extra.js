@@ -94,6 +94,11 @@ export const FLAVOR_EXTRA = {
       },
       ru: {
         occasion: 'Универсальный фаворит на день рождения, антистресс-подарок подруге или десерт «просто к кофе».',
+        description: [
+          'Oreo — самый популярный вкус сборника и первый, который мы рекомендуем для старта продаж. Плотный шоколадный бисквит, нежный крем-чиз на сливочном масле и хрустящая крошка печенья дают знакомый вкус, который не нужно объяснять клиенту. Вишнёвое кюли добавляет лёгкую кислинку и контраст на срезе — именно поэтому фото этого торта собирают больше всего сохранений.',
+          'Заказывают на что угодно: дни рождения, выпускные, подарки коллегам, «просто для себя». Возрастных ограничений нет — торт подходит детям, потому что в составе нет алкоголя и острых специй. Для домашнего кондитера это самый безопасный первый заказной торт: знакомый вкус, терпимый к небольшим ошибкам при сборке, и клиент заранее понимает, что получит.',
+          'Себестоимость — одна из самых низких в сборнике: основные ингредиенты есть в любом супермаркете. Это позволяет ставить конкурентную цену и тренироваться на ошибках без ощутимых потерь. По статистике наших покупателей, именно Oreo приносит первые повторные заказы.',
+        ],
         mistakes: [
           'Крошка Oreo отсыревает и превращается в кашу при хранении.',
           'Крем-чиз растекается, и чёткие слои теряются на срезе.',
@@ -115,6 +120,11 @@ export const FLAVOR_EXTRA = {
       },
       pl: {
         occasion: 'Uniwersalny hit na urodziny, antystresowy prezent dla przyjaciółki albo deser „po prostu do kawy”.',
+        description: [
+          'Oreo to najpopularniejszy smak w zbiorze i pierwszy, który polecamy na start sprzedaży. Gęsty czekoladowy biszkopt, delikatny krem serowy na maśle i chrupiąca okruszka ciastka dają znajomy smak, którego nie trzeba tłumaczyć klientowi. Wiśniowe coulis dodaje lekkiej kwaskowatości i kontrastu na przekroju — właśnie dlatego zdjęcia tego tortu zbierają najwięcej zapisów.',
+          'Zamawiają na dosłownie wszystko: urodziny, zakończenie roku, prezenty dla współpracowników, „po prostu dla siebie”. Brak ograniczeń wiekowych — tort nadaje się dla dzieci, bo nie zawiera alkoholu ani ostrych przypraw. Dla domowego cukiernika to najbezpieczniejszy pierwszy tort na zamówienie: znajomy smak, tolerancyjny wobec drobnych błędów przy montażu, a klient z góry wie, czego się spodziewać.',
+          'Koszt własny — jeden z najniższych w zbiorze: główne składniki kupisz w każdym supermarkecie. To pozwala ustawić konkurencyjną cenę i uczyć się na błędach bez dotkliwych strat. Według statystyk naszych kupujących to właśnie Oreo przynosi pierwsze powtórne zamówienia.',
+        ],
         mistakes: [
           'Okruchy Oreo miękną i zmieniają się w papkę podczas przechowywania.',
           'Krem serowy rozpływa się, a wyraźne warstwy giną na przekroju.',
@@ -136,6 +146,11 @@ export const FLAVOR_EXTRA = {
       },
       en: {
         occasion: 'A safe crowd-pleaser for a birthday, a small comfort gift, or a “just because” dessert with coffee.',
+        description: [
+          'Oreo is the most popular flavour in the collection and the first one we recommend for starting sales. A dense chocolate sponge, smooth cream-cheese frosting on butter, and a crunchy biscuit crumb deliver a familiar taste that needs no explanation to the client. Cherry coulis adds a light tang and colour contrast on the cut — which is why photos of this cake collect the most saves.',
+          'People order it for everything: birthdays, graduations, colleague gifts, “just because.” There are no age restrictions — the cake suits children since there is no alcohol or hot spices. For a home baker this is the safest first paid order: a familiar flavour, forgiving of minor assembly mistakes, and the client already knows what to expect.',
+          'The cost per cake is among the lowest in the collection: the key ingredients are available at any supermarket. This lets you set a competitive price and learn from mistakes without painful losses. According to our buyers\' stats, Oreo is the flavour that brings the first repeat orders.',
+        ],
         mistakes: [
           'The Oreo crumb goes soft and turns into paste after a night in the fridge.',
           'The cream cheese spreads sideways and the crisp layers disappear on the cut.',
@@ -189,6 +204,11 @@ export const FLAVOR_EXTRA = {
       },
       ru: {
         occasion: 'Классика на 14 февраля, годовщину, девичник. Контраст красного бисквита и белого крема отлично работает на фото.',
+        description: [
+          'Красный бархат — это торт, который продаётся глазами. Яркий красный бисквит на контрасте с белым кремом на маскарпоне даёт срез, который клиенты фотографируют и публикуют сами. Клубничное кюли добавляет свежую ягодную ноту и работает как кислотный баланс к сладости крема.',
+          'Основная аудитория — романтические поводы: 14 февраля, годовщины, предложения руки и сердца. Но хорошо продаётся и на девичники, и на женские праздники. Именно Red Velvet чаще всего заказывают с надписью на торте — его ровная белая поверхность идеально подходит под надписи пищевым красителем.',
+          'Уровень сложности — средний: основное внимание при сборке — работа с маскарпоне (крем требует определённой температуры и консистенции) и правильный цвет бисквита. Себестоимость чуть выше, чем у Oreo, из-за маскарпоне и качественного красителя, но цену можно ставить на 15–20 % выше базовой благодаря «премиальному» виду.',
+        ],
         mistakes: [
           'Красный цвет при выпечке «седеет» — торт выходит грязно-коричневым.',
           'Маскарпоне «плачет» на срезе и портит вид слоёв.',
@@ -210,6 +230,11 @@ export const FLAVOR_EXTRA = {
       },
       pl: {
         occasion: 'Klasyk na walentynki, rocznicę, wieczór panieński. Kontrast czerwonego biszkoptu i białego kremu doskonale wygląda na zdjęciach.',
+        description: [
+          'Red Velvet to tort, który sprzedaje się oczami. Żywy czerwony biszkopt na kontraście z białym kremem mascarpone daje przekrój, który klienci fotografują i publikują sami. Truskawkowe coulis dodaje świeżej owocowej nuty i pełni rolę kwaśnego balansu do słodyczy kremu.',
+          'Główna grupa odbiorców to okazje romantyczne: walentynki, rocznice, zaręczyny. Ale dobrze sprzedaje się też na wieczory panieńskie i Dzień Kobiet. To właśnie Red Velvet najczęściej zamawiają z napisem na torcie — jego gładka, biała powierzchnia idealnie nadaje się pod napisy barwnikiem spożywczym.',
+          'Poziom trudności — średni: główna uwaga przy montażu to praca z mascarpone (krem wymaga odpowiedniej temperatury i konsystencji) oraz właściwy kolor biszkoptu. Koszt własny nieco wyższy niż Oreo ze względu na mascarpone i dobry barwnik, ale cenę można ustawić o 15–20 % wyżej od bazowej dzięki „premium” wyglądowi.',
+        ],
         mistakes: [
           'Czerwony kolor „siwieje” podczas pieczenia — tort wychodzi brudno-brązowy.',
           'Mascarpone „płacze” na przekroju i psuje wygląd warstw.',
@@ -231,6 +256,11 @@ export const FLAVOR_EXTRA = {
       },
       en: {
         occasion: 'A classic for Valentine’s, an anniversary, a hen party. The red sponge against white cream photographs beautifully.',
+        description: [
+          'Red Velvet is a cake that sells through the eyes. A vivid red sponge against white mascarpone cream gives a cross-section that clients photograph and share on their own. Strawberry coulis adds a fresh berry note and works as an acid balance to the cream’s sweetness.',
+          'The core audience is romantic occasions: Valentine’s Day, anniversaries, proposals. But it also sells well for hen parties and women’s holidays. Red Velvet is the most frequently ordered cake with a written message — its smooth white surface is perfect for food-colouring inscriptions.',
+          'Difficulty is intermediate: the main focus during assembly is working with mascarpone (the cream demands a certain temperature and consistency) and getting the sponge colour right. Cost is slightly higher than Oreo because of mascarpone and quality food colouring, but you can price it 15–20 % above the base thanks to its “premium” look.',
+        ],
         mistakes: [
           'The red colour dulls during baking and the crumb comes out muddy brown.',
           'The mascarpone cream weeps on the cut and blurs the layer lines.',
@@ -279,6 +309,11 @@ export const FLAVOR_EXTRA = {
       },
       ru: {
         occasion: 'Летний вариант «не для шоколадоманов». Лёгкий, свежий, хорош на девичниках и брантче.',
+        description: [
+          'Мак-цитрус — самый лёгкий вкус сборника. Маковый бисквит с нежной структурой, яркий цитрусовый курд и крем-чиз, который смягчает кислинку, — десерт для тех, кто не хочет ничего шоколадного. Вкус свежий, слегка «взрослый», без навязчивой сладости.',
+          'Лучшие месяцы продаж — апрель-июнь: клиенты переключаются с зимних шоколадных вкусов на что-то легче. Хорошо идёт на бранч-заказы, девичники и подарки женщинам постарше, которые не едят слишком сладкое. Мак-цитрус — тот вкус, который выводит вашу линейку за рамки «ещё один шоколадный торт».',
+          'Себестоимость — средняя: мак и масло стоят умеренно, основная статья — качественные цитрусы для курда. На фото торт выглядит аккуратно и необычно, поэтому клиенты часто заказывают повторно, даже если изначально выбрали его «на пробу».',
+        ],
         mistakes: [
           'Мак даёт горечь, и вкус курда перебивается.',
           'Крем-чиз от цитрусового сока расслаивается.',
@@ -295,6 +330,11 @@ export const FLAVOR_EXTRA = {
       },
       pl: {
         occasion: 'Letnia opcja „nie dla czekoladomanów”. Lekki, świeży, świetny na wieczór panieński i brunch.',
+        description: [
+          'Mak-cytrus to najlżejszy smak w zbiorze. Makowy biszkopt o delikatnej strukturze, wyrazisty cytrusowy curd i krem serowy, który łagodzi kwaskowatość — deser dla tych, którzy nie chcą nic czekoladowego. Smak świeży, lekko „dorosły”, bez nachalnej słodyczy.',
+          'Najlepsze miesiące sprzedażowe to kwiecień–czerwiec: klienci przechodzą z zimowych czekoladowych smaków na coś lżejszego. Świetnie sprawdza się na zamówienia brunchowe, wieczory panieńskie i prezenty dla starszych kobiet, które nie jedzą zbyt słodkich rzeczy. Mak-cytrus to smak, który wyciąga twoją ofertę poza schemat „kolejny czekoladowy tort”.',
+          'Koszt własny — średni: mak i masło kosztują umiarkowanie, główna pozycja to jakościowe cytrusy na curd. Na zdjęciach tort wygląda schludnie i oryginalnie, dlatego klienci często zamawiają ponownie, nawet jeśli początkowo wybrali go „na próbę”.',
+        ],
         mistakes: [
           'Mak nadaje goryczy i przebija smak lemon curd.',
           'Krem serowy rozwarstwia się od soku cytrusowego.',
@@ -311,6 +351,11 @@ export const FLAVOR_EXTRA = {
       },
       en: {
         occasion: 'A summer pick for the people who do not chase chocolate. Light, fresh — works for a bridal shower or brunch.',
+        description: [
+          'Poppy-citrus is the lightest flavour in the collection. A poppy-seed sponge with a delicate crumb, bright citrus curd, and cream cheese that tames the tartness — a dessert for anyone who does not want anything chocolate. The taste is fresh, slightly "grown-up," free of cloying sweetness.',
+          'The best selling months are April through June, when clients switch from winter chocolate flavours to something lighter. It works well for brunch orders, hen nights, and gifts for older women who do not eat overly sweet things. Poppy-citrus is the flavour that takes your line-up beyond "just another chocolate cake."',
+          'Cost per cake is mid-range: poppy seeds and butter are moderate; the main expense is quality citrus for the curd. The cake photographs as tidy and distinctive, so clients often reorder even if they originally picked it "just to try."',
+        ],
         mistakes: [
           'The poppy seeds go bitter and steamroll the curd flavour.',
           'The cream cheese splits when the citrus juice hits it.',
@@ -359,6 +404,11 @@ export const FLAVOR_EXTRA = {
       },
       ru: {
         occasion: '«Мужской» вкус: плотный, сытный, хорош на 23 февраля, день рождения друга, корпоратив.',
+        description: [
+          'Snickers — самый сытный вкус сборника. Шоколадный бисквит, слой солёной карамели, арахис и шоколадный крем-чиз дают насыщенный «конфетный» вкус, который клиенты узнают с первого кусочка. Это торт для тех, кто хочет большой десерт в маленьком формате.',
+          'В продажах Snickers стабильно занимает вторую-третью позицию после Oreo. Его чаще всего заказывают как «подарок парню» или «на корпоратив», где нужен вкус без риска. Арахис в составе — единственное ограничение: на детских заказах стоит уточнять аллергии.',
+          'Это один из самых тяжёлых бенто-тортов: карамель и орехи добавляют веса, поэтому 12-сантиметровая порция ощущается сытной. Себестоимость — на уровне базовых вкусов (шоколад, арахис, сахар для карамели), что даёт хорошую маржу при средней рыночной цене.',
+        ],
         mistakes: [
           'Карамель кристаллизуется и даёт песочную текстуру на срезе.',
           'Арахис размягчается в креме и теряет ту самую хрусткость.',
@@ -380,6 +430,11 @@ export const FLAVOR_EXTRA = {
       },
       pl: {
         occasion: '„Męski” smak: gęsty, sycący, sprawdza się na urodziny kolegi, imprezę firmową, prezent dla ojca.',
+        description: [
+          'Snickers to najbardziej sycący smak w zbiorze. Czekoladowy biszkopt, warstwa słonego karmelu, orzeszki ziemne i czekoladowy krem serowy dają intensywny „cukierkowy” smak, który klienci rozpoznają od pierwszego kęsa. To tort dla tych, którzy chcą dużego deseru w małym formacie.',
+          'W sprzedaży Snickers stabilnie zajmuje drugą–trzecią pozycję po Oreo. Najczęściej zamawiają go jako „prezent dla chłopaka” albo „na firmową imprezę”, gdzie potrzebny smak bez ryzyka. Orzeszki w składzie — jedyne ograniczenie: przy zamówieniach na imprezy dziecięce warto dopytać o alergie.',
+          'To jeden z najcięższych tortów bento: karmel i orzechy dodają wagi, więc 12-centymetrowa porcja jest naprawdę sycąca. Koszt własny — na poziomie podstawowych smaków (czekolada, orzeszki, cukier na karmel), co daje dobrą marżę przy średniej cenie rynkowej.',
+        ],
         mistakes: [
           'Karmel krystalizuje się i daje piaskową teksturę na przekroju.',
           'Orzeszki miękną w kremie i tracą ten charakterystyczny chrupot.',
@@ -401,6 +456,11 @@ export const FLAVOR_EXTRA = {
       },
       en: {
         occasion: 'A “boys’ birthday” flavour: dense, generous, at home for a mate’s party, a corporate order, a Father’s Day gift.',
+        description: [
+          'Snickers is the most filling flavour in the collection. A chocolate sponge, a layer of salted caramel, peanuts, and chocolate cream cheese deliver a rich “candy-bar” taste that clients recognise from the first bite. This is a cake for those who want a big dessert in a small format.',
+          'In sales, Snickers consistently holds second or third place after Oreo. It is most often ordered as a “gift for a boyfriend” or “for a corporate event” where a risk-free flavour is needed. The peanuts are the only limitation: for children’s orders it is worth checking allergies.',
+          'This is one of the heaviest bento cakes: caramel and nuts add weight, so the 12 cm portion feels substantial. Cost per cake is on par with the base flavours (chocolate, peanuts, sugar for caramel), which gives a healthy margin at an average market price.',
+        ],
         mistakes: [
           'The caramel crystallises and gives a sandy grit on the cut.',
           'The peanuts soften inside the cream and lose their signature crunch.',
@@ -449,6 +509,11 @@ export const FLAVOR_EXTRA = {
       },
       ru: {
         occasion: 'Нежный, «женский» вариант. Идеально на 8 марта, свадебный столик, праздничный брантч.',
+        description: [
+          'Raffaello — торт с узнаваемым вкусом кокоса и миндаля. Ванильный бисквит, нежный кокосовый крем и целая конфета Raffaello сверху делают его одним из самых «подарочных» вкусов в сборнике. Вкус деликатный и сладкий — без шоколада, без кислинки, без контрастов.',
+          'Пик заказов — весна: 8 марта, свадебные столики, праздничные бранчи. Raffaello стабильно в топ-3 по количеству заказов, особенно в свадебный сезон. Клиенты, которые выбирают этот вкус, обычно уже знают, чего хотят — их не нужно убеждать.',
+          'Себестоимость — выше средней из-за кокоса, миндаля и сгущённого молока. Но «премиальное» восприятие вкуса позволяет без усилий ставить цену на 20–30 % выше базовой линейки. На фото торт выглядит элегантно — белый, чистый, с текстурой кокосовой стружки.',
+        ],
         mistakes: [
           'Кокос даёт волокна, которые застревают между зубов.',
           'Хрустящая миндальная нотка размягчается под кремом.',
@@ -465,6 +530,11 @@ export const FLAVOR_EXTRA = {
       },
       pl: {
         occasion: 'Delikatny, „kobiecy” wariant. Idealny na 8 marca, weselny stół sweet table, świąteczny brunch.',
+        description: [
+          'Raffaello to tort o natychmiast rozpoznawalnym smaku kokosa i migdałów. Waniliowy biszkopt, delikatny krem kokosowy i cały cukierek Raffaello na wierzchu czynią go jednym z najbardziej „prezentowych” smaków w zbiorze. Smak jest delikatny i słodki — bez czekolady, bez kwaskowatości, bez kontrastów.',
+          'Szczyt zamówień — wiosna: Dzień Kobiet, weselne sweet table, świąteczne brunche. Raffaello stabilnie trzyma się w top 3 pod względem liczby zamówień, szczególnie w sezonie ślubnym. Klienci wybierający ten smak zwykle już wiedzą, czego chcą — nie trzeba ich przekonywać.',
+          'Koszt własny — powyżej średniej ze względu na kokos, migdały i mleko skondensowane. Ale „premium” postrzeganie smaku pozwala bez trudu ustawić cenę o 20–30 % wyżej od bazowej oferty. Na zdjęciach tort wygląda elegancko — biały, czysty, z fakturą wiórków kokosowych.',
+        ],
         mistakes: [
           'Kokos daje włókna, które utykają między zębami.',
           'Chrupiąca nuta migdałów mięknie pod kremem.',
@@ -481,6 +551,11 @@ export const FLAVOR_EXTRA = {
       },
       en: {
         occasion: 'The soft, feminine one. It fits an anniversary, a bridal sweet table, an 8 March gift, a spring brunch.',
+        description: [
+          'Raffaello is a cake with the instantly recognisable taste of coconut and almond. A vanilla sponge, a gentle coconut cream, and a whole Raffaello truffle on top make it one of the most "gift-worthy" flavours in the collection. The taste is delicate and sweet — no chocolate, no tang, no contrasts.',
+          'Peak orders come in spring: International Women’s Day, wedding sweet tables, celebration brunches. Raffaello sits firmly in the top 3 by order count, especially during wedding season. Clients who choose this flavour usually already know what they want — you do not need to convince them.',
+          'Cost per cake is above average because of coconut, almonds, and condensed milk. But the "premium" perception of the flavour lets you price it 20–30 % above the base line-up without pushback. In photos the cake looks elegant — white, clean, with the texture of coconut shavings.',
+        ],
         mistakes: [
           'The coconut gives fibrous threads that stick between the teeth.',
           'The almond crunch softens under the cream and disappears.',
@@ -524,6 +599,11 @@ export const FLAVOR_EXTRA = {
       },
       ru: {
         occasion: 'Премиальная подача: годовщина, корпоратив, подарок «клиенту года». Смотрится дорого и читается на фото как бренд.',
+        description: [
+          'Ferrero Rocher — самый дорогой и самый сложный вкус сборника. Шоколадный бисквит, ганаш из фундука, вафельная прослойка и целая конфета Ferrero Rocher сверху создают текстурный десерт, где каждый слой отличается от предыдущего. Вкус — глубокий шоколадно-ореховый, без лишней сладости.',
+          'Это «корпоративный» торт: его заказывают на годовщины компаний, подарки партнёрам, VIP-поздравления. Ferrero Rocher выглядит премиально на фото — золотые акценты, сложная структура — и клиент готов платить за это больше. По нашей статистике, средний чек заказов с этим вкусом на 30–40 % выше базовой линейки.',
+          'Сложность сборки — самая высокая из всех десяти вкусов: ганаш требует точного температурного режима, вафельная прослойка — правильного тайминга. Но именно эта сложность делает торт тем, что клиент не сможет повторить дома, — а значит, возвращается к вам.',
+        ],
         mistakes: [
           'Ганаш слишком жидкий — вафельная прослойка «плавает».',
           'Молочный шоколад даёт слишком сладкую ноту, и вкус теряется.',
@@ -540,6 +620,11 @@ export const FLAVOR_EXTRA = {
       },
       pl: {
         occasion: 'Premium wydanie: rocznica, wydarzenie firmowe, prezent dla „klienta roku”. Wygląda drogo i buduje wizerunek marki na foto.',
+        description: [
+          'Ferrero Rocher to najdroższy i najtrudniejszy smak w zbiorze. Czekoladowy biszkopt, ganache z orzechów laskowych, warstwa waflowa i cały cukierek Ferrero Rocher na wierzchu tworzą teksturalny deser, w którym każda warstwa różni się od poprzedniej. Smak — głęboki czekoladowo-orzechowy, bez nadmiernej słodyczy.',
+          'To tort „korporacyjny”: zamawiają go na rocznice firm, prezenty dla partnerów biznesowych, życzenia VIP. Ferrero Rocher wygląda premium na zdjęciach — złote akcenty, złożona struktura — i klient jest gotów za to zapłacić więcej. Według naszych statystyk średnia wartość zamówień z tym smakiem jest o 30–40 % wyższa od bazowej oferty.',
+          'Trudność montażu — najwyższa ze wszystkich dziesięciu smaków: ganache wymaga precyzyjnej kontroli temperatury, warstwa waflowa — odpowiedniego timingu. Ale to właśnie ta trudność sprawia, że tort jest czymś, czego klient nie odtworzy w domu — a więc wraca do ciebie.',
+        ],
         mistakes: [
           'Ganache jest zbyt płynny — warstwa waflowa „pływa”.',
           'Mleczna czekolada daje zbyt słodką nutę i smak ginie.',
@@ -556,6 +641,11 @@ export const FLAVOR_EXTRA = {
       },
       en: {
         occasion: 'The premium presentation: an anniversary, a corporate order, a “top client” gift. It looks expensive and photographs like brand work.',
+        description: [
+          'Ferrero Rocher is the most expensive and most complex flavour in the collection. A chocolate sponge, hazelnut ganache, a wafer layer, and a whole Ferrero Rocher truffle on top create a textured dessert where every layer feels different from the last. The taste is deep chocolate-and-hazelnut, without excess sweetness.',
+          'This is the “corporate” cake: ordered for company anniversaries, partner gifts, VIP greetings. Ferrero Rocher looks premium in photos — gold accents, complex structure — and the client is willing to pay more. By our stats, the average ticket for orders with this flavour is 30–40 % above the base line-up.',
+          'Assembly difficulty is the highest of all ten flavours: the ganache demands precise temperature control, the wafer layer demands correct timing. But that very difficulty makes the cake something the client cannot replicate at home — which means they come back to you.',
+        ],
         mistakes: [
           'The ganache runs too thin and the wafer layer starts floating.',
           'Milk chocolate pushes the sweetness too far and the character disappears.',
@@ -599,6 +689,11 @@ export const FLAVOR_EXTRA = {
       },
       ru: {
         occasion: 'Зимне-осенний вариант. Идеально на осенние дни рождения, «cosy» подачу с кофе, праздничный стол.',
+        description: [
+          'Cinnabon — единственный «пряный» вкус в сборнике. Тёплый бисквит с корицей, крем-чиз на маскарпоне и тонкая карамельная спираль дают эффект булочки Cinnabon, превращённой в торт. Вкус уютный, сладкий, с лёгкой пряной нотой — идеален под кофе или горячий шоколад.',
+          'Сезон продаж — октябрь-декабрь: осенние дни рождения, Хэллоуин, новогодние заказы. В холодное время Cinnabon стабильно входит в топ-5, а летом спрос падает почти до нуля. Это делает его идеальным сезонным дополнением к линейке — не нужно держать ингредиенты круглый год.',
+          'Себестоимость — одна из самых низких: корица, маскарпоне и карамель стоят умеренно. Единственный вызов — точная дозировка корицы: разница между «уютно» и «печёт в горле» — это несколько граммов. Именно эту точность и даёт PDF-рецепт.',
+        ],
         mistakes: [
           'Корица даёт эффект «пыли в горле», если переборщить.',
           'Крем-чиз на маскарпоне «плывёт» под тёплым бисквитом.',
@@ -615,6 +710,11 @@ export const FLAVOR_EXTRA = {
       },
       pl: {
         occasion: 'Zimowo-jesienna wersja. Świetnie sprawdza się na jesienne urodziny, „cosy” podanie z kawą, świąteczny stół.',
+        description: [
+          'Cinnabon to jedyny „korzenny” smak w zbiorze. Ciepły biszkopt z cynamonem, krem serowy na mascarpone i cienka spirala karmelowa dają efekt bułki Cinnabon zamienionej w tort. Smak przytulny, słodki, z lekką korzenną nutą — idealny do kawy lub gorącej czekolady.',
+          'Sezon sprzedażowy — październik–grudzień: jesienne urodziny, Halloween, zamówienia noworoczne. W zimnych miesiącach Cinnabon stabilnie wchodzi do top 5, a latem popyt spada niemal do zera. To czyni go idealnym sezonowym uzupełnieniem oferty — nie musisz trzymać składników przez cały rok.',
+          'Koszt własny — jeden z najniższych: cynamon, mascarpone i karmel kosztują umiarkowanie. Jedyne wyzwanie — precyzyjne dawkowanie cynamonu: różnica między „przytulnie” a „piecze w gardle” to kilka gramów. Właśnie tę precyzję daje przepis z PDF.',
+        ],
         mistakes: [
           'Cynamon daje efekt „pyłu w gardle”, jeśli przesadzisz.',
           'Krem serowy z mascarpone „pływa” pod ciepłym biszkoptem.',
@@ -631,6 +731,11 @@ export const FLAVOR_EXTRA = {
       },
       en: {
         occasion: 'A cold-season pick. Right for an autumn birthday, a cosy coffee spread, a holiday table.',
+        description: [
+          'Cinnabon is the only "spiced" flavour in the collection. A warm cinnamon sponge, mascarpone cream cheese, and a thin caramel spiral deliver the effect of a Cinnabon roll turned into a cake. The taste is cosy, sweet, with a light spiced note — ideal with coffee or hot chocolate.',
+          'The selling season is October through December: autumn birthdays, Halloween, New Year’s orders. In the cold months Cinnabon reliably makes the top 5, while in summer demand drops to nearly zero. This makes it an ideal seasonal addition to your line-up — no need to stock ingredients year-round.',
+          'Cost per cake is among the lowest: cinnamon, mascarpone, and caramel are affordable. The sole challenge is precise cinnamon dosing: the difference between "cosy" and "burning throat" is a matter of grams. That precision is exactly what the PDF recipe provides.',
+        ],
         mistakes: [
           'The cinnamon coats the throat if you overshoot the amount.',
           'The mascarpone cream slides under a still-warm sponge.',
@@ -674,6 +779,11 @@ export const FLAVOR_EXTRA = {
       },
       ru: {
         occasion: 'Топ премиум-заказов 2026 года. Идеально на свадебный столик, профессиональное фото, «инстаграмный» подарок.',
+        description: [
+          'Фисташка-малина — главный премиум-вкус сборника и абсолютный лидер по фотогеничности. Фисташковый бисквит, крем-чиз с натуральной фисташковой пастой и малиновое конфи дают яркий контраст цветов и вкусов: ореховая сладость встречается с ягодной кислинкой. Срез — зелёный, розовый, белый — выглядит как обложка кондитерского журнала.',
+          'Это самый популярный вкус для свадебных столиков и «инстаграмных» заказов. Клиенты, которые выбирают фисташку-малину, обычно уже видели этот торт у кого-то в ленте и хотят именно такой. Средний чек — самый высокий среди всех десяти вкусов, и клиенты не торгуются.',
+          'Себестоимость — самая высокая в сборнике из-за фисташковой пасты: качественная стоит в разы дороже любого другого ингредиента. Но маржа тоже самая высокая — позиционирование «премиум» позволяет ставить цену на 40–60 % выше базовой. Именно на этом вкусе домашний кондитер может почувствовать разницу между «подработка» и «бизнес».',
+        ],
         mistakes: [
           'Фисташковая паста «седеет» и вкус становится травянистым.',
           'Малиновое кюли протекает в бисквит и красит крем в грязно-розовый.',
@@ -690,6 +800,11 @@ export const FLAVOR_EXTRA = {
       },
       pl: {
         occasion: 'Top premium zamówień 2026 roku. Idealny na weselny sweet table, sesję zdjęciową, „instagramowy” prezent.',
+        description: [
+          'Pistacja-malina to flagowy smak premium w zbiorze i bezkonkurencyjny lider pod względem fotogeniczności. Pistacjowy biszkopt, krem serowy z naturalną pastą pistacjową i malinowe confit dają żywy kontrast kolorów i smaków: orzechowa słodycz spotyka się z owocową kwaskowatością. Przekrój — zielony, różowy, biały — wygląda jak okładka magazynu cukierniczego.',
+          'To najpopularniejszy smak na weselne sweet table i zamówienia „na Instagrama”. Klienci wybierający pistację-malinę zwykle już widzieli ten tort u kogoś w feedzie i chcą dokładnie takiego. Średnia wartość zamówienia — najwyższa ze wszystkich dziesięciu smaków, a klienci się nie targują.',
+          'Koszt własny — najwyższy w zbiorze ze względu na pastę pistacjową: jakościowa kosztuje wielokrotnie więcej niż jakikolwiek inny składnik. Ale marża też jest najwyższa — pozycjonowanie „premium” pozwala ustawić cenę o 40–60 % powyżej bazowej. To właśnie na tym smaku domowy cukiernik może poczuć różnicę między „dorabianiem” a „biznesem”.',
+        ],
         mistakes: [
           'Pasta pistacjowa „siwieje” i smak staje się trawiasty.',
           'Malinowe coulis przecieka do biszkoptu i barwi krem na brudny róż.',
@@ -706,6 +821,11 @@ export const FLAVOR_EXTRA = {
       },
       en: {
         occasion: 'A top premium order of 2026. It fits a wedding sweet table, a studio shoot, an Instagram-first gift.',
+        description: [
+          'Pistachio-raspberry is the flagship premium flavour of the collection and the undisputed leader in photogenicity. A pistachio sponge, cream cheese with natural pistachio paste, and raspberry confit deliver a vivid contrast of colour and taste: nutty sweetness meets berry tartness. The cross-section — green, pink, white — looks like a pastry-magazine cover.',
+          'This is the most popular flavour for wedding sweet tables and "Instagram-first" orders. Clients who choose pistachio-raspberry have usually already seen this cake in someone’s feed and want exactly that. The average ticket is the highest of all ten flavours, and clients do not haggle.',
+          'Cost per cake is the highest in the collection because of pistachio paste: a quality one costs several times more than any other ingredient. But the margin is also the highest — "premium" positioning lets you price it 40–60 % above the base. This is the flavour where a home baker can feel the difference between "side hustle" and "business."',
+        ],
         mistakes: [
           'The pistachio paste dulls to grey and the flavour turns grassy.',
           'The raspberry coulis leaks into the sponge and stains the cream a muddy pink.',
@@ -749,6 +869,11 @@ export const FLAVOR_EXTRA = {
       },
       ru: {
         occasion: 'Летнее «отпускное» настроение. Идеально на морскую тематику, детский день рождения без алкоголя, заказ на пляж.',
+        description: [
+          'Пина колада — летний хит сборника. Кокосовый бисквит, ананасовое конфи и сливочный крем создают тропическое настроение, которое лучше всего работает в жаркие месяцы. Вкус лёгкий, свежий, с кислинкой ананаса и нежностью кокоса — полная противоположность зимним шоколадным вариантам.',
+          'В сборнике две версии: «детская» (без алкоголя) и «взрослая» (с лёгкой ромовой нотой). Это делает Пина коладу универсальной для летних заказов: детские дни рождения, пляжные вечеринки, тропические тематические праздники. Спрос — исключительно сезонный: июнь-август, потом заказы падают до нуля.',
+          'Себестоимость — средняя, но есть нюанс с ананасом: консервированный дешевле, свежий даёт лучший вкус. В PDF объясняется, как работать с обоими вариантами. На фото торт выглядит ярко и необычно — жёлтый конфи на белом креме — что выделяет его из остальной линейки.',
+        ],
         mistakes: [
           'Ананасовое кюли слишком жидкое — «расползается» под бисквит.',
           'Кокосовая стружка перетягивает внимание и забивает вкус ананаса.',
@@ -765,6 +890,11 @@ export const FLAVOR_EXTRA = {
       },
       pl: {
         occasion: 'Letnie „wakacyjne” wydanie. Świetny na tematykę morską, dziecięce urodziny bez alkoholu, zamówienie na plażę.',
+        description: [
+          'Piña Colada to letni hit zbioru. Kokosowy biszkopt, ananasowe confit i śmietankowy krem tworzą tropikalny nastrój, który najlepiej działa w upalne miesiące. Smak lekki i świeży, z kwaskowatością ananasa i delikatnością kokosa — pełne przeciwieństwo zimowych czekoladowych wariantów.',
+          'W zbiorze są dwie wersje: „dziecięca” (bez alkoholu) i „dorosła” (z lekką nutą rumu). To czyni Piña Coladę uniwersalną na letnie zamówienia: dziecięce urodziny, imprezy plażowe, tropikalne przyjęcia tematyczne. Popyt — wyłącznie sezonowy: czerwiec–sierpień, potem zamówienia spadają do zera.',
+          'Koszt własny — średni, ale jest niuans z ananasem: z puszki jest tańszy, świeży daje lepszy smak. W PDF wyjaśniamy, jak pracować z oboma wariantami. Na zdjęciach tort wygląda jasno i nietypowo — żółte confit na białym kremie — co odróżnia go od reszty oferty.',
+        ],
         mistakes: [
           'Coulis ananasowe jest zbyt płynne i „rozłazi się” pod biszkoptem.',
           'Wiórki kokosowe kradną uwagę i tłumią smak ananasa.',
@@ -781,6 +911,11 @@ export const FLAVOR_EXTRA = {
       },
       en: {
         occasion: 'A holiday mood. It fits a beach shoot, a nautical-theme kids’ party (alcohol-free version), a summer picnic order.',
+        description: [
+          'Pina Colada is the summer hit of the collection. A coconut sponge, pineapple confit, and cream create a tropical mood that works best in the hot months. The taste is light and fresh, with pineapple tang and coconut softness — the polar opposite of winter chocolate options.',
+          'The collection offers two versions: a "kids’" version (no alcohol) and an "adult" version (with a light rum note). This makes Pina Colada versatile for summer orders: children’s birthdays, beach parties, tropical-themed celebrations. Demand is strictly seasonal: June through August, then orders drop to zero.',
+          'Cost per cake is mid-range, but there is a nuance with pineapple: canned is cheaper, fresh gives a better flavour. The PDF explains how to work with both. In photos the cake looks bright and unusual — yellow confit on white cream — setting it apart from the rest of the line-up.',
+        ],
         mistakes: [
           'The pineapple coulis runs too thin and sprawls under the sponge.',
           'The coconut shreds hog the flavour and mute the pineapple.',
@@ -824,6 +959,11 @@ export const FLAVOR_EXTRA = {
       },
       ru: {
         occasion: 'Классика «Чёрный лес» в бенто-формате. Идеально на новогодний стол, зимний день рождения, подарок маме.',
+        description: [
+          'Вишня-шоколад — классика «Чёрный лес» в бенто-формате. Шоколадный бисквит, вишнёвое кюли и крем-чиз дают знакомый с детства вкус: глубокий шоколад с кислой вишнёвой нотой. Это торт для тех, кто любит проверенные сочетания без экспериментов.',
+          'Основная аудитория — зимние заказы: Новый год, Рождество, зимние дни рождения. Также стабильно заказывают как подарок маме или бабушке — это вкус, знакомый старшему поколению. На фото срез выглядит эффектно: тёмный бисквит, яркое вишнёвое кюли, белый крем.',
+          'Сложность — одна из самых низких: Вишня-шоколад — хороший второй торт после Oreo. Себестоимость зависит от сезона: летом свежая вишня дешёвая, зимой придётся брать замороженную. В PDF описано, как работать с обоими вариантами и почему выбор влияет на структуру конфи.',
+        ],
         mistakes: [
           'Вишнёвое кюли протекает в шоколадный бисквит и делает срез грязным.',
           'Ганаш «стягивает» бисквит при охлаждении — торт «садится».',
@@ -840,6 +980,11 @@ export const FLAVOR_EXTRA = {
       },
       pl: {
         occasion: 'Klasyka „Czarny las” w formacie bento. Idealny na stół sylwestrowy, zimowe urodziny, prezent dla mamy.',
+        description: [
+          'Wiśnia-czekolada to klasyka „Czarnego lasu” w formacie bento. Czekoladowy biszkopt, wiśniowe coulis i krem serowy dają smak znany z dzieciństwa: głęboka czekolada z kwaśną nutą wiśni. To tort dla tych, którzy lubią sprawdzone połączenia bez eksperymentów.',
+          'Główna grupa odbiorców — zamówienia zimowe: Sylwester, Boże Narodzenie, zimowe urodziny. Stale zamawiany również jako prezent dla mamy lub babci — smak rozpoznawalny dla starszego pokolenia. Na zdjęciach przekrój wygląda efektownie: ciemny biszkopt, żywe wiśniowe coulis, biały krem.',
+          'Trudność — jedna z najniższych: Wiśnia-czekolada to dobry drugi tort po Oreo. Koszt własny zależy od sezonu: latem świeża wiśnia jest tania, zimą trzeba sięgnąć po mrożoną. W PDF opisujemy, jak pracować z oboma wariantami i dlaczego wybór wpływa na strukturę confit.',
+        ],
         mistakes: [
           'Wiśniowe coulis przecieka do czekoladowego biszkoptu i przekrój staje się „brudny”.',
           'Ganache „ściąga” biszkopt podczas chłodzenia i tort „siada”.',
@@ -856,6 +1001,11 @@ export const FLAVOR_EXTRA = {
       },
       en: {
         occasion: 'Black Forest, done as a bento. It fits a New Year’s table, a winter birthday, a gift for mum.',
+        description: [
+          'Cherry-chocolate is the classic Black Forest reworked as a bento. A chocolate sponge, cherry coulis, and cream cheese deliver a taste familiar from childhood: deep chocolate with a tart cherry note. This is a cake for people who prefer proven combinations without experiments.',
+          'The core audience is winter orders: New Year’s, Christmas, winter birthdays. It is also steadily ordered as a gift for mum or grandma — a flavour the older generation recognises. In photos the cross-section looks striking: dark sponge, bright cherry coulis, white cream.',
+          'Difficulty is among the lowest: Cherry-chocolate is a good second cake after Oreo. Cost depends on the season: in summer fresh cherries are cheap, in winter you will need frozen ones. The PDF covers how to work with both and why the choice affects the confit’s structure.',
+        ],
         mistakes: [
           'The cherry coulis leaks into the chocolate sponge and the cut looks muddy.',
           'The ganache pulls the sponge inward as it cools and the cake slumps.',

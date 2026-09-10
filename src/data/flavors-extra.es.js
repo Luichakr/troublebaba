@@ -8,6 +8,11 @@
 export const EXTRA_ES = {
   'oreo-bento-cake': {
     occasion: 'Una apuesta segura que gusta a todos: un cumpleaños, un regalo de consuelo o un postre con café «porque sí».',
+    description: [
+      'Oreo es el sabor más popular de la colección y el primero que recomendamos para empezar a vender. Bizcocho denso de chocolate, crema de queso con mantequilla y crumble crujiente de galleta componen un sabor que el cliente reconoce sin explicaciones. El coulis de cereza aporta un toque ácido y un contraste en el corte que dispara los «guardados» en redes.',
+      'Se pide para todo: cumpleaños, graduaciones, regalos entre compañeros de trabajo, un capricho propio. Sin límite de edad — no lleva alcohol ni especias. Para quien empieza a vender desde casa, es la primera tarta segura: sabor conocido, tolerante a pequeños fallos de montaje, y el cliente ya sabe qué espera antes de probar.',
+      'El coste de ingredientes es de los más bajos de la colección: todo se encuentra en cualquier supermercado. Eso permite fijar un precio competitivo y practicar sin que los errores duelan en la cuenta. Según la estadística de nuestras compradoras, Oreo es la tarta que trae las primeras repeticiones.',
+    ],
     mistakes: [
       'La galleta Oreo se ablanda y se convierte en pasta tras una noche en la nevera.',
       'La crema de queso se desplaza hacia los lados y las capas crujientes desaparecen en el corte.',
@@ -23,6 +28,11 @@ export const EXTRA_ES = {
   },
   'red-velvet-bento-cake': {
     occasion: 'Un clásico para San Valentín, un aniversario o una despedida de soltera. El bizcocho rojo contra la crema blanca fotografía de maravilla.',
+    description: [
+      'Red Velvet es la tarta que se vende con los ojos. El bizcocho rojo intenso contra la crema blanca de mascarpone da un corte que los clientes fotografían y comparten sin que se lo pidas. El coulis de fresa añade una nota fresca de fruta y funciona como contrapunto ácido a la dulzura de la crema.',
+      'Su público principal son las ocasiones románticas: San Valentín, aniversarios, propuestas de matrimonio. Pero también se vende bien en despedidas de soltera y celebraciones femeninas. Red Velvet es el sabor que más se pide con inscripción — su superficie blanca y lisa es perfecta para lettering con colorante alimentario.',
+      'La dificultad es media: la clave está en manejar el mascarpone y conseguir el color correcto del bizcocho. El coste es algo mayor que Oreo por el mascarpone y el colorante de calidad, pero se puede cobrar un 15–20 % por encima del precio base gracias al aspecto «premium» del corte.',
+    ],
     mistakes: [
       'El rojo se apaga en el horno y la miga sale de un marrón turbio.',
       'La crema de mascarpone llora en el corte y difumina las líneas de las capas.',
@@ -38,6 +48,11 @@ export const EXTRA_ES = {
   },
   'poppy-seed-citrus-bento-cake': {
     occasion: 'Una elección de verano para quien no persigue el chocolate. Ligera y fresca: funciona para un brunch o una celebración prenupcial.',
+    description: [
+      'Amapola-cítricos es el sabor más ligero de la colección. Un bizcocho de amapola con textura delicada, un curd cítrico vibrante y crema de queso que suaviza la acidez — un postre para quien no quiere nada de chocolate. Fresco, ligeramente «adulto», sin dulzor empalagoso.',
+      'Los mejores meses de venta son abril-junio: cuando los clientes pasan de los sabores invernales de chocolate a algo más ligero. Va muy bien en pedidos de brunch, despedidas de soltera y regalos a mujeres de más edad que no comen demasiado dulce. Amapola-cítricos es el sabor que lleva tu línea más allá de «otra tarta de chocolate».',
+      'El coste es medio: amapola y mantequilla cuestan poco; la partida principal son los cítricos de calidad para el curd. En fotos la tarta se ve limpia y diferente, por lo que los clientes repiten incluso cuando al principio la eligieron «para probar».',
+    ],
     mistakes: [
       'La amapola amarga y arrasa con el sabor del curd.',
       'La crema de queso se corta cuando entra en contacto con el zumo de cítricos.',
@@ -51,6 +66,11 @@ export const EXTRA_ES = {
   },
   'snickers-bento-cake': {
     occasion: 'El sabor «cumpleaños de chicos»: denso y generoso, encaja en la fiesta de un amigo, un pedido de empresa o un regalo del Día del Padre.',
+    description: [
+      'Snickers es el sabor más contundente de la colección. Bizcocho de chocolate, una capa de caramelo salado, cacahuetes y crema de queso con chocolate componen un sabor «golosina» que el cliente reconoce al primer bocado. Es la tarta para quien quiere un postre grande en formato pequeño.',
+      'En ventas, Snickers se sitúa estable en segunda o tercera posición tras Oreo. Se pide sobre todo como «regalo para un chico» o «para un evento de empresa» donde hace falta un sabor sin riesgo. El cacahuete es la única restricción: en pedidos infantiles conviene confirmar alergias.',
+      'Es una de las tartas bento más pesadas: el caramelo y los frutos secos suman peso, así que la porción de 12 cm se siente abundante. El coste de ingredientes se mantiene en el rango base (chocolate, cacahuete, azúcar para caramelo), lo que deja un margen sano al precio medio de mercado.',
+    ],
     mistakes: [
       'El caramelo cristaliza y deja una textura arenosa en el corte.',
       'Los cacahuetes se ablandan dentro de la crema y pierden su crujido característico.',
@@ -66,6 +86,11 @@ export const EXTRA_ES = {
   },
   'raffaello-bento-cake': {
     occasion: 'La suave y femenina. Encaja en un aniversario, una mesa dulce de boda, un regalo de primavera.',
+    description: [
+      'Raffaello es la tarta con el sabor inconfundible de coco y almendra. Bizcocho de vainilla, crema suave de coco y un bombón Raffaello entero encima la convierten en uno de los sabores más «regalo» de la colección. Delicado y dulce — sin chocolate, sin acidez, sin contrastes.',
+      'El pico de pedidos es la primavera: 8 de marzo, mesas dulces de boda, brunches festivos. Raffaello se mantiene estable en el top 3 de pedidos, sobre todo en temporada de bodas. Las clientas que eligen este sabor suelen saber ya lo que quieren — no necesitas convencerlas.',
+      'El coste es algo superior a la media por el coco, la almendra y la leche condensada. Pero la percepción «premium» del sabor permite subir el precio un 20–30 % sobre la línea base sin esfuerzo. En fotos la tarta luce elegante: blanca, limpia, con la textura del coco rallado.',
+    ],
     mistakes: [
       'El coco deja hilos fibrosos que se quedan entre los dientes.',
       'El crujiente de almendra se ablanda bajo la crema y desaparece.',
@@ -79,6 +104,11 @@ export const EXTRA_ES = {
   },
   'ferrero-rocher-bento-cake': {
     occasion: 'La presentación premium: un aniversario, un pedido de empresa, un regalo para un cliente importante. Se ve caro y fotografía como trabajo de marca.',
+    description: [
+      'Ferrero Rocher es el sabor más caro y más complejo de la colección. Bizcocho de chocolate, ganache de avellana, capa de barquillo y un bombón Ferrero Rocher entero encima crean un postre de texturas donde cada capa se diferencia de la anterior. Sabor profundo, chocolate con avellana, sin dulzor excesivo.',
+      'Es la tarta «corporativa»: se pide para aniversarios de empresa, regalos a socios, felicitaciones VIP. Ferrero Rocher luce premium en las fotos — acentos dorados, estructura elaborada — y el cliente está dispuesto a pagar más. Según nuestra estadística, el ticket medio de este sabor supera en un 30–40 % la línea base.',
+      'La dificultad de montaje es la más alta de los diez sabores: la ganache exige un control fino de temperatura y la capa de barquillo necesita un timing preciso. Pero esa misma complejidad hace que la tarta sea algo que el cliente no puede reproducir en casa — y por tanto vuelve a ti.',
+    ],
     mistakes: [
       'La ganache queda demasiado líquida y la capa de barquillo empieza a flotar.',
       'El chocolate con leche lleva el dulzor demasiado lejos y el carácter se pierde.',
@@ -92,6 +122,11 @@ export const EXTRA_ES = {
   },
   'cinnabon-bento-cake': {
     occasion: 'Una elección de temporada fría. Va bien para un cumpleaños de otoño, una merienda acogedora o una mesa de fiestas.',
+    description: [
+      'Cinnabon es el único sabor «especiado» de la colección. Un bizcocho tibio con canela, crema de queso con mascarpone y una fina espiral de caramelo reproducen el efecto del bollo Cinnabon convertido en tarta. Acogedor, dulce, con una nota especiada suave — ideal con café o chocolate caliente.',
+      'La temporada de ventas es octubre-diciembre: cumpleaños de otoño, Halloween, pedidos de Navidad. En los meses fríos Cinnabon entra estable en el top 5; en verano la demanda cae casi a cero. Eso lo convierte en el complemento estacional perfecto para tu catálogo — no necesitas tener los ingredientes todo el año.',
+      'El coste de ingredientes es de los más bajos: canela, mascarpone y caramelo cuestan poco. El único reto es la dosificación exacta de la canela: la diferencia entre «acogedor» y «pica en la garganta» son unos pocos gramos. Esa precisión es justamente lo que entrega el PDF.',
+    ],
     mistakes: [
       'La canela raspa la garganta si te pasas con la cantidad.',
       'La crema de mascarpone resbala sobre un bizcocho aún tibio.',
@@ -105,6 +140,11 @@ export const EXTRA_ES = {
   },
   'pistachio-raspberry-bento-cake': {
     occasion: 'Uno de los pedidos premium de 2026. Encaja en una mesa dulce de boda, una sesión de fotos de estudio, un regalo pensado para Instagram.',
+    description: [
+      'Pistacho-frambuesa es el gran sabor premium de la colección y el líder absoluto en fotogenia. Bizcocho de pistacho, crema de queso con pasta natural de pistacho y confitura de frambuesa dan un contraste vivo de colores y sabores: dulzor de fruto seco frente a acidez de fruta roja. El corte — verde, rosa, blanco — parece la portada de una revista de pastelería.',
+      'Es el sabor más demandado en mesas dulces de boda y pedidos «de Instagram». Las clientas que eligen pistacho-frambuesa suelen haberlo visto en el feed de alguien y quieren exactamente eso. El ticket medio es el más alto de los diez sabores, y los clientes no regatean.',
+      'El coste es el más alto de la colección por la pasta de pistacho: una de calidad cuesta varias veces más que cualquier otro ingrediente. Pero el margen también es el más alto — el posicionamiento «premium» permite subir el precio un 40–60 % sobre la línea base. Con este sabor, una repostera casera nota la diferencia entre «extra» y «negocio».',
+    ],
     mistakes: [
       'La pasta de pistacho se apaga hacia el gris y el sabor se vuelve herbáceo.',
       'El coulis de frambuesa se filtra en el bizcocho y tiñe la crema de un rosa turbio.',
@@ -118,6 +158,11 @@ export const EXTRA_ES = {
   },
   'pina-colada-bento-cake': {
     occasion: 'Ambiente de vacaciones. Encaja en una sesión de playa, una fiesta infantil de temática marinera (en versión sin alcohol) o un pedido de pícnic de verano.',
+    description: [
+      'Piña colada es el éxito veraniego de la colección. Bizcocho de coco, confitura de piña y crema batida crean un ambiente tropical que funciona mejor en los meses de calor. Sabor ligero, fresco, con la acidez de la piña y la suavidad del coco — la antítesis de los sabores invernales de chocolate.',
+      'La colección incluye dos versiones: «infantil» (sin alcohol) y «adulta» (con un toque ligero de ron). Eso convierte a Piña colada en un todoterreno para pedidos de verano: cumpleaños infantiles, fiestas de playa, celebraciones tropicales. La demanda es estrictamente estacional: junio-agosto; después los pedidos caen a cero.',
+      'El coste es medio, con un matiz sobre la piña: la de conserva es más barata; la fresca da mejor sabor. El PDF explica cómo trabajar con ambas opciones. En fotos la tarta destaca por su aspecto inusual — confitura amarilla sobre crema blanca — y se diferencia del resto del catálogo a primera vista.',
+    ],
     mistakes: [
       'El coulis de piña queda demasiado líquido y se extiende bajo el bizcocho.',
       'El coco rallado acapara el sabor y silencia la piña.',
@@ -131,6 +176,11 @@ export const EXTRA_ES = {
   },
   'cherry-chocolate-bento-cake': {
     occasion: 'La Selva Negra en versión bento. Encaja en una mesa de Nochevieja, un cumpleaños de invierno, un regalo para mamá.',
+    description: [
+      'Cereza-chocolate es el clásico Selva Negra en formato bento. Bizcocho de chocolate, coulis de cereza y crema de queso componen un sabor que trae recuerdos de infancia: chocolate profundo con una nota ácida de cereza. La tarta para quien prefiere combinaciones probadas sin experimentos.',
+      'Su público principal son los pedidos de invierno: Nochevieja, Navidad, cumpleaños en meses fríos. También se pide de forma constante como regalo para mamá o abuela — es un sabor que la generación mayor conoce bien. En las fotos el corte resulta muy visual: bizcocho oscuro, coulis de cereza vibrante, crema blanca.',
+      'La dificultad es de las más bajas: cereza-chocolate es una buena segunda tarta después de Oreo. El coste depende de la temporada: en verano la cereza fresca es barata, en invierno toca usar congelada. El PDF explica cómo trabajar con ambas opciones y por qué la elección afecta a la estructura de la confitura.',
+    ],
     mistakes: [
       'El coulis de cereza se filtra en el bizcocho de chocolate y el corte se ve turbio.',
       'La ganache tira del bizcocho hacia dentro al enfriarse y la tarta se hunde.',
@@ -154,6 +204,7 @@ export const SECTIONS_ES = {
   difficulty: 'Dificultad',
   time: 'Tiempo de montaje',
   pdfCta: 'Consigue la receta completa en el PDF',
+  about: 'Sobre este sabor',
 };
 
 export const DIFFICULTY_ES = { 1: 'Principiante', 2: 'Intermedio', 3: 'Avanzado' };
