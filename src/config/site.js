@@ -66,8 +66,13 @@ export const SITE = {
     pt: { amount: '18',  currency: 'EUR' },
   },
 
-  // Display-only ruble price for visitors from Russia on the /ru/ page.
-  // Checkout stays in USD ($20) via Lemon Squeezy — this is cosmetic.
+  // Geo-based price overrides. Visitors from these countries see local
+  // currency instead of the page-language default.
+  //
+  // `lang` (string) — activate ONLY on this page language (RU: only /ru/).
+  // `skipLangs` (string[]) — activate on every page EXCEPT these (UA: skip uk).
+  // `storeOverride` (string) — force this lang's checkout store instead of the page's.
+  // `byLang` (object) — per-page-language text overrides; falls back to top-level keys.
   priceByCountry: {
     RU: {
       lang:       'ru',
@@ -77,6 +82,20 @@ export const SITE = {
       heroCta:    'Скачать PDF — ≈ 1 800 ₽',
       priceCta:   'Купить за ≈ 1 800 ₽',
       disclaimer: 'Цена указана в рублях для удобства. Оплата будет списана в долларах ($20).',
+    },
+    UA: {
+      skipLangs:     ['uk'],
+      storeOverride: 'uk',
+      byLang: {
+        ru: { display: '800 ₴', displayOld: '1200 ₴', nav: 'Купить PDF — 800 ₴', heroCta: 'Скачать PDF — 800 ₴', priceCta: 'Купить за 800 ₴' },
+        pl: { display: '800 ₴', displayOld: '1200 ₴', nav: 'Kup PDF — 800 ₴',    heroCta: 'Pobierz PDF — 800 ₴',  priceCta: 'Kup za 800 ₴' },
+        en: { display: '800 ₴', displayOld: '1,200 ₴', nav: 'Buy PDF — 800 ₴',   heroCta: 'Download PDF — 800 ₴', priceCta: 'Buy for 800 ₴' },
+        es: { display: '800 ₴', displayOld: '1.200 ₴', nav: 'Comprar PDF — 800 ₴', heroCta: 'Descargar PDF — 800 ₴', priceCta: 'Comprar por 800 ₴' },
+        de: { display: '800 ₴', displayOld: '1.200 ₴', nav: 'PDF kaufen — 800 ₴', heroCta: 'PDF herunterladen — 800 ₴', priceCta: 'Für 800 ₴ kaufen' },
+        fr: { display: '800 ₴', displayOld: '1 200 ₴', nav: 'Acheter le PDF — 800 ₴', heroCta: 'Télécharger le PDF — 800 ₴', priceCta: 'Acheter pour 800 ₴' },
+        it: { display: '800 ₴', displayOld: '1.200 ₴', nav: 'Acquista il PDF — 800 ₴', heroCta: 'Scarica il PDF — 800 ₴', priceCta: 'Acquista per 800 ₴' },
+        pt: { display: '800 ₴', displayOld: '1.200 ₴', nav: 'Comprar PDF — 800 ₴', heroCta: 'Baixar PDF — 800 ₴', priceCta: 'Comprar por 800 ₴' },
+      },
     },
   },
 

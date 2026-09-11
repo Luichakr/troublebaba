@@ -492,7 +492,8 @@ const loadGA = (loadGAOverride ?? (pageType !== 'error')) && !!SITE.gaId;
   </script>
   <script>
     // Geo-price swap: show local currency for visitors from specific countries.
-    // Only replaces text in elements marked with data-geo-price; checkout URL untouched.
+    // Replaces text in elements marked with data-geo-price and optionally
+    // overrides the checkout store via window.TR_GEO_STORE.
     (function () {
       const gp = (window as any).TR_GEO_PRICES || {};
       if (!Object.keys(gp).length) return;
@@ -505,14 +506,19 @@ const loadGA = (loadGAOverride ?? (pageType !== 'error')) && !!SITE.gaId;
           const loc = gp[country];
           if (!loc) return;
           const pageLang = (document.documentElement.lang || 'uk').slice(0, 2);
-          if (loc.lang && loc.lang !== pageLang) return;
 
-          const map: Record<string, string> = {
-            'display':     loc.display,
-            'display-old': loc.displayOld,
-            'nav':         loc.nav,
-            'hero-cta':    loc.heroCta,
-            'price-cta':   loc.priceCta,
+          if (loc.lang && loc.lang !== pageLang) return;
+          if (Array.isArray(loc.skipLangs) && loc.skipLangs.includes(pageLang)) return;
+
+          const langOverrides = loc.byLang?.[pageLang] || {};
+          const get = (key: string) => langOverrides[key] || loc[key];
+
+          const map: Record<string, string | undefined> = {
+            'display':     get('display'),
+            'display-old': get('displayOld'),
+            'nav':         get('nav'),
+            'hero-cta':    get('heroCta'),
+            'price-cta':   get('priceCta'),
           };
           for (const [role, text] of Object.entries(map)) {
             if (!text) continue;
@@ -520,13 +526,17 @@ const loadGA = (loadGAOverride ?? (pageType !== 'error')) && !!SITE.gaId;
               el.textContent = text;
             });
           }
-          if (loc.disclaimer) {
+          const disclaimer = get('disclaimer');
+          if (disclaimer) {
             const dd = document.getElementById('geo-price-disclaimer');
             if (dd) {
               const span = dd.querySelector('span');
-              if (span) span.textContent = loc.disclaimer;
+              if (span) span.textContent = disclaimer;
               dd.hidden = false;
             }
+          }
+          if (loc.storeOverride) {
+            (window as any).TR_GEO_STORE = loc.storeOverride;
           }
         })
         .catch(() => {});

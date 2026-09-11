@@ -2170,8 +2170,10 @@ const PDF_ONLY_EN = new Set(['es', 'de', 'fr', 'it', 'pt']);
 // валюта: uk → ₴800, ru → $20, pl → 80 zł, en и все европейские → €18.
 // Брать TR_LS_CHECKOUT напрямую нельзя: это гривневый магазин по
 // умолчанию, и посетитель с испанской страницы уехал бы платить ₴800.
-const storeUrlFor = (l: string): string =>
-  ((window as any).TR_LS_BY_LANG || {})[l] || ((window as any).TR_LS_CHECKOUT as string) || '';
+const storeUrlFor = (l: string): string => {
+  const effective = (window as any).TR_GEO_STORE || l;
+  return ((window as any).TR_LS_BY_LANG || {})[effective] || ((window as any).TR_LS_CHECKOUT as string) || '';
+};
 
 // Страна посетителя. Главная статическая и кешируется, поэтому страну
 // нельзя подставить при сборке — спрашиваем эндпоинт. Запрос уходит один
