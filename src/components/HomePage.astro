@@ -1918,13 +1918,6 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
   <!-- ── FOOTER ── -->
   <SiteFooter lang={lang} />
 
-  <!-- ── Mobile sticky CTA ── -->
-  <a id="sticky-cta" href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="sticky-mobile"
-     class="md:hidden fixed bottom-4 left-4 right-4 z-40 bg-mocha-dark text-warm-white font-outfit font-bold text-[15px] flex items-center justify-center gap-2 py-4 rounded-2xl shadow-2xl opacity-0 pointer-events-none translate-y-4 transition-all duration-300"
-     style="box-shadow:0 8px 28px rgba(139,115,85,0.45);">
-    <span data-geo-price="nav">{tr.nav_buy}</span>
-  </a>
-
 <!-- PDF-language modal shown after a Buy click, before the LS redirect. -->
 <div id="pdf-lang-modal" role="dialog" aria-modal="true" aria-labelledby="pdf-lang-title"
      class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
@@ -1943,6 +1936,13 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
     </div>
   </div>
 </div>
+
+  <!-- ── Mobile sticky CTA ── -->
+  <a id="sticky-cta" href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="sticky-mobile"
+     class="md:hidden fixed bottom-4 left-4 right-4 z-40 bg-mocha-dark text-warm-white font-outfit font-bold text-[15px] flex items-center justify-center gap-2 py-4 rounded-2xl shadow-2xl opacity-0 pointer-events-none translate-y-4 transition-all duration-300"
+     style="box-shadow:0 8px 28px rgba(139,115,85,0.45);">
+    <span data-geo-price="nav">{tr.nav_buy}</span>
+  </a>
 
 <!-- Expose translated buy-button states + presale flag + LS checkout to the bundled script. -->
 <script is:inline define:vars={{ buyLoading: tr.buy_loading, buyError: tr.buy_error, presale, notifySuccess: tr.notify_success, notifyError: tr.notify_error, pageLang: lang, turnstileKey, lsCheckoutUrl: SITE.lemonsqueezy?.enabled ? SITE.lemonsqueezy.checkoutUrl : '', lsCheckoutByLang: SITE.lemonsqueezy?.enabled ? (SITE.lemonsqueezy.checkoutByLang || {}) : {}, priceData: (SITE.pricesByLang)[lang] || { amount: '20', currency: 'USD' } }}>
