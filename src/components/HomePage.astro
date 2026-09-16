@@ -2338,6 +2338,41 @@ if (pdfModal) {
   });
 }
 
+// Auto-open modal when arriving from a recipe page with ?buy=1
+if (pdfModal && new URLSearchParams(window.location.search).has('buy')) {
+  const pageLang = (document.documentElement.lang || 'uk').slice(0, 2);
+  send('click_buy', { source: 'recipe_redirect', page_lang: pageLang });
+  if (typeof gtag === 'function') {
+    const p = (window as any).TR_PRICE || { amount: '20', currency: 'USD' };
+    gtag('event', 'begin_checkout', {
+      currency: p.currency,
+      value: parseFloat(p.amount),
+      items: [{ item_name: 'Bento Cake PDF', price: parseFloat(p.amount), quantity: 1 }],
+    });
+  }
+  if (PDF_ONLY_EN.has(pageLang)) {
+    const url = storeUrlFor(pageLang);
+    if (url) {
+      const sep = url.includes('?') ? '&' : '?';
+      send('pdf_lang_pick', { lang: 'en', site_lang: pageLang, auto: true });
+      send('checkout_redirect', { source: 'recipe_redirect', page_lang: pageLang, pdf_lang: 'en', store_currency: 'EUR' });
+      window.location.href = url + sep +
+        'checkout[custom][lang]=en' +
+        '&checkout[custom][source]=recipe_redirect';
+    }
+  } else {
+    geoSettled().then(() => {
+      applyGeoToModal(pdfModal);
+      pdfModal.classList.remove('hidden');
+      pdfModal.classList.add('flex');
+      document.documentElement.style.overflow = 'hidden';
+      pdfModal.dataset.siteLang = pageLang;
+      pdfModal.dataset.buySource = 'recipe_redirect';
+    });
+  }
+  history.replaceState(null, '', window.location.pathname + window.location.hash);
+}
+
 document.querySelectorAll<HTMLAnchorElement>('.lang-btn').forEach(a => {
   a.addEventListener('click', () => {
     send('language_switch', {
