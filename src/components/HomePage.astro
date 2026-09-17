@@ -1929,10 +1929,18 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
     <h3 id="pdf-lang-title" class="font-cabinet font-bold text-[22px] text-espresso leading-tight pr-6">{tr.pdf_lang_title}</h3>
     <p class="mt-1 text-[13px] text-espresso/65">{tr.pdf_lang_hint}</p>
     <div class="mt-5 grid grid-cols-2 gap-2.5">
-      <button type="button" data-pdf-lang="uk" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha-dark hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">Українська</button>
-      <button type="button" data-pdf-lang="ru" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha-dark hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">Русский</button>
-      <button type="button" data-pdf-lang="en" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha-dark hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">English</button>
-      <button type="button" data-pdf-lang="pl" class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha-dark hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">Polski</button>
+      {(() => {
+        const all = [
+          { code: 'uk', label: 'Українська' },
+          { code: 'ru', label: 'Русский' },
+          { code: 'en', label: 'English' },
+          { code: 'pl', label: 'Polski' },
+        ];
+        const sorted = [...all.filter(x => x.code === lang), ...all.filter(x => x.code !== lang)];
+        return sorted;
+      })().map(x => (
+        <button type="button" data-pdf-lang={x.code} class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha-dark hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">{x.label}</button>
+      ))}
     </div>
   </div>
 </div>
