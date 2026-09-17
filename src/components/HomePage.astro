@@ -1936,8 +1936,12 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
           { code: 'en', label: 'English' },
           { code: 'pl', label: 'Polski' },
         ];
-        const sorted = [...all.filter(x => x.code === lang), ...all.filter(x => x.code !== lang)];
-        return sorted;
+        const current = all.find(x => x.code === lang) ?? all[0];
+        const neighbor = lang === 'en'
+          ? all.find(x => x.code === 'pl') ?? all[3]
+          : all.find(x => x.code === 'en') ?? all[2];
+        const rest = all.filter(x => x !== current && x !== neighbor);
+        return [current, neighbor, ...rest];
       })().map(x => (
         <button type="button" data-pdf-lang={x.code} class="pdf-lang-opt py-3 rounded-xl border border-espresso/15 bg-warm-white hover:bg-mocha-dark hover:text-warm-white hover:border-mocha transition font-outfit font-semibold text-[15px] text-espresso">{x.label}</button>
       ))}
