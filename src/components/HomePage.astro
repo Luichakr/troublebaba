@@ -2350,18 +2350,13 @@ if (pdfModal) {
   });
 }
 
-// Auto-open modal when arriving from a recipe page with ?buy=1
+// Auto-open modal when arriving from a recipe page with ?buy=1.
+// The real click was already logged as click_buy on the recipe page
+// (Layout.astro content_cta), so we do NOT re-log it here — doing so
+// double-counted real users and let JS-rendering crawlers (YandexBot)
+// inflate click_buy just by following the ?buy=1 link.
 if (pdfModal && new URLSearchParams(window.location.search).has('buy')) {
   const pageLang = (document.documentElement.lang || 'uk').slice(0, 2);
-  send('click_buy', { source: 'recipe_redirect', page_lang: pageLang });
-  if (typeof gtag === 'function') {
-    const p = (window as any).TR_PRICE || { amount: '20', currency: 'USD' };
-    gtag('event', 'begin_checkout', {
-      currency: p.currency,
-      value: parseFloat(p.amount),
-      items: [{ item_name: 'Bento Cake PDF', price: parseFloat(p.amount), quantity: 1 }],
-    });
-  }
   if (PDF_ONLY_EN.has(pageLang)) {
     const url = storeUrlFor(pageLang);
     if (url) {

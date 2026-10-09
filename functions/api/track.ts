@@ -21,6 +21,10 @@ interface TrackBody {
   extra?:  unknown;
 }
 
+// Known crawlers / preview fetchers that run JS or hit endpoints. Matched
+// case-insensitively against the user-agent; see the bot filter below.
+const BOT_UA = /bot|crawler|spider|crawling|yandex|googlebot|bingbot|duckduckbot|baiduspider|applebot|facebookexternalhit|facebot|ia_archiver|slurp|ahrefs|semrush|mj12bot|dotbot|petalbot|gptbot|chatgpt|ccbot|claudebot|anthropic|bytespider|headless|lighthouse|pingdom|uptimerobot/i;
+
 const ALLOWED_TYPES = new Set([
   'click_buy', 'invoice_create', 'invoice_success', 'invoice_failure',
   'lead_submit', 'language_switch', 'faq_open',
@@ -54,6 +58,16 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
   const cf = (request as Request & { cf?: { country?: string } }).cf ?? {};
   const userAgent = (request.headers.get('user-agent') || '').slice(0, 240);
+
+  // Drop search-engine crawlers that execute JS (YandexBot renders pages and
+  // fires our client events — inflating click_buy by following ?buy=1 links).
+  // Return success-shaped so nothing breaks; just don't store the event.
+  // Empty UA is kept: server-side webhooks (purchase) send no UA.
+  if (userAgent && BOT_UA.test(userAgent)) {
+    return new Response(JSON.stringify({ ok: true, skipped: 'bot' }), {
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
+    });
+  }
 
   try {
     await env.DB.prepare(
