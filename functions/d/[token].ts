@@ -34,25 +34,25 @@ const VIEW_COPY: Record<string, { view: string; download: string; viewNote: stri
   uk: {
     view: 'Переглянути онлайн',
     download: 'Завантажити PDF',
-    viewNote: 'Версія для перегляду — читайте з будь-якого пристрою, скільки завгодно разів. Зберегти файл звідси не можна.',
+    viewNote: 'Полегшена версія для перегляду (екранна якість) — читайте з будь-якого пристрою, скільки завгодно разів. Зберегти файл звідси не можна.',
     saveWhy: 'Щоб залишити збірник собі назавжди — завантажте PDF (найкраща якість, для друку й зуму). Посилання діє 7 днів і розраховане на 3 завантаження, тож збережіть файл одразу.',
   },
   ru: {
     view: 'Смотреть онлайн',
     download: 'Скачать PDF',
-    viewNote: 'Версия для просмотра — читайте с любого устройства, сколько угодно раз. Сохранить файл отсюда нельзя.',
+    viewNote: 'Облегчённая версия для просмотра (экранное качество) — читайте с любого устройства, сколько угодно раз. Сохранить файл отсюда нельзя.',
     saveWhy: 'Чтобы оставить сборник себе навсегда — скачайте PDF (лучшее качество, для печати и зума). Ссылка действует 7 дней и рассчитана на 3 скачивания, поэтому сохраните файл сразу.',
   },
   en: {
     view: 'View online',
     download: 'Download PDF',
-    viewNote: 'Read-online version — open it on any device as many times as you like. It can’t be saved from here.',
+    viewNote: 'A lightweight read-online version (screen quality) — open it on any device as many times as you like. It can’t be saved from here.',
     saveWhy: 'To keep the collection forever, download the PDF (best, print-quality — zoom right in). The link lasts 7 days and allows 3 downloads, so save the file right away.',
   },
   pl: {
     view: 'Przeglądaj online',
     download: 'Pobierz PDF',
-    viewNote: 'Wersja do przeglądania — otwieraj na dowolnym urządzeniu, ile chcesz. Pliku nie da się stąd zapisać.',
+    viewNote: 'Lekka wersja do przeglądania (jakość ekranowa) — otwieraj na dowolnym urządzeniu, ile chcesz. Pliku nie da się stąd zapisać.',
     saveWhy: 'Aby zachować zbiór na zawsze, pobierz PDF (najlepsza jakość, do druku i powiększania). Link działa 7 dni i pozwala na 3 pobrania, więc zapisz plik od razu.',
   },
 };

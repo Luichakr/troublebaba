@@ -27,6 +27,7 @@ interface CopyStrings {
   subject: string;
   heading: string;
   intro: string;
+  formats: string;
   cta: string;
   fallbackLink: string;
   expiryNote: (days: number, downloads: number) => string;
@@ -41,8 +42,9 @@ const COPY: Record<DeliverLang, CopyStrings> = {
   uk: {
     subject: 'Ваш PDF — Bento Cake by TROUBLEBABA',
     heading: 'Дякуємо за покупку! 🍰',
-    intro: 'Ваш збірник «Bento Cake by TROUBLEBABA — 10 рецептів» готовий до завантаження.',
-    cta: 'Завантажити PDF',
+    intro: 'Ваш збірник «Bento Cake by TROUBLEBABA — 10 рецептів» готовий. За посиланням нижче ви побачите дві кнопки:',
+    formats: '• <b>Переглянути онлайн</b> — полегшена версія для читання з телефона: швидко відкривається будь-де, але якість нижча (екранна).<br>• <b>Завантажити PDF</b> — повна версія найкращої якості (~70 МБ): можна друкувати й збільшувати кожне фото. Рекомендуємо зберегти для себе.',
+    cta: 'Відкрити збірник',
     fallbackLink: 'Якщо кнопка не працює, скопіюйте посилання:',
     expiryNote: (d, n) => `⏳ Посилання персональне: діє <b>${d} днів</b> і розраховане на <b>${n} завантаження</b>. Будь ласка, збережіть файл на свій пристрій одразу.`,
     receiptLs: 'Окремим листом Lemon Squeezy надішле офіційний чек за покупку — це нормально, зберігайте його.',
@@ -54,8 +56,9 @@ const COPY: Record<DeliverLang, CopyStrings> = {
   ru: {
     subject: 'Ваш PDF — Bento Cake by TROUBLEBABA',
     heading: 'Спасибо за покупку! 🍰',
-    intro: 'Ваш сборник «Bento Cake by TROUBLEBABA — 10 рецептов» готов к скачиванию.',
-    cta: 'Скачать PDF',
+    intro: 'Ваш сборник «Bento Cake by TROUBLEBABA — 10 рецептов» готов. По ссылке ниже вы увидите две кнопки:',
+    formats: '• <b>Смотреть онлайн</b> — облегчённая версия для чтения с телефона: быстро открывается где угодно, но качество ниже (экранное).<br>• <b>Скачать PDF</b> — полная версия лучшего качества (~70 МБ): можно печатать и увеличивать каждое фото. Рекомендуем сохранить себе.',
+    cta: 'Открыть сборник',
     fallbackLink: 'Если кнопка не работает, скопируйте ссылку:',
     expiryNote: (d, n) => `⏳ Ссылка персональная: действует <b>${d} дней</b> и рассчитана на <b>${n} скачивания</b>. Пожалуйста, сохраните файл на устройство сразу.`,
     receiptLs: 'Отдельным письмом Lemon Squeezy пришлёт официальный чек за покупку — это нормально, сохраните его.',
@@ -67,8 +70,9 @@ const COPY: Record<DeliverLang, CopyStrings> = {
   en: {
     subject: 'Your PDF — Bento Cake by TROUBLEBABA',
     heading: 'Thanks for your purchase! 🍰',
-    intro: 'Your collection “Bento Cake by TROUBLEBABA — 10 recipes” is ready to download.',
-    cta: 'Download PDF',
+    intro: 'Your collection “Bento Cake by TROUBLEBABA — 10 recipes” is ready. The link below gives you two buttons:',
+    formats: '• <b>View online</b> — a lightweight version for reading on your phone: opens fast anywhere, but lower (screen) quality.<br>• <b>Download PDF</b> — the full, best-quality version (~70 MB): print it and zoom into every photo. We recommend saving it.',
+    cta: 'Open the collection',
     fallbackLink: 'If the button doesn’t work, copy the link:',
     expiryNote: (d, n) => `⏳ This link is personal: valid for <b>${d} days</b> and up to <b>${n} downloads</b>. Please save the file to your device right away.`,
     receiptLs: 'Lemon Squeezy will send the official receipt in a separate email — that’s normal, keep it for your records.',
@@ -80,8 +84,9 @@ const COPY: Record<DeliverLang, CopyStrings> = {
   pl: {
     subject: 'Twój PDF — Bento Cake by TROUBLEBABA',
     heading: 'Dziękujemy za zakup! 🍰',
-    intro: 'Twój zbiór „Bento Cake by TROUBLEBABA — 10 przepisów” jest gotowy do pobrania.',
-    cta: 'Pobierz PDF',
+    intro: 'Twój zbiór „Bento Cake by TROUBLEBABA — 10 przepisów” jest gotowy. Pod linkiem poniżej znajdziesz dwa przyciski:',
+    formats: '• <b>Przeglądaj online</b> — lekka wersja do czytania na telefonie: szybko otwiera się wszędzie, ale niższa jakość (ekranowa).<br>• <b>Pobierz PDF</b> — pełna wersja w najlepszej jakości (~70 MB): można drukować i powiększać każde zdjęcie. Zalecamy zapisać u siebie.',
+    cta: 'Otwórz zbiór',
     fallbackLink: 'Jeśli przycisk nie działa, skopiuj link:',
     expiryNote: (d, n) => `⏳ Link jest osobisty: ważny <b>${d} dni</b> i obsługuje do <b>${n} pobrań</b>. Zapisz plik na urządzeniu od razu.`,
     receiptLs: 'Osobnym mailem Lemon Squeezy prześle oficjalny paragon za zakup — to normalne, zachowaj go.',
@@ -119,6 +124,7 @@ export function renderDeliverEmail(opts: RenderOpts): { subject: string; html: s
   <div style="font-family:system-ui,-apple-system,sans-serif;max-width:520px;margin:0 auto;color:#1A1A1A">
     <h2 style="color:#8B7355">${c.heading}</h2>
     <p>${c.intro}</p>
+    <p style="font-size:14px;line-height:1.6;color:#4a4238;background:#faf6f0;border-radius:10px;padding:14px 16px">${c.formats}</p>
     <p style="margin:28px 0">
       <a href="${opts.link}" style="background:#8B7355;color:#fff;text-decoration:none;padding:14px 28px;border-radius:12px;font-weight:700;display:inline-block">
         ${c.cta}
