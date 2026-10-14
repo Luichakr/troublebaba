@@ -23,6 +23,40 @@ const DL_NAME_BY_LANG: Record<string, string> = {
 };
 const MAX_DOWNLOADS = 3;
 
+// View (read-online) version: pre-rendered page images in R2 at
+// view/<lang>/p-NN.jpg (screen quality, ~10 MB total). Unlimited views, no
+// counter — the heavy 70 MB print PDF stays behind the 3-download cap.
+const VIEW_PAGES: Record<string, number> = { uk: 66, ru: 66, en: 59, pl: 66 };
+const pad2 = (n: number) => String(n).padStart(2, '0');
+
+// Localized labels for the two-button gate + the viewer header.
+const VIEW_COPY: Record<string, { view: string; download: string; viewNote: string; saveWhy: string }> = {
+  uk: {
+    view: 'Переглянути онлайн',
+    download: 'Завантажити PDF',
+    viewNote: 'Версія для перегляду — читайте з будь-якого пристрою, скільки завгодно разів. Зберегти файл звідси не можна.',
+    saveWhy: 'Щоб залишити збірник собі назавжди — завантажте PDF (найкраща якість, для друку й зуму). Посилання діє 7 днів і розраховане на 3 завантаження, тож збережіть файл одразу.',
+  },
+  ru: {
+    view: 'Смотреть онлайн',
+    download: 'Скачать PDF',
+    viewNote: 'Версия для просмотра — читайте с любого устройства, сколько угодно раз. Сохранить файл отсюда нельзя.',
+    saveWhy: 'Чтобы оставить сборник себе навсегда — скачайте PDF (лучшее качество, для печати и зума). Ссылка действует 7 дней и рассчитана на 3 скачивания, поэтому сохраните файл сразу.',
+  },
+  en: {
+    view: 'View online',
+    download: 'Download PDF',
+    viewNote: 'Read-online version — open it on any device as many times as you like. It can’t be saved from here.',
+    saveWhy: 'To keep the collection forever, download the PDF (best, print-quality — zoom right in). The link lasts 7 days and allows 3 downloads, so save the file right away.',
+  },
+  pl: {
+    view: 'Przeglądaj online',
+    download: 'Pobierz PDF',
+    viewNote: 'Wersja do przeglądania — otwieraj na dowolnym urządzeniu, ile chcesz. Pliku nie da się stąd zapisać.',
+    saveWhy: 'Aby zachować zbiór na zawsze, pobierz PDF (najlepsza jakość, do druku i powiększania). Link działa 7 dni i pozwala na 3 pobrania, więc zapisz plik od razu.',
+  },
+};
+
 // Localized copy for the gate page and 410 messages. Falls back to uk.
 const COPY: Record<string, {
   title: string; heading: string; body: string; button: string;
@@ -98,7 +132,8 @@ function formatSize(bytes: number, lang: string): string {
   return `${num} ${unit}`;
 }
 
-function gatePage(url: URL, c: typeof COPY['uk'], sizeLabel?: string): Response {
+function gatePage(url: URL, c: typeof COPY['uk'], vc: typeof VIEW_COPY['uk'], sizeLabel?: string): Response {
+  const viewUrl = new URL(url); viewUrl.searchParams.set('view', '1');
   const goUrl = new URL(url); goUrl.searchParams.set('go', '1');
   const html = `<!doctype html>
 <html><head>
@@ -110,26 +145,68 @@ function gatePage(url: URL, c: typeof COPY['uk'], sizeLabel?: string): Response 
     body{margin:0;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#F5EFE8;color:#1A1A1A;display:flex;min-height:100dvh;align-items:center;justify-content:center;padding:24px}
     .card{max-width:520px;background:#fff;border-radius:20px;padding:40px 32px;box-shadow:0 8px 32px rgba(139,115,85,.14);text-align:center}
     h1{margin:0 0 12px;font-size:26px;color:#8B7355;font-weight:700}
-    p{margin:0 0 24px;line-height:1.55;color:#4a4238;font-size:15px}
-    a.btn{display:inline-block;background:#8B7355;color:#fff;text-decoration:none;padding:14px 32px;border-radius:12px;font-weight:700;font-size:16px}
-    a.btn:hover{background:#725d43}
-    .size{margin:12px 0 0;font-size:13.5px;color:#6b6152;font-weight:600}
-    .size span{font-weight:400;color:#8a8175}
-    .tip{margin-top:20px;font-size:13px;color:#8a8175}
+    p{margin:0 0 20px;line-height:1.55;color:#4a4238;font-size:15px}
+    a.btn{display:block;text-decoration:none;padding:14px 28px;border-radius:12px;font-weight:700;font-size:16px}
+    a.view{background:#8B7355;color:#fff;margin:0 0 10px}
+    a.view:hover{background:#725d43}
+    a.dl{background:#fff;color:#8B7355;border:1.5px solid #8B7355}
+    a.dl:hover{background:#faf6f0}
+    .note{margin:6px 0 18px;font-size:13px;color:#8a8175;line-height:1.5}
+    .save{margin:18px 0 0;font-size:13px;color:#6b6152;line-height:1.55;text-align:left;background:#faf6f0;border-radius:12px;padding:14px 16px}
+    .size{margin:8px 0 0;font-size:12.5px;color:#8a8175}
   </style>
 </head><body>
   <div class="card">
     <h1>${c.heading}</h1>
     <p>${c.body}</p>
-    <a class="btn" href="${goUrl.pathname}${goUrl.search}" rel="noopener">${c.button}</a>
-    ${sizeLabel ? `<p class="size">${sizeLabel} <span>${c.sizeHint}</span></p>` : ''}
-    <p class="tip">${c.saveTip}</p>
+    <a class="btn view" href="${viewUrl.pathname}${viewUrl.search}" rel="noopener">${vc.view}</a>
+    <p class="note">${vc.viewNote}</p>
+    <a class="btn dl" href="${goUrl.pathname}${goUrl.search}" rel="noopener">${vc.download}</a>
+    ${sizeLabel ? `<p class="size">${sizeLabel}</p>` : ''}
+    <p class="save">${vc.saveWhy}</p>
   </div>
 </body></html>`;
   return new Response(html, {
     headers: {
       'content-type': 'text/html; charset=utf-8',
-      // Robots may still fetch us — make sure they don't cache anything permanent.
+      'cache-control': 'no-store',
+      'x-robots-tag': 'noindex, nofollow',
+    },
+  });
+}
+
+// Read-online viewer: all pages as images, no download, no raw file. Long-press
+// save is blocked (-webkit-touch-callout:none) and right-click disabled; screen-
+// shots are not prevented (acceptable — the view version is screen-quality only).
+function viewerPage(url: URL, c: typeof COPY['uk'], vc: typeof VIEW_COPY['uk'], pages: number): Response {
+  const imgBase = `${url.pathname}?view=1&page=`;
+  const imgs = Array.from({ length: pages }, (_, i) =>
+    `<img loading="lazy" draggable="false" oncontextmenu="return false" src="${imgBase}${i + 1}" alt="">`,
+  ).join('');
+  const html = `<!doctype html>
+<html><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+  <meta name="robots" content="noindex,nofollow">
+  <title>${c.title}</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;background:#2a2622;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;
+      -webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+    header{position:sticky;top:0;z-index:2;background:rgba(42,38,34,.96);backdrop-filter:blur(6px);
+      color:#F5EFE8;padding:12px 16px;font-size:13px;line-height:1.45;text-align:center;border-bottom:1px solid rgba(255,255,255,.08)}
+    .wrap{max-width:820px;margin:0 auto;padding:12px}
+    img{display:block;width:100%;height:auto;margin:0 auto 12px;border-radius:6px;
+      -webkit-user-drag:none;user-drag:none;pointer-events:none}
+  </style>
+</head><body>
+  <header>${vc.viewNote}</header>
+  <div class="wrap">${imgs}</div>
+  <script>document.addEventListener('contextmenu',function(e){e.preventDefault()});</script>
+</body></html>`;
+  return new Response(html, {
+    headers: {
+      'content-type': 'text/html; charset=utf-8',
       'cache-control': 'no-store',
       'x-robots-tag': 'noindex, nofollow',
     },
@@ -150,6 +227,28 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, params, env })
     return new Response('Invalid link.', { status: 403 });
   }
 
+  const vc = VIEW_COPY[lang] || VIEW_COPY[DEFAULT_LANG];
+
+  // Read-online view: unlimited, no counter tick. ?view=1 → viewer HTML;
+  // ?view=1&page=N → stream one page image from R2 (token-gated, never public).
+  if (url.searchParams.get('view') === '1' && (VIEW_PAGES[lang] || 0) > 0) {
+    const pages = VIEW_PAGES[lang];
+    const pageParam = url.searchParams.get('page');
+    if (pageParam) {
+      const pnum = Math.max(1, Math.min(pages, parseInt(pageParam, 10) || 0));
+      const img = await env.PDF_BUCKET.get(`view/${lang}/p-${pad2(pnum)}.jpg`);
+      if (!img) return new Response('not found', { status: 404 });
+      return new Response(img.body, {
+        headers: {
+          'content-type': 'image/jpeg',
+          'cache-control': 'private, max-age=3600',
+          'x-robots-tag': 'noindex, nofollow',
+        },
+      });
+    }
+    return viewerPage(url, c, vc, pages);
+  }
+
   // The gate: no ?go=1 → HTML page, no counter tick. This is what Gmail /
   // link previewers hit; they never follow the download button.
   if (url.searchParams.get('go') !== '1') {
@@ -160,7 +259,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, params, env })
       const meta = await env.PDF_BUCKET.head(fileKey(lang));
       if (meta?.size) sizeLabel = formatSize(meta.size, lang);
     } catch { /* size is a nicety — never block the download page over it */ }
-    return gatePage(url, c, sizeLabel);
+    return gatePage(url, c, vc, sizeLabel);
   }
 
   // Real download path — counter first (so a bug in R2 fetch doesn't let
