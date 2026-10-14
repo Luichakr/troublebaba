@@ -106,6 +106,8 @@ const COPY: Record<string, {
 
 interface Env {
   PDF_BUCKET: R2Bucket;
+  /** Separate binding for view images; falls back to PDF_BUCKET if unset. */
+  VIEW_BUCKET?: R2Bucket;
   CRON_SECRET?: string;
 }
 
@@ -236,7 +238,8 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, params, env })
     const pageParam = url.searchParams.get('page');
     if (pageParam) {
       const pnum = Math.max(1, Math.min(pages, parseInt(pageParam, 10) || 0));
-      const img = await env.PDF_BUCKET.get(`view/${lang}/p-${pad2(pnum)}.jpg`);
+      const viewBucket = env.VIEW_BUCKET || env.PDF_BUCKET;
+      const img = await viewBucket.get(`view/${lang}/p-${pad2(pnum)}.jpg`);
       if (!img) return new Response('not found', { status: 404 });
       return new Response(img.body, {
         headers: {
