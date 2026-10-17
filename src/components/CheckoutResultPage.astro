@@ -94,10 +94,22 @@ const accent    = isSuccess ? '#8B7355' : '#A12B2B';
         }
         const fmt = (kop: number) => (kop / 100).toFixed(2);
         const ccyName = data.ccy === 980 ? 'UAH' : data.ccy === 840 ? 'USD' : data.ccy === 978 ? 'EUR' : `(${data.ccy})`;
-        content.innerHTML =
-          `<div><strong>Status:</strong> ${data.status}</div>` +
-          `<div><strong>Amount:</strong> ${fmt(data.finalAmount ?? data.amount)} ${ccyName}</div>` +
-          `<div><strong>Invoice:</strong> <code class="font-mono text-[13px]">${data.invoiceId}</code></div>`;
+        // Собираем DOM через textContent — не innerHTML. data.status и
+        // data.invoiceId приходят из бэкенда и не должны инжектиться как HTML.
+        content.textContent = '';
+        const row = (label: string, value: string, mono = false) => {
+          const d = document.createElement('div');
+          const s = document.createElement('strong');
+          s.textContent = label + ' ';
+          d.appendChild(s);
+          const v = mono ? document.createElement('code') : document.createTextNode(value);
+          if (mono) { (v as HTMLElement).className = 'text-[13px]'; (v as HTMLElement).textContent = value; }
+          d.appendChild(v);
+          content.appendChild(d);
+        };
+        row('Status:', String(data.status));
+        row('Amount:', `${fmt(data.finalAmount ?? data.amount)} ${ccyName}`);
+        row('Invoice:', String(data.invoiceId), true);
 
         // Fire GA conversion only on confirmed success.
         if (data.status === 'success' && (window as any).gtag) {

@@ -1250,7 +1250,9 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
         вручную и на четырёх страницах это было терпимо, а на 66 — нет.
         JS здесь остался только на то, чего CSS не умеет: счётчик, стрелки,
         клавиши и ленивая подгрузка читаемых страниц. */}
-    <div id="preview-lightbox" hidden data-alt-tpl={tr.preview_page_alt} class="fixed inset-0 z-[100] flex-col" style="background:rgba(26,20,14,0.94);backdrop-filter:blur(4px);">
+    <div id="preview-lightbox" hidden data-alt-tpl={tr.preview_page_alt}
+         role="dialog" aria-modal="true" aria-label={tr.preview_cta}
+         class="fixed inset-0 z-[100] flex-col" style="background:rgba(26,20,14,0.94);backdrop-filter:blur(4px);">
 
       <div class="flex-shrink-0 flex items-center justify-between gap-3 px-4 py-3 md:px-6">
         <div id="preview-counter" class="font-outfit text-warm-white/70 text-[13px] tabular-nums"></div>
@@ -1373,25 +1375,37 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
           sync(idx);
         };
 
-        const open = (n) => {
+        // a11y: запоминаем триггер и возвращаем на него фокус при закрытии;
+        // фон отключаем от AT и клавиатуры через inert; фокус переводим на
+        // кнопку «закрыть» (первый интерактив внутри оверлея).
+        let returnFocus = null;
+        const open = (n, trigger) => {
+          returnFocus = trigger || document.activeElement;
           box.hidden = false;
           box.style.display = 'flex';
           document.body.style.overflow = 'hidden';
-          // Позиционируем после показа: у скрытого элемента clientWidth = 0,
-          // и scrollTo ушёл бы в ноль независимо от запрошенной страницы.
-          requestAnimationFrame(() => goTo(n, false));
+          document.querySelectorAll('body > :not(script):not(style)').forEach(node => {
+            if (node !== box && !box.contains(node)) node.setAttribute('inert', '');
+          });
+          requestAnimationFrame(() => {
+            goTo(n, false);
+            document.getElementById('preview-close').focus();
+          });
         };
         const close = () => {
           box.hidden = true;
           box.style.display = '';
           document.body.style.overflow = '';
+          document.querySelectorAll('[inert]').forEach(node => node.removeAttribute('inert'));
+          if (returnFocus && typeof returnFocus.focus === 'function') returnFocus.focus();
+          returnFocus = null;
         };
 
         // Лайтбокс открывают две кнопки: «Погортати сторінки» на картинке
         // и текстовая ссылка «Подивитись приклади сторінок» под CTA.
         for (const id of ['preview-open-first', 'preview-open-pages']) {
           const btn = document.getElementById(id);
-          if (btn) btn.addEventListener('click', () => open(0));
+          if (btn) btn.addEventListener('click', () => open(0, btn));
         }
         document.getElementById('preview-close').addEventListener('click', close);
         document.getElementById('preview-prev').addEventListener('click', () => goTo(i - 1));
@@ -1404,6 +1418,15 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
           if (e.key === 'Escape') close();
           if (e.key === 'ArrowLeft') goTo(i - 1);
           if (e.key === 'ArrowRight') goTo(i + 1);
+        });
+        // Focus trap: Tab/Shift+Tab крутятся внутри лайтбокса.
+        box.addEventListener('keydown', (e) => {
+          if (e.key !== 'Tab') return;
+          const f = box.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])');
+          if (!f.length) return;
+          const first = f[0], last = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
         });
 
         // Клик по фону закрывает; клик по самой странице — нет, иначе
@@ -1690,15 +1713,21 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
         <div class="reveal">
           <div class="bg-warm-white rounded-[2rem] overflow-hidden h-full" style="box-shadow:0 4px 28px rgba(139,115,85,0.08);" id="faq-list">
             {(tr.faq_items as {q:string;a:string}[]).map((faq, i) => (
-              <div class={`faq-item ${i === 0 ? 'open' : ''} cursor-pointer ${i > 0 ? 'border-t border-taupe/15' : ''}`} data-index={i} role="button" tabindex="0" aria-expanded={i === 0 ? 'true' : 'false'}>
-                <div class="flex items-center gap-6 px-7 py-4">
-                  <span class="font-outfit text-[11px] font-bold text-mocha-dark tracking-[0.2em] flex-shrink-0 w-7">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <h3 class="font-outfit font-bold text-espresso text-[1rem] flex-1 leading-snug">{faq.q}</h3>
-                  <span class="faq-icon w-9 h-9 rounded-full border border-taupe/30 flex items-center justify-center text-mocha-dark text-xl leading-none font-light flex-shrink-0 select-none">+</span>
-                </div>
-                <div class="faq-content">
+              <div class={`faq-item ${i === 0 ? 'open' : ''} ${i > 0 ? 'border-t border-taupe/15' : ''}`} data-index={i}>
+                <h3 class="m-0">
+                  <button type="button"
+                          id={`faq-q-${i}`}
+                          aria-controls={`faq-a-${i}`}
+                          aria-expanded={i === 0 ? 'true' : 'false'}
+                          class="faq-trigger w-full flex items-center gap-6 px-7 py-4 text-left bg-transparent border-0 cursor-pointer">
+                    <span class="font-outfit text-[11px] font-bold text-mocha-dark tracking-[0.2em] flex-shrink-0 w-7">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span class="font-outfit font-bold text-espresso text-[1rem] flex-1 leading-snug">{faq.q}</span>
+                    <span class="faq-icon w-9 h-9 rounded-full border border-taupe/30 flex items-center justify-center text-mocha-dark text-xl leading-none font-light flex-shrink-0 select-none" aria-hidden="true">+</span>
+                  </button>
+                </h3>
+                <div class="faq-content" id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`}>
                   <div class="mx-7 mb-4 px-5 py-4 rounded-2xl" style="background:#EFE6DA;">
                     <p class="font-outfit text-espresso/65 text-[0.9rem] leading-relaxed whitespace-pre-line">{faq.a}</p>
                   </div>
@@ -1943,26 +1972,22 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
 })();
 
 function attachFaqListeners() {
+  // Клик по <button.faq-trigger>: Enter/Space срабатывают нативно, фокус-ринг
+  // и роль button тоже даром. Клик по тексту ответа больше не сворачивает
+  // пункт (ответ в <div role="region">, вне кнопки).
   const toggle = (item: Element) => {
     const wasOpen = item.classList.contains('open');
     document.querySelectorAll('.faq-item').forEach(i => {
       i.classList.remove('open');
-      i.setAttribute('aria-expanded', 'false');
+      i.querySelector('.faq-trigger')?.setAttribute('aria-expanded', 'false');
     });
     if (!wasOpen) {
       item.classList.add('open');
-      item.setAttribute('aria-expanded', 'true');
+      item.querySelector('.faq-trigger')?.setAttribute('aria-expanded', 'true');
     }
   };
   document.querySelectorAll('.faq-item').forEach(item => {
-    item.addEventListener('click', () => toggle(item));
-    item.addEventListener('keydown', (e) => {
-      const key = (e as KeyboardEvent).key;
-      if (key === 'Enter' || key === ' ') {
-        e.preventDefault();
-        toggle(item);
-      }
-    });
+    item.querySelector('.faq-trigger')?.addEventListener('click', () => toggle(item));
   });
 }
 
@@ -2202,6 +2227,14 @@ document.querySelectorAll<HTMLAnchorElement>('[data-buy-source]').forEach(a => {
     // The webhook then forwards it to GA purchase's traffic_source_button so
     // we can slice conversions per button.
     modal.dataset.buySource = source;
+    // a11y: запомнить триггер, перевести фокус внутрь, отключить фон от AT.
+    (window as any).__pdfModalReturn = a;
+    document.querySelectorAll<HTMLElement>('body > :not(script):not(style)').forEach(n => {
+      if (n !== modal && !modal.contains(n)) n.setAttribute('inert', '');
+    });
+    requestAnimationFrame(() => {
+      (modal.querySelector<HTMLButtonElement>('.pdf-lang-opt') || modal.querySelector<HTMLButtonElement>('#pdf-lang-close'))?.focus();
+    });
   });
 });
 
@@ -2218,9 +2251,23 @@ if (pdfModal) {
     pdfModal.classList.add('hidden');
     pdfModal.classList.remove('flex');
     document.documentElement.style.overflow = '';
+    // a11y: вернуть фокус на триггер, снять inert с фона.
+    document.querySelectorAll<HTMLElement>('[inert]').forEach(n => n.removeAttribute('inert'));
+    const ret = (window as any).__pdfModalReturn as HTMLElement | null;
+    if (ret && typeof ret.focus === 'function') ret.focus();
+    (window as any).__pdfModalReturn = null;
   };
   pdfModal.addEventListener('click', (e) => { if (e.target === pdfModal) closeModal(); });
   document.getElementById('pdf-lang-close')?.addEventListener('click', closeModal);
+  // Focus trap: Tab/Shift+Tab крутятся внутри модалки, пока она открыта.
+  pdfModal.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const f = pdfModal.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !pdfModal.classList.contains('hidden')) closeModal();
   });

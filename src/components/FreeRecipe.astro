@@ -68,15 +68,25 @@ const turnstileKey = SITE.turnstile?.siteKey || '';
         <div class="rounded-2xl bg-warm-white p-7 lg:p-9"
              style="box-shadow:0 12px 40px rgba(139,115,85,0.12), 0 32px 80px rgba(139,115,85,0.06); border:1px solid rgba(200,184,162,0.30);">
 
-          <form data-free-recipe-form class="space-y-4" novalidate>
+          <form data-free-recipe-form class="space-y-4" novalidate aria-describedby="fr-error">
             <label class="block">
               <span class="font-outfit text-[13px] font-semibold uppercase tracking-wide text-espresso/65 mb-2 block">{tr.fr_email_label}</span>
               <input type="email" name="email" required autocomplete="email"
                      placeholder={tr.fr_email_ph}
-                     class="w-full bg-surface border border-taupe/40 focus:border-mocha rounded-xl px-4 py-3.5 font-outfit text-espresso text-[15px] min-h-[48px] outline-none transition-colors"/>
+                     aria-invalid="false" aria-describedby="fr-error"
+                     class="w-full bg-surface border border-taupe/40 focus:border-mocha rounded-xl px-4 py-3.5 font-outfit text-espresso text-[15px] min-h-[48px] outline-none transition-colors aria-[invalid=true]:border-[#A12B2B]"/>
             </label>
 
             {turnstileKey && <div class="cf-turnstile" data-sitekey={turnstileKey}></div>}
+
+            {/* Инлайн-ошибка. role="alert" + полив текста из JS → скринридер
+                объявляет изменение. Пустой узел пока валидно (aria-live не
+                читает пусто). Текст локализуется из data-* ключей. */}
+            <p id="fr-error" data-fr-error role="alert"
+               data-msg-email={tr.fr_err_email ?? 'Введите корректный email адрес.'}
+               data-msg-captcha={tr.fr_err_captcha ?? 'Подтвердите, что вы не робот.'}
+               data-msg-server={tr.fr_err_server ?? 'Что-то пошло не так. Попробуйте ещё раз или напишите в Instagram.'}
+               class="font-outfit text-[13px] font-semibold leading-snug" style="color:#A12B2B;" hidden></p>
 
             <button type="submit"
                     data-analytics="free_recipe_submit" data-lang={lang}
@@ -88,11 +98,13 @@ const turnstileKey = SITE.turnstile?.siteKey || '';
             <p class="font-outfit text-espresso/65 text-xs leading-relaxed">{tr.fr_consent}</p>
           </form>
 
-          <!-- Success state (hidden until form submits OK) -->
-          <div data-free-recipe-success hidden>
+          <!-- Success state (hidden until form submits OK). role="status" +
+               фокус на заголовок при показе — скринридер объявит, зрячие
+               не теряют контекст (форма пропадает). -->
+          <div data-free-recipe-success role="status" aria-live="polite" hidden>
             <div class="flex items-center gap-3 mb-4">
               <Icon name="ph:check-circle" aria-hidden="true" class="w-[36px] h-[36px]" />
-              <h2 class="font-cabinet text-espresso text-xl">{tr.fr_success_title}</h2>
+              <h2 tabindex="-1" data-fr-success-title class="font-cabinet text-espresso text-xl focus:outline-none">{tr.fr_success_title}</h2>
             </div>
             <p class="font-outfit text-espresso/70 text-[15px] leading-relaxed whitespace-pre-line">{successText}</p>
           </div>
@@ -122,15 +134,35 @@ const turnstileKey = SITE.turnstile?.siteKey || '';
       const btn      = form.querySelector('button[type="submit"]');
       const btnLabel = form.querySelector('[data-fr-btn-label]');
       const input    = form.querySelector('input[name="email"]');
+      const errorEl  = form.querySelector('[data-fr-error]');
+
+      // Показать/скрыть ошибку: текст в error-ноду, aria-invalid на input,
+      // фокус в поле. Молчание при провале — главная причина, по которой
+      // форма теряла лиды до этого.
+      function showError(kind) {
+        if (!errorEl) return;
+        const msg = errorEl.dataset['msg' + kind.charAt(0).toUpperCase() + kind.slice(1)] || errorEl.dataset.msgServer || '';
+        errorEl.textContent = msg;
+        errorEl.hidden = false;
+        input?.setAttribute('aria-invalid', 'true');
+        input?.focus();
+      }
+      function clearError() {
+        if (errorEl) { errorEl.textContent = ''; errorEl.hidden = true; }
+        input?.setAttribute('aria-invalid', 'false');
+      }
+      // Снимаем ошибку, когда пользователь начал исправлять.
+      input?.addEventListener('input', clearError);
 
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
+        clearError();
         if (!input || !input.value || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(input.value)) {
-          input?.focus();
+          showError('email');
           return;
         }
         const turnstileToken = (form.querySelector('[name="cf-turnstile-response"]') || {}).value || '';
-        if (turnstileKey && !turnstileToken) { input?.focus(); return; }
+        if (turnstileKey && !turnstileToken) { showError('captcha'); return; }
         btn.disabled = true;
         if (btnLabel) btnLabel.textContent = busyLabel;
 
@@ -144,16 +176,19 @@ const turnstileKey = SITE.turnstile?.siteKey || '';
           if (r.ok && data && data.ok) {
             form.style.display = 'none';
             success.removeAttribute('hidden');
+            // Переводим фокус на заголовок успеха — скринридер объявит
+            // через role="status", зрячие видят, куда делась форма.
+            success.querySelector('[data-fr-success-title]')?.focus();
             if (typeof gtag === 'function') gtag('event', 'free_recipe_lead', { lang });
           } else {
-            // Inline error — keep form open
             btn.disabled = false;
             if (btnLabel) btnLabel.textContent = defaultLabel;
-            input.focus();
+            showError('server');
           }
         } catch {
           btn.disabled = false;
           if (btnLabel) btnLabel.textContent = defaultLabel;
+          showError('server');
         }
       });
     })();
