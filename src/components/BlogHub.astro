@@ -20,7 +20,7 @@ const postUrl = (slug: string) => `${langPrefix}/blog/${slug}/`;
 <main class="min-h-[100dvh] pt-[68px] lg:pt-[72px]" style="background:#F5EFE8;">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16 py-12 lg:py-20">
 
-    <a href={homeUrl} class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10">
+    <a href={homeUrl} class="inline-flex items-center gap-2 font-outfit text-mocha-dark hover:text-mocha-dark transition-colors text-sm mb-10">
       <Icon name="ph:arrow-left" aria-hidden="true" class="w-[14px] h-[12px]" />
       <span>{tr.blog_back}</span>
     </a>
@@ -39,11 +39,11 @@ const postUrl = (slug: string) => `${langPrefix}/blog/${slug}/`;
         <div class="px-6 sm:px-8 lg:px-10 py-6 lg:py-7 flex flex-col justify-center">
           <div class="flex items-center gap-3 mb-3">
             <span class="text-white w-6 h-6 rounded-md flex items-center justify-center" style="background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);"><Icon name="simple-icons:instagram" class="w-[13px] h-[13px]" /></span>
-            <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha">Instagram</span>
+            <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha-dark">Instagram</span>
           </div>
-          <h2 class="font-cabinet text-espresso mb-3 group-hover:text-mocha transition-colors" style="font-size:clamp(1.2rem,1.9vw,1.5rem);line-height:1.12;">{tr.blog_ig_title}</h2>
+          <h2 class="font-cabinet text-espresso mb-3 group-hover:text-mocha-dark transition-colors" style="font-size:clamp(1.2rem,1.9vw,1.5rem);line-height:1.12;">{tr.blog_ig_title}</h2>
           <p class="font-outfit text-espresso/65 text-[13.5px] leading-relaxed mb-3.5 max-w-[420px]">{tr.blog_ig_sub}</p>
-          <span class="inline-flex items-center gap-2 font-outfit text-mocha font-semibold text-sm">
+          <span class="inline-flex items-center gap-2 font-outfit text-mocha-dark font-semibold text-sm">
             <span>{tr.blog_ig_cta}</span>
             <Icon name="ph:arrow-right" aria-hidden="true" class="w-[14px] h-[12px]" />
           </span>
@@ -67,11 +67,11 @@ const postUrl = (slug: string) => `${langPrefix}/blog/${slug}/`;
         <div class="px-6 sm:px-8 lg:px-10 py-6 lg:py-7 flex flex-col justify-center">
           <div class="flex items-center gap-3 mb-3">
             <span class="text-white w-6 h-6 rounded-md flex items-center justify-center" style="background:#000;"><Icon name="simple-icons:tiktok" class="w-[11px] h-[13px]" /></span>
-            <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha">TikTok</span>
+            <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha-dark">TikTok</span>
           </div>
-          <h2 class="font-cabinet text-espresso mb-3 group-hover:text-mocha transition-colors" style="font-size:clamp(1.2rem,1.9vw,1.5rem);line-height:1.12;">{tr.blog_tt_title}</h2>
+          <h2 class="font-cabinet text-espresso mb-3 group-hover:text-mocha-dark transition-colors" style="font-size:clamp(1.2rem,1.9vw,1.5rem);line-height:1.12;">{tr.blog_tt_title}</h2>
           <p class="font-outfit text-espresso/65 text-[13.5px] leading-relaxed mb-3.5 max-w-[420px]">{tr.blog_tt_sub}</p>
-          <span class="inline-flex items-center gap-2 font-outfit text-mocha font-semibold text-sm">
+          <span class="inline-flex items-center gap-2 font-outfit text-mocha-dark font-semibold text-sm">
             <span>{tr.blog_tt_cta}</span>
             <Icon name="ph:arrow-right" aria-hidden="true" class="w-[14px] h-[12px]" />
           </span>
@@ -95,11 +95,11 @@ const postUrl = (slug: string) => `${langPrefix}/blog/${slug}/`;
         <div class="px-6 sm:px-8 lg:px-10 py-6 lg:py-7 flex flex-col justify-center">
           <div class="flex items-center gap-3 mb-3">
             <span class="inline-block w-2 h-2 rounded-full" style="background:#B85959; box-shadow:0 0 0 4px rgba(184,89,89,0.18);"></span>
-            <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha">YouTube</span>
+            <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha-dark">YouTube</span>
           </div>
-          <h2 class="font-cabinet text-espresso mb-3 group-hover:text-mocha transition-colors" style="font-size:clamp(1.2rem,1.9vw,1.5rem);line-height:1.12;">{tr.blog_videos_title}</h2>
+          <h2 class="font-cabinet text-espresso mb-3 group-hover:text-mocha-dark transition-colors" style="font-size:clamp(1.2rem,1.9vw,1.5rem);line-height:1.12;">{tr.blog_videos_title}</h2>
           <p class="font-outfit text-espresso/65 text-[13.5px] leading-relaxed mb-3.5 max-w-[420px]">{tr.blog_videos_sub}</p>
-          <span class="inline-flex items-center gap-2 font-outfit text-mocha font-semibold text-sm">
+          <span class="inline-flex items-center gap-2 font-outfit text-mocha-dark font-semibold text-sm">
             <span>{tr.blog_videos_cta}</span>
             <Icon name="ph:arrow-right" aria-hidden="true" class="w-[14px] h-[12px]" />
           </span>
@@ -199,7 +199,7 @@ const postUrl = (slug: string) => `${langPrefix}/blog/${slug}/`;
               </div>
             )}
             <div class="p-5">
-              <h2 class="font-cabinet text-espresso text-lg mb-2 leading-snug group-hover:text-mocha transition-colors">{post.data.title}</h2>
+              <h2 class="font-cabinet text-espresso text-lg mb-2 leading-snug group-hover:text-mocha-dark transition-colors">{post.data.title}</h2>
               <p class="font-outfit text-espresso/65 text-[13px] leading-relaxed">{post.data.excerpt ?? post.data.description}</p>
             </div>
           </a>

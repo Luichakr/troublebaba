@@ -18,10 +18,10 @@ const socials = [
 ];
 ---
 <SiteHeader lang={lang} />
-<main class="min-h-[100dvh] py-16 lg:py-24" style="background:#F5EFE8;">
+<main class="min-h-[100dvh] pt-[calc(68px+1.5rem)] pb-16 lg:pt-[calc(72px+2.5rem)] lg:pb-24" style="background:#F5EFE8;">
   <div class="max-w-2xl mx-auto px-6 lg:px-10">
 
-    <a href={homeUrl} class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10">
+    <a href={homeUrl} class="inline-flex items-center gap-2 font-outfit text-mocha-dark hover:text-mocha-dark transition-colors text-sm mb-10">
       <Icon name="ph:arrow-left" aria-hidden="true" class="w-[14px] h-[12px]" />
       <span>{tr.contact_back}</span>
     </a>
@@ -31,13 +31,13 @@ const socials = [
 
     <!-- Email card -->
     <div class="bg-warm-white rounded-2xl p-6 mb-4" style="box-shadow:0 4px 18px rgba(139,115,85,0.10);">
-      <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-mocha mb-2">{tr.contact_email_label}</div>
-      <a href={`mailto:${SITE.contactEmail}`} class="font-cabinet text-espresso text-xl hover:text-mocha transition-colors">{SITE.contactEmail}</a>
+      <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-mocha-dark mb-2">{tr.contact_email_label}</div>
+      <a href={`mailto:${SITE.contactEmail}`} class="font-cabinet text-espresso text-xl hover:text-mocha-dark transition-colors">{SITE.contactEmail}</a>
     </div>
 
     <!-- Socials card -->
     <div class="bg-warm-white rounded-2xl p-6 mb-8" style="box-shadow:0 4px 18px rgba(139,115,85,0.10);">
-      <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-mocha mb-3">{tr.contact_social_label}</div>
+      <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-mocha-dark mb-3">{tr.contact_social_label}</div>
       <div class="flex flex-wrap gap-2.5">
         {socials.map(s => (
           <a href={s.url} target="_blank" rel="noopener noreferrer"
@@ -46,7 +46,7 @@ const socials = [
       </div>
     </div>
 
-    <p class="font-outfit text-espresso/50 text-sm leading-relaxed">{tr.contact_response}</p>
+    <p class="font-outfit text-espresso/65 text-sm leading-relaxed">{tr.contact_response}</p>
   </div>
 </main>
 

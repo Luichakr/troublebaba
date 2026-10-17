@@ -53,6 +53,9 @@
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  /* Фикс-хедер 68–72px: якорные переходы (#price, #faq) не должны прятать
+     заголовок секции под шапку. DESIGN §4 / аудит 2026-10-17. */
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -133,19 +136,25 @@ body {
 .faq-item.open .faq-icon { background: #EFE6DA; border-color: transparent; }
 .faq-item.open .faq-icon::after { transform: translate(-50%, -50%) rotate(0deg); opacity: 0; }
 
-.font-cabinet  { font-family: 'Playfair Display', serif; letter-spacing: -0.005em; font-weight: 600; }
-.font-outfit   { font-family: 'Manrope', sans-serif; }
-/* Рукописная подпись автора. Ровно два места (обращение автора и заметка
-   у FAQ) — раньше оба жили inline-стилем с захардкоженным размером,
-   а фолбэк `cursive` однажды уже вытащил на прод системный Brush Script MT. */
-.font-signature { font-family: 'Caveat', 'Manrope', sans-serif; font-weight: 600; line-height: 0.95; }
-/* Unified numeric font with tabular-lining figures — for stats, prices, counters */
-.font-stat {
-  font-family: 'Manrope', sans-serif;
-  font-feature-settings: 'tnum' on, 'lnum' on;
-  font-variant-numeric: tabular-nums lining-nums;
-  letter-spacing: -0.015em;
-  font-weight: 700;
+/* Шрифтовые классы — в @layer components, чтобы Tailwind-утилиты веса
+   (font-black / font-bold / font-semibold) всегда выигрывали. Раньше
+   .font-cabinet{font-weight:600} лежал вне слоёв и глушил font-black на
+   ~12 заголовках (они рисовались 600 вместо 900). Аудит 2026-10-17 §1. */
+@layer components {
+  .font-cabinet  { font-family: 'Playfair Display', serif; letter-spacing: -0.005em; font-weight: 600; }
+  .font-outfit   { font-family: 'Manrope', sans-serif; }
+  /* Рукописная подпись автора. Ровно два места (обращение автора и заметка
+     у FAQ) — раньше оба жили inline-стилем с захардкоженным размером,
+     а фолбэк `cursive` однажды уже вытащил на прод системный Brush Script MT. */
+  .font-signature { font-family: 'Caveat', 'Manrope', sans-serif; font-weight: 600; line-height: 0.95; }
+  /* Unified numeric font with tabular-lining figures — for stats, prices, counters */
+  .font-stat {
+    font-family: 'Manrope', sans-serif;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    font-variant-numeric: tabular-nums lining-nums;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+  }
 }
 
 @keyframes shimmer {
@@ -193,3 +202,127 @@ body {
 /* Листалка страниц PDF: полосу прокрутки прячем — на 66 страницах она
    только загораживает картинку, место показывает счётчик и прогресс. */
 #preview-track::-webkit-scrollbar { display: none; }
+
+/* ── Motion-токены ───────────────────────────────────────────────────────
+   Отдельные имена, чтобы не перебить Tailwind-овский --ease-out, который
+   уже используется в разметке. Значения — из моушен-гайда (animate). */
+:root {
+  --ease-strong-out:    cubic-bezier(0.23, 1, 0.32, 1);   /* появление */
+  --ease-strong-in-out: cubic-bezier(0.77, 0, 0.175, 1);  /* перемещение по экрану */
+}
+
+/* ── Блок «напишіть мені» — появление ──────────────────────────────────
+   Стаггер внутри карточки висит на существующем .reveal → .visible. */
+.dm-card .dm-avatar {
+  opacity: 0; transform: scale(0.92);
+  transition: opacity 500ms var(--ease-strong-out), transform 500ms var(--ease-strong-out);
+  transition-delay: 120ms;
+}
+.dm-card .dm-stagger {
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 500ms var(--ease-strong-out), transform 500ms var(--ease-strong-out);
+}
+.dm-card .dm-d1 { transition-delay: 180ms; }
+.dm-card .dm-d2 { transition-delay: 240ms; }
+.dm-card.visible .dm-avatar,
+.dm-card.visible .dm-stagger { opacity: 1; transform: none; }
+
+/* Штрихи-«искры» у фото дорисовываются после посадки аватара. */
+.dm-spark path {
+  stroke-dasharray: 8; stroke-dashoffset: 8;
+  transition: stroke-dashoffset 400ms var(--ease-strong-out);
+}
+.dm-card.visible .dm-spark path { stroke-dashoffset: 0; }
+.dm-card.visible .dm-spark path:nth-child(1) { transition-delay: 520ms; }
+.dm-card.visible .dm-spark path:nth-child(2) { transition-delay: 580ms; }
+.dm-card.visible .dm-spark path:nth-child(3) { transition-delay: 640ms; }
+
+/* Точка «онлайн»: мягкий пинг. */
+.dm-dot { position: relative; background: var(--color-success); }
+.dm-dot::after {
+  content: ''; position: absolute; inset: 0; border-radius: 9999px;
+  background: var(--color-success);
+  animation: dm-ping 2s var(--ease-strong-out) infinite;
+}
+@keyframes dm-ping {
+  0%   { transform: scale(1);   opacity: 0.55; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* ── Блок «напишіть мені» — «живая» анимация в зоне видимости ──────────
+   Кольцо-сторис вокруг фото (6с, постоянное → linear) и «печатаю…» —
+   три точки внутри кнопки (1.2с). Всё на transform/opacity; вне экрана —
+   на паузе (.dm-inview из JS). */
+.dm-ring {
+  position: absolute; inset: -6px; border-radius: 9999px;
+  background: conic-gradient(from 0deg, #8B7355, #C8B8A2, #EFE6DA, #C8B8A2, #8B7355);
+  animation: dm-spin 6s linear infinite;
+}
+@keyframes dm-spin { to { transform: rotate(360deg); } }
+
+/* «Печатаю…» внутри кнопки — на месте стрелки, цвет текста кнопки. */
+.dm-typing { display: inline-flex; align-items: center; gap: 3px; height: 14px; }
+.dm-typing span {
+  width: 5px; height: 5px; border-radius: 9999px; background: currentColor;
+  opacity: 0.45; animation: dm-type 1.2s var(--ease-strong-in-out) infinite;
+}
+.dm-typing span:nth-child(2) { animation-delay: 0.15s; }
+.dm-typing span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes dm-type {
+  0%, 60%, 100% { transform: translateY(0);    opacity: 0.45; }
+  30%           { transform: translateY(-4px); opacity: 1; }
+}
+
+.dm-card:not(.dm-inview) .dm-ring,
+.dm-card:not(.dm-inview) .dm-typing span,
+.dm-card:not(.dm-inview) .dm-dot::after { animation-play-state: paused; }
+
+/* ── Плавающий чат-бабл ───────────────────────────────────────────────
+   Появляется, когда блок «напишіть мені» ушёл выше экрана. Анимацию
+   полёта (FLIP из фото блока в угол) ведёт WAAPI в HomePage.astro;
+   hover/press — на внутреннем span, чтобы не спорить с WAAPI-transform. */
+.dm-bubble {
+  position: fixed; right: 24px; bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  z-index: 45; width: 64px; height: 64px; border-radius: 9999px; display: block;
+}
+.dm-bubble[hidden] { display: none; }
+@media (max-width: 767px) {
+  /* над мобильной sticky-кнопкой «Купити PDF» (bottom-4 + ~54px высоты) */
+  .dm-bubble { right: 16px; bottom: calc(84px + env(safe-area-inset-bottom, 0px)); width: 56px; height: 56px; }
+}
+.dm-bubble:focus-visible { border-radius: 9999px; }
+.dm-bubble-inner {
+  position: relative; display: block; width: 100%; height: 100%; border-radius: 9999px;
+  transition: transform 200ms var(--ease-strong-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .dm-bubble:hover .dm-bubble-inner { transform: scale(1.06); }
+}
+.dm-bubble:active .dm-bubble-inner { transform: scale(0.96); transition-duration: 120ms; }
+.dm-bubble-photo {
+  width: 100%; height: 100%; border-radius: 9999px; object-fit: cover;
+  border: 3px solid var(--color-warm-white);
+  box-shadow: 0 10px 28px rgba(139,115,85,0.35);
+}
+.dm-bubble-badge {
+  position: absolute; right: -2px; bottom: -2px; width: 24px; height: 24px; border-radius: 9999px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-mocha-dark); color: var(--color-warm-white);
+  border: 2px solid var(--color-warm-white);
+}
+.dm-bubble-dot {
+  position: absolute; right: 2px; top: 2px; width: 12px; height: 12px; border-radius: 9999px;
+  background: var(--color-success); border: 2px solid var(--color-warm-white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Меньше и мягче: без движения, блок просто появляется, искры и пинг статичны.
+     Полёт бабла в JS заменяется на короткий fade. */
+  .dm-card .dm-avatar,
+  .dm-card .dm-stagger { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .dm-spark path { stroke-dashoffset: 0 !important; transition: none !important; }
+  .dm-dot::after { animation: none; }
+  .dm-bubble-inner { transition: none; }
+  .dm-ring, .dm-typing span { animation: none !important; }
+  .dm-typing span { opacity: 0.7; }
+}

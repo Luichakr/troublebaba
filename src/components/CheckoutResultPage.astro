@@ -43,12 +43,12 @@ const accent    = isSuccess ? '#8B7355' : '#A12B2B';
 
     <h1 class="font-cabinet text-espresso mb-5" style="font-size:var(--h-page);line-height:1.05;">{heading}</h1>
 
-    <p class="font-outfit text-espresso/65 leading-relaxed mb-8" style="font-size:clamp(1rem,1.2vw,1.1rem);" id="result-text" data-status-pending={!isSuccess ? undefined : 'true'} set:html={text.replace(/\{EMAIL\}/g, `<a href="mailto:${supportEmail}" class="text-mocha underline">${supportEmail}</a>`)}></p>
+    <p class="font-outfit text-espresso/65 leading-relaxed mb-8" style="font-size:clamp(1rem,1.2vw,1.1rem);" id="result-text" data-status-pending={!isSuccess ? undefined : 'true'} set:html={text.replace(/\{EMAIL\}/g, `<a href="mailto:${supportEmail}" class="text-mocha-dark underline">${supportEmail}</a>`)}></p>
 
     {/* Live status — populated only on success; fetches /api/checkout/status when invoiceId is present. */}
     {isSuccess && (
       <div id="status-block" class="hidden bg-warm-white border border-taupe/30 rounded-2xl px-6 py-5 mb-8 text-left">
-        <div class="font-outfit text-[13px] uppercase tracking-[0.15em] text-mocha mb-2">{tr.checkout_status_label}</div>
+        <div class="font-outfit text-[13px] uppercase tracking-[0.15em] text-mocha-dark mb-2">{tr.checkout_status_label}</div>
         <div id="status-content" class="font-outfit text-espresso/75 text-[15px] leading-relaxed">…</div>
       </div>
     )}
@@ -58,7 +58,7 @@ const accent    = isSuccess ? '#8B7355' : '#A12B2B';
         {ctaBack}
       </a>
       {!isSuccess && (
-        <a href={retryHref} class="inline-flex items-center justify-center gap-2 border border-mocha/40 text-mocha font-outfit font-semibold px-7 py-4 rounded-2xl hover:bg-mocha/10 transition-colors min-h-[44px]">
+        <a href={retryHref} class="inline-flex items-center justify-center gap-2 border border-mocha/40 text-mocha-dark font-outfit font-semibold px-7 py-4 rounded-2xl hover:bg-mocha/10 transition-colors min-h-[44px]">
           {tr.checkout_failure_retry}
         </a>
       )}
@@ -66,7 +66,7 @@ const accent    = isSuccess ? '#8B7355' : '#A12B2B';
 
     <p class="font-outfit text-espresso/65 text-sm mt-12">
       {tr.checkout_support}
-      <a href={`mailto:${supportEmail}`} class="text-mocha underline ml-1">{supportEmail}</a>
+      <a href={`mailto:${supportEmail}`} class="text-mocha-dark underline ml-1">{supportEmail}</a>
     </p>
   </div>
 </main>

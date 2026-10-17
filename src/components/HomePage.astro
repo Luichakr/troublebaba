@@ -2,7 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import SectionEyebrow from './SectionEyebrow.astro';
 import { t } from '../i18n/translations.js';
-import { SITE, BONUS_TOTAL } from '../config/site.js';
+import { SITE } from '../config/site.js';
 import SiteFooter from './SiteFooter.astro';
 
 type Lang = 'uk' | 'ru' | 'pl' | 'en';
@@ -30,7 +30,23 @@ const anchor = (id: string) => (isUk ? '/' : `/${lang}/`) + '#' + id;
 // Pre-launch mode: buy buttons collect e-mails instead of opening checkout.
 const presale = SITE.presaleMode === true;
 const turnstileKey = SITE.turnstile?.siteKey || '';
-const communityBonus = SITE.community?.enabled === true;
+
+// Блок «напишіть мені» — кнопка открывает личку в Instagram сразу (ig.me/m).
+// Копирайт: uk/ru/pl/en готовы; es/de/fr/it/pt временно на en-фолбэке до
+// утверждения текста (потом перевести). Один первоисточник здесь.
+const CONTACT_DM: Record<string, { label: string; title: string; text: string; cta: string; status: string }> = {
+  uk: { label: 'Є питання?', title: 'Напишіть мені в Instagram — відповім особисто', text: 'Якщо є будь-які питання щодо збірника, напишіть мені в Instagram. Із задоволенням відповім на все й допоможу визначитися. Не соромтеся — пишіть.', cta: 'Написати в Instagram', status: 'Відповідаю особисто в Direct' },
+  ru: { label: 'Есть вопросы?', title: 'Напишите мне в Instagram — отвечу лично', text: 'Если есть любые вопросы по сборнику, напишите мне в Instagram. С удовольствием отвечу на всё и помогу определиться. Не стесняйтесь — пишите.', cta: 'Написать в Instagram', status: 'Отвечаю лично в Direct' },
+  pl: { label: 'Masz pytania?', title: 'Napisz do mnie na Instagramie — odpowiem osobiście', text: 'Jeśli masz jakiekolwiek pytania o zbiór, napisz do mnie na Instagramie. Chętnie odpowiem na wszystko i pomogę wybrać. Śmiało — pisz.', cta: 'Napisz na Instagramie', status: 'Odpowiadam osobiście w Direct' },
+  en: { label: 'Have questions?', title: 'Message me on Instagram — I’ll reply personally', text: 'If you have any questions about the collection, message me on Instagram. I’ll gladly answer everything and help you decide. Don’t be shy — write to me.', cta: 'Message me on Instagram', status: 'I reply personally in DMs' },
+  es: { label: '¿Tienes dudas?', title: 'Escríbeme en Instagram — te responderé personalmente', text: 'Si tienes cualquier duda sobre la colección, escríbeme en Instagram. Con gusto te responderé y te ayudaré a decidir. No te cortes — escríbeme.', cta: 'Escribirme en Instagram', status: 'Respondo personalmente por Direct' },
+  de: { label: 'Fragen?', title: 'Schreib mir auf Instagram — ich antworte persönlich', text: 'Wenn du Fragen zur Sammlung hast, schreib mir einfach auf Instagram. Ich antworte dir gern auf alles und helfe dir bei der Entscheidung. Keine Scheu — schreib mir.', cta: 'Auf Instagram schreiben', status: 'Ich antworte persönlich per DM' },
+  fr: { label: 'Des questions ?', title: 'Écris-moi sur Instagram — je réponds personnellement', text: 'Si tu as la moindre question sur le recueil, écris-moi sur Instagram. Je te réponds avec plaisir et je t’aide à décider. N’hésite pas — écris-moi.', cta: 'M’écrire sur Instagram', status: 'Je réponds personnellement en DM' },
+  it: { label: 'Hai domande?', title: 'Scrivimi su Instagram — ti rispondo personalmente', text: 'Se hai qualsiasi domanda sulla raccolta, scrivimi su Instagram. Ti rispondo con piacere e ti aiuto a decidere. Non essere timido — scrivimi.', cta: 'Scrivimi su Instagram', status: 'Rispondo personalmente in DM' },
+  pt: { label: 'Tens dúvidas?', title: 'Escreve para mim no Instagram — respondo pessoalmente', text: 'Se tens qualquer dúvida sobre a coleção, escreve para mim no Instagram. Respondo com prazer a tudo e te ajudo a decidir. Não tenhas vergonha — escreve.', cta: 'Escrever no Instagram', status: 'Respondo pessoalmente no Direct' },
+};
+const dm = CONTACT_DM[lang] ?? CONTACT_DM.en;
+const dmUrl = 'https://ig.me/m/troublebaba';
 
 const RECIPE_IMAGES = [
   '/images/oreo-bento-cake.webp',   // 0: Oreo
@@ -108,19 +124,6 @@ const LANGS: { c: Lang; l: string; full: string }[] = [
 ];
 const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
 
-// Soft guarantee / reassurance — honest support promise (not money-back), 9 langs, EN fallback.
-const GUAR: Record<string, { title: string; text: string }> = {
-  uk: { title: 'Купуй спокійно', text: 'Не вийшло з першого разу? Напиши на pr.troublebaba@gmail.com — розберемо разом, крок за кроком, поки не вийде.' },
-  ru: { title: 'Покупай спокойно', text: 'Не получилось с первого раза? Напиши на pr.troublebaba@gmail.com — разберём вместе, шаг за шагом, пока не получится.' },
-  pl: { title: 'Kupuj spokojnie', text: 'Nie wyszło za pierwszym razem? Napisz na @troublebaba — przejdziemy przez to razem, krok po kroku.' },
-  en: { title: 'Buy with confidence', text: 'Didn’t work the first time? Message @troublebaba — we’ll walk through it together, step by step.' },
-  es: { title: 'Compra con confianza', text: '¿No salió a la primera? Escríbenos a @troublebaba y lo resolvemos juntos, paso a paso.' },
-  de: { title: 'Kauf mit Vertrauen', text: 'Beim ersten Mal nicht geklappt? Schreib an @troublebaba — wir gehen es gemeinsam durch, Schritt für Schritt.' },
-  fr: { title: 'Achetez en confiance', text: 'Ça n’a pas marché du premier coup ? Écris à @troublebaba — on résout ça ensemble, étape par étape.' },
-  it: { title: 'Acquista con serenità', text: 'Non è venuto al primo tentativo? Scrivici su @troublebaba — lo risolviamo insieme, passo dopo passo.' },
-  pt: { title: 'Compre com confiança', text: 'Não deu certo de primeira? Escreve para @troublebaba — resolvemos juntos, passo a passo.' },
-};
-const guar = GUAR[lang] ?? GUAR.en;
 
 // Превью PDF — вся книга целиком, а не выборка из четырёх страниц.
 // Читаемых 16 (в en 15: страницы «Фісташка-малина» в английском издании
@@ -392,7 +395,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
           <span data-geo-price="hero-cta">{presale ? tr.notify_cta_short : tr.hero_cta}</span>
         </a>
         <a href={anchor('recipes')}
-           class="min-h-[44px] inline-flex items-center justify-center lg:justify-start font-outfit font-medium text-espresso/65 text-base py-2 lg:py-4 px-2 hover:text-mocha transition-colors whitespace-nowrap">
+           class="min-h-[44px] inline-flex items-center justify-center lg:justify-start font-outfit font-medium text-espresso/65 text-base py-2 lg:py-4 px-2 hover:text-mocha-dark transition-colors whitespace-nowrap">
           {tr.hero_link}
         </a>
       </div>
@@ -404,7 +407,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
             <Icon name="simple-icons:tiktok" class="lg:w-[13px] lg:h-[15px] w-[11px] h-[13px]" />
           </div>
           <div class="min-w-0">
-            <div class="font-stat text-espresso text-[15px] lg:text-lg leading-tight">2.2M</div>
+            <div class="font-stat text-espresso text-[15px] lg:text-lg leading-tight">2.3M</div>
             <div class="font-outfit text-[11px] lg:text-[11px] text-espresso/65 uppercase tracking-wide">TikTok</div>
           </div>
         </a>
@@ -414,7 +417,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
             <Icon name="simple-icons:instagram" class="lg:w-[14px] lg:h-[14px] w-[12px] h-[12px]" />
           </div>
           <div class="min-w-0">
-            <div class="font-stat text-espresso text-[15px] lg:text-lg leading-tight">66K</div>
+            <div class="font-stat text-espresso text-[15px] lg:text-lg leading-tight">71K</div>
             <div class="font-outfit text-[11px] lg:text-[11px] text-espresso/65 uppercase tracking-wide">Instagram</div>
           </div>
         </a>
@@ -424,7 +427,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
             <Icon name="simple-icons:youtube" class="lg:w-[14px] lg:h-[14px] w-[12px] h-[12px]" />
           </div>
           <div class="min-w-0">
-            <div class="font-stat text-espresso text-[15px] lg:text-lg leading-tight">24K</div>
+            <div class="font-stat text-espresso text-[15px] lg:text-lg leading-tight">25K</div>
             <div class="font-outfit text-[11px] lg:text-[11px] text-espresso/65 uppercase tracking-wide">YouTube</div>
           </div>
         </a>
@@ -511,10 +514,10 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
           </div>
           <div class="flex-1">
             <div class="font-outfit font-bold text-espresso text-[15px] leading-snug mb-1">{tr.inside_label}</div>
-            <div class="font-outfit text-espresso/50 text-[13px] leading-relaxed">{tr.hero_list_short}</div>
+            <div class="font-outfit text-espresso/65 text-[13px] leading-relaxed">{tr.hero_list_short}</div>
           </div>
         </div>
-        <a href={anchor('recipes')} class="font-outfit text-mocha text-[13px] font-semibold hover:text-mocha-dark transition-colors">{tr.hero_inside_link}</a>
+        <a href={anchor('recipes')} class="font-outfit text-mocha-dark text-[13px] font-semibold hover:text-mocha-dark transition-colors">{tr.hero_inside_link}</a>
       </div>
 
     </div>
@@ -613,7 +616,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
 
       <div class="mt-12 flex flex-col items-center gap-5 reveal">
         <a href={(isUk ? '' : '/' + lang) + '/recipes/'}
-           class="min-h-[44px] inline-flex items-center gap-3 font-outfit font-semibold text-base text-espresso/75 hover:text-mocha transition-colors group">
+           class="min-h-[44px] inline-flex items-center gap-3 font-outfit font-semibold text-base text-espresso/75 hover:text-mocha-dark transition-colors group">
           {tr.recipes_cta_link}
           <span class="w-9 h-9 rounded-full border border-taupe/40 flex items-center justify-center group-hover:border-mocha/60 group-hover:bg-mocha/8 transition-all">
             <Icon name="ph:arrow-right" class="group-hover:translate-x-0.5 transition-transform w-[14px] h-[14px]" />
@@ -724,34 +727,34 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
             <a href={SITE.instagramUrl ?? 'https://instagram.com/troublebaba'} target="_blank" rel="noopener noreferrer"
                class="flex items-center gap-3 bg-white/5 border border-white/8 rounded-2xl px-4 py-4 hover:bg-white/10 hover:border-mocha/30 transition-all group">
-              <div class="flex-shrink-0 text-warm-white/50 group-hover:text-mocha transition-colors">
+              <div class="flex-shrink-0 text-warm-white/50 group-hover:text-taupe transition-colors">
                 <Icon name="simple-icons:instagram" class="w-[22px] h-[22px]" />
               </div>
               <div>
                 <div class="font-outfit text-warm-white/55 text-xs mb-0.5">Instagram</div>
-                <div class="font-stat text-warm-white text-xl leading-tight">66K</div>
+                <div class="font-stat text-warm-white text-xl leading-tight">71K</div>
                 <div class="font-outfit text-warm-white/55 text-xs">{tr.author_follow}</div>
               </div>
             </a>
             <a href={SITE.tiktokUrl ?? 'https://tiktok.com/@troublebaba'} target="_blank" rel="noopener noreferrer"
                class="flex items-center gap-3 bg-white/5 border border-white/8 rounded-2xl px-4 py-4 hover:bg-white/10 hover:border-mocha/30 transition-all group">
-              <div class="flex-shrink-0 text-warm-white/50 group-hover:text-mocha transition-colors">
+              <div class="flex-shrink-0 text-warm-white/50 group-hover:text-taupe transition-colors">
                 <Icon name="simple-icons:tiktok" class="w-[22px] h-[22px]" />
               </div>
               <div>
                 <div class="font-outfit text-warm-white/55 text-xs mb-0.5">TikTok</div>
-                <div class="font-stat text-warm-white text-xl leading-tight">2.2M</div>
+                <div class="font-stat text-warm-white text-xl leading-tight">2.3M</div>
                 <div class="font-outfit text-warm-white/55 text-xs">{tr.author_likes}</div>
               </div>
             </a>
             <a href="https://youtube.com/@troublebaba" target="_blank" rel="noopener noreferrer"
                class="flex items-center gap-3 bg-white/5 border border-white/8 rounded-2xl px-4 py-4 hover:bg-white/10 hover:border-mocha/30 transition-all group">
-              <div class="flex-shrink-0 text-warm-white/50 group-hover:text-mocha transition-colors">
+              <div class="flex-shrink-0 text-warm-white/50 group-hover:text-taupe transition-colors">
                 <Icon name="simple-icons:youtube" class="w-[22px] h-[22px]" />
               </div>
               <div>
                 <div class="font-outfit text-warm-white/55 text-xs mb-0.5">YouTube</div>
-                <div class="font-stat text-warm-white text-xl leading-tight">24K</div>
+                <div class="font-stat text-warm-white text-xl leading-tight">25K</div>
                 <div class="font-outfit text-warm-white/55 text-xs">{tr.author_follow}</div>
               </div>
             </a>
@@ -759,12 +762,12 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <a href="https://facebook.com/troublebaba" target="_blank" rel="noopener noreferrer"
                class="flex items-center gap-3 bg-white/5 border border-white/8 rounded-2xl px-4 py-4 hover:bg-white/10 hover:border-mocha/30 transition-all group">
-              <div class="flex-shrink-0 text-warm-white/50 group-hover:text-mocha transition-colors">
+              <div class="flex-shrink-0 text-warm-white/50 group-hover:text-taupe transition-colors">
                 <Icon name="simple-icons:facebook" class="w-[22px] h-[22px]" />
               </div>
               <div>
                 <div class="font-outfit text-warm-white/55 text-xs mb-0.5">Facebook</div>
-                <div class="font-stat text-warm-white text-xl leading-tight">5K</div>
+                <div class="font-stat text-warm-white text-xl leading-tight">8K</div>
                 <div class="font-outfit text-warm-white/55 text-xs">{tr.author_follow}</div>
               </div>
             </a>
@@ -813,7 +816,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
                   <span class="w-9 h-9 rounded-full bg-cream flex items-center justify-center mb-3">
                     <Icon name={['ph:file-text','ph:chef-hat','ph:table','ph:image'][i]} class="w-[17px] h-[17px] text-mocha" />
                   </span>
-                  <span class="font-cabinet text-espresso leading-none" style="font-size:1.45rem;">{num}</span>
+                  <span class="font-stat text-espresso leading-none" style="font-size:1.45rem;">{num}</span>
                   <span class="font-outfit text-espresso/65 mt-1.5" style="font-size:0.76rem;line-height:1.3;">{label}</span>
                 </li>
               ))}
@@ -890,6 +893,122 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
     </div>
   </section>
 
+  <!-- ── CONTACT / DM ── -->
+  <section class="py-12 lg:py-20">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-16">
+      <div class="reveal dm-card rounded-[1.5rem] lg:rounded-[2rem] bg-warm-white" style="box-shadow:0 20px 60px rgba(139,115,85,0.14);border:1px solid rgba(200,184,162,0.4);">
+        <div class="flex flex-col items-center text-center lg:flex-row lg:items-center lg:text-left gap-7 lg:gap-12 px-7 lg:px-14 py-10 lg:py-12">
+
+          <!-- Фото автора з декоративними штрихами -->
+          <div class="dm-avatar relative flex-shrink-0">
+            <span class="dm-ring" aria-hidden="true"></span>
+            <img src="/images/author.webp" alt={SITE.name} width="400" height="400" loading="lazy" decoding="async"
+                 class="relative w-28 h-28 lg:w-36 lg:h-36 rounded-full object-cover" style="border:4px solid #FDFAF6;box-shadow:0 10px 30px rgba(139,115,85,0.18);" />
+            <svg class="dm-spark absolute -top-3 -right-3 w-7 h-7 lg:w-8 lg:h-8 text-mocha" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+              <path d="M30 6 L24.5 10"/><path d="M31 15 L25 15.5"/><path d="M25 2 L22.5 7.5"/>
+            </svg>
+          </div>
+
+          <!-- Текст -->
+          <div class="dm-stagger dm-d1 flex-1 min-w-0">
+            <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.18em] text-mocha-dark mb-3">{dm.label}</div>
+            <h2 class="font-cabinet font-black text-espresso mb-4" style="font-size:clamp(1.5rem,2.4vw,2.1rem);line-height:1.1;letter-spacing:-0.01em;">{dm.title}</h2>
+            <p class="font-outfit text-espresso/70 text-[15px] lg:text-base leading-relaxed max-w-[56ch] mx-auto lg:mx-0">{dm.text}</p>
+          </div>
+
+          <!-- Кнопка + статус -->
+          <div class="dm-stagger dm-d2 flex flex-col items-center lg:items-start gap-3 w-full lg:w-auto flex-shrink-0">
+            <a href={dmUrl} target="_blank" rel="noopener noreferrer" data-analytics="contact_dm_instagram"
+               class="inline-flex items-center justify-center gap-2.5 bg-mocha-dark text-warm-white font-outfit font-bold text-base px-7 py-4 rounded-2xl transition-[transform,background-color] duration-150 hover:-translate-y-0.5 active:scale-[0.97] w-full lg:w-auto">
+              <Icon name="simple-icons:instagram" class="w-[20px] h-[20px]" />
+              <span>{dm.cta}</span>
+              <span class="dm-typing" aria-hidden="true"><span></span><span></span><span></span></span>
+            </a>
+            <div class="flex items-center gap-2 font-outfit text-[13px] text-espresso/60">
+              <span class="dm-dot w-2 h-2 rounded-full flex-shrink-0"></span>
+              <span>{dm.status}</span>
+              <svg width="13" height="12" viewBox="0 0 14 13" fill="none" aria-hidden="true" class="flex-shrink-0"><path d="M7 12C7 12 1 8 1 4C1 2.3 2.3 1 4 1C5 1 5.8 1.5 6.3 2.3C6.5 2.55 7.5 2.55 7.7 2.3C8.2 1.5 9 1 10 1C11.7 1 13 2.3 13 4C13 8 7 12 7 12Z" stroke="#8B7355" stroke-width="1.2" stroke-linejoin="round" fill="rgba(139,115,85,0.18)"/></svg>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Плавающий чат-бабл: появляется, когда блок «напишіть мені» ушёл выше экрана. -->
+  <a id="dm-bubble" class="dm-bubble" href={dmUrl} target="_blank" rel="noopener noreferrer"
+     aria-label={dm.cta} data-analytics="contact_dm_bubble" hidden>
+    <span class="dm-bubble-inner">
+      <img src="/images/author.webp" alt="" width="128" height="128" loading="lazy" decoding="async" class="dm-bubble-photo" />
+      <span class="dm-bubble-badge" aria-hidden="true"><Icon name="simple-icons:instagram" class="w-[12px] h-[12px]" /></span>
+      <span class="dm-bubble-dot" aria-hidden="true"></span>
+    </span>
+  </a>
+
+  <script>
+    // Блок «напишіть мені» → плавающий бабл. Полёт — FLIP из фото блока в угол
+    // (WAAPI, transform+opacity). Прерывание — reverse() текущей анимации, без
+    // рывка. Easing-строки зеркалят --ease-strong-* из global.css (WAAPI не
+    // читает CSS-переменные).
+    (() => {
+      const card = document.querySelector('.dm-card') as HTMLElement | null;
+      const avatar = card?.querySelector('.dm-avatar') as HTMLElement | null;
+      const bubble = document.getElementById('dm-bubble') as HTMLElement | null;
+      if (!card || !avatar || !bubble) return;
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const EASE_OUT = 'cubic-bezier(0.23, 1, 0.32, 1)';
+      const EASE_IN_OUT = 'cubic-bezier(0.77, 0, 0.175, 1)';
+      let shown = false;
+      let anim: Animation | null = null;
+
+      const plan = (): { kf: Keyframe[]; duration: number; easing: string } => {
+        if (reduce.matches) return { kf: [{ opacity: 0 }, { opacity: 1 }], duration: 200, easing: 'ease' };
+        const a = avatar.getBoundingClientRect();
+        const b = bubble.getBoundingClientRect();
+        const dx = (a.left + a.width / 2) - (b.left + b.width / 2);
+        const dy = (a.top + a.height / 2) - (b.top + b.height / 2);
+        // Блок далеко (быстрый скролл / переход по якорю) — короткий scale-in из угла.
+        if (Math.abs(dy) > window.innerHeight * 1.5) {
+          return {
+            kf: [{ transform: 'translateY(12px) scale(0.9)', opacity: 0 }, { transform: 'none', opacity: 1 }],
+            duration: 240, easing: EASE_OUT,
+          };
+        }
+        const s = a.width / b.width;
+        return {
+          kf: [
+            { transform: `translate(${dx}px, ${dy}px) scale(${s})`, opacity: 0 },
+            { opacity: 1, offset: 0.2 },
+            { transform: 'none', opacity: 1 },
+          ],
+          duration: 500, easing: EASE_IN_OUT,
+        };
+      };
+
+      const toggle = (show: boolean) => {
+        if (show === shown) return;
+        shown = show;
+        if (anim && anim.playState === 'running') { anim.reverse(); return; }
+        bubble.hidden = false;               // показать до замера rect
+        const { kf, duration, easing } = plan();
+        anim = bubble.animate(kf, { duration, easing, fill: 'both', direction: show ? 'normal' : 'reverse' });
+        anim.onfinish = () => {
+          anim?.cancel();
+          anim = null;
+          if (!shown) bubble.hidden = true;
+        };
+      };
+
+      // Бабл виден, только когда карточка целиком выше экрана.
+      new IntersectionObserver(([e]) => {
+        card.classList.toggle('dm-inview', e.isIntersecting);  // «живая» анимация только в кадре
+        toggle(!e.isIntersecting && e.boundingClientRect.top < 0);
+      }, { threshold: 0 }).observe(card);
+    })();
+  </script>
+
   <!-- ── WHAT'S INSIDE · PART 2: the detailed breakdown ──
        Разбито на две секции 7 сентября 2026. В одном блоке было слишком
        много: короткое обещание, четыре характеристики, шесть подробных
@@ -956,7 +1075,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
           <span class="w-14 h-14 rounded-full bg-cream flex items-center justify-center mb-5" style="border:1px solid rgba(200,184,162,0.28);">
             <Icon name="ph:printer" class="w-[24px] h-[24px] text-mocha" />
           </span>
-          <span class="font-cabinet text-espresso leading-none mb-2" style="font-size:2.4rem;">{tr.pdf_format_badge}</span>
+          <span class="font-stat text-espresso leading-none mb-2" style="font-size:2.4rem;">{tr.pdf_format_badge}</span>
           <span class="font-outfit text-espresso/65 text-[13px] mb-6">{tr.pdf_format_badge_sub}</span>
           {tr.pdf_format_points && (
             <ul class="list-none p-0 space-y-4 text-left w-full">
@@ -1077,11 +1196,11 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
                  class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
           </div>
           <div class="p-6 lg:p-8 flex flex-col justify-center">
-            <span class="inline-flex items-center gap-1.5 self-start rounded-full px-3 py-1.5 mb-4 font-outfit text-[10.5px] font-bold uppercase tracking-[0.12em] text-mocha" style="background:#F5EFE8;">
+            <span class="inline-flex items-center gap-1.5 self-start rounded-full px-3 py-1.5 mb-4 font-outfit text-[10.5px] font-bold uppercase tracking-[0.12em] text-mocha-dark" style="background:#F5EFE8;">
               <Icon name="ph:star-fill" aria-hidden="true" class="w-[11px] h-[11px]" />
               {tr.hub_popular}
             </span>
-            <h3 class="font-cabinet text-espresso mb-3 group-hover:text-mocha transition-colors" style="font-size:clamp(1.35rem,2vw,1.85rem);line-height:1.15;">{hubLead.title}</h3>
+            <h3 class="font-cabinet text-espresso mb-3 group-hover:text-mocha-dark transition-colors" style="font-size:clamp(1.35rem,2vw,1.85rem);line-height:1.15;">{hubLead.title}</h3>
             <p class="font-outfit text-espresso/65 text-[15px] leading-relaxed mb-6">{hubLead.excerpt}</p>
             <span class="inline-flex items-center justify-center gap-2.5 self-start bg-mocha-dark group-hover:bg-mocha-dark text-warm-white transition-colors rounded-xl px-6 py-3.5 font-outfit font-bold text-[15px]">
               {tr.hub_read}
@@ -1099,9 +1218,9 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
                 <img src={p.cover} alt={p.title} width="200" height="200" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" />
               </div>
               <div class="min-w-0 flex flex-col">
-                <h3 class="font-outfit font-bold text-espresso text-[14.5px] leading-snug mb-1.5 group-hover:text-mocha transition-colors">{p.title}</h3>
+                <h3 class="font-outfit font-bold text-espresso text-[14.5px] leading-snug mb-1.5 group-hover:text-mocha-dark transition-colors">{p.title}</h3>
                 <p class="font-outfit text-espresso/65 text-[12.5px] leading-snug line-clamp-3">{p.excerpt}</p>
-                <span class="mt-auto pt-2.5 inline-flex items-center gap-1.5 font-outfit font-semibold text-mocha text-[12.5px]">
+                <span class="mt-auto pt-2.5 inline-flex items-center gap-1.5 font-outfit font-semibold text-mocha-dark text-[12.5px]">
                   {tr.hub_read}
                   <Icon name="ph:arrow-right" aria-hidden="true" class="w-[12px] h-[10px]" />
                 </span>
@@ -1114,7 +1233,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
       <!-- All articles -->
       <div class="reveal text-center mt-8 lg:mt-10">
         <a href={blogHref} data-analytics="social_to_blog_click" data-location="homepage_blog_block"
-           class="inline-flex items-center gap-2.5 rounded-full bg-warm-white px-7 py-3.5 font-outfit font-semibold text-espresso text-[14.5px] transition-colors hover:text-mocha"
+           class="inline-flex items-center gap-2.5 rounded-full bg-warm-white px-7 py-3.5 font-outfit font-semibold text-espresso text-[14.5px] transition-colors hover:text-mocha-dark"
            style="border:1px solid rgba(200,184,162,0.55);box-shadow:0 2px 12px rgba(139,115,85,0.07);">
           {tr.blog_all}
           <Icon name="ph:arrow-right" aria-hidden="true" class="w-[15px] h-[13px]" />
@@ -1123,167 +1242,6 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
     </div>
   </section>
   )}
-
-  <!-- ── BONUS ── -->
-  <section class="hidden py-12 lg:py-20" style="background:#F5EFE8;">
-    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-16">
-      <div class="reveal rounded-[1.5rem] lg:rounded-[2rem] overflow-hidden relative"
-        style="background:linear-gradient(120deg, #3a2c20 0%, #2e2219 45%, #1f1611 100%); box-shadow:0 32px 80px rgba(26,26,26,0.28);">
-        <div class="grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] items-stretch">
-
-          <div class="flex flex-col px-6 sm:px-10 lg:px-14 py-10 lg:py-14 relative">
-
-            <div class="inline-flex mb-7">
-              <span class="inline-flex items-center gap-2 font-outfit text-[13px] font-semibold tracking-[0.1em] uppercase text-warm-white/75 bg-white/[0.06] border border-white/12 rounded-full px-4 py-2">
-                <Icon name="ph:gift" class="w-[14px] h-[14px]" />
-                <span>{tr.bonus_label}</span>
-              </span>
-            </div>
-
-            <h2 class="font-cabinet text-warm-white mb-6" style="font-size:var(--h-section);line-height:1.05;letter-spacing:-0.01em;">
-              {tr.bonus_title}
-            </h2>
-
-            <p class="font-outfit text-warm-white/55 text-[15px] leading-relaxed mb-8 max-w-[500px]">
-              {tr.bonus_sub}
-            </p>
-
-            <div id="bonus-counter" class="mb-8 max-w-[460px] bg-white/[0.04] border border-white/10 rounded-2xl px-5 py-5">
-              <div class="flex items-end gap-4 mb-3">
-                <div id="bonus-counter-num" class="font-stat text-warm-white leading-none tracking-tight" style="font-size:clamp(3.5rem,6vw,4.5rem);">{BONUS_TOTAL}</div>
-                <div class="pb-2 flex-1">
-                  <div id="bonus-counter-label" class="font-outfit text-warm-white text-[15px] font-semibold leading-tight">{tr.bonus_spots_left}</div>
-                  <div class="font-outfit text-warm-white/55 text-[13px] mt-0.5">{tr.bonus_of_total}</div>
-                </div>
-                <div id="bonus-soldout-badge" class="hidden pb-2">
-                  <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.14em] text-warm-white/80 bg-red-900/40 border border-red-700/30 rounded-full px-3 py-1.5">{tr.bonus_sold_out}</span>
-                </div>
-              </div>
-              <div class="relative h-1.5 bg-white/8 rounded-full overflow-hidden mb-2.5">
-                <div id="bonus-counter-bar" class="absolute inset-y-0 left-0 rounded-full" style="width:100%;transform-origin:left center;background:linear-gradient(90deg,#8B7355 0%,#C8B8A2 100%);transition:transform 1.8s cubic-bezier(0.22,1,0.36,1);"></div>
-              </div>
-              <div class="font-outfit text-warm-white/55 text-[13px]">
-                <span id="bonus-counter-taken" class="font-stat text-warm-white/65">0</span>
-                <span>{tr.bonus_taken_label}</span>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-8">
-              {[
-                { icon: 'ph:broadcast', label: tr.bonus_feat1 },
-                { icon: 'ph:video-camera', label: tr.bonus_feat2 },
-                { icon: 'ph:chat-circle', label: tr.bonus_feat3 },
-                { icon: 'ph:cake', label: tr.bonus_feat4 },
-              ].map(f => (
-                <div class="bg-white/[0.04] border border-white/8 rounded-xl px-3 py-3 flex flex-col items-center text-center gap-2">
-                  <Icon name={f.icon} class="w-[20px] h-[20px] text-taupe" />
-                  <span class="font-outfit text-warm-white/65 text-[11px] leading-tight">{f.label}</span>
-                </div>
-              ))}
-            </div>
-
-            <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="bonus"
-              id="bonus-cta-btn"
-              class="flex items-center justify-center gap-3 w-full bg-warm-white text-espresso font-outfit font-bold text-[17px] py-4 rounded-2xl hover:bg-cream transition-colors btn-pulse mb-3">
-              {tr.bonus_cta}
-              <Icon name="ph:arrow-right" class="w-[16px] h-[14px]" />
-            </a>
-
-            <a href={anchor('price')} class="self-center font-outfit text-warm-white/60 text-[13px] inline-flex items-center gap-1.5 hover:text-warm-white transition-colors mb-4">
-              <span>{tr.bonus_details}</span>
-              <Icon name="ph:arrow-right" class="w-[13px] h-[11px]" />
-            </a>
-
-            <div class="flex items-center gap-2 text-warm-white/55 mt-auto pt-2">
-              <span class="w-1 h-1 rounded-full bg-warm-white/40"></span>
-              <span class="font-outfit text-[13px]">{tr.bonus_warning}</span>
-            </div>
-          </div>
-
-          <div class="relative min-h-[500px] lg:min-h-0">
-            <div class="img-skeleton absolute inset-0 w-full h-full" style="background-color:#1a1310;">
-              <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 pointer-events-none">
-                <Icon name="ph:user" class="opacity-20 w-[36px] h-[36px]" />
-              </div>
-              <img src="/images/bonus-author-2.webp"
-        srcset="/images/bonus-author-2-480.webp 480w, /images/bonus-author-2-768.webp 768w, /images/bonus-author-2-1024.webp 1024w, /images/bonus-author-2.webp 1254w"
-        sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 640px" alt={tr.bonus_img_alt || 'TROUBLEBABA'} width="1254" height="1254" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-            </div>
-
-            <div class="absolute z-10" style="top:4%; right:4%;">
-              <div class="relative w-24 h-24 lg:w-28 lg:h-28 flex items-center justify-center">
-                <svg class="absolute inset-0 w-full h-full" viewBox="0 0 100 100" fill="#EAD9BA">
-                  <circle cx="90" cy="50" r="10"/>
-                  <circle cx="84.64" cy="70" r="10"/>
-                  <circle cx="70" cy="84.64" r="10"/>
-                  <circle cx="50" cy="90" r="10"/>
-                  <circle cx="30" cy="84.64" r="10"/>
-                  <circle cx="15.36" cy="70" r="10"/>
-                  <circle cx="10" cy="50" r="10"/>
-                  <circle cx="15.36" cy="30" r="10"/>
-                  <circle cx="30" cy="15.36" r="10"/>
-                  <circle cx="50" cy="10" r="10"/>
-                  <circle cx="70" cy="15.36" r="10"/>
-                  <circle cx="84.64" cy="30" r="10"/>
-                  <circle cx="50" cy="50" r="40"/>
-                </svg>
-                <div class="relative z-10 text-center text-espresso">
-                  <Icon name="ph:gift" class="mx-auto mb-1 w-[20px] h-[20px]" />
-                  <div class="font-cabinet leading-none text-[15px]">{tr.bonus_free}</div>
-                  <svg class="mx-auto mt-1" width="9" height="8" viewBox="0 0 13 12" fill="none"><path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" fill="none"/></svg>
-                </div>
-              </div>
-            </div>
-
-            <div class="absolute z-10 left-4 right-4 lg:left-6 lg:right-6 bottom-4 lg:bottom-6 rounded-2xl p-4 lg:p-5"
-              style="background:rgba(20,14,10,0.78); backdrop-filter:blur(12px); border:1px solid rgba(200,184,162,0.2);">
-
-              <div class="flex items-start justify-between gap-3 mb-3">
-                <div>
-                  <div class="font-outfit font-bold text-warm-white text-[11px] tracking-[0.16em] uppercase mb-1">{tr.bonus_class_label}</div>
-                  <div class="font-outfit text-warm-white/55 text-[13px]">{tr.bonus_class_with}</div>
-                </div>
-                <span class="inline-flex items-center gap-1.5 bg-white/[0.08] border border-white/15 rounded-full px-2.5 py-1 flex-shrink-0">
-                  <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
-                  <span class="font-outfit text-warm-white/85 text-[11px] font-bold tracking-wider">LIVE</span>
-                </span>
-              </div>
-
-              <div class="flex items-start gap-3 mb-3">
-                <div class="w-20 h-20 rounded-lg flex-shrink-0 overflow-hidden bg-mocha/20">
-                  <img src="/images/bento-you-can.webp"
-        srcset="/images/bento-you-can-480.webp 480w, /images/bento-you-can-768.webp 768w, /images/bento-you-can-1024.webp 1024w, /images/bento-you-can.webp 1254w"
-        sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 640px" alt={tr.hero_img_alt} width="1254" height="1254" loading="lazy" decoding="async" class="w-full h-full object-cover" onerror="this.style.display='none'" />
-                </div>
-                <ul class="flex-1 space-y-1">
-                  {[tr.bonus_b1, tr.bonus_b2, tr.bonus_b3, tr.bonus_b4].map(label => (
-                    <li class="flex items-center gap-1.5 font-outfit text-warm-white/80 text-[11.5px]">
-                      <span class="w-1 h-1 rounded-full bg-warm-white/60 flex-shrink-0"></span>
-                      <span>{label}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div class="flex items-center justify-between gap-3 pt-3 border-t border-white/8">
-                <div class="flex items-center gap-2">
-                  <div class="flex -space-x-2">
-                    {['А','М','К'].map(l => (
-                      <div class="w-7 h-7 rounded-full bg-mocha border-2 border-espresso flex items-center justify-center">
-                        <span class="font-cabinet text-warm-white text-[11px]">{l}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <span class="font-outfit text-warm-white/55 text-[11px]">+17</span>
-                </div>
-                <span class="font-outfit text-warm-white/55 text-[11px]">{tr.bonus_only_first}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   {/* Листалка всех страниц PDF. Свайп — нативный, на CSS scroll-snap:
         никакой библиотеки слайдера и никакого touchmove в JS, поэтому на
@@ -1489,14 +1447,14 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
                   />
                 ))}
               </div>
-              <span class="font-outfit font-bold text-espresso text-[15px]">
+              <span class="font-stat text-espresso text-[15px]">
                 {ratingValue.toLocaleString(lang === 'en' ? 'en' : lang, { minimumFractionDigits: 1 })}
               </span>
             </>
           ) : (
             <>
               <Icon name="ph:chat-circle-text" class="w-[17px] h-[17px]" />
-              <span class="font-outfit font-bold text-espresso text-[15px]">{reviews.length}</span>
+              <span class="font-stat text-espresso text-[15px]">{reviews.length}</span>
             </>
           )}
           <span class="font-outfit text-espresso/65 text-[12.5px] leading-tight" style="white-space:pre-line;">
@@ -1562,7 +1520,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
       <div class="reveal mb-5 lg:mb-7">
         <SectionEyebrow label={tr.price_label} class="mb-3" />
         <h2 class="font-cabinet font-black text-espresso mb-3" style="font-size:var(--h-section);line-height:1.05;letter-spacing:-0.01em;">{tr.price_title}</h2>
-        <p class="font-outfit text-espresso/50 text-[15px] leading-relaxed max-w-xl">{tr.price_sub}</p>
+        <p class="font-outfit text-espresso/65 text-[15px] leading-relaxed max-w-xl">{tr.price_sub}</p>
       </div>
 
       <div class="reveal reveal-d1">
@@ -1593,10 +1551,10 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
             </ul>
 
             <div class="flex items-end gap-3 mb-4">
-              <span class="font-outfit font-black text-espresso leading-none" data-geo-price="display" style="font-size:2.6rem;letter-spacing:-0.03em;">{tr.price_display}</span>
+              <span class="font-stat font-black text-espresso leading-none" data-geo-price="display" style="font-size:2.6rem;letter-spacing:-0.03em;">{tr.price_display}</span>
               <div class="flex items-center gap-2 mb-1.5">
                 <span class="font-outfit text-espresso/65 text-[17px] line-through" data-geo-price="display-old">{tr.price_display_old}</span>
-                <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.08em] text-mocha bg-mocha/12 rounded px-2 py-0.5" style="background:rgba(139,115,85,0.14);">{tr.price_discount}</span>
+                <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.08em] text-mocha-dark bg-mocha/12 rounded px-2 py-0.5" style="background:rgba(139,115,85,0.14);">{tr.price_discount}</span>
               </div>
             </div>
 
@@ -1635,7 +1593,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
               </span>
             </div>
             <div id="geo-price-disclaimer" hidden class="mt-3 flex items-start gap-2 rounded-lg px-3 py-2.5" style="background:rgba(139,115,85,0.08);border:1px solid rgba(139,115,85,0.18);">
-              <svg class="w-[14px] h-[14px] flex-shrink-0 mt-[2px] text-mocha" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <svg class="w-[14px] h-[14px] flex-shrink-0 mt-[2px] text-mocha-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
               <span class="font-outfit text-espresso/70 text-[12px] leading-snug"></span>
             </div>
           </div>
@@ -1714,7 +1672,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
 
       <div class="reveal mb-10 max-w-2xl">
         <div class="flex items-center gap-3 mb-5">
-          <span class="font-outfit text-xs font-semibold tracking-[0.14em] uppercase text-mocha">{tr.faq_label}</span>
+          <span class="font-outfit text-xs font-semibold tracking-[0.14em] uppercase text-mocha-dark">{tr.faq_label}</span>
           <div class="flex items-center gap-2">
             <div class="h-px w-10 bg-mocha/40"></div>
             <svg width="11" height="10" viewBox="0 0 13 12" fill="none">
@@ -1724,7 +1682,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
             </div>
         </div>
         <h2 class="font-cabinet font-black text-espresso mb-4" style="font-size:var(--h-section);line-height:1.05;letter-spacing:-0.01em;">{tr.faq_title}</h2>
-        <p class="font-outfit text-espresso/50 text-base leading-relaxed">{tr.faq_sub}</p>
+        <p class="font-outfit text-espresso/65 text-base leading-relaxed">{tr.faq_sub}</p>
       </div>
 
       <div class="grid lg:grid-cols-[minmax(0,1fr)_340px] gap-6 lg:gap-7 items-stretch">
@@ -1734,11 +1692,11 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
             {(tr.faq_items as {q:string;a:string}[]).map((faq, i) => (
               <div class={`faq-item ${i === 0 ? 'open' : ''} cursor-pointer ${i > 0 ? 'border-t border-taupe/15' : ''}`} data-index={i} role="button" tabindex="0" aria-expanded={i === 0 ? 'true' : 'false'}>
                 <div class="flex items-center gap-6 px-7 py-4">
-                  <span class="font-outfit text-[11px] font-bold text-mocha tracking-[0.2em] flex-shrink-0 w-7">
+                  <span class="font-outfit text-[11px] font-bold text-mocha-dark tracking-[0.2em] flex-shrink-0 w-7">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <h3 class="font-outfit font-bold text-espresso text-[1rem] flex-1 leading-snug">{faq.q}</h3>
-                  <span class="faq-icon w-9 h-9 rounded-full border border-taupe/30 flex items-center justify-center text-mocha text-xl leading-none font-light flex-shrink-0 select-none">+</span>
+                  <span class="faq-icon w-9 h-9 rounded-full border border-taupe/30 flex items-center justify-center text-mocha-dark text-xl leading-none font-light flex-shrink-0 select-none">+</span>
                 </div>
                 <div class="faq-content">
                   <div class="mx-7 mb-4 px-5 py-4 rounded-2xl" style="background:#EFE6DA;">
@@ -1855,7 +1813,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
             <p class="font-outfit text-warm-white/60 text-[15px] lg:text-[17px] leading-relaxed mb-7 lg:mb-8 max-w-[520px]">{tr.cta_final_sub || tr.cta_sub}</p>
 
             <div class="flex items-baseline gap-3 mb-5">
-              <span class="font-outfit font-black text-warm-white leading-none" data-geo-price="display" style="font-size:clamp(2rem,3vw,2.6rem);letter-spacing:-0.03em;">{tr.price_display}</span>
+              <span class="font-stat font-black text-warm-white leading-none" data-geo-price="display" style="font-size:clamp(2rem,3vw,2.6rem);letter-spacing:-0.03em;">{tr.price_display}</span>
               <span class="font-outfit text-warm-white/55 text-[17px] line-through" data-geo-price="display-old">{tr.price_display_old}</span>
               <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.08em] text-warm-white rounded-full px-2.5 py-1" style="background:rgba(139,115,85,0.55);">{tr.price_discount}</span>
             </div>
@@ -1972,7 +1930,6 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
 {turnstileKey && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>}
 
 <script>
-import { BONUS_TOTAL, BONUS_REMAINING } from '../i18n/translations.js';
 
 // Reviews: reveal the rest on "show all", then remove the button.
 (function initReviewsMore() {
@@ -2023,67 +1980,6 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 // FAQ accordion
 attachFaqListeners();
 
-// ── Bonus counter: LIVE. Reads /api/bonus/count, animates TOTAL → remaining ──
-(() => {
-  const counterEl = document.getElementById('bonus-counter');
-  if (!counterEl) return;
-
-  const numEl     = document.getElementById('bonus-counter-num');
-  const barEl     = document.getElementById('bonus-counter-bar') as HTMLElement | null;
-  const takenEl   = document.getElementById('bonus-counter-taken');
-  const soldBadge = document.getElementById('bonus-soldout-badge');
-  const ctaBtn    = document.getElementById('bonus-cta-btn') as HTMLElement | null;
-
-  // Initial paint — everything full, animation waits for the API + viewport.
-  if (numEl) numEl.textContent = String(BONUS_TOTAL);
-  if (takenEl) takenEl.textContent = '0';
-  if (barEl) barEl.style.transform = 'scaleX(1)';
-
-  let live = { total: BONUS_TOTAL, remaining: BONUS_TOTAL };
-  fetch('/api/bonus/count')
-    .then(r => r.ok ? r.json() : null)
-    .then(d => { if (d && typeof d.total === 'number' && typeof d.remaining === 'number') live = d; })
-    .catch(() => { /* fall back to defaults above */ });
-
-  const animate = () => {
-    const target   = Math.max(0, live.remaining);
-    const total    = Math.max(1, live.total);
-    if (target <= 0) {
-      counterEl.style.opacity = '0.6';
-      counterEl.style.filter  = 'grayscale(0.4)';
-      if (soldBadge) soldBadge.classList.remove('hidden');
-      if (ctaBtn) {
-        ctaBtn.style.opacity = '0.55';
-        ctaBtn.style.pointerEvents = 'none';
-        ctaBtn.classList.remove('btn-pulse');
-      }
-    }
-    const duration = 1800;
-    const startTime = performance.now();
-    const tick = (now: number) => {
-      const p = Math.min(1, (now - startTime) / duration);
-      const eased = 1 - Math.pow(1 - p, 3);
-      const cur = Math.round(total - (total - target) * eased);
-      const takenCur = total - cur;
-      if (numEl) numEl.textContent = String(cur);
-      if (takenEl) takenEl.textContent = String(takenCur);
-      if (barEl) barEl.style.transform = 'scaleX(' + (cur / total) + ')';
-      if (p < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  };
-
-  const bonusObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        // Give the fetch a tick to settle if it's already in-flight.
-        setTimeout(animate, 150);
-        bonusObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.3 });
-  bonusObs.observe(counterEl);
-})();
 
 // Sticky CTA — show after scroll past hero on mobile
 const stickyCta = document.getElementById('sticky-cta');

@@ -26,12 +26,12 @@ const turnstileKey = SITE.turnstile?.siteKey || '';
 ---
 <SiteHeader lang={lang} />
 
-<section class="min-h-[100dvh] py-14 lg:py-20" style="background:#F5EFE8;">
+<section class="min-h-[100dvh] pt-[calc(68px+1.5rem)] pb-14 lg:pt-[calc(72px+2.5rem)] lg:pb-20" style="background:#F5EFE8;">
   <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
 
     <!-- Back to home -->
     <a href={homeHref}
-       class="inline-flex items-center gap-2 font-outfit text-mocha hover:text-mocha-dark transition-colors text-sm mb-10">
+       class="inline-flex items-center gap-2 font-outfit text-mocha-dark hover:text-mocha-dark transition-colors text-sm mb-10">
       <Icon name="ph:arrow-left" aria-hidden="true" class="w-[14px] h-[12px]" />
       <span>TROUBLEBABA</span>
     </a>
@@ -43,7 +43,7 @@ const turnstileKey = SITE.turnstile?.siteKey || '';
       <div>
         <div class="flex items-center gap-3 mb-5">
           <span class="inline-block w-2 h-2 rounded-full" style="background:#B85959; box-shadow:0 0 0 4px rgba(184,89,89,0.18);"></span>
-          <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha">{tr.fr_eyebrow}</span>
+          <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha-dark">{tr.fr_eyebrow}</span>
         </div>
         <h1 class="font-cabinet text-espresso mb-5" style="font-size:var(--h-page);line-height:1.04;">{tr.fr_title}</h1>
         <p class="font-outfit text-espresso/70 text-[17px] lg:text-[17px] leading-relaxed max-w-[580px] mb-10">{tr.fr_sub}</p>
@@ -64,7 +64,7 @@ const turnstileKey = SITE.turnstile?.siteKey || '';
       </div>
 
       <!-- Right: email form card -->
-      <aside class="lg:sticky lg:top-8 self-start w-full">
+      <aside class="lg:sticky lg:top-24 self-start w-full">
         <div class="rounded-2xl bg-warm-white p-7 lg:p-9"
              style="box-shadow:0 12px 40px rgba(139,115,85,0.12), 0 32px 80px rgba(139,115,85,0.06); border:1px solid rgba(200,184,162,0.30);">
 
@@ -85,7 +85,7 @@ const turnstileKey = SITE.turnstile?.siteKey || '';
               <Icon name="ph:arrow-right" aria-hidden="true" class="w-[16px] h-[14px]" />
             </button>
 
-            <p class="font-outfit text-espresso/50 text-xs leading-relaxed">{tr.fr_consent}</p>
+            <p class="font-outfit text-espresso/65 text-xs leading-relaxed">{tr.fr_consent}</p>
           </form>
 
           <!-- Success state (hidden until form submits OK) -->

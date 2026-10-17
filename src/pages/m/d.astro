@@ -33,7 +33,7 @@ import Layout from '../../layouts/Layout.astro';
             <option value="90">За 90 дней</option>
           </select>
           <button id="refresh" class="font-outfit text-sm bg-mocha text-warm-white rounded-xl px-4 py-2 hover:bg-mocha-dark">Обновить</button>
-          <button id="logout" class="font-outfit text-sm border border-mocha/40 text-mocha rounded-xl px-4 py-2 hover:bg-mocha/10">Выйти</button>
+          <button id="logout" class="font-outfit text-sm border border-mocha/40 text-mocha-dark rounded-xl px-4 py-2 hover:bg-mocha/10">Выйти</button>
         </div>
       </header>
 
@@ -56,7 +56,7 @@ import Layout from '../../layouts/Layout.astro';
             <h2 class="font-cabinet text-espresso text-xl">Визиты</h2>
             <div class="text-right">
               <div class="font-cabinet text-espresso text-4xl lg:text-5xl tabular-nums" id="visits-total-period">—</div>
-              <div class="font-outfit text-xs uppercase tracking-[0.14em] text-mocha mt-1">За период</div>
+              <div class="font-outfit text-xs uppercase tracking-[0.14em] text-mocha-dark mt-1">За период</div>
             </div>
           </div>
           <div id="visits-by-lang" class="grid grid-cols-2 lg:grid-cols-4 gap-3"></div>
@@ -100,15 +100,15 @@ import Layout from '../../layouts/Layout.astro';
           <h2 class="font-cabinet text-espresso text-lg mb-4">YouTube shorts</h2>
           <div class="grid grid-cols-3 gap-4 font-outfit">
             <div>
-              <div class="text-espresso/50 text-xs uppercase tracking-wide">Всего шортсов</div>
+              <div class="text-espresso/65 text-xs uppercase tracking-wide">Всего шортсов</div>
               <div class="font-cabinet text-espresso text-2xl tabular-nums mt-1" id="yt-total">—</div>
             </div>
             <div>
-              <div class="text-espresso/50 text-xs uppercase tracking-wide">Опубликовано на сайте</div>
+              <div class="text-espresso/65 text-xs uppercase tracking-wide">Опубликовано на сайте</div>
               <div class="font-cabinet text-espresso text-2xl tabular-nums mt-1" id="yt-posted">—</div>
             </div>
             <div>
-              <div class="text-espresso/50 text-xs uppercase tracking-wide">Последняя синхронизация</div>
+              <div class="text-espresso/65 text-xs uppercase tracking-wide">Последняя синхронизация</div>
               <div class="font-cabinet text-espresso text-base mt-1" id="yt-last">—</div>
             </div>
           </div>
@@ -209,7 +209,7 @@ import Layout from '../../layouts/Layout.astro';
         const accent = l === 'uk' ? '#8B7355' : l === 'ru' ? '#A67C52' : l === 'pl' ? '#C8B8A2' : '#6E5C43';
         return '<div class="bg-cream rounded-xl px-4 py-4 flex flex-col gap-2 border border-taupe/20">' +
           '<div class="flex items-baseline justify-between">' +
-            '<span class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-mocha">' + m.label + '</span>' +
+            '<span class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-mocha-dark">' + m.label + '</span>' +
             '<span class="font-outfit text-[11px] text-espresso/65">' + m.name + '</span>' +
           '</div>' +
           '<div class="font-cabinet text-espresso text-3xl tabular-nums leading-none">' + fmtNum(n) + '</div>' +
@@ -231,7 +231,7 @@ import Layout from '../../layouts/Layout.astro';
       ];
       $('totals').innerHTML = cells.map(function(c){
         return '<div class="bg-warm-white rounded-2xl p-5" style="box-shadow:0 8px 32px rgba(139,115,85,0.10);">' +
-          '<div class="font-outfit text-xs uppercase tracking-[0.12em] text-mocha mb-2">' + c.label + '</div>' +
+          '<div class="font-outfit text-xs uppercase tracking-[0.12em] text-mocha-dark mb-2">' + c.label + '</div>' +
           '<div class="font-cabinet text-espresso text-3xl">' + c.value + '</div>' +
         '</div>';
       }).join('');
@@ -274,7 +274,7 @@ import Layout from '../../layouts/Layout.astro';
         return '<tr>' +
           '<td class="py-1 pr-4 text-espresso/65">' + ts + '</td>' +
           '<td class="py-1 pr-4">' + r.type + '</td>' +
-          '<td class="py-1 pr-4 text-mocha">' + (r.source || '') + '</td>' +
+          '<td class="py-1 pr-4 text-mocha-dark">' + (r.source || '') + '</td>' +
           '<td class="py-1 pr-4">' + (r.page_lang || '') + '</td>' +
           '<td class="py-1 pr-4">' + (r.ip_country || '') + '</td>' +
           '<td class="py-1 text-espresso/65">' + (r.page_path || '') + '</td>' +
@@ -388,7 +388,7 @@ import Layout from '../../layouts/Layout.astro';
             '<td class="py-2 pr-3"><span class="inline-block rounded px-2 py-0.5 text-[11px] font-semibold ' +
               (p.platform==='tiktok'?'bg-espresso text-warm-white':p.platform==='instagram'?'bg-[#dc2743] text-white':'bg-mocha text-warm-white') + '">' + p.platform + '</span></td>' +
             '<td class="py-2 pr-3 text-espresso/80">' + (p.title || '<span class="text-espresso/65">без заголовка</span>') + '</td>' +
-            '<td class="py-2 pr-3"><a href="' + p.url + '" target="_blank" rel="noopener" class="text-mocha underline text-[13px] break-all">ссылка</a></td>' +
+            '<td class="py-2 pr-3"><a href="' + p.url + '" target="_blank" rel="noopener" class="text-mocha-dark underline text-[13px] break-all">ссылка</a></td>' +
             '<td class="py-2 text-right"><button data-del="' + p.id + '" class="text-[#B85959] text-[13px] hover:underline">удалить</button></td>' +
           '</tr>';
         }).join('') + '</tbody></table>';
@@ -406,7 +406,7 @@ import Layout from '../../layouts/Layout.astro';
       const urls = $('sp-urls').value.trim();
       const msg = $('sp-msg');
       if (!urls) { msg.innerHTML = '<span class="text-[#B85959]">Вставь хотя бы одну ссылку</span>'; return; }
-      this.disabled = true; msg.innerHTML = '<span class="text-espresso/50">Добавляем… (это может занять до минуты)</span>';
+      this.disabled = true; msg.innerHTML = '<span class="text-espresso/65">Добавляем… (это может занять до минуты)</span>';
       try {
         const r = await fetch('/api/m/social', {
           method: 'POST', headers: { 'Authorization': 'Bearer ' + spToken(), 'Content-Type': 'application/json' },
@@ -414,7 +414,7 @@ import Layout from '../../layouts/Layout.astro';
         });
         const d = await r.json();
         if (r.ok && d.ok) {
-          msg.innerHTML = '<span class="text-mocha">Добавлено: ' + d.added + ' из ' + d.total + '</span>';
+          msg.innerHTML = '<span class="text-mocha-dark">Добавлено: ' + d.added + ' из ' + d.total + '</span>';
           $('sp-urls').value = '';
           loadSocialPosts();
         } else { msg.innerHTML = '<span class="text-[#B85959]">Ошибка: ' + (d.error||'') + '</span>'; }

@@ -30,16 +30,16 @@ const flavorUrl = (s: string) => `${langPrefix}/recipes/${s}/`;
 
 // Bundle-only pricing card (single-recipe sale removed by owner ask —
 // we only sell the full 10-recipe collection). Localized per lang.
-const BUNDLE_CARD: Record<string, { title: string; hint: string; price: string }> = {
-  uk: { title: 'Весь збірник · 10 рецептів', hint: 'Один платіж — усі 10 рецептів у PDF назавжди.', price: '800 ₴' },
-  ru: { title: 'Весь сборник · 10 рецептов', hint: 'Один платёж — все 10 рецептов в PDF навсегда.', price: '$20' },
-  pl: { title: 'Cały zbiór · 10 przepisów',  hint: 'Jedna płatność — wszystkie 10 przepisów w PDF na zawsze.', price: '80 zł' },
-  en: { title: 'Full bundle · 10 recipes',   hint: 'One payment — all 10 recipes in PDF, yours forever.', price: '€18' },
-  es: { title: 'Colección completa · 10 recetas', hint: 'Un solo pago — las 10 recetas en PDF, para siempre.', price: '€18' },
-  de: { title: 'Komplette Sammlung · 10 Rezepte', hint: 'Eine Zahlung — alle 10 Rezepte als PDF, für immer.', price: '€18' },
-  fr: { title: 'Recueil complet · 10 recettes',   hint: 'Un seul paiement — les 10 recettes en PDF, pour toujours.', price: '€18' },
-  it: { title: 'Raccolta completa · 10 ricette',  hint: 'Un unico pagamento — tutte le 10 ricette in PDF, per sempre.', price: '€18' },
-  pt: { title: 'Coleção completa · 10 receitas',  hint: 'Um único pagamento — as 10 receitas em PDF, para sempre.', price: '€18' },
+const BUNDLE_CARD: Record<string, { title: string; hint: string }> = {
+  uk: { title: 'Весь збірник · 10 рецептів', hint: 'Один платіж — усі 10 рецептів у PDF назавжди.' },
+  ru: { title: 'Весь сборник · 10 рецептов', hint: 'Один платёж — все 10 рецептов в PDF навсегда.' },
+  pl: { title: 'Cały zbiór · 10 przepisów',  hint: 'Jedna płatność — wszystkie 10 przepisów w PDF na zawsze.' },
+  en: { title: 'Full bundle · 10 recipes',   hint: 'One payment — all 10 recipes in PDF, yours forever.' },
+  es: { title: 'Colección completa · 10 recetas', hint: 'Un solo pago — las 10 recetas en PDF, para siempre.' },
+  de: { title: 'Komplette Sammlung · 10 Rezepte', hint: 'Eine Zahlung — alle 10 Rezepte als PDF, für immer.' },
+  fr: { title: 'Recueil complet · 10 recettes',   hint: 'Un seul paiement — les 10 recettes en PDF, pour toujours.' },
+  it: { title: 'Raccolta completa · 10 ricette',  hint: 'Un unico pagamento — tutte le 10 ricette in PDF, per sempre.' },
+  pt: { title: 'Coleção completa · 10 receitas',  hint: 'Um único pagamento — as 10 receitas em PDF, para sempre.' },
 };
 const B = BUNDLE_CARD[lang] ?? BUNDLE_CARD.en;
 
@@ -92,36 +92,76 @@ const faqJsonLd = extra?.faq?.length
 
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 font-outfit text-[13px] text-espresso/65 mb-10" aria-label="breadcrumb">
-      <a href={homeUrl} class="hover:text-mocha transition-colors">TROUBLEBABA</a>
+      <a href={homeUrl} class="hover:text-mocha-dark transition-colors">TROUBLEBABA</a>
       <span aria-hidden="true">/</span>
-      <a href={recipesUrl} class="hover:text-mocha transition-colors">{hub.allLabel}</a>
+      <a href={recipesUrl} class="hover:text-mocha-dark transition-colors">{hub.allLabel}</a>
       <span aria-hidden="true">/</span>
       <span class="text-espresso/70">{f.name}</span>
     </nav>
 
-    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+    <div class="grid lg:grid-cols-[5fr_6fr] gap-10 lg:gap-16 items-start">
 
-      <!-- Image -->
-      <div class="relative rounded-3xl overflow-hidden" style="aspect-ratio:4/5; box-shadow:0 24px 64px rgba(139,115,85,0.20);">
-        <div class="img-skeleton absolute inset-0 w-full h-full"></div>
-        <img src={flavor.image} alt={`${f.name} — ${f.layers}`} width="1122" height="1402"
-             loading="eager" fetchpriority="high" decoding="async"
-             class="absolute inset-0 w-full h-full object-cover"
-             onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
-        {flavor.bestseller && (
-          <span class="absolute top-4 left-4 bg-mocha-dark text-warm-white font-outfit font-semibold text-[11px] tracking-[0.12em] uppercase px-3 py-1.5 rounded-full">★ Bestseller</span>
+      <!-- Левая колонка: фото (4:5, читаемое) + блок покупки под ним, чтобы
+           колонка была заполнена реальным контентом, а не пустотой под фото. -->
+      <div class="flex flex-col gap-6">
+        <div class="relative rounded-3xl overflow-hidden aspect-[4/5]" style="box-shadow:0 24px 64px rgba(139,115,85,0.20);">
+          <div class="img-skeleton absolute inset-0 w-full h-full"></div>
+          <img src={flavor.image} alt={`${f.name} — ${f.layers}`} width="1122" height="1402"
+               loading="eager" fetchpriority="high" decoding="async"
+               class="absolute inset-0 w-full h-full object-cover"
+               onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />
+          {flavor.bestseller && (
+            <span class="absolute top-4 left-4 bg-mocha-dark text-warm-white font-outfit font-semibold text-[11px] tracking-[0.12em] uppercase px-3 py-1.5 rounded-full">★ Bestseller</span>
+          )}
+        </div>
+
+        <!-- Блок покупки — под фото: цена + CTA + сложность/время -->
+        <div class="rounded-2xl overflow-hidden" style="border:1px solid rgba(200,184,162,0.4);">
+          <div class="flex items-center justify-between gap-4 px-5 py-4 bg-espresso relative">
+            <div>
+              <div class="font-outfit font-bold text-warm-white text-[15px]">{B.title}</div>
+              <div class="font-outfit text-warm-white/60 text-[13px] mt-0.5">{B.hint}</div>
+            </div>
+            <div class="text-right flex-shrink-0">
+              <div class="font-stat text-warm-white text-[24px] leading-none tracking-tight">{tr.price_display}</div>
+            </div>
+          </div>
+        </div>
+
+        <a href={homeUrl + '?buy=1#price'} class="inline-flex items-center justify-center gap-3 w-full bg-mocha-dark text-warm-white font-outfit font-bold px-8 py-4 rounded-2xl hover:bg-mocha-dark transition-colors btn-pulse">
+          {hub.cta}
+          <Icon name="ph:arrow-right" class="w-[16px] h-[14px]" />
+        </a>
+
+        {meta && (difficultyLabel || timeLabel) && (
+          <div class="grid grid-cols-2 gap-2">
+            {difficultyLabel && (
+              <span class="flex items-center justify-center gap-2 bg-warm-white border border-taupe/40 rounded-full px-3.5 py-2 font-outfit text-[13px] text-espresso/75">
+                <Icon name="ph:chart-line-up" class="w-[14px] h-[14px]" />
+                <span class="font-medium">{sec.difficulty}:</span>
+                <span>{difficultyLabel}</span>
+              </span>
+            )}
+            {timeLabel && (
+              <span class="flex items-center justify-center gap-2 bg-warm-white border border-taupe/40 rounded-full px-3.5 py-2 font-outfit text-[13px] text-espresso/75">
+                <Icon name="ph:clock" class="w-[14px] h-[14px]" />
+                <span class="font-medium">{sec.time}:</span>
+                <span>{timeLabel}</span>
+              </span>
+            )}
+          </div>
         )}
       </div>
 
       <!-- Content -->
       <div>
         <h1 class="font-cabinet text-espresso mb-3" style="font-size:var(--h-page);line-height:1.04;">{(f.metaTitle || f.name).split(' | ')[0]}</h1>
-        <p class="font-outfit text-mocha text-[15px] tracking-wide mb-6">{f.layers}</p>
+        <p class="font-outfit text-mocha-dark text-[15px] tracking-wide mb-6">{f.layers}</p>
         <p class="font-outfit text-espresso/65 text-base leading-relaxed mb-8">{f.lead}</p>
 
         <!-- What you'll learn in the PDF -->
         <div class="bg-warm-white rounded-2xl p-6 mb-8" style="box-shadow:0 4px 18px rgba(139,115,85,0.10);">
-          <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-mocha mb-4">{tr.flavor_pdf_heading}</div>
+          <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-mocha-dark mb-4">{tr.flavor_pdf_heading}</div>
           <ul class="space-y-3">
             {f.learn.map((item: string) => (
               <li class="flex items-start gap-3 font-outfit text-espresso/75 text-[15px]">
@@ -135,7 +175,7 @@ const faqJsonLd = extra?.faq?.length
         <!-- Ingredients (names only) + explicit note about what's in the paid PDF -->
         {ingredients && ingCopy && (
           <div class="bg-warm-white rounded-2xl p-6 mb-6" style="box-shadow:0 4px 18px rgba(139,115,85,0.10);">
-            <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-mocha mb-2">{ingCopy.heading}</div>
+            <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.16em] text-mocha-dark mb-2">{ingCopy.heading}</div>
             <p class="font-outfit text-espresso/65 text-[13px] leading-snug mb-4">{ingCopy.subline}</p>
             <div class="flex flex-wrap gap-2 mb-5">
               {ingredients.map((name) => (
@@ -147,46 +187,10 @@ const faqJsonLd = extra?.faq?.length
             <p class="font-outfit text-espresso/70 text-[13.5px] leading-relaxed rounded-lg px-4 py-3.5" style="background:#FDFAF6;border:1px solid rgba(200,184,162,0.55);">
               {ingCopy.pdfNote}
             </p>
-            <p class="font-outfit text-mocha font-semibold text-[13.5px] mt-4">{ingCopy.ctaHint}</p>
+            <p class="font-outfit text-mocha-dark font-semibold text-[13.5px] mt-4">{ingCopy.ctaHint}</p>
           </div>
         )}
 
-        <!-- Bundle-only price card (we sell the full collection, no per-recipe sales) -->
-        <div class="rounded-2xl overflow-hidden mb-6" style="border:1px solid rgba(200,184,162,0.4);">
-          <div class="flex items-center justify-between gap-4 px-5 py-4 bg-espresso relative">
-            <div>
-              <div class="font-outfit font-bold text-warm-white text-[15px]">{B.title}</div>
-              <div class="font-outfit text-warm-white/60 text-[13px] mt-0.5">{B.hint}</div>
-            </div>
-            <div class="text-right flex-shrink-0">
-              <div class="font-outfit font-bold text-warm-white text-[24px] leading-none tracking-tight">{B.price}</div>
-            </div>
-          </div>
-        </div>
-
-        <a href={homeUrl + '?buy=1#price'} class="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-mocha-dark text-warm-white font-outfit font-bold px-8 py-4 rounded-2xl hover:bg-mocha-dark transition-colors btn-pulse">
-          {hub.cta}
-          <Icon name="ph:arrow-right" class="w-[16px] h-[14px]" />
-        </a>
-
-        {meta && (difficultyLabel || timeLabel) && (
-          <div class="flex flex-wrap gap-2 mt-6">
-            {difficultyLabel && (
-              <span class="inline-flex items-center gap-2 bg-warm-white border border-taupe/40 rounded-full px-3.5 py-2 font-outfit text-[13px] text-espresso/75">
-                <Icon name="ph:chart-line-up" class="w-[14px] h-[14px]" />
-                <span class="font-medium">{sec.difficulty}:</span>
-                <span>{difficultyLabel}</span>
-              </span>
-            )}
-            {timeLabel && (
-              <span class="inline-flex items-center gap-2 bg-warm-white border border-taupe/40 rounded-full px-3.5 py-2 font-outfit text-[13px] text-espresso/75">
-                <Icon name="ph:clock" class="w-[14px] h-[14px]" />
-                <span class="font-medium">{sec.time}:</span>
-                <span>{timeLabel}</span>
-              </span>
-            )}
-          </div>
-        )}
       </div>
     </div>
 
@@ -195,7 +199,7 @@ const faqJsonLd = extra?.faq?.length
         {extra.occasion && (
           <figure class="relative pl-6 lg:pl-8">
             <span aria-hidden="true" class="absolute left-0 top-2 bottom-2 w-[3px] rounded-full bg-mocha/45"></span>
-            <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha mb-4">{sec.occasion}</div>
+            <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha-dark mb-4">{sec.occasion}</div>
             <blockquote class="font-cabinet text-espresso" style="font-size:clamp(1.7rem,2.4vw,2.2rem);line-height:1.18;letter-spacing:-0.01em;">
               {extra.occasion}
             </blockquote>
@@ -204,11 +208,11 @@ const faqJsonLd = extra?.faq?.length
 
         {extra.mistakes?.length && (
           <div>
-            <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha mb-5">{sec.mistakes}</div>
+            <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha-dark mb-5">{sec.mistakes}</div>
             <ol class="divide-y divide-taupe/30 border-y border-taupe/30">
               {extra.mistakes.map((m: string, i: number) => (
                 <li class="flex items-start gap-4 py-4">
-                  <span class="font-cabinet font-black text-mocha text-lg leading-none pt-0.5 tabular-nums flex-shrink-0" style="font-feature-settings:'tnum';">{String(i + 1).padStart(2, '0')}</span>
+                  <span class="font-stat text-mocha-dark text-lg leading-none pt-0.5 flex-shrink-0">{String(i + 1).padStart(2, '0')}</span>
                   <span class="font-outfit text-espresso/80 text-[15px] leading-relaxed">{m}</span>
                 </li>
               ))}
@@ -220,11 +224,12 @@ const faqJsonLd = extra?.faq?.length
     )}
 
     {extra?.description?.length && (
-      <section class="mt-24 lg:mt-32 max-w-[720px]">
-        <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha mb-6">{sec.about}</div>
-        <div class="space-y-5">
+      <section class="mt-24 lg:mt-32">
+        <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha-dark mb-8">{sec.about}</div>
+        {/* Один блок текста на всю ширину контейнера (1440), без колонок. */}
+        <div class="space-y-5 font-outfit text-espresso/75 text-base leading-relaxed">
           {extra.description.map((p: string) => (
-            <p class="font-outfit text-espresso/75 text-base leading-relaxed">{p}</p>
+            <p>{p}</p>
           ))}
         </div>
       </section>
@@ -235,7 +240,7 @@ const faqJsonLd = extra?.faq?.length
         <div class="grid lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] gap-10 lg:gap-16 xl:gap-24 items-start">
 
           <div class="lg:sticky lg:top-[92px]">
-            <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha mb-4">FAQ</div>
+            <div class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha-dark mb-4">FAQ</div>
             <h2 class="font-cabinet text-espresso mb-5" style="font-size:clamp(2rem,3.4vw,2.75rem);line-height:1.05;letter-spacing:-0.01em;">{sec.faq}</h2>
             <p class="font-outfit text-espresso/65 text-[15px] leading-relaxed max-w-[36ch] mb-8">{sec.mistakesHelp}</p>
             <a href={homeUrl + '?buy=1#price'} class="cta-pdf inline-flex items-center gap-3 bg-mocha-dark text-warm-white font-outfit font-semibold text-[15px] px-6 py-3.5 rounded-full transition-[background-color,transform] duration-150 ease-out hover:bg-mocha-dark active:scale-[0.97]">
@@ -248,7 +253,7 @@ const faqJsonLd = extra?.faq?.length
             {extra.faq.map((qa: any, i: number) => (
               <details class="faq-item border-b border-taupe/40" open={i === 0}>
                 <summary class="flex items-start justify-between gap-6 py-6 cursor-pointer list-none group">
-                  <span class="font-cabinet text-espresso text-[19px] lg:text-[20px] leading-snug tracking-tight group-hover:text-mocha transition-colors duration-150">{qa.q}</span>
+                  <span class="font-cabinet text-espresso text-[19px] lg:text-[20px] leading-snug tracking-tight group-hover:text-mocha-dark transition-colors duration-150">{qa.q}</span>
                   <span class="faq-chevron flex-shrink-0 mt-1 relative w-5 h-5" aria-hidden="true">
                     <span class="absolute inset-x-0 top-1/2 h-[1.6px] bg-mocha rounded-full -translate-y-1/2"></span>
                     <span class="faq-chevron-v absolute inset-y-0 left-1/2 w-[1.6px] bg-mocha rounded-full -translate-x-1/2"></span>
@@ -270,7 +275,7 @@ const faqJsonLd = extra?.faq?.length
     {flavorReviews.length > 0 && (
       <section class="mt-24 lg:mt-32">
         <h2 class="font-cabinet text-espresso mb-10" style="font-size:clamp(2rem,3.4vw,2.75rem);line-height:1.05;letter-spacing:-0.01em;">{sec.reviews}</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
           {flavorReviews.map((r) => (
             <div class="flex flex-col bg-warm-white rounded-3xl p-6 lg:p-7"
                  style="box-shadow:0 1px 6px rgba(139,115,85,0.05);border:1px solid rgba(200,184,162,0.22);">
@@ -302,7 +307,7 @@ const faqJsonLd = extra?.faq?.length
               </div>
               <div class="px-5 pt-4 pb-5">
                 <div class="flex items-center gap-2">
-                  <span class="font-cabinet text-espresso text-[18px] tracking-tight group-hover:text-mocha transition-colors duration-150">{(o.t[lang] ?? o.t.en).name}</span>
+                  <span class="font-cabinet text-espresso text-[18px] tracking-tight group-hover:text-mocha-dark transition-colors duration-150">{(o.t[lang] ?? o.t.en).name}</span>
                   <Icon name="ph:arrow-right" class="ml-auto opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 ease-out w-[14px] h-[12px]" />
                 </div>
                 <p class="font-outfit text-espresso/65 text-[13.5px] mt-1 leading-relaxed line-clamp-2">{(o.t[lang] ?? o.t.en).layers}</p>
@@ -328,7 +333,7 @@ const faqJsonLd = extra?.faq?.length
               <img src={o.image} alt={(o.t[lang] ?? o.t.en).name} width="1122" height="1402" loading="lazy" decoding="async"
                    class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.style.display='none'" />
             </div>
-            <div class="font-cabinet text-espresso text-[15px] group-hover:text-mocha transition-colors">{(o.t[lang] ?? o.t.en).name}</div>
+            <div class="font-cabinet text-espresso text-[15px] group-hover:text-mocha-dark transition-colors">{(o.t[lang] ?? o.t.en).name}</div>
           </a>
         ))}
       </div>

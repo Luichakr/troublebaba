@@ -36,13 +36,13 @@ const langPrefix = isUk ? '' : '/' + lang;
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full">
           {[
-            { name: 'Instagram', count: '66K', href: SITE.instagramUrl ?? 'https://instagram.com/troublebaba',
+            { name: 'Instagram', count: '71K', href: SITE.instagramUrl ?? 'https://instagram.com/troublebaba',
               icon: 'simple-icons:instagram' },
-            { name: 'TikTok', count: '2.2M', label: 'author_likes', href: SITE.tiktokUrl ?? 'https://tiktok.com/@troublebaba',
+            { name: 'TikTok', count: '2.3M', label: 'author_likes', href: SITE.tiktokUrl ?? 'https://tiktok.com/@troublebaba',
               icon: 'simple-icons:tiktok' },
-            { name: 'YouTube', count: '24K', href: 'https://youtube.com/@troublebaba',
+            { name: 'YouTube', count: '25K', href: 'https://youtube.com/@troublebaba',
               icon: 'simple-icons:youtube' },
-            { name: 'Facebook', count: '5K', href: 'https://facebook.com/troublebaba',
+            { name: 'Facebook', count: '8K', href: 'https://facebook.com/troublebaba',
               icon: 'simple-icons:facebook' },
           ].map(s => (
             <a href={s.href} target="_blank" rel="noopener noreferrer"
@@ -53,7 +53,7 @@ const langPrefix = isUk ? '' : '/' + lang;
                 <Icon name={s.icon} class="w-[22px] h-[22px] text-warm-white" />
               </div>
               <div class="font-outfit text-warm-white/55 text-xs">{s.name}</div>
-              <div class="font-cabinet font-black text-warm-white text-lg leading-none -mt-1">{s.count}</div>
+              <div class="font-stat text-warm-white text-lg leading-none -mt-1">{s.count}</div>
               <div class="font-outfit text-warm-white/55 text-[11px] -mt-0.5">{s.label === 'author_likes' ? tr.author_likes : tr.author_follow}</div>
             </a>
           ))}
@@ -62,7 +62,7 @@ const langPrefix = isUk ? '' : '/' + lang;
         <div class="flex items-center gap-5 w-full max-w-md mt-1">
           <div class="h-px flex-1 bg-mocha/15"></div>
           <div class="text-center flex flex-col items-center gap-1">
-            <p class="font-signature text-mocha/80 italic whitespace-nowrap" style="font-size:1.5rem;letter-spacing:0.01em;">{tr.footer_thanks}</p>
+            <p class="font-signature text-taupe/80 italic whitespace-nowrap" style="font-size:1.5rem;letter-spacing:0.01em;">{tr.footer_thanks}</p>
             <svg width="22" height="18" viewBox="0 0 22 18" fill="none">
               <path d="M11 17C11 17 1.5 11 1.5 5.5C1.5 3 3.5 1 6 1C7.6 1 9 1.8 9.8 3.1C10 3.4 10.4 3.4 10.6 3.1C11.5 1.8 12.9 1 14.5 1C17 1 19 3 19 5.5C19 11 11 17 11 17Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round" fill="none"/>
             </svg>
