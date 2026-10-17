@@ -209,7 +209,7 @@
   <!-- CTA на PDF-сборник: калькулятор закрывает цифры, сборник — рецепты. -->
   <aside class="pc-cta">
     <div class="pc-cta-in">
-      <div>
+      <div class="pc-cta-text">
         <h2 class="pc-cta-title">Калькулятор помогает с цифрами. Рецепты — в сборнике.</h2>
         <p class="pc-cta-sub">PDF-сборник от TROUBLEBABA: 10 бенто-тортов с точными граммовками, пошаговыми фото и таблицей пересчёта под любой диаметр.</p>
       </div>
@@ -316,9 +316,10 @@
 #pastry-calc .ptile .t{font-size:13px;color:var(--muted)} #pastry-calc .ptile .v{font-family:var(--body);font-weight:700;letter-spacing:-0.015em;font-size:1.3rem;font-variant-numeric:tabular-nums lining-nums}
 /* CTA на сборник */
 #pastry-calc .pc-cta{margin-top:26px;border-radius:18px;background:var(--accent);color:#fff;overflow:hidden}
-#pastry-calc .pc-cta-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding:22px 24px}
-#pastry-calc .pc-cta-title{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.2vw,1.5rem);line-height:1.15;color:#fff;text-transform:none;letter-spacing:-0.01em;margin:0;max-width:34ch}
-#pastry-calc .pc-cta-sub{font-size:14px;line-height:1.5;color:rgba(255,255,255,.85);margin:8px 0 0;max-width:52ch}
+#pastry-calc .pc-cta-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px 32px;padding:24px 28px}
+#pastry-calc .pc-cta-text{flex:1 1 420px;min-width:0}
+#pastry-calc .pc-cta-title{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.2vw,1.5rem);line-height:1.15;color:#fff;text-transform:none;letter-spacing:-0.01em;margin:0;text-wrap:balance}
+#pastry-calc .pc-cta-sub{font-size:14px;line-height:1.5;color:rgba(255,255,255,.85);margin:8px 0 0;max-width:68ch}
 #pastry-calc .pc-cta-btn{flex:none;background:#fff;color:var(--accent-ink);font:700 15px var(--body);padding:13px 22px;border-radius:12px;text-decoration:none;white-space:nowrap;transition:transform .15s}
 #pastry-calc .pc-cta-btn:hover{transform:translateY(-1px)}
 /* нижняя плашка-итог на телефоне */
