@@ -228,9 +228,12 @@
   --display:"Playfair Display", Georgia, "Times New Roman", serif;
   --body:"Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
   display:block;color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
-  max-width:1120px;margin:0 auto;
+  /* Контейнер по DESIGN.md §4: max-width 1440 + инлайн-паддинг clamp(1.5rem,4vw,4rem),
+     как у хедера и секций главной — калькулятор идёт на ту же ширину. */
+  max-width:1440px;margin:0 auto;
   padding-top:calc(72px + 28px);padding-bottom:72px;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-left:max(clamp(1.5rem,4vw,4rem),env(safe-area-inset-left,0px));
+  padding-right:max(clamp(1.5rem,4vw,4rem),env(safe-area-inset-right,0px));
 }
 #pastry-calc *{box-sizing:border-box}
 #pastry-calc .pc-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px}
