@@ -1,0 +1,538 @@
+---
+// Кондитерский калькулятор — лид-магнит на /calculator.
+// Адаптирован из артефакта под дизайн-систему сайта (DESIGN.md):
+//   • палитра — мокко #8B7355 / espresso / cream / warm-white (без малины и фисташки)
+//   • гарнитуры — Playfair Display (заголовки) + Manrope (текст), уже грузятся в Layout
+//   • только светлая тема (на сайте color-scheme: light)
+// Четыре вкладки = четыре калькулятора: себестоимость, торт на гостей,
+// пересчёт по форме, покрытие. Вкладки переведены со scroll-ленты на
+// адаптивную сетку (4 в ряд / 2×2), чтобы четвёртая всегда была видна.
+//
+// ВАЖНО по архитектуре Astro:
+//   • <style is:global> + все селекторы под #pastry-calc — потому что строки
+//     ингредиентов/чипы/плитки рисуются скриптом через innerHTML, и scoped-стили
+//     к ним не применились бы (на динамических узлах нет data-astro-атрибута).
+//     Префикс #pastry-calc не даёт классам (.grid, .row, .btn) задеть
+//     Tailwind-разметку хедера и футера.
+//   • <script is:inline> — ванильный скрипт с template-literals и localStorage,
+//     его нельзя прогонять через бандлер Astro.
+---
+
+<main id="pastry-calc">
+  <header class="pc-head">
+    <div>
+      <h1>Кондитерский калькулятор</h1>
+      <p class="sub">Себестоимость и цена, вес торта на гостей с пересчётом рецептов по частям, пересчёт под другую форму и крем на покрытие. Данные сохраняются в этом браузере.</p>
+    </div>
+    <label class="cur" for="currency">Валюта
+      <select id="currency" style="width:auto">
+        <option value="zł">zł</option><option value="₽">₽</option><option value="€">€</option><option value="₴">₴</option><option value="$">$</option>
+      </select>
+    </label>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Калькуляторы">
+    <button role="tab" data-tab="cost" id="tab-cost">Себестоимость</button>
+    <button role="tab" data-tab="guests" id="tab-guests">Торт на гостей</button>
+    <button role="tab" data-tab="recalc" id="tab-recalc">Пересчёт по форме</button>
+    <button role="tab" data-tab="cover" id="tab-cover">Покрытие</button>
+  </nav>
+
+  <!-- COST -->
+  <div class="grid" id="p-cost">
+    <div class="col">
+      <section class="block">
+        <div class="head"><h2>Ингредиенты</h2><span class="ex" id="cost-example">Цены даны для примера — замените на свои</span></div>
+        <div class="rows">
+          <div class="r cost hd"><span>Ингредиент</span><span>Цена упаковки</span><span>Упаковка, г</span><span>В рецепте, г</span><span style="text-align:right">Стоимость</span><span></span></div>
+          <div id="cost-ings" class="rows"></div>
+        </div>
+        <button class="add" data-add="cost.ings">+ Ингредиент</button>
+        <p class="note">Штучное вводите в граммах: 1 яйцо без скорлупы ≈ 50 г.</p>
+      </section>
+      <section class="block">
+        <h2>Упаковка, декор, прочее</h2>
+        <div id="cost-extras" class="rows"></div>
+        <button class="add" data-add="cost.extras">+ Позиция</button>
+      </section>
+      <section class="block">
+        <h2>Работа</h2>
+        <div class="fields">
+          <label class="f">Время работы, ч<input type="number" step="any" min="0" data-p="cost.hours" id="f-cost-hours"></label>
+          <label class="f">Ставка за час<input type="number" step="any" min="0" data-p="cost.rate" id="f-cost-rate"></label>
+          <label class="f">Накладные, % от продуктов<input type="number" step="any" min="0" data-p="cost.over" id="f-cost-over"></label>
+        </div>
+        <details class="part" id="rate-help">
+          <summary><span>Не знаю ставку — рассчитать</span></summary>
+          <div class="pbody">
+            <div class="fields">
+              <label class="f">Хочу зарабатывать в месяц<input type="number" step="any" min="0" data-p="cost.wantIncome" id="f-cost-wantIncome"></label>
+              <label class="f">Часов работы в месяц<input type="number" step="any" min="1" data-p="cost.wantHours" id="f-cost-wantHours"></label>
+            </div>
+            <div class="head"><span>Ставка: <b id="o-rate-help"></b> в час</span><button class="btn" id="apply-rate">Подставить</button></div>
+          </div>
+        </details>
+        <p class="note">Накладные — электричество, газ, амортизация техники, расходники. Обычно 5–15%.</p>
+      </section>
+      <section class="block">
+        <h2>Наценка и выход</h2>
+        <p class="note">Ваш заработок сверх себестоимости. Начинающим — 20–25%, с узнаваемым стилем — 40–50% и выше.</p>
+        <div class="seg" id="markup-chips"></div>
+        <div class="fields">
+          <label class="f">Своя наценка, %<input type="number" step="any" min="0" data-p="cost.markup" id="f-cost-markup"></label>
+          <label class="f">Вес готового изделия, г<input type="number" step="any" min="0" data-p="cost.weight" id="f-cost-weight" placeholder="авто"></label>
+          <label class="f">Порций<input type="number" step="1" min="1" data-p="cost.portions" id="f-cost-portions"></label>
+        </div>
+        <p class="note">Пустой вес = сумма граммов в рецепте.</p>
+      </section>
+    </div>
+    <aside class="sum" aria-live="polite">
+      <h2>Итог</h2>
+      <div class="row"><span>Продукты</span><b id="o-c-ings"></b></div>
+      <div class="row"><span>Накладные</span><b id="o-c-over"></b></div>
+      <div class="row"><span>Упаковка и прочее</span><b id="o-c-extras"></b></div>
+      <div class="row"><span>Работа</span><b id="o-c-labor"></b></div>
+      <div class="big"><div class="lbl">Себестоимость</div><div class="val" id="o-c-cost"></div></div>
+      <div class="big alt"><div class="lbl">Цена клиенту</div><div class="val" id="o-c-price"></div><div class="cap" id="o-c-cap"></div></div>
+      <div class="row"><span>Прибыль</span><b id="o-c-profit"></b></div>
+      <div class="row"><span>Цена за кг</span><b id="o-c-kg"></b></div>
+      <div class="row"><span>Цена за порцию</span><b id="o-c-portion"></b></div>
+      <div class="actions">
+        <button class="btn" id="clear-cost">Очистить</button>
+      </div>
+      <p class="hint" id="clear-confirm" hidden>Нажмите «Очистить» ещё раз, чтобы удалить все строки.</p>
+    </aside>
+  </div>
+
+  <!-- GUESTS -->
+  <div class="grid" id="p-guests" hidden>
+    <div class="col">
+      <section class="block">
+        <h2>Сколько торта нужно</h2>
+        <label class="f">Размер порции</label>
+        <div class="seg" id="portion-chips"></div>
+        <div class="fields">
+          <label class="f">Порция, г<input type="number" step="any" min="1" data-p="g.portion" id="f-g-portion"></label>
+          <label class="f">Гостей<input type="number" step="1" min="1" max="300" data-p="g.guests" id="f-g-guests"></label>
+        </div>
+        <p class="note">Ориентир: 100 г — дегустационный сет или к основному десерту, 150 г — стандарт, 200–250 г — торт как главный десерт.</p>
+      </section>
+      <section class="block">
+        <div class="head"><h2>Пропорции торта</h2><span class="warn" id="pct-warn" hidden></span></div>
+        <div class="ptiles" id="g-tiles"></div>
+        <p class="note">Проценты по умолчанию — рабочий ориентир для классического бисквитного торта. Меняйте их в каждой части ниже.</p>
+      </section>
+      <section class="block">
+        <div class="head"><h2>Рецепты по частям</h2><span class="ex" id="g-example">Пример — замените своими рецептами</span></div>
+        <div id="g-parts" class="rows" style="gap:10px"></div>
+        <button class="add" data-add="g.parts">+ Часть торта</button>
+        <p class="note">Пропорции дают ориентир, а не точность грамм в грамм: отклонение готового торта на 100–200 г нормально. Внешнее покрытие считается отдельно — вкладка «Покрытие».</p>
+      </section>
+    </div>
+    <aside class="sum" aria-live="polite">
+      <h2>Нужно торта</h2>
+      <div class="big"><div class="lbl">Вес торта</div><div class="val" id="o-g-weight"></div><div class="cap" id="o-g-cap"></div></div>
+      <div id="o-g-rows"></div>
+      <div class="actions"><button class="btn" id="g-copy">Скопировать все рецепты</button></div>
+      <p class="hint" id="g-copied" hidden></p>
+      <textarea id="g-text" hidden style="width:100%;min-height:140px"></textarea>
+    </aside>
+  </div>
+
+  <!-- RECALC -->
+  <div class="grid" id="p-recalc" hidden>
+    <div class="col">
+      <section class="block">
+        <h2>Как пересчитываем</h2>
+        <div class="seg" id="rc-mode">
+          <button data-mode="form">По форме</button>
+          <button data-mode="portions">По порциям</button>
+          <button data-mode="k">По коэффициенту</button>
+        </div>
+        <div id="rc-form" class="two">
+          <div class="formbox"><h3>Исходная форма</h3><div class="seg" data-shape="rc.from"></div><div class="fields" id="rc-from"></div></div>
+          <div class="formbox"><h3>Новая форма</h3><div class="seg" data-shape="rc.to"></div><div class="fields" id="rc-to"></div></div>
+        </div>
+        <div class="actions" id="rc-form-actions"><button class="btn" id="rc-swap">⇄ Поменять местами</button></div>
+        <div id="rc-portions" class="fields" hidden>
+          <label class="f">Рецепт рассчитан на, порций<input type="number" step="any" min="1" data-p="rc.nFrom" id="f-rc-nFrom"></label>
+          <label class="f">Нужно порций<input type="number" step="any" min="1" data-p="rc.nTo" id="f-rc-nTo"></label>
+        </div>
+        <div id="rc-k" class="fields" hidden>
+          <label class="f">Коэффициент<input type="number" step="any" min="0" data-p="rc.k" id="f-rc-k"></label>
+        </div>
+        <p class="note" id="rc-explain"></p>
+      </section>
+      <section class="block">
+        <div class="head"><h2>Рецепт</h2><button class="btn" id="rc-import">Взять из «Себестоимости»</button></div>
+        <div class="r rec hd"><span>Ингредиент</span><span>Было, г</span><span style="text-align:right">Стало, г</span><span></span></div>
+        <div id="rc-ings" class="rows"></div>
+        <button class="add" data-add="rc.ings">+ Ингредиент</button>
+      </section>
+    </div>
+    <aside class="sum" aria-live="polite">
+      <h2>Коэффициент</h2>
+      <div class="big"><div class="lbl">Умножить на</div><div class="val" id="o-rc-k"></div></div>
+      <div class="row"><span>Масса было</span><b id="o-rc-s1"></b></div>
+      <div class="row"><span>Масса стало</span><b id="o-rc-s2"></b></div>
+    </aside>
+  </div>
+
+  <!-- COVER -->
+  <div class="grid" id="p-cover" hidden>
+    <div class="col">
+      <section class="block">
+        <h2>Торт</h2>
+        <div class="seg" data-shape="cv"></div>
+        <div class="fields" id="cv-dims"></div>
+      </section>
+      <section class="block">
+        <h2>Вид покрытия</h2>
+        <div class="seg" id="cv-preset"></div>
+        <div class="fields">
+          <label class="f">Расход, г на см²<input type="number" step="any" min="0" data-p="cv.rate" id="f-cv-rate"></label>
+          <label class="f">Запас, %<input type="number" step="any" min="0" data-p="cv.res" id="f-cv-res"></label>
+        </div>
+        <p class="note">Расход = толщина слоя × плотность крема. 0,7 г/см² — это около 7 мм крем-чиза вместе с выравниванием. Для «голого» торта ставьте 0,2–0,3, под мастику — 0,4–0,5.</p>
+      </section>
+    </div>
+    <aside class="sum" aria-live="polite">
+      <h2>Покрытие</h2>
+      <div class="big"><div class="lbl">Ориентир на покрытие</div><div class="val" id="o-cv"></div><div class="cap" id="o-cv-cap"></div></div>
+      <div class="row"><span>Верх</span><b id="o-cv-top"></b></div>
+      <div class="row"><span>Бока</span><b id="o-cv-side"></b></div>
+      <div class="row"><span>Площадь</span><b id="o-cv-area"></b></div>
+      <p class="formula" id="o-cv-formula"></p>
+    </aside>
+  </div>
+
+  <!-- CTA на PDF-сборник: калькулятор закрывает цифры, сборник — рецепты. -->
+  <aside class="pc-cta">
+    <div class="pc-cta-in">
+      <div>
+        <h2 class="pc-cta-title">Калькулятор помогает с цифрами. Рецепты — в сборнике.</h2>
+        <p class="pc-cta-sub">PDF-сборник от TROUBLEBABA: 10 бенто-тортов с точными граммовками, пошаговыми фото и таблицей пересчёта под любой диаметр.</p>
+      </div>
+      <a href="/ru/#price" class="pc-cta-btn" data-buy-source="calculator">Открыть сборник →</a>
+    </div>
+  </aside>
+</main>
+
+<div class="mbar" aria-live="polite"><div><div class="l" id="mb-l"></div><div class="v" id="mb-v"></div></div><div class="s" id="mb-s"></div></div>
+
+<style is:global>
+#pastry-calc{
+  --bg:#F5EFE8; --surface:#FDFAF6; --ink:#1A1A1A; --muted:#857567; --line:#E3D7C6;
+  --accent:#8B7355; --accent-ink:#6E5C43; --accent-soft:#EFE6DA;
+  --alt:#6E5C43; --alt-soft:#E7DBCB; --warn:#B26B00;
+  --display:"Playfair Display", Georgia, "Times New Roman", serif;
+  --body:"Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  display:block;color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
+  max-width:1120px;margin:0 auto;
+  padding-top:calc(72px + 28px);padding-bottom:72px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+#pastry-calc *{box-sizing:border-box}
+#pastry-calc .pc-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px}
+#pastry-calc h1{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,4vw,2.6rem);margin:0;line-height:1.08;letter-spacing:-0.01em;text-wrap:balance}
+#pastry-calc h3{font-family:var(--display);font-weight:600;font-size:1.2rem;margin:0}
+#pastry-calc .sub{color:var(--muted);margin:8px 0 0;max-width:62ch}
+#pastry-calc .cur{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
+#pastry-calc .tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:4px;background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:22px}
+#pastry-calc .tabs button{border:0;background:transparent;color:var(--muted);font:600 14px var(--body);padding:11px 12px;border-radius:10px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pastry-calc .tabs button[aria-selected="true"]{background:var(--accent);color:#fff}
+@media (max-width:560px){#pastry-calc .tabs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+#pastry-calc button:focus-visible,#pastry-calc input:focus-visible,#pastry-calc select:focus-visible,#pastry-calc summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#pastry-calc .grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:22px;align-items:start}
+@media (max-width:860px){#pastry-calc .grid{grid-template-columns:minmax(0,1fr)}}
+#pastry-calc .col{display:grid;gap:18px;min-width:0}
+#pastry-calc section.block{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:14px;min-width:0}
+#pastry-calc h2{font:600 12px var(--body);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0}
+#pastry-calc .head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+#pastry-calc .note{font-size:13px;color:var(--muted);margin:0}
+#pastry-calc .ex{font-size:12px;font-weight:600;color:var(--alt);background:var(--alt-soft);border-radius:999px;padding:3px 10px}
+#pastry-calc input,#pastry-calc select{width:100%;font:500 14px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 9px;font-variant-numeric:tabular-nums;min-width:0}
+#pastry-calc input[type=number]{text-align:right}
+#pastry-calc .rows{display:grid;gap:6px}
+#pastry-calc .r{display:grid;gap:8px;align-items:end}
+#pastry-calc .r.cost{grid-template-columns:minmax(0,2.2fr) repeat(3,minmax(0,1fr)) minmax(80px,auto) 34px;grid-template-areas:"n p w u o d"}
+#pastry-calc .r.rec{grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(90px,1fr) 34px;grid-template-areas:"n g o d"}
+#pastry-calc .r.ext{grid-template-columns:minmax(0,3fr) minmax(0,1fr) 34px;grid-template-areas:"n p d"}
+#pastry-calc .r .n{grid-area:n}#pastry-calc .r .p{grid-area:p}#pastry-calc .r .w{grid-area:w}#pastry-calc .r .u{grid-area:u}#pastry-calc .r .g{grid-area:g}#pastry-calc .r .o{grid-area:o}#pastry-calc .r .d{grid-area:d}
+#pastry-calc .r.hd{font:600 12px var(--body);color:var(--muted);align-items:end}
+#pastry-calc .r label{display:grid;gap:3px}
+#pastry-calc .r label>span{display:none;font-size:11px;color:var(--muted);font-weight:600}
+#pastry-calc .o{text-align:right;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;padding:8px 4px;border-radius:8px;background:var(--bg)}
+@media (max-width:640px){
+  #pastry-calc .r.hd{display:none}
+  #pastry-calc .r label>span{display:block}
+  #pastry-calc .r{padding-bottom:10px;border-bottom:1px solid var(--line)}
+  #pastry-calc .r.cost{grid-template-columns:repeat(3,minmax(0,1fr)) 34px;grid-template-areas:"n n n d" "p w u u" "o o o o"}
+  #pastry-calc .r.cost .u{grid-area:u}
+  #pastry-calc .r.rec{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 34px;grid-template-areas:"n n d" "g o o"}
+}
+#pastry-calc .del{border:0;background:transparent;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;padding:8px;border-radius:6px}
+#pastry-calc .del:hover{color:var(--accent);background:var(--accent-soft)}
+#pastry-calc .add{justify-self:start;border:1px dashed var(--line);background:transparent;color:var(--accent);font:600 13px var(--body);padding:9px 14px;border-radius:8px;cursor:pointer}
+#pastry-calc .add:hover{background:var(--accent-soft)}
+#pastry-calc .fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+#pastry-calc label.f{display:grid;gap:5px;font-size:13px;color:var(--muted);font-weight:500;align-content:start}
+#pastry-calc .seg{display:flex;flex-wrap:wrap;gap:6px}
+#pastry-calc .seg button{border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 13px var(--body);padding:7px 12px;border-radius:8px;cursor:pointer;font-variant-numeric:tabular-nums}
+#pastry-calc .seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+#pastry-calc aside.sum{position:sticky;top:calc(72px + 16px);background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:4px}
+@media (max-width:860px){#pastry-calc aside.sum{position:static}}
+#pastry-calc .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+#pastry-calc .row span:first-child{color:var(--muted)}
+#pastry-calc .row b{font-weight:600;text-align:right}
+#pastry-calc .big{margin-top:10px;padding:14px;border-radius:12px;background:var(--accent-soft)}
+#pastry-calc .big .lbl{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
+#pastry-calc .big .val{font-family:var(--display);font-weight:600;font-size:2rem;line-height:1.2;font-variant-numeric:tabular-nums}
+#pastry-calc .big .cap{font-size:13px;color:var(--muted)}
+#pastry-calc .big.alt{background:var(--alt-soft)} #pastry-calc .big.alt .lbl{color:var(--alt)}
+#pastry-calc .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+#pastry-calc .btn{border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 13px var(--body);padding:8px 12px;border-radius:8px;cursor:pointer}
+#pastry-calc .btn:hover{border-color:var(--accent);color:var(--accent)}
+#pastry-calc .formbox{display:grid;gap:10px;padding:12px;border:1px solid var(--line);border-radius:12px;min-width:0}
+#pastry-calc .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:560px){#pastry-calc .two{grid-template-columns:1fr}}
+#pastry-calc .hint{font-size:12px;color:var(--muted);margin:0}
+#pastry-calc .warn{font-size:13px;color:var(--warn);font-weight:600;margin:0}
+#pastry-calc .formula{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;margin:6px 0 0}
+#pastry-calc details.part{border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+#pastry-calc details.part>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px}
+#pastry-calc details.part>summary::-webkit-details-marker{display:none}
+#pastry-calc details.part>summary::after{content:"";width:9px;height:9px;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(45deg);margin-right:6px;flex:none}
+#pastry-calc details.part[open]>summary::after{transform:rotate(-135deg)}
+#pastry-calc .pill{display:inline-block;font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 9px;margin-right:8px}
+#pastry-calc .pbody{padding:0 16px 16px;display:grid;gap:14px}
+#pastry-calc .res{background:var(--bg);border-radius:10px;padding:12px;font-size:14px;display:grid;gap:4px}
+#pastry-calc .res b{font-variant-numeric:tabular-nums}
+#pastry-calc .ptiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+#pastry-calc .ptile{padding:10px 12px;border-radius:10px;background:var(--bg)}
+#pastry-calc .ptile .t{font-size:13px;color:var(--muted)} #pastry-calc .ptile .v{font-family:var(--display);font-weight:600;font-size:1.3rem;font-variant-numeric:tabular-nums}
+/* CTA на сборник */
+#pastry-calc .pc-cta{margin-top:26px;border-radius:18px;background:var(--accent);color:#fff;overflow:hidden}
+#pastry-calc .pc-cta-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding:22px 24px}
+#pastry-calc .pc-cta-title{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.2vw,1.5rem);line-height:1.15;color:#fff;text-transform:none;letter-spacing:-0.01em;margin:0;max-width:34ch}
+#pastry-calc .pc-cta-sub{font-size:14px;line-height:1.5;color:rgba(255,255,255,.85);margin:8px 0 0;max-width:52ch}
+#pastry-calc .pc-cta-btn{flex:none;background:#fff;color:var(--accent-ink);font:700 15px var(--body);padding:13px 22px;border-radius:12px;text-decoration:none;white-space:nowrap;transition:transform .15s}
+#pastry-calc .pc-cta-btn:hover{transform:translateY(-1px)}
+/* нижняя плашка-итог на телефоне */
+.mbar{display:none}
+@media (max-width:860px){
+  #pastry-calc{padding-bottom:110px}
+  .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;justify-content:space-between;align-items:center;gap:12px;
+    background:#8B7355;color:#fff;font-family:"Manrope",system-ui,sans-serif;padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));
+    padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .mbar .l{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+  .mbar .v{font-family:"Playfair Display",Georgia,serif;font-weight:600;font-size:1.5rem;line-height:1.1;font-variant-numeric:tabular-nums}
+  .mbar .s{font-size:12px;opacity:.85;text-align:right}
+}
+@media (prefers-reduced-motion:no-preference){#pastry-calc .tabs button,#pastry-calc .btn,#pastry-calc .add,#pastry-calc .seg button,#pastry-calc .pc-cta-btn{transition:background .15s,color .15s,border-color .15s,transform .15s}}
+</style>
+
+<script is:inline>
+const KEY='konditer-calc-v2';
+const DEF={
+  cur:'zł',tab:'cost',
+  cost:{example:true,hours:5,rate:40,over:10,markup:30,weight:'',portions:10,wantIncome:6000,wantHours:120,
+    ings:[
+      {n:'Мука пшеничная',p:4.5,w:1000,u:120},{n:'Какао-порошок',p:14,w:200,u:40},
+      {n:'Сахар',p:4,w:1000,u:250},{n:'Яйца',p:12,w:500,u:300},
+      {n:'Сливки 33%',p:11,w:500,u:300},{n:'Сливочный сыр',p:12,w:500,u:500},
+      {n:'Вишня замороженная',p:16,w:1000,u:400},{n:'Шоколад тёмный 54%',p:70,w:1000,u:100},
+      {n:'Масло сливочное 82%',p:8,w:200,u:60}],
+    extras:[{n:'Подложка и коробка',p:12},{n:'Декор',p:8}]},
+  g:{example:true,guests:20,portion:150,parts:[
+    {n:'Бисквит',pct:33,shrink:12.5,open:true,ings:[{n:'Яйца',g:200},{n:'Сахар',g:180},{n:'Мука',g:160},{n:'Какао',g:30},{n:'Молоко',g:120},{n:'Масло растительное',g:60},{n:'Разрыхлитель',g:6},{n:'Соль',g:1}]},
+    {n:'Крем для сборки',pct:33,shrink:0,open:false,ings:[{n:'Сливочный сыр',g:500},{n:'Сливки 33%',g:150},{n:'Сахарная пудра',g:80}]},
+    {n:'Начинка',pct:25,shrink:0,open:false,ings:[{n:'Вишня',g:300},{n:'Сахар',g:60},{n:'Крахмал',g:20}]},
+    {n:'Пропитка',pct:9,shrink:0,open:false,ings:[{n:'Вода',g:100},{n:'Сахар',g:50}]}]},
+  rc:{mode:'form',from:{shape:'round',d:18,a:18,b:18,h:8,n:1},to:{shape:'square',d:20,a:20,b:20,h:8,n:1},nFrom:10,nTo:16,k:1.5,
+    ings:[{n:'Мука пшеничная',g:120},{n:'Сахар',g:250},{n:'Яйца',g:300},{n:'Сливки 33%',g:300}]},
+  cv:{shape:'round',d:18,a:18,b:18,h:12,rate:0.7,res:0}
+};
+function merge(d,s){if(Array.isArray(d))return Array.isArray(s)?s:d;if(d&&typeof d==='object'){const o={};for(const k in d)o[k]=merge(d[k],s?.[k]);return o}return s===undefined?d:s}
+let S;try{S=merge(structuredClone(DEF),JSON.parse(localStorage.getItem(KEY)||'null'))}catch(e){S=structuredClone(DEF)}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id);
+const num=v=>{const x=parseFloat(String(v??'').replace(',','.'));return isFinite(x)?x:0};
+const fmt=(v,d=1)=>(+v||0).toLocaleString('ru-RU',{maximumFractionDigits:d});
+const money=v=>(+v||0).toLocaleString('ru-RU',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+S.cur;
+const grams=v=>v>=1000?fmt(v/1000,2)+' кг':fmt(v,1)+' г';
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const get=p=>p.split('.').reduce((o,k)=>o?.[k],S);
+const set=(p,v)=>{const ks=p.split('.');const last=ks.pop();ks.reduce((o,k)=>o[k],S)[last]=v};
+const fid=p=>'f-'+p.replace(/\./g,'-');
+const inp=(p,o={})=>`<input id="${fid(p)}" data-p="${p}" ${o.text?'':'type="number" step="any" min="0" inputmode="decimal"'} value="${esc(get(p))}" placeholder="${o.ph||''}" aria-label="${o.al||''}">`;
+const lab=(cls,txt,html)=>`<label class="${cls}"><span>${txt}</span>${html}</label>`;
+const delBtn=p=>`<button class="del d" data-del="${p}" aria-label="Удалить">×</button>`;
+
+/* ---------- generic binding ---------- */
+document.addEventListener('input',e=>{
+  const p=e.target.dataset.p;if(!p)return;
+  const isText=e.target.type!=='number'&&e.target.tagName!=='SELECT';
+  set(p,isText?e.target.value:(e.target.value===''?'':num(e.target.value)));
+  if(p.startsWith('cost.ings')||p.startsWith('cost.extras'))S.cost.example=false;
+  if(p.startsWith('g.parts'))S.g.example=false;
+  save();calc();
+});
+document.addEventListener('click',e=>{
+  const d=e.target.closest('[data-del]');if(d){const ks=d.dataset.del.split('.');const i=+ks.pop();get(ks.join('.')).splice(i,1);save();render();return}
+  const a=e.target.closest('[data-add]');if(a){const p=a.dataset.add;const arr=get(p);
+    arr.push(p==='cost.ings'?{n:'',p:'',w:'',u:''}:p==='cost.extras'?{n:'',p:''}:p==='g.parts'?{n:'Новая часть',pct:0,shrink:0,open:true,ings:[{n:'',g:''}]}:{n:'',g:''});
+    save();render();const f=$(fid(p+'.'+(arr.length-1)+'.n'));f?.focus();f?.select?.()}
+});
+document.addEventListener('toggle',e=>{const p=e.target.dataset?.part;if(p!=null){S.g.parts[p].open=e.target.open;save()}},true);
+
+/* ---------- tabs ---------- */
+const TABS=['cost','guests','recalc','cover'];
+function showTab(t){if(!TABS.includes(t))t='cost';S.tab=t;TABS.forEach(x=>{$('p-'+x).hidden=x!==t;$('tab-'+x).setAttribute('aria-selected',x===t)});save();calc()}
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+$('currency').value=S.cur;$('currency').onchange=e=>{S.cur=e.target.value;save();calc()};
+
+/* ---------- shapes ---------- */
+const SHAPES={round:'○ Круг',square:'□ Квадрат',rect:'▭ Прямоуг.'};
+const area=o=>o.shape==='round'?Math.PI*num(o.d)**2/4:o.shape==='square'?num(o.a)**2:num(o.a)*num(o.b);
+const perim=o=>o.shape==='round'?Math.PI*num(o.d):o.shape==='square'?4*num(o.a):2*(num(o.a)+num(o.b));
+const shapeLabel=o=>o.shape==='round'?`Ø ${fmt(num(o.d))}`:o.shape==='square'?`${fmt(num(o.a))}×${fmt(num(o.a))}`:`${fmt(num(o.a))}×${fmt(num(o.b))}`;
+function shapeFields(key,withN){
+  const o=get(key);const f=(k,l)=>`<label class="f">${l}${inp(key+'.'+k)}</label>`;
+  return (o.shape==='round'?f('d','Диаметр, см'):o.shape==='square'?f('a','Сторона, см'):f('a','Длина, см')+f('b','Ширина, см'))+f('h','Высота, см')+(withN?f('n','Количество форм, шт'):'');
+}
+
+/* ---------- render ---------- */
+function render(){
+  // cost
+  $('cost-ings').innerHTML=S.cost.ings.map((r,i)=>{const b=`cost.ings.${i}`;return `<div class="r cost">
+    <div class="n">${inp(b+'.n',{text:1,ph:'Например, мука',al:'Ингредиент'})}</div>
+    ${lab('p','Цена уп.',inp(b+'.p',{al:'Цена упаковки'}))}${lab('w','Уп., г',inp(b+'.w',{al:'Вес упаковки, г'}))}${lab('u','В рецепте, г',inp(b+'.u',{al:'Граммов в рецепте'}))}
+    <div class="o" id="o-${b}"></div>${delBtn(b)}</div>`}).join('');
+  $('cost-extras').innerHTML=S.cost.extras.map((r,i)=>{const b=`cost.extras.${i}`;return `<div class="r ext">
+    <div class="n">${inp(b+'.n',{text:1,ph:'Например, топпер',al:'Позиция'})}</div><div class="p">${inp(b+'.p',{al:'Сумма'})}</div>${delBtn(b)}</div>`}).join('');
+  $('cost-example').hidden=!S.cost.example;
+  $('markup-chips').innerHTML=[20,25,30,35,40,50].map(v=>`<button data-mk="${v}">${v}%</button>`).join('');
+  // guests
+  $('portion-chips').innerHTML=[100,150,200,250].map(v=>`<button data-pt="${v}">${v} г</button>`).join('');
+  $('g-parts').innerHTML=S.g.parts.map((pt,i)=>{const b=`g.parts.${i}`;return `<details class="part" data-part="${i}" ${pt.open?'open':''}>
+    <summary><div><h3 id="o-${b}-title">${esc(pt.n)}</h3><div style="margin-top:4px"><span class="pill" id="o-${b}-pct"></span><span class="note" style="display:inline">Нужно <b id="o-${b}-need"></b></span></div></div></summary>
+    <div class="pbody">
+      <div class="fields">
+        <label class="f">Название${inp(b+'.n',{text:1})}</label>
+        <label class="f">Доля в торте, %${inp(b+'.pct')}</label>
+        <label class="f">Усушка при выпечке, %${inp(b+'.shrink')}</label>
+      </div>
+      <div class="r rec hd"><span>Ингредиент</span><span>В рецепте, г</span><span style="text-align:right">На торт, г</span><span></span></div>
+      <div class="rows">${pt.ings.map((r,j)=>{const c=`${b}.ings.${j}`;return `<div class="r rec">
+        <div class="n">${inp(c+'.n',{text:1,ph:'Например, мука',al:'Ингредиент'})}</div>${lab('g','В рецепте, г',inp(c+'.g',{al:'Граммов в рецепте'}))}<div class="o" id="o-${c}"></div>${delBtn(c)}</div>`}).join('')}</div>
+      <button class="add" data-add="${b}.ings">+ Ингредиент</button>
+      <div class="res" id="o-${b}-res"></div>
+      <div class="actions"><button class="btn" data-del="${b}">Удалить часть</button></div>
+    </div></details>`}).join('');
+  $('g-example').hidden=!S.g.example;
+  // recalc
+  document.querySelectorAll('#rc-mode button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===S.rc.mode));
+  $('rc-form').hidden=$('rc-form-actions').hidden=S.rc.mode!=='form';$('rc-portions').hidden=S.rc.mode!=='portions';$('rc-k').hidden=S.rc.mode!=='k';
+  $('rc-from').innerHTML=shapeFields('rc.from',true);$('rc-to').innerHTML=shapeFields('rc.to',true);
+  $('rc-ings').innerHTML=S.rc.ings.map((r,i)=>{const b=`rc.ings.${i}`;return `<div class="r rec">
+    <div class="n">${inp(b+'.n',{text:1,ph:'Название',al:'Ингредиент'})}</div>${lab('g','Было, г',inp(b+'.g',{al:'Граммов было'}))}<div class="o" id="o-${b}"></div>${delBtn(b)}</div>`}).join('');
+  // cover
+  $('cv-dims').innerHTML=shapeFields('cv',false);
+  $('cv-preset').innerHTML=[['Крем-чиз',0.7],['Ганаш',0.75],['Масляный крем',0.6],['«Голый» торт',0.25]].map(([l,v])=>`<button data-cvr="${v}">${l}</button>`).join('');
+  document.querySelectorAll('[data-shape]').forEach(seg=>{const o=get(seg.dataset.shape);
+    seg.innerHTML=Object.entries(SHAPES).map(([k,l])=>`<button data-sh="${k}" aria-pressed="${o.shape===k}">${l}</button>`).join('')});
+  // static bound fields
+  document.querySelectorAll('#pastry-calc input[data-p]').forEach(i=>{if(document.activeElement!==i){const v=get(i.dataset.p);i.value=v??''}});
+  calc();
+}
+document.addEventListener('click',e=>{
+  const sh=e.target.closest('[data-sh]');if(sh){get(sh.parentElement.dataset.shape).shape=sh.dataset.sh;save();render()}
+  const mk=e.target.closest('[data-mk]');if(mk){S.cost.markup=+mk.dataset.mk;$('f-cost-markup').value=S.cost.markup;save();calc()}
+  const pt=e.target.closest('[data-pt]');if(pt){S.g.portion=+pt.dataset.pt;$('f-g-portion').value=S.g.portion;save();calc()}
+  const cv=e.target.closest('[data-cvr]');if(cv){S.cv.rate=+cv.dataset.cvr;$('f-cv-rate').value=S.cv.rate;save();calc()}
+});
+$('rc-mode').onclick=e=>{const m=e.target.dataset.mode;if(!m)return;S.rc.mode=m;save();render()};
+$('rc-swap').onclick=()=>{[S.rc.from,S.rc.to]=[S.rc.to,S.rc.from];save();render()};
+$('rc-import').onclick=()=>{S.rc.ings=S.cost.ings.filter(x=>x.n||x.u).map(x=>({n:x.n,g:x.u}));save();render()};
+$('apply-rate').onclick=()=>{const h=num(S.cost.wantHours);if(!h)return;S.cost.rate=Math.round(num(S.cost.wantIncome)/h*100)/100;$('f-cost-rate').value=S.cost.rate;save();calc()};
+let armed=false;
+$('clear-cost').onclick=()=>{
+  if(!armed){armed=true;$('clear-confirm').hidden=false;setTimeout(()=>{armed=false;$('clear-confirm').hidden=true},4000);return}
+  armed=false;$('clear-confirm').hidden=true;
+  Object.assign(S.cost,{example:false,hours:'',weight:'',portions:'',ings:[{n:'',p:'',w:'',u:''}],extras:[]});save();render();
+};
+async function copyText(txt,msgEl,taEl){
+  try{await navigator.clipboard.writeText(txt);msgEl.textContent='Скопировано';msgEl.hidden=false;taEl.hidden=true}
+  catch(e){taEl.value=txt;taEl.hidden=false;taEl.select();msgEl.textContent='Выделите и скопируйте текст ниже';msgEl.hidden=false}
+}
+
+/* ---------- calc ---------- */
+let MB={};
+function calcCost(){
+  const c=S.cost;let ing=0,g=0;
+  c.ings.forEach((r,i)=>{const w=num(r.w),v=w>0?num(r.p)/w*num(r.u):0;ing+=v;g+=num(r.u);const o=$(`o-cost.ings.${i}`);if(o)o.textContent=money(v)});
+  const ex=c.extras.reduce((s,r)=>s+num(r.p),0),over=ing*num(c.over)/100,labor=num(c.hours)*num(c.rate);
+  const cost=ing+over+ex+labor,price=cost*(1+num(c.markup)/100),w=num(c.weight)||g,por=num(c.portions);
+  $('f-cost-weight').placeholder=g?`авто: ${fmt(g,0)}`:'авто';
+  $('o-c-ings').textContent=money(ing);$('o-c-over').textContent=money(over);$('o-c-extras').textContent=money(ex);$('o-c-labor').textContent=money(labor);
+  $('o-c-cost').textContent=money(cost);$('o-c-price').textContent=money(price);$('o-c-profit').textContent=money(price-cost);
+  $('o-c-cap').textContent=w?`за торт весом ${grams(w)}`:'';
+  $('o-c-kg').textContent=w?money(price/w*1000):'—';$('o-c-portion').textContent=por?money(price/por):'—';
+  $('o-rate-help').textContent=num(c.wantHours)?money(num(c.wantIncome)/num(c.wantHours)):'—';
+  document.querySelectorAll('[data-mk]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.mk===num(c.markup)));
+  MB.cost={l:'Цена клиенту',v:money(price),s:`прибыль ${money(price-cost)}`};
+}
+function calcGuests(){
+  const G=S.g,W=num(G.guests)*num(G.portion);let pctSum=0,rows='',tiles='';
+  G.parts.forEach((pt,i)=>{
+    const b=`g.parts.${i}`,need=W*num(pt.pct)/100,sh=Math.min(num(pt.shrink),95)/100,raw=need/(1-sh);
+    const sum=pt.ings.reduce((s,r)=>s+num(r.g),0),k=sum?raw/sum:0;pctSum+=num(pt.pct);
+    pt.ings.forEach((r,j)=>{const o=$(`o-${b}.ings.${j}`);if(o)o.textContent=num(r.g)?'≈ '+fmt(num(r.g)*k,1):'—'});
+    const t=$(`o-${b}-title`);if(t)t.textContent=pt.n||'Без названия';
+    $(`o-${b}-pct`)&&($(`o-${b}-pct`).textContent=fmt(num(pt.pct))+'%');$(`o-${b}-need`)&&($(`o-${b}-need`).textContent=grams(need));
+    const res=$(`o-${b}-res`);
+    if(res)res.innerHTML=!sum?'<span class="note">Добавьте ингредиенты исходного рецепта — пересчитаем каждое количество под нужный вес.</span>':
+      sh>0?`<div>В исходном рецепте: <b>${fmt(sum)} г</b> теста → примерно <b>${fmt(sum*(1-sh))} г</b> после выпечки.</div><div>До выпечки нужно около <b>${fmt(raw)} г</b> теста, чтобы получить примерно <b>${fmt(need)} г</b> готового.</div><div>Коэффициент рецепта: <b>×${fmt(k,2)}</b></div>`
+      :`<div>В исходном рецепте: <b>${fmt(sum)} г</b>. Нужно <b>${fmt(need)} г</b>.</div><div>Коэффициент рецепта: <b>×${fmt(k,2)}</b></div>`;
+    rows+=`<div class="row"><span>${esc(pt.n)} · ${fmt(num(pt.pct))}%</span><b>${grams(need)}</b></div>`;
+    tiles+=`<div class="ptile"><div class="t">${esc(pt.n)}</div><div class="v">${fmt(num(pt.pct))}%</div><div class="t">${grams(need)}</div></div>`;
+  });
+  $('g-tiles').innerHTML=tiles;$('o-g-rows').innerHTML=rows;
+  const pw=$('pct-warn');pw.hidden=Math.abs(pctSum-100)<0.01;pw.textContent=`Сумма долей ${fmt(pctSum)}%, а должно быть 100%`;
+  $('o-g-weight').textContent=grams(W);$('o-g-cap').textContent=`${fmt(num(G.guests),0)} × ${fmt(num(G.portion),0)} г = ${fmt(W,0)} г`;
+  document.querySelectorAll('[data-pt]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.pt===num(G.portion)));
+  MB.guests={l:'Нужно торта',v:grams(W),s:`${fmt(num(G.guests),0)} гостей × ${fmt(num(G.portion),0)} г`};
+}
+function rcK(){const r=S.rc;
+  if(r.mode==='form'){const v1=area(r.from)*num(r.from.h)*(num(r.from.n)||1),v2=area(r.to)*num(r.to.h)*(num(r.to.n)||1);return v1?v2/v1:0}
+  if(r.mode==='portions')return num(r.nFrom)?num(r.nTo)/num(r.nFrom):0;return num(r.k)}
+function calcRc(){
+  const r=S.rc,k=rcK();let s1=0,s2=0;
+  r.ings.forEach((x,i)=>{const g=num(x.g),n=g*k;s1+=g;s2+=n;const o=$(`o-rc.ings.${i}`);if(o)o.textContent=g?'≈ '+fmt(n,1):'—'});
+  $('o-rc-k').textContent='× '+fmt(k,3);$('o-rc-s1').textContent=grams(s1);$('o-rc-s2').textContent=grams(s2);
+  $('rc-explain').textContent=r.mode==='form'?`${shapeLabel(r.from)} см → ${shapeLabel(r.to)} см. Площадь ${fmt(area(r.from),0)} → ${fmt(area(r.to),0)} см². Коэффициент — отношение объёмов с учётом высоты и числа форм. Большую форму пекут дольше и на 10–15 °C ниже.`
+    :r.mode==='portions'?'Коэффициент = нужно порций ÷ порций в рецепте.':'Все граммовки умножаются на это число.';
+  MB.recalc={l:'Коэффициент',v:'× '+fmt(k,3),s:grams(s2)};
+}
+function calcCover(){
+  const c=S.cv,h=num(c.h),top=area(c),side=perim(c)*h,rate=num(c.rate),res=1+num(c.res)/100;
+  const tg=top*rate*res,sg=side*rate*res,total=tg+sg;
+  $('o-cv').textContent='≈ '+fmt(total,0)+' г';$('o-cv-cap').textContent=`торт ${shapeLabel(c)} × ${fmt(h)} см`;
+  $('o-cv-top').textContent=grams(tg);$('o-cv-side').textContent=grams(sg);$('o-cv-area').textContent=fmt(top+side,0)+' см²';
+  $('o-cv-formula').textContent=c.shape==='round'
+    ?`Расчёт: π × ${fmt(num(c.d))} × (${fmt(h)} + ${fmt(num(c.d))} ÷ 4) × ${fmt(rate,2)}${res!==1?' × '+fmt(res,2):''} ≈ ${fmt(total,0)} г`
+    :`Расчёт: (верх ${fmt(top,0)} + бока ${fmt(side,0)} см²) × ${fmt(rate,2)}${res!==1?' × '+fmt(res,2):''} ≈ ${fmt(total,0)} г`;
+  document.querySelectorAll('[data-cvr]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.cvr===rate));
+  MB.cover={l:'Ориентир на покрытие',v:'≈ '+fmt(total,0)+' г',s:`${shapeLabel(c)} × ${fmt(h)} см`};
+}
+function calc(){calcCost();calcGuests();calcRc();calcCover();const m=MB[S.tab]||MB.cost;$('mb-l').textContent=m.l;$('mb-v').textContent=m.v;$('mb-s').textContent=m.s}
+$('g-copy').onclick=()=>{
+  const W=num(S.g.guests)*num(S.g.portion);
+  const txt=[`Торт ${grams(W)} (${fmt(num(S.g.guests),0)} гостей × ${fmt(num(S.g.portion),0)} г)`].concat(S.g.parts.map(pt=>{
+    const need=W*num(pt.pct)/100,raw=need/(1-Math.min(num(pt.shrink),95)/100),sum=pt.ings.reduce((s,r)=>s+num(r.g),0),k=sum?raw/sum:0;
+    return `\n${pt.n} — ${grams(need)}\n`+pt.ings.filter(r=>r.n||r.g).map(r=>`  ${r.n||'—'}: ${fmt(num(r.g)*k,1)} г`).join('\n')})).join('\n');
+  copyText(txt,$('g-copied'),$('g-text'));
+};
+render();showTab(S.tab);
+</script>
