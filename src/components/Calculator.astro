@@ -225,8 +225,8 @@
   --bg:#F5EFE8; --surface:#FDFAF6; --ink:#1A1A1A; --muted:#857567; --line:#E3D7C6;
   --accent:#8B7355; --accent-ink:#6E5C43; --accent-soft:#EFE6DA;
   --alt:#6E5C43; --alt-soft:#E7DBCB; --warn:#B26B00;
-  --display:"Playfair Display", Georgia, "Times New Roman", serif;
-  --body:"Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display:"Playfair Display", serif;
+  --body:"Manrope", sans-serif;
   display:block;color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
   /* Контейнер по DESIGN.md §4: max-width 1440 + инлайн-паддинг clamp(1.5rem,4vw,4rem),
      как у хедера и секций главной — калькулятор идёт на ту же ширину. */
@@ -326,10 +326,10 @@
 @media (max-width:860px){
   #pastry-calc{padding-bottom:110px}
   .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;justify-content:space-between;align-items:center;gap:12px;
-    background:#8B7355;color:#fff;font-family:"Manrope",system-ui,sans-serif;padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));
+    background:#8B7355;color:#fff;font-family:"Manrope",sans-serif;padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));
     padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
   .mbar .l{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
-  .mbar .v{font-family:"Manrope",system-ui,sans-serif;font-weight:700;letter-spacing:-0.015em;font-size:1.5rem;line-height:1.1;font-variant-numeric:tabular-nums lining-nums}
+  .mbar .v{font-family:"Manrope",sans-serif;font-weight:700;letter-spacing:-0.015em;font-size:1.5rem;line-height:1.1;font-variant-numeric:tabular-nums lining-nums}
   .mbar .s{font-size:12px;opacity:.85;text-align:right}
 }
 @media (prefers-reduced-motion:no-preference){#pastry-calc .tabs button,#pastry-calc .btn,#pastry-calc .add,#pastry-calc .seg button,#pastry-calc .pc-cta-btn{transition:background .15s,color .15s,border-color .15s,transform .15s}}
