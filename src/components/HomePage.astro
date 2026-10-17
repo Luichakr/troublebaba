@@ -266,7 +266,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
         <div class="relative hidden sm:block" id="lang-dropdown-wrap">
           <button id="lang-dropdown-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Choose language" class="flex items-center gap-1.5 font-outfit font-semibold text-[13px] tracking-[0.12em] uppercase text-espresso/70 hover:text-espresso transition-colors px-4 py-2.5 rounded-full border border-taupe/40 hover:border-taupe/60">
             <span id="lang-label">{currentLangLabel}</span>
-            <Icon name="ph:caret-down" class="transition-transform duration-200 w-[11px] h-[7px]" />
+            <Icon name="ph:caret-down" id="lang-chevron" class="transition-transform duration-200 w-[11px] h-[7px]" />
           </button>
           <div id="lang-menu" role="listbox" aria-label="Languages" class="hidden absolute right-0 top-full mt-2 bg-warm-white border border-taupe/25 rounded-2xl shadow-xl overflow-hidden min-w-[150px] z-50" style="box-shadow:0 12px 40px rgba(139,115,85,0.18);">
             {LANGS.map(x => (
@@ -660,7 +660,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
               <div class="absolute inset-0 rounded-3xl pointer-events-none z-[5]"
                 style="box-shadow:inset 0 0 0 0.7px rgba(132,100,76,0.5);"></div>
 
-              <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+              <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-espresso/70 to-transparent pointer-events-none"></div>
 
               <div class="absolute top-6 left-6 z-10">
                 <svg width="86" height="86" viewBox="0 0 86 86" fill="none">
@@ -677,7 +677,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
               </div>
 
               <div class="absolute bottom-5 left-1/2 -translate-x-1/2 z-10">
-                <div class="flex items-center gap-2 bg-black/50 backdrop-blur-sm border border-white/10 rounded-full px-5 py-2">
+                <div class="flex items-center gap-2 bg-espresso/50 backdrop-blur-sm border border-white/10 rounded-full px-5 py-2">
                   <span class="font-outfit font-semibold text-warm-white/90 text-sm tracking-wide">@troublebaba</span>
                 </div>
               </div>
@@ -1873,8 +1873,8 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
 
 <!-- PDF-language modal shown after a Buy click, before the LS redirect. -->
 <div id="pdf-lang-modal" role="dialog" aria-modal="true" aria-labelledby="pdf-lang-title"
-     class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-  <div class="w-full max-w-sm bg-cream rounded-3xl shadow-2xl p-6 relative">
+     class="fixed inset-0 z-[60] hidden items-center justify-center bg-espresso/60 backdrop-blur-sm p-4">
+  <div class="w-full max-w-sm bg-cream rounded-3xl p-6 relative" style="box-shadow:0 24px 64px rgba(139,115,85,0.28);">
     <button type="button" id="pdf-lang-close" aria-label="Close"
             class="absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center text-espresso/65 hover:text-espresso hover:bg-espresso/5 transition">
       <Icon name="ph:x" class="w-[18px] h-[18px]" />
