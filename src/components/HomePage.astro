@@ -4,6 +4,7 @@ import SectionEyebrow from './SectionEyebrow.astro';
 import { t } from '../i18n/translations.js';
 import { SITE } from '../config/site.js';
 import SiteFooter from './SiteFooter.astro';
+import SiteHeader from './SiteHeader.astro';
 
 type Lang = 'uk' | 'ru' | 'pl' | 'en' | 'es' | 'de' | 'fr' | 'it' | 'pt';
 interface Props { lang: Lang }
@@ -12,18 +13,8 @@ const tr = t[lang] as Record<string, any>;
 
 // Helpers
 const isUk = lang === 'uk';
-// Preserve the current path when switching language. E.g. on
-// /ru/recipes/red-velvet-bento-cake/ switching to en → /en/recipes/red-velvet-bento-cake/.
-// Falls back to home when no path is available.
-const SUPPORTED = new Set(['uk','ru','pl','en','es','de','fr','it','pt']);
-const rawPath   = (Astro.url && Astro.url.pathname) || '/';
-const _parts    = rawPath.replace(/^\/+/, '').replace(/\/+$/, '').split('/');
-const _headIsLang = _parts.length > 0 && SUPPORTED.has(_parts[0]);
-const subPath   = _headIsLang ? _parts.slice(1).join('/') : _parts.join('/');
-const langUrl  = (l) => {
-  const base = l === 'uk' ? '/' : `/${l}/`;
-  return subPath ? base + subPath + '/' : base;
-};
+// Header (logo, nav, language switcher, buy CTA, mobile menu) lives in
+// SiteHeader.astro — shared with /recipes, /about, /blog etc.
 const blogHref = isUk ? '/blog/' : `/${lang}/blog/`;
 const anchor = (id: string) => (isUk ? '/' : `/${lang}/`) + '#' + id;
 
@@ -109,19 +100,6 @@ const hubPosts = HUB_SLUGS
   }));
 const hubLead = hubPosts[0];
 const hubRest = hubPosts.slice(1, 5);
-
-const LANGS: { c: Lang; l: string; full: string }[] = [
-  { c: 'uk', l: 'UKR', full: 'Українська' },
-  { c: 'ru', l: 'RUS', full: 'Русский' },
-  { c: 'pl', l: 'POL', full: 'Polski' },
-  { c: 'en', l: 'ENG', full: 'English' },
-  { c: 'es', l: 'ESP', full: 'Español' },
-  { c: 'de', l: 'DEU', full: 'Deutsch' },
-  { c: 'fr', l: 'FRA', full: 'Français' },
-  { c: 'it', l: 'ITA', full: 'Italiano' },
-  { c: 'pt', l: 'POR', full: 'Português' },
-];
-const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
 
 
 // Превью PDF — вся книга целиком, а не выборка из четырёх страниц.
@@ -250,62 +228,7 @@ const ratedCount = computedRating !== null
 const REVIEWS_INITIAL = 9; // shown before "show more"
 ---
 
-  <!-- ── HEADER ── -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-md border-b border-taupe/15">
-    <div class="max-w-[1440px] mx-auto px-4 lg:px-16 h-[68px] lg:h-[72px] flex items-center justify-between gap-2 lg:gap-6">
-      <a href={langUrl(lang)} class="min-h-[44px] font-cabinet text-espresso flex-shrink-0 text-[1.1rem] lg:text-[1.55rem]" style="letter-spacing:0.01em;">TROUBLEBABA</a>
-      <nav class="hidden md:flex items-center gap-10 font-outfit text-[13px] font-semibold tracking-[0.16em] uppercase text-espresso/65">
-        <a href={anchor('recipes')} class="hover:text-espresso transition-colors">{tr.nav_recipes}</a>
-        <a href={anchor('about')} class="hover:text-espresso transition-colors">{tr.nav_author}</a>
-        <a href={blogHref} class="hover:text-espresso transition-colors">{tr.nav_blog}</a>
-        <a href={anchor('price')} class="hover:text-espresso transition-colors">{tr.nav_price}</a>
-        <a href={anchor('faq')} class="hover:text-espresso transition-colors">FAQ</a>
-      </nav>
-      <div class="flex items-center gap-3 flex-shrink-0">
-        <!-- Language dropdown -->
-        <div class="relative hidden sm:block" id="lang-dropdown-wrap">
-          <button id="lang-dropdown-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Choose language" class="flex items-center gap-1.5 font-outfit font-semibold text-[13px] tracking-[0.12em] uppercase text-espresso/70 hover:text-espresso transition-colors px-4 py-2.5 rounded-full border border-taupe/40 hover:border-taupe/60">
-            <span id="lang-label">{currentLangLabel}</span>
-            <Icon name="ph:caret-down" id="lang-chevron" class="transition-transform duration-200 w-[11px] h-[7px]" />
-          </button>
-          <div id="lang-menu" role="listbox" aria-label="Languages" class="hidden absolute right-0 top-full mt-2 bg-warm-white border border-taupe/25 rounded-2xl shadow-xl overflow-hidden min-w-[150px] z-50" style="box-shadow:0 12px 40px rgba(139,115,85,0.18);">
-            {LANGS.map(x => (
-              <a href={langUrl(x.c)} role="option" aria-label={x.full} aria-current={x.c === lang ? 'page' : undefined} class={`lang-btn w-full flex items-center justify-between px-4 py-3 font-outfit text-sm transition-colors ${x.c === lang ? 'bg-surface text-espresso' : 'text-espresso/70 hover:bg-surface hover:text-espresso'}`}>
-                <span class="font-medium">{x.full}</span>
-                <span class="text-xs text-espresso/65 font-outfit tracking-wider uppercase">{x.l}</span>
-              </a>
-            ))}
-          </div>
-        </div>
-        <!-- CTA -->
-        <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="header"
-           class="min-h-[44px] flex items-center gap-1.5 bg-mocha-dark text-warm-white font-outfit font-semibold text-[11.5px] lg:text-[13px] px-3 lg:px-5 py-2 lg:py-2.5 rounded-full hover:bg-mocha-dark transition-colors whitespace-nowrap">
-          <span data-geo-price="nav">{tr.nav_buy}</span>
-        </a>
-        <!-- Mobile burger menu -->
-        <button id="mobile-menu-btn" type="button" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden w-11 h-11 rounded-full flex items-center justify-center text-espresso hover:bg-taupe/15 transition-colors flex-shrink-0" aria-label="Menu">
-          <Icon name="ph:list" class="w-[18px] h-[13px]" />
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile menu dropdown -->
-    <div id="mobile-menu" role="menu" aria-label="Main menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-warm-white border-b border-taupe/20" style="box-shadow:0 12px 32px rgba(139,115,85,0.15);">
-      <div class="px-6 py-4 flex flex-col gap-1">
-        <a href={anchor('recipes')} class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 transition-colors mobile-menu-link">{tr.nav_recipes}</a>
-        <a href={anchor('about')} class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 transition-colors mobile-menu-link">{tr.nav_author}</a>
-        <a href={blogHref} class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 transition-colors mobile-menu-link">{tr.nav_blog}</a>
-        <a href={anchor('price')} class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 transition-colors mobile-menu-link">{tr.nav_price}</a>
-        <a href={anchor('faq')} class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 last:border-b-0 transition-colors mobile-menu-link">FAQ</a>
-        <!-- Language switcher in mobile menu -->
-        <div class="pt-3 mt-2 flex gap-2">
-          {LANGS.map(x => (
-            <a href={langUrl(x.c)} aria-current={x.c === lang ? 'page' : undefined} class={`lang-btn flex-1 text-center font-outfit font-semibold text-[11px] tracking-[0.12em] uppercase transition-colors py-2 rounded-full border ${x.c === lang ? 'bg-surface text-espresso border-taupe/60' : 'text-espresso/65 hover:text-espresso border-taupe/30'}`}>{x.l}</a>
-          ))}
-        </div>
-      </div>
-    </div>
-  </header>
+  <SiteHeader lang={lang} />
 
   <!-- ── HERO ── -->
   <!-- Sizes to content (no forced 85vh) so a shorter viewport — e.g. with the
@@ -1984,51 +1907,6 @@ if (stickyCta) {
   onScroll();
 }
 
-// Mobile menu toggle
-const mobMenuBtn = document.getElementById('mobile-menu-btn');
-const mobMenu = document.getElementById('mobile-menu');
-const setMobOpen = (open: boolean) => {
-  mobMenu?.classList.toggle('hidden', !open);
-  mobMenuBtn?.setAttribute('aria-expanded', String(open));
-};
-if (mobMenuBtn && mobMenu) {
-  mobMenuBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    setMobOpen(mobMenu.classList.contains('hidden'));
-  });
-  document.querySelectorAll('.mobile-menu-link').forEach(link => {
-    link.addEventListener('click', () => setMobOpen(false));
-  });
-  document.addEventListener('click', (e) => {
-    if (!mobMenu.contains(e.target as Node) && !mobMenuBtn.contains(e.target as Node)) {
-      setMobOpen(false);
-    }
-  });
-}
-
-// Lang dropdown toggle (items are now anchor links)
-const dropBtn = document.getElementById('lang-dropdown-btn');
-const dropMenu = document.getElementById('lang-menu');
-const dropChevron = document.getElementById('lang-chevron');
-const setDropOpen = (open: boolean) => {
-  dropMenu?.classList.toggle('hidden', !open);
-  dropBtn?.setAttribute('aria-expanded', String(open));
-  dropChevron?.style.setProperty('transform', open ? 'rotate(180deg)' : '');
-};
-if (dropBtn && dropMenu) {
-  dropBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    setDropOpen(dropMenu.classList.contains('hidden'));
-  });
-  document.addEventListener('click', () => setDropOpen(false));
-}
-
-// ESC closes mobile menu and lang dropdown
-document.addEventListener('keydown', (e) => {
-  if (e.key !== 'Escape') return;
-  setMobOpen(false);
-  setDropOpen(false);
-});
 
 // ── Events: GA4 + own /api/track (D1) ──
 type GtagFn = (event: 'event', name: string, params?: Record<string, unknown>) => void;
