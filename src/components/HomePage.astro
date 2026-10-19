@@ -5,6 +5,7 @@ import { t } from '../i18n/translations.js';
 import { SITE } from '../config/site.js';
 import SiteFooter from './SiteFooter.astro';
 import SiteHeader from './SiteHeader.astro';
+import Heart from './Heart.astro';
 
 type Lang = 'uk' | 'ru' | 'pl' | 'en' | 'es' | 'de' | 'fr' | 'it' | 'pt';
 interface Props { lang: Lang }
@@ -250,9 +251,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
         </div>
         <div class="flex items-center gap-2">
           <div class="h-px w-10 bg-mocha/40"></div>
-          <svg width="12" height="11" viewBox="0 0 13 12" fill="none">
-            <path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="#8B7355" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
-          </svg>
+          <Heart color="#8B7355" strokeWidth={1.4} />
           <div class="h-px w-10 bg-mocha/40"></div>
         </div>
       </div>
@@ -400,9 +399,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
           <p class="font-outfit text-[11px] font-semibold tracking-[0.2em] uppercase text-warm-white mb-3 leading-relaxed whitespace-pre-line" style="text-shadow:0 2px 10px rgba(0,0,0,0.5);" set:html={(tr.hero_by_m ?? '').replace(/\n/g, '<br/>')}></p>
           <div class="flex items-center gap-2">
             <div class="h-px w-10 bg-warm-white/60"></div>
-            <svg width="12" height="11" viewBox="0 0 13 12" fill="none">
-              <path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="#FDFAF6" stroke-width="1.4" stroke-linejoin="round" fill="none"/>
-            </svg>
+            <Heart color="#FDFAF6" strokeWidth={1.4} />
           </div>
         </div>
 
@@ -1059,7 +1056,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
         {(tr.who_items as { title: string; text: string }[]).map((item, i) => (
           <div class={`reveal reveal-d${Math.min(i+1,3)} bg-cream rounded-3xl p-7 lg:p-8 flex flex-col`} style="box-shadow:0 1px 6px rgba(139,115,85,0.05);border:1px solid rgba(200,184,162,0.22);">
             <div class="w-11 h-11 rounded-full bg-mocha/10 flex items-center justify-center mb-5">
-              <svg width="20" height="18" viewBox="0 0 13 12" fill="none"><path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="#8B7355" stroke-width="1.2" fill="none" stroke-linejoin="round"/></svg>
+              <Heart w={20} h={18} color="#8B7355" strokeWidth={1.2} />
             </div>
             <h3 class="font-outfit font-bold text-espresso text-[17px] leading-snug mb-2.5">{item.title}</h3>
             <p class="font-outfit text-espresso/65 text-[13.5px] leading-relaxed" style="white-space:pre-line;">{item.text}</p>
@@ -1587,9 +1584,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
           <span class="font-outfit text-xs font-semibold tracking-[0.14em] uppercase text-mocha-dark">{tr.faq_label}</span>
           <div class="flex items-center gap-2">
             <div class="h-px w-10 bg-mocha/40"></div>
-            <svg width="11" height="10" viewBox="0 0 13 12" fill="none">
-              <path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" stroke="#8B7355" stroke-width="1.3" stroke-linejoin="round" fill="none"/>
-            </svg>
+            <Heart w={11} h={10} color="#8B7355" strokeWidth={1.3} />
               <div class="h-px w-10 bg-mocha/40"></div>
             </div>
         </div>
@@ -1721,7 +1716,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
 
             <div class="inline-flex self-start mb-5 lg:mb-7">
               <span class="inline-flex items-center gap-2 font-outfit text-[11px] font-bold tracking-[0.16em] uppercase text-warm-white bg-mocha-dark rounded-full px-4 py-1.5">
-                <svg width="12" height="11" viewBox="0 0 13 12" fill="none"><path d="M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z" fill="#FDFAF6"/></svg>
+                <Heart variant="solid" color="#FDFAF6" />
                 {tr.cta_final_chip || tr.cta_eyebrow}
               </span>
             </div>

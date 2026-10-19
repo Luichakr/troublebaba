@@ -1,0 +1,20 @@
+---
+// Decorative heart mark used in section eyebrows, hero dividers and the 404.
+// Was inlined (same path) in 7 places; centralised so the shape stays identical.
+// viewBox is 13×12; pass w/h to size it (keep ~13:12 to avoid distortion).
+interface Props {
+  w?: number;
+  h?: number;
+  variant?: 'outline' | 'solid';
+  color?: string;        // stroke colour (outline) or fill colour (solid)
+  strokeWidth?: number;  // outline only
+  class?: string;
+}
+const { w = 12, h = 11, variant = 'outline', color = '#8B7355', strokeWidth = 1.3, class: cls } = Astro.props;
+const D = 'M6.5 11C6.5 11 1 7.3 1 3.8C1 2.3 2.2 1 3.8 1C4.8 1 5.7 1.5 6.2 2.3C6.3 2.5 6.7 2.5 6.8 2.3C7.3 1.5 8.2 1 9.2 1C10.8 1 12 2.3 12 3.8C12 7.3 6.5 11 6.5 11Z';
+---
+<svg width={w} height={h} viewBox="0 0 13 12" fill="none" class={cls} aria-hidden="true">
+  {variant === 'solid'
+    ? <path d={D} fill={color} />
+    : <path d={D} stroke={color} stroke-width={strokeWidth} stroke-linejoin="round" fill="none" />}
+</svg>

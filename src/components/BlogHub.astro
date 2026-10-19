@@ -15,6 +15,28 @@ const all = await getCollection('blog', (e: any) => e.data.lang === lang && e.da
 all.sort((a: any, b: any) => (a.data.publishedAt < b.data.publishedAt ? 1 : -1));
 const langPrefix = lang === 'uk' ? '' : '/' + lang;
 const postUrl = (slug: string) => `${langPrefix}/blog/${slug}/`;
+
+// Three near-identical wide cards (Instagram, TikTok, YouTube→/shorts) used to
+// be copy-pasted. The `tiles` data-attr is read by the inline script below to
+// paint thumbnails, so it must stay exactly as-is per platform.
+const wideBlocks = [
+  { href: SITE.instagramUrl, external: true, analytics: 'blog_platform_block', platform: 'instagram',
+    badge: { style: 'background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);', icon: 'simple-icons:instagram', iconClass: 'w-[13px] h-[13px]' },
+    label: 'Instagram', title: tr.blog_ig_title, sub: tr.blog_ig_sub, cta: tr.blog_ig_cta, tiles: 'data-blog-instagram-tiles', mb: 'mb-4' },
+  { href: SITE.tiktokUrl, external: true, analytics: 'blog_platform_block', platform: 'tiktok',
+    badge: { style: 'background:#000;', icon: 'simple-icons:tiktok', iconClass: 'w-[11px] h-[13px]' },
+    label: 'TikTok', title: tr.blog_tt_title, sub: tr.blog_tt_sub, cta: tr.blog_tt_cta, tiles: 'data-blog-tiktok-tiles', mb: 'mb-4' },
+  { href: `${langPrefix}/shorts/`, external: false, analytics: 'blog_videos_promo_click', platform: 'shorts',
+    badge: { dot: true },
+    label: 'YouTube', title: tr.blog_videos_title, sub: tr.blog_videos_sub, cta: tr.blog_videos_cta, tiles: 'data-blog-videos-tiles', mb: 'mb-12' },
+] as const;
+
+// Small "follow" pills under the wide cards.
+const socialPills = [
+  { url: SITE.instagramUrl, platform: 'instagram', icon: 'simple-icons:instagram', iconClass: 'w-[16px] h-[16px]', label: tr.social_pill_ig },
+  { url: SITE.tiktokUrl,    platform: 'tiktok',    icon: 'simple-icons:tiktok',    iconClass: 'w-[14px] h-[16px]', label: tr.social_pill_tt },
+  { url: SITE.youtubeUrl,   platform: 'youtube',   icon: 'simple-icons:youtube',   iconClass: 'w-[18px] h-[13px]', label: tr.social_pill_yt },
+] as const;
 ---
 <SiteHeader lang={lang} />
 <main class="min-h-[100dvh] pt-[68px] lg:pt-[72px]" style="background:#F5EFE8;">
@@ -30,111 +52,50 @@ const postUrl = (slug: string) => `${langPrefix}/blog/${slug}/`;
       <p class="font-outfit text-espresso/65 text-base leading-relaxed">{tr.blog_intro}</p>
     </header>
 
-    {/* Instagram — same wide format as the video block */}
-    <a href={SITE.instagramUrl} target="_blank" rel="noopener noreferrer"
-       data-analytics="blog_platform_block" data-platform="instagram"
-       class="group block mb-4 rounded-2xl bg-warm-white overflow-hidden hover:-translate-y-0.5 transition-transform duration-300"
-       style="box-shadow:0 8px 32px rgba(139,115,85,0.10), 0 24px 64px rgba(139,115,85,0.06); border:1px solid rgba(200,184,162,0.30);">
-      <div class="grid sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-stretch">
-        <div class="px-6 sm:px-8 lg:px-10 py-6 lg:py-7 flex flex-col justify-center">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="text-white w-6 h-6 rounded-md flex items-center justify-center" style="background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);"><Icon name="simple-icons:instagram" class="w-[13px] h-[13px]" /></span>
-            <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha-dark">Instagram</span>
+    {/* Three wide platform cards (Instagram, TikTok, YouTube→/shorts). */}
+    {wideBlocks.map(block => (
+      <a href={block.href}
+         target={block.external ? '_blank' : undefined} rel={block.external ? 'noopener noreferrer' : undefined}
+         data-analytics={block.analytics} data-platform={block.platform}
+         class:list={['group block rounded-2xl bg-warm-white overflow-hidden hover:-translate-y-0.5 transition-transform duration-300', block.mb]}
+         style="box-shadow:0 8px 32px rgba(139,115,85,0.10), 0 24px 64px rgba(139,115,85,0.06); border:1px solid rgba(200,184,162,0.30);">
+        <div class="grid sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-stretch">
+          <div class="px-6 sm:px-8 lg:px-10 py-6 lg:py-7 flex flex-col justify-center">
+            <div class="flex items-center gap-3 mb-3">
+              {'dot' in block.badge
+                ? <span class="inline-block w-2 h-2 rounded-full" style="background:#B85959; box-shadow:0 0 0 4px rgba(184,89,89,0.18);"></span>
+                : <span class="text-white w-6 h-6 rounded-md flex items-center justify-center" style={block.badge.style}><Icon name={block.badge.icon} class={block.badge.iconClass} /></span>}
+              <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha-dark">{block.label}</span>
+            </div>
+            <h2 class="font-cabinet text-espresso mb-3 group-hover:text-mocha-dark transition-colors" style="font-size:clamp(1.2rem,1.9vw,1.5rem);line-height:1.12;">{block.title}</h2>
+            <p class="font-outfit text-espresso/65 text-[13.5px] leading-relaxed mb-3.5 max-w-[420px]">{block.sub}</p>
+            <span class="inline-flex items-center gap-2 font-outfit text-mocha-dark font-semibold text-sm">
+              <span>{block.cta}</span>
+              <Icon name="ph:arrow-right" aria-hidden="true" class="w-[14px] h-[12px]" />
+            </span>
           </div>
-          <h2 class="font-cabinet text-espresso mb-3 group-hover:text-mocha-dark transition-colors" style="font-size:clamp(1.2rem,1.9vw,1.5rem);line-height:1.12;">{tr.blog_ig_title}</h2>
-          <p class="font-outfit text-espresso/65 text-[13.5px] leading-relaxed mb-3.5 max-w-[420px]">{tr.blog_ig_sub}</p>
-          <span class="inline-flex items-center gap-2 font-outfit text-mocha-dark font-semibold text-sm">
-            <span>{tr.blog_ig_cta}</span>
-            <Icon name="ph:arrow-right" aria-hidden="true" class="w-[14px] h-[12px]" />
-          </span>
-        </div>
-        <div class="px-6 sm:px-8 lg:pr-10 pb-6 pt-2 sm:pl-0 sm:py-6 lg:py-7">
-          <div class="grid grid-cols-4 gap-2.5" data-blog-instagram-tiles>
-            {Array.from({length: 4}).map(() => (
-              <div class="rounded-md bg-espresso/5" style="aspect-ratio:9/16;"></div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </a>
-
-    {/* TikTok — same wide format */}
-    <a href={SITE.tiktokUrl} target="_blank" rel="noopener noreferrer"
-       data-analytics="blog_platform_block" data-platform="tiktok"
-       class="group block mb-4 rounded-2xl bg-warm-white overflow-hidden hover:-translate-y-0.5 transition-transform duration-300"
-       style="box-shadow:0 8px 32px rgba(139,115,85,0.10), 0 24px 64px rgba(139,115,85,0.06); border:1px solid rgba(200,184,162,0.30);">
-      <div class="grid sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-stretch">
-        <div class="px-6 sm:px-8 lg:px-10 py-6 lg:py-7 flex flex-col justify-center">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="text-white w-6 h-6 rounded-md flex items-center justify-center" style="background:#000;"><Icon name="simple-icons:tiktok" class="w-[11px] h-[13px]" /></span>
-            <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha-dark">TikTok</span>
-          </div>
-          <h2 class="font-cabinet text-espresso mb-3 group-hover:text-mocha-dark transition-colors" style="font-size:clamp(1.2rem,1.9vw,1.5rem);line-height:1.12;">{tr.blog_tt_title}</h2>
-          <p class="font-outfit text-espresso/65 text-[13.5px] leading-relaxed mb-3.5 max-w-[420px]">{tr.blog_tt_sub}</p>
-          <span class="inline-flex items-center gap-2 font-outfit text-mocha-dark font-semibold text-sm">
-            <span>{tr.blog_tt_cta}</span>
-            <Icon name="ph:arrow-right" aria-hidden="true" class="w-[14px] h-[12px]" />
-          </span>
-        </div>
-        <div class="px-6 sm:px-8 lg:pr-10 pb-6 pt-2 sm:pl-0 sm:py-6 lg:py-7">
-          <div class="grid grid-cols-4 gap-2.5" data-blog-tiktok-tiles>
-            {Array.from({length: 4}).map(() => (
-              <div class="rounded-md bg-espresso/5" style="aspect-ratio:9/16;"></div>
-            ))}
+          <div class="px-6 sm:px-8 lg:pr-10 pb-6 pt-2 sm:pl-0 sm:py-6 lg:py-7">
+            <div class="grid grid-cols-4 gap-2.5" {...{ [block.tiles]: '' }}>
+              {Array.from({length: 4}).map(() => (
+                <div class="rounded-md bg-espresso/5" style="aspect-ratio:9/16;"></div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </a>
-
-    {/* YouTube — was 'ВІДЕО'; funnel from blog hub to /shorts/ archive */}
-    <a href={`${langPrefix}/shorts/`}
-       data-analytics="blog_videos_promo_click" data-platform="shorts"
-       class="group block mb-12 rounded-2xl bg-warm-white overflow-hidden hover:-translate-y-0.5 transition-transform duration-300"
-       style="box-shadow:0 8px 32px rgba(139,115,85,0.10), 0 24px 64px rgba(139,115,85,0.06); border:1px solid rgba(200,184,162,0.30);">
-      <div class="grid sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-stretch">
-        <div class="px-6 sm:px-8 lg:px-10 py-6 lg:py-7 flex flex-col justify-center">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="inline-block w-2 h-2 rounded-full" style="background:#B85959; box-shadow:0 0 0 4px rgba(184,89,89,0.18);"></span>
-            <span class="font-outfit text-[11px] font-bold uppercase tracking-[0.22em] text-mocha-dark">YouTube</span>
-          </div>
-          <h2 class="font-cabinet text-espresso mb-3 group-hover:text-mocha-dark transition-colors" style="font-size:clamp(1.2rem,1.9vw,1.5rem);line-height:1.12;">{tr.blog_videos_title}</h2>
-          <p class="font-outfit text-espresso/65 text-[13.5px] leading-relaxed mb-3.5 max-w-[420px]">{tr.blog_videos_sub}</p>
-          <span class="inline-flex items-center gap-2 font-outfit text-mocha-dark font-semibold text-sm">
-            <span>{tr.blog_videos_cta}</span>
-            <Icon name="ph:arrow-right" aria-hidden="true" class="w-[14px] h-[12px]" />
-          </span>
-        </div>
-        <div class="px-6 sm:px-8 lg:pr-10 pb-6 pt-2 sm:pl-0 sm:py-6 lg:py-7">
-          <div class="grid grid-cols-4 gap-2.5" data-blog-videos-tiles>
-            {Array.from({length: 4}).map(() => (
-              <div class="rounded-md bg-espresso/5" style="aspect-ratio:9/16;"></div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </a>
+      </a>
+    ))}
 
     {/* Follow on social — blog → social funnel */}
     <div class="flex flex-wrap items-center gap-3 mb-12">
       <span class="font-outfit text-espresso/65 text-sm font-medium mr-1">{tr.blog_social_follow}</span>
-      <a href={SITE.instagramUrl} target="_blank" rel="noopener noreferrer"
-         data-analytics="blog_social_click" data-platform="instagram"
-         class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 hover:border-mocha/50 transition-colors rounded-full px-4 py-2.5 text-espresso/75 font-outfit text-sm font-medium min-h-[44px]">
-        <Icon name="simple-icons:instagram" aria-hidden="true" class="w-[16px] h-[16px]" />
-        <span>{tr.social_pill_ig}</span>
-      </a>
-      <a href={SITE.tiktokUrl} target="_blank" rel="noopener noreferrer"
-         data-analytics="blog_social_click" data-platform="tiktok"
-         class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 hover:border-mocha/50 transition-colors rounded-full px-4 py-2.5 text-espresso/75 font-outfit text-sm font-medium min-h-[44px]">
-        <Icon name="simple-icons:tiktok" aria-hidden="true" class="w-[14px] h-[16px]" />
-        <span>{tr.social_pill_tt}</span>
-      </a>
-      <a href={SITE.youtubeUrl} target="_blank" rel="noopener noreferrer"
-         data-analytics="blog_social_click" data-platform="youtube"
-         class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 hover:border-mocha/50 transition-colors rounded-full px-4 py-2.5 text-espresso/75 font-outfit text-sm font-medium min-h-[44px]">
-        <Icon name="simple-icons:youtube" aria-hidden="true" class="w-[18px] h-[13px]" />
-        <span>{tr.social_pill_yt}</span>
-      </a>
+      {socialPills.map(pill => (
+        <a href={pill.url} target="_blank" rel="noopener noreferrer"
+           data-analytics="blog_social_click" data-platform={pill.platform}
+           class="inline-flex items-center gap-2 bg-warm-white border border-taupe/30 hover:border-mocha/50 transition-colors rounded-full px-4 py-2.5 text-espresso/75 font-outfit text-sm font-medium min-h-[44px]">
+          <Icon name={pill.icon} aria-hidden="true" class={pill.iconClass} />
+          <span>{pill.label}</span>
+        </a>
+      ))}
     </div>
 
     <script is:inline>
