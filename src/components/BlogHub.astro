@@ -6,7 +6,7 @@ import { SITE } from '../config/site.js';
 import SiteHeader from './SiteHeader.astro';
 import SiteFooter from './SiteFooter.astro';
 
-type Lang = 'uk' | 'ru' | 'pl' | 'en';
+type Lang = 'uk' | 'ru' | 'pl' | 'en' | 'es' | 'de' | 'fr' | 'it' | 'pt';
 interface Props { lang: Lang; homeUrl: string }
 const { lang, homeUrl } = Astro.props;
 const tr = (t as any)[lang] as Record<string, any>;

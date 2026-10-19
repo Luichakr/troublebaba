@@ -64,6 +64,7 @@ export const SITE_URL = SITE.url;
 
 export const t = {
   uk: {
+    bestseller: 'Бестселер',
     // Nav
     nav_recipes:  'Рецепти',
     nav_author:   'Про автора',
@@ -517,6 +518,7 @@ testi_more:  'Показати всі відгуки',
   },
 
   ru: {
+    bestseller: 'Бестселлер',
     nav_recipes:  'Рецепты',
     nav_author:   'Об авторе',
     nav_price:    'Цена',
@@ -930,6 +932,7 @@ testi_more:  'Показать все отзывы',
   },
 
   pl: {
+    bestseller: 'Bestseller',
     nav_recipes:  'Przepisy',
     nav_author:   'O autorce',
     nav_price:    'Cena',
@@ -1346,6 +1349,7 @@ testi_more:  'Pokaż wszystkie opinie',
   },
 
   en: {
+    bestseller: 'Bestseller',
     nav_recipes:  'Recipes',
     nav_author:   'About',
     nav_price:    'Price',
@@ -1760,6 +1764,7 @@ testi_more:  'Show all reviews',
     notify_cta_short:   'Remind me',
   },
   es: {
+    bestseller: 'M�s vendido',
     nav_recipes:  'Recetas',
     nav_author:   'Sobre mí',
     nav_price:    'Precio',
@@ -2174,6 +2179,7 @@ testi_more:  'Ver todas las opiniones',
     notify_cta_short:   'Recuérdamelo',
   },
   de: {
+    bestseller: 'Bestseller',
     nav_recipes:  'Rezepte',
     nav_author:   'Über mich',
     nav_price:    'Preis',
@@ -2588,6 +2594,7 @@ testi_more:  'Alle Bewertungen anzeigen',
     notify_cta_short:   'Erinnere mich',
   },
   fr: {
+    bestseller: 'Best-seller',
     nav_recipes:  'Recettes',
     nav_author:   'À propos',
     nav_price:    'Prix',
@@ -3002,6 +3009,7 @@ testi_more:  'Voir tous les avis',
     notify_cta_short:   'Me rappeler',
   },
   it: {
+    bestseller: 'Pi� venduto',
     nav_recipes:  'Ricette',
     nav_author:   'Chi sono',
     nav_price:    'Prezzo',
@@ -3416,6 +3424,7 @@ testi_more:  'Mostra tutte le recensioni',
     notify_cta_short:   'Ricordamelo',
   },
   pt: {
+    bestseller: 'Mais vendido',
     nav_recipes:  'Receitas',
     nav_author:   'Sobre',
     nav_price:    'Preço',
