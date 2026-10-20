@@ -1,5 +1,5 @@
 ---
-// Кондитерский калькулятор — лид-магнит на /calculator.
+// Кондитерский калькулятор — лид-магнит на /calculator (uk) и /{lang}/calculator.
 // Адаптирован из артефакта под дизайн-систему сайта (DESIGN.md):
 //   • палитра — мокко #8B7355 / espresso / cream / warm-white (без малины и фисташки)
 //   • гарнитуры — Playfair Display (заголовки) + Manrope (текст), уже грузятся в Layout
@@ -8,100 +8,114 @@
 // пересчёт по форме, покрытие. Вкладки переведены со scroll-ленты на
 // адаптивную сетку (4 в ряд / 2×2), чтобы четвёртая всегда была видна.
 //
+// Языки: все строки — в src/i18n/calculator.js (9 языков). Статичная разметка
+// берёт их из `c`, скрипт получает тот же словарь через define:vars.
+//
 // ВАЖНО по архитектуре Astro:
 //   • <style is:global> + все селекторы под #pastry-calc — потому что строки
 //     ингредиентов/чипы/плитки рисуются скриптом через innerHTML, и scoped-стили
 //     к ним не применились бы (на динамических узлах нет data-astro-атрибута).
 //     Префикс #pastry-calc не даёт классам (.grid, .row, .btn) задеть
 //     Tailwind-разметку хедера и футера.
-//   • <script is:inline> — ванильный скрипт с template-literals и localStorage,
-//     его нельзя прогонять через бандлер Astro.
+//   • <script is:inline define:vars> — ванильный скрипт с template-literals и
+//     localStorage, его нельзя прогонять через бандлер Astro.
+import { CALC, CALC_LOCALE, CALC_CUR } from '../i18n/calculator.js';
+
+type Lang = 'uk' | 'ru' | 'pl' | 'en' | 'es' | 'de' | 'fr' | 'it' | 'pt';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = CALC[lang];
+const cur = CALC_CUR[lang];
+const homeUrl = lang === 'uk' ? '/' : `/${lang}/`;
+// RU сохраняет исходный ключ: данные, введённые до перевода, не теряются.
+// Остальным языкам — свой ключ, чтобы примеры не смешивались между языками.
+const storeKey = lang === 'ru' ? 'konditer-calc-v2' : `konditer-calc-v2-${lang}`;
 ---
 
 <main id="pastry-calc">
   <header class="pc-head">
     <div>
-      <h1>Кондитерский калькулятор</h1>
-      <p class="sub">Себестоимость и цена, вес торта на гостей с пересчётом рецептов по частям, пересчёт под другую форму и крем на покрытие. Данные сохраняются в этом браузере.</p>
+      <h1>{c.h1}</h1>
+      <p class="sub">{c.sub}</p>
     </div>
-    <label class="cur" for="currency">Валюта
+    <label class="cur" for="currency">{c.currency}
       <select id="currency" style="width:auto">
         <option value="zł">zł</option><option value="₽">₽</option><option value="€">€</option><option value="₴">₴</option><option value="$">$</option>
       </select>
     </label>
   </header>
 
-  <nav class="tabs" role="tablist" aria-label="Калькуляторы">
-    <button role="tab" data-tab="cost" id="tab-cost">Себестоимость</button>
-    <button role="tab" data-tab="guests" id="tab-guests">Торт на гостей</button>
-    <button role="tab" data-tab="recalc" id="tab-recalc">Пересчёт по форме</button>
-    <button role="tab" data-tab="cover" id="tab-cover">Покрытие</button>
+  <nav class="tabs" role="tablist" aria-label={c.tabs_label}>
+    <button role="tab" data-tab="cost" id="tab-cost">{c.tab_cost}</button>
+    <button role="tab" data-tab="guests" id="tab-guests">{c.tab_guests}</button>
+    <button role="tab" data-tab="recalc" id="tab-recalc">{c.tab_recalc}</button>
+    <button role="tab" data-tab="cover" id="tab-cover">{c.tab_cover}</button>
   </nav>
 
   <!-- COST -->
   <div class="grid" id="p-cost">
     <div class="col">
       <section class="block">
-        <div class="head"><h2>Ингредиенты</h2><span class="ex" id="cost-example">Цены даны для примера — замените на свои</span></div>
+        <div class="head"><h2>{c.ings_h}</h2><span class="ex" id="cost-example">{c.example_prices}</span></div>
         <div class="rows">
-          <div class="r cost hd"><span>Ингредиент</span><span>Цена упаковки</span><span>Упаковка, г</span><span>В рецепте, г</span><span style="text-align:right">Стоимость</span><span></span></div>
+          <div class="r cost hd"><span>{c.col_ing}</span><span>{c.col_pack_price}</span><span>{c.col_pack_g}</span><span>{c.col_in_recipe_g}</span><span style="text-align:right">{c.col_cost}</span><span></span></div>
           <div id="cost-ings" class="rows"></div>
         </div>
-        <button class="add" data-add="cost.ings">+ Ингредиент</button>
-        <p class="note">Штучное вводите в граммах: 1 яйцо без скорлупы ≈ 50 г.</p>
+        <button class="add" data-add="cost.ings">{c.add_ing}</button>
+        <p class="note">{c.note_pieces}</p>
       </section>
       <section class="block">
-        <h2>Упаковка, декор, прочее</h2>
+        <h2>{c.extras_h}</h2>
         <div id="cost-extras" class="rows"></div>
-        <button class="add" data-add="cost.extras">+ Позиция</button>
+        <button class="add" data-add="cost.extras">{c.add_item}</button>
       </section>
       <section class="block">
-        <h2>Работа</h2>
+        <h2>{c.labor_h}</h2>
         <div class="fields">
-          <label class="f">Время работы, ч<input type="number" step="any" min="0" data-p="cost.hours" id="f-cost-hours"></label>
-          <label class="f">Ставка за час<input type="number" step="any" min="0" data-p="cost.rate" id="f-cost-rate"></label>
-          <label class="f">Накладные, % от продуктов<input type="number" step="any" min="0" data-p="cost.over" id="f-cost-over"></label>
+          <label class="f">{c.f_hours}<input type="number" step="any" min="0" data-p="cost.hours" id="f-cost-hours"></label>
+          <label class="f">{c.f_rate}<input type="number" step="any" min="0" data-p="cost.rate" id="f-cost-rate"></label>
+          <label class="f">{c.f_over}<input type="number" step="any" min="0" data-p="cost.over" id="f-cost-over"></label>
         </div>
         <details class="part" id="rate-help">
-          <summary><span>Не знаю ставку — рассчитать</span></summary>
+          <summary><span>{c.rate_help}</span></summary>
           <div class="pbody">
             <div class="fields">
-              <label class="f">Хочу зарабатывать в месяц<input type="number" step="any" min="0" data-p="cost.wantIncome" id="f-cost-wantIncome"></label>
-              <label class="f">Часов работы в месяц<input type="number" step="any" min="1" data-p="cost.wantHours" id="f-cost-wantHours"></label>
+              <label class="f">{c.f_want_income}<input type="number" step="any" min="0" data-p="cost.wantIncome" id="f-cost-wantIncome"></label>
+              <label class="f">{c.f_want_hours}<input type="number" step="any" min="1" data-p="cost.wantHours" id="f-cost-wantHours"></label>
             </div>
-            <div class="head"><span>Ставка: <b id="o-rate-help"></b> в час</span><button class="btn" id="apply-rate">Подставить</button></div>
+            <div class="head"><span>{c.rate_is} <b id="o-rate-help"></b> {c.per_hour}</span><button class="btn" id="apply-rate">{c.apply}</button></div>
           </div>
         </details>
-        <p class="note">Накладные — электричество, газ, амортизация техники, расходники. Обычно 5–15%.</p>
+        <p class="note">{c.note_over}</p>
       </section>
       <section class="block">
-        <h2>Наценка и выход</h2>
-        <p class="note">Ваш заработок сверх себестоимости. Начинающим — 20–25%, с узнаваемым стилем — 40–50% и выше.</p>
+        <h2>{c.markup_h}</h2>
+        <p class="note">{c.note_markup}</p>
         <div class="seg" id="markup-chips"></div>
         <div class="fields">
-          <label class="f">Своя наценка, %<input type="number" step="any" min="0" data-p="cost.markup" id="f-cost-markup"></label>
-          <label class="f">Вес готового изделия, г<input type="number" step="any" min="0" data-p="cost.weight" data-gram="1" id="f-cost-weight" placeholder="авто"></label>
-          <label class="f">Порций<input type="number" step="1" min="1" data-p="cost.portions" id="f-cost-portions"></label>
+          <label class="f">{c.f_markup}<input type="number" step="any" min="0" data-p="cost.markup" id="f-cost-markup"></label>
+          <label class="f">{c.f_weight}<input type="number" step="any" min="0" data-p="cost.weight" data-gram="1" id="f-cost-weight" placeholder={c.auto}></label>
+          <label class="f">{c.f_portions}<input type="number" step="1" min="1" data-p="cost.portions" id="f-cost-portions"></label>
         </div>
-        <p class="note">Пустой вес = сумма граммов в рецепте.</p>
+        <p class="note">{c.note_weight}</p>
       </section>
     </div>
     <aside class="sum" aria-live="polite">
-      <h2>Итог</h2>
-      <div class="row"><span>Продукты</span><b id="o-c-ings"></b></div>
-      <div class="row"><span>Накладные</span><b id="o-c-over"></b></div>
-      <div class="row"><span>Упаковка и прочее</span><b id="o-c-extras"></b></div>
-      <div class="row"><span>Работа</span><b id="o-c-labor"></b></div>
-      <div class="big"><div class="lbl">Себестоимость</div><div class="val" id="o-c-cost"></div></div>
-      <div class="big alt"><div class="lbl">Цена клиенту</div><div class="val" id="o-c-price"></div><div class="cap" id="o-c-cap"></div></div>
-      <div class="row"><span>Прибыль</span><b id="o-c-profit"></b></div>
-      <div class="row"><span>Цена за кг</span><b id="o-c-kg"></b></div>
-      <div class="row"><span>Цена за порцию</span><b id="o-c-portion"></b></div>
+      <h2>{c.sum_h}</h2>
+      <div class="row"><span>{c.s_ings}</span><b id="o-c-ings"></b></div>
+      <div class="row"><span>{c.s_over}</span><b id="o-c-over"></b></div>
+      <div class="row"><span>{c.s_extras}</span><b id="o-c-extras"></b></div>
+      <div class="row"><span>{c.s_labor}</span><b id="o-c-labor"></b></div>
+      <div class="big"><div class="lbl">{c.s_cost}</div><div class="val" id="o-c-cost"></div></div>
+      <div class="big alt"><div class="lbl">{c.s_price}</div><div class="val" id="o-c-price"></div><div class="cap" id="o-c-cap"></div></div>
+      <div class="row"><span>{c.s_profit}</span><b id="o-c-profit"></b></div>
+      <div class="row"><span>{c.s_kg}</span><b id="o-c-kg"></b></div>
+      <div class="row"><span>{c.s_portion}</span><b id="o-c-portion"></b></div>
       <div class="actions">
-        <button class="btn" id="clear-cost">Очистить</button>
+        <button class="btn" id="clear-cost">{c.clear}</button>
       </div>
-      <p class="hint" id="clear-confirm" hidden>Нажмите «Очистить» ещё раз, чтобы удалить все строки.</p>
-      <p class="pc-invalid-note" id="cost-invalid-note" hidden>Исправьте выделенные поля: количество от 0,1 до 100 000 г.</p>
+      <p class="hint" id="clear-confirm" hidden>{c.clear_confirm}</p>
+      <p class="pc-invalid-note" id="cost-invalid-note" hidden>{c.invalid_note}</p>
     </aside>
   </div>
 
@@ -109,34 +123,34 @@
   <div class="grid" id="p-guests" hidden>
     <div class="col">
       <section class="block">
-        <h2>Сколько торта нужно</h2>
-        <label class="f">Размер порции</label>
+        <h2>{c.g_h}</h2>
+        <label class="f">{c.portion_size}</label>
         <div class="seg" id="portion-chips"></div>
         <div class="fields">
-          <label class="f">Порция, г<input type="number" step="any" min="1" data-p="g.portion" id="f-g-portion"></label>
-          <label class="f">Гостей<input type="number" step="1" min="1" max="300" data-p="g.guests" id="f-g-guests"></label>
+          <label class="f">{c.f_portion_g}<input type="number" step="any" min="1" data-p="g.portion" id="f-g-portion"></label>
+          <label class="f">{c.f_guests}<input type="number" step="1" min="1" max="300" data-p="g.guests" id="f-g-guests"></label>
         </div>
-        <p class="note">Ориентир: 100 г — дегустационный сет или к основному десерту, 150 г — стандарт, 200–250 г — торт как главный десерт.</p>
+        <p class="note">{c.note_portion}</p>
       </section>
       <section class="block">
-        <div class="head"><h2>Пропорции торта</h2><span class="warn" id="pct-warn" hidden></span></div>
+        <div class="head"><h2>{c.props_h}</h2><span class="warn" id="pct-warn" hidden></span></div>
         <div class="ptiles" id="g-tiles"></div>
-        <p class="note">Проценты по умолчанию — рабочий ориентир для классического бисквитного торта. Меняйте их в каждой части ниже.</p>
+        <p class="note">{c.note_props}</p>
       </section>
       <section class="block">
-        <div class="head"><h2>Рецепты по частям</h2><span class="ex" id="g-example">Пример — замените своими рецептами</span></div>
+        <div class="head"><h2>{c.parts_h}</h2><span class="ex" id="g-example">{c.g_example}</span></div>
         <div id="g-parts" class="rows" style="gap:10px"></div>
-        <button class="add" data-add="g.parts">+ Часть торта</button>
-        <p class="note">Пропорции дают ориентир, а не точность грамм в грамм: отклонение готового торта на 100–200 г нормально. Внешнее покрытие считается отдельно — вкладка «Покрытие».</p>
+        <button class="add" data-add="g.parts">{c.add_part}</button>
+        <p class="note">{c.note_parts}</p>
       </section>
     </div>
     <aside class="sum" aria-live="polite">
-      <h2>Нужно торта</h2>
-      <div class="big"><div class="lbl">Вес торта</div><div class="val" id="o-g-weight"></div><div class="cap" id="o-g-cap"></div></div>
+      <h2>{c.need_h}</h2>
+      <div class="big"><div class="lbl">{c.cake_weight}</div><div class="val" id="o-g-weight"></div><div class="cap" id="o-g-cap"></div></div>
       <div id="o-g-rows"></div>
-      <div class="actions"><button class="btn" id="g-copy">Скопировать все рецепты</button></div>
+      <div class="actions"><button class="btn" id="g-copy">{c.copy_all}</button></div>
       <p class="hint" id="g-copied" hidden></p>
-      <p class="pc-invalid-note" id="g-invalid-note" hidden>Исправьте выделенные поля: количество от 0,1 до 100 000 г.</p>
+      <p class="pc-invalid-note" id="g-invalid-note" hidden>{c.invalid_note}</p>
       <textarea id="g-text" hidden style="width:100%;min-height:140px"></textarea>
     </aside>
   </div>
@@ -145,39 +159,39 @@
   <div class="grid" id="p-recalc" hidden>
     <div class="col">
       <section class="block">
-        <h2>Как пересчитываем</h2>
+        <h2>{c.rc_how}</h2>
         <div class="seg" id="rc-mode">
-          <button data-mode="form">По форме</button>
-          <button data-mode="portions">По порциям</button>
-          <button data-mode="k">По коэффициенту</button>
+          <button data-mode="form">{c.mode_form}</button>
+          <button data-mode="portions">{c.mode_portions}</button>
+          <button data-mode="k">{c.mode_k}</button>
         </div>
         <div id="rc-form" class="two">
-          <div class="formbox"><h3>Исходная форма</h3><div class="seg" data-shape="rc.from"></div><div class="fields" id="rc-from"></div></div>
-          <div class="formbox"><h3>Новая форма</h3><div class="seg" data-shape="rc.to"></div><div class="fields" id="rc-to"></div></div>
+          <div class="formbox"><h3>{c.from_form}</h3><div class="seg" data-shape="rc.from"></div><div class="fields" id="rc-from"></div></div>
+          <div class="formbox"><h3>{c.to_form}</h3><div class="seg" data-shape="rc.to"></div><div class="fields" id="rc-to"></div></div>
         </div>
-        <div class="actions" id="rc-form-actions"><button class="btn" id="rc-swap">⇄ Поменять местами</button></div>
+        <div class="actions" id="rc-form-actions"><button class="btn" id="rc-swap">{c.swap}</button></div>
         <div id="rc-portions" class="fields" hidden>
-          <label class="f">Рецепт рассчитан на, порций<input type="number" step="any" min="1" data-p="rc.nFrom" id="f-rc-nFrom"></label>
-          <label class="f">Нужно порций<input type="number" step="any" min="1" data-p="rc.nTo" id="f-rc-nTo"></label>
+          <label class="f">{c.f_nfrom}<input type="number" step="any" min="1" data-p="rc.nFrom" id="f-rc-nFrom"></label>
+          <label class="f">{c.f_nto}<input type="number" step="any" min="1" data-p="rc.nTo" id="f-rc-nTo"></label>
         </div>
         <div id="rc-k" class="fields" hidden>
-          <label class="f">Коэффициент<input type="number" step="any" min="0" data-p="rc.k" id="f-rc-k"></label>
+          <label class="f">{c.f_k}<input type="number" step="any" min="0" data-p="rc.k" id="f-rc-k"></label>
         </div>
         <p class="note" id="rc-explain"></p>
       </section>
       <section class="block">
-        <div class="head"><h2>Рецепт</h2><button class="btn" id="rc-import">Взять из «Себестоимости»</button></div>
-        <div class="r rec hd"><span>Ингредиент</span><span>Было, г</span><span style="text-align:right">Стало, г</span><span></span></div>
+        <div class="head"><h2>{c.recipe_h}</h2><button class="btn" id="rc-import">{c.import_btn}</button></div>
+        <div class="r rec hd"><span>{c.col_ing}</span><span>{c.col_was}</span><span style="text-align:right">{c.col_now}</span><span></span></div>
         <div id="rc-ings" class="rows"></div>
-        <button class="add" data-add="rc.ings">+ Ингредиент</button>
+        <button class="add" data-add="rc.ings">{c.add_ing}</button>
       </section>
     </div>
     <aside class="sum" aria-live="polite">
-      <h2>Коэффициент</h2>
-      <div class="big"><div class="lbl">Умножить на</div><div class="val" id="o-rc-k"></div></div>
-      <div class="row"><span>Масса было</span><b id="o-rc-s1"></b></div>
-      <div class="row"><span>Масса стало</span><b id="o-rc-s2"></b></div>
-      <p class="pc-invalid-note" id="rc-invalid-note" hidden>Исправьте выделенные поля: количество от 0,1 до 100 000 г.</p>
+      <h2>{c.k_h}</h2>
+      <div class="big"><div class="lbl">{c.mult_by}</div><div class="val" id="o-rc-k"></div></div>
+      <div class="row"><span>{c.mass_was}</span><b id="o-rc-s1"></b></div>
+      <div class="row"><span>{c.mass_now}</span><b id="o-rc-s2"></b></div>
+      <p class="pc-invalid-note" id="rc-invalid-note" hidden>{c.invalid_note}</p>
     </aside>
   </div>
 
@@ -185,26 +199,26 @@
   <div class="grid" id="p-cover" hidden>
     <div class="col">
       <section class="block">
-        <h2>Торт</h2>
+        <h2>{c.cv_cake}</h2>
         <div class="seg" data-shape="cv"></div>
         <div class="fields" id="cv-dims"></div>
       </section>
       <section class="block">
-        <h2>Вид покрытия</h2>
+        <h2>{c.cv_type}</h2>
         <div class="seg" id="cv-preset"></div>
         <div class="fields">
-          <label class="f">Расход, г на см²<input type="number" step="any" min="0" data-p="cv.rate" id="f-cv-rate"></label>
-          <label class="f">Запас, %<input type="number" step="any" min="0" data-p="cv.res" id="f-cv-res"></label>
+          <label class="f">{c.f_cv_rate}<input type="number" step="any" min="0" data-p="cv.rate" id="f-cv-rate"></label>
+          <label class="f">{c.f_cv_res}<input type="number" step="any" min="0" data-p="cv.res" id="f-cv-res"></label>
         </div>
-        <p class="note">Расход = толщина слоя × плотность крема. 0,7 г/см² — это около 7 мм крем-чиза вместе с выравниванием. Для «голого» торта ставьте 0,2–0,3, под мастику — 0,4–0,5.</p>
+        <p class="note">{c.note_cv}</p>
       </section>
     </div>
     <aside class="sum" aria-live="polite">
-      <h2>Покрытие</h2>
-      <div class="big"><div class="lbl">Ориентир на покрытие</div><div class="val" id="o-cv"></div><div class="cap" id="o-cv-cap"></div></div>
-      <div class="row"><span>Верх</span><b id="o-cv-top"></b></div>
-      <div class="row"><span>Бока</span><b id="o-cv-side"></b></div>
-      <div class="row"><span>Площадь</span><b id="o-cv-area"></b></div>
+      <h2>{c.cv_h}</h2>
+      <div class="big"><div class="lbl">{c.cv_est}</div><div class="val" id="o-cv"></div><div class="cap" id="o-cv-cap"></div></div>
+      <div class="row"><span>{c.cv_top}</span><b id="o-cv-top"></b></div>
+      <div class="row"><span>{c.cv_side}</span><b id="o-cv-side"></b></div>
+      <div class="row"><span>{c.cv_area}</span><b id="o-cv-area"></b></div>
       <p class="formula" id="o-cv-formula"></p>
     </aside>
   </div>
@@ -213,10 +227,10 @@
   <aside class="pc-cta">
     <div class="pc-cta-in">
       <div class="pc-cta-text">
-        <h2 class="pc-cta-title">Калькулятор помогает с цифрами. Рецепты — в сборнике.</h2>
-        <p class="pc-cta-sub">PDF-сборник от TROUBLEBABA: 10 бенто-тортов с точными граммовками, пошаговыми фото и таблицей пересчёта под любой диаметр.</p>
+        <h2 class="pc-cta-title">{c.cta_title}</h2>
+        <p class="pc-cta-sub">{c.cta_sub}</p>
       </div>
-      <a href="/ru/#price" class="pc-cta-btn" data-buy-source="calculator">Открыть сборник →</a>
+      <a href={homeUrl + '#price'} class="pc-cta-btn" data-buy-source="calculator">{c.cta_btn}</a>
     </div>
   </aside>
 </main>
@@ -355,25 +369,23 @@
 @media (prefers-reduced-motion:no-preference){#pastry-calc .tabs button,#pastry-calc .btn,#pastry-calc .add,#pastry-calc .seg button,#pastry-calc .pc-cta-btn{transition:background .15s,color .15s,border-color .15s,transform .15s}}
 </style>
 
-<script is:inline>
-const KEY='konditer-calc-v2';
+<script is:inline define:vars={{ L: c, LOCALE: CALC_LOCALE[lang], CUR: cur.sym, PK: cur.k, KEY: storeKey }}>
+// L — словарь языка, LOCALE — формат чисел, CUR/PK — валюта и множитель
+// примерных цен, KEY — ключ localStorage (см. фронтматтер).
+const T=(s,o)=>s.replace(/\{(\w+)\}/g,(_,k)=>o[k]??'');
+const P=v=>Math.round(v*PK*100)/100;
+const EX=L.ex;
+// Числа примеров (цена упаковки, вес упаковки, в рецепте) — названия берутся из EX по индексу.
+const ING=[[4.5,1000,120],[14,200,40],[4,1000,250],[12,500,300],[11,500,300],[12,500,500],[16,1000,400],[70,1000,100],[8,200,60]];
+const PARTS=[[33,12.5,true,[200,180,160,30,120,60,6,1]],[33,0,false,[500,150,80]],[25,0,false,[300,60,20]],[9,0,false,[100,50]]];
 const DEF={
-  cur:'zł',tab:'cost',
-  cost:{example:true,hours:5,rate:40,over:10,markup:30,weight:'',portions:10,wantIncome:6000,wantHours:120,
-    ings:[
-      {n:'Мука пшеничная',p:4.5,w:1000,u:120},{n:'Какао-порошок',p:14,w:200,u:40},
-      {n:'Сахар',p:4,w:1000,u:250},{n:'Яйца',p:12,w:500,u:300},
-      {n:'Сливки 33%',p:11,w:500,u:300},{n:'Сливочный сыр',p:12,w:500,u:500},
-      {n:'Вишня замороженная',p:16,w:1000,u:400},{n:'Шоколад тёмный 54%',p:70,w:1000,u:100},
-      {n:'Масло сливочное 82%',p:8,w:200,u:60}],
-    extras:[{n:'Подложка и коробка',p:12},{n:'Декор',p:8}]},
-  g:{example:true,guests:20,portion:150,parts:[
-    {n:'Бисквит',pct:33,shrink:12.5,open:true,ings:[{n:'Яйца',g:200},{n:'Сахар',g:180},{n:'Мука',g:160},{n:'Какао',g:30},{n:'Молоко',g:120},{n:'Масло растительное',g:60},{n:'Разрыхлитель',g:6},{n:'Соль',g:1}]},
-    {n:'Крем для сборки',pct:33,shrink:0,open:false,ings:[{n:'Сливочный сыр',g:500},{n:'Сливки 33%',g:150},{n:'Сахарная пудра',g:80}]},
-    {n:'Начинка',pct:25,shrink:0,open:false,ings:[{n:'Вишня',g:300},{n:'Сахар',g:60},{n:'Крахмал',g:20}]},
-    {n:'Пропитка',pct:9,shrink:0,open:false,ings:[{n:'Вода',g:100},{n:'Сахар',g:50}]}]},
+  cur:CUR,tab:'cost',
+  cost:{example:true,hours:5,rate:P(40),over:10,markup:30,weight:'',portions:10,wantIncome:P(6000),wantHours:120,
+    ings:ING.map(([p,w,u],i)=>({n:EX.cost[i],p:P(p),w,u})),
+    extras:[{n:EX.extras[0],p:P(12)},{n:EX.extras[1],p:P(8)}]},
+  g:{example:true,guests:20,portion:150,parts:PARTS.map(([pct,shrink,open,gs],i)=>({n:EX.parts[i][0],pct,shrink,open,ings:gs.map((g,j)=>({n:EX.parts[i][1][j],g}))}))},
   rc:{mode:'form',from:{shape:'round',d:18,a:18,b:18,h:8,n:1},to:{shape:'square',d:20,a:20,b:20,h:8,n:1},nFrom:10,nTo:16,k:1.5,
-    ings:[{n:'Мука пшеничная',g:120},{n:'Сахар',g:250},{n:'Яйца',g:300},{n:'Сливки 33%',g:300}]},
+    ings:[120,250,300,300].map((g,i)=>({n:EX.rc[i],g}))},
   cv:{shape:'round',d:18,a:18,b:18,h:12,rate:0.7,res:0}
 };
 function merge(d,s){if(Array.isArray(d))return Array.isArray(s)?s:d;if(d&&typeof d==='object'){const o={};for(const k in d)o[k]=merge(d[k],s?.[k]);return o}return s===undefined?d:s}
@@ -381,16 +393,17 @@ let S;try{S=merge(structuredClone(DEF),JSON.parse(localStorage.getItem(KEY)||'nu
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 const $=id=>document.getElementById(id);
 const num=v=>{const x=parseFloat(String(v??'').replace(',','.'));return isFinite(x)?x:0};
-const fmt=(v,d=1)=>(+v||0).toLocaleString('ru-RU',{maximumFractionDigits:d});
-const money=v=>(+v||0).toLocaleString('ru-RU',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+S.cur;
-const grams=v=>v>=1000?fmt(v/1000,2)+' кг':fmt(v,1)+' г';
+const fmt=(v,d=1)=>(+v||0).toLocaleString(LOCALE,{maximumFractionDigits:d});
+const money=v=>(+v||0).toLocaleString(LOCALE,{minimumFractionDigits:2,maximumFractionDigits:2})+' '+S.cur;
+const grams=v=>v>=1000?fmt(v/1000,2)+' '+L.kg:fmt(v,1)+' '+L.g;
+const gr=v=>fmt(v)+' '+L.g;
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const get=p=>p.split('.').reduce((o,k)=>o?.[k],S);
 const set=(p,v)=>{const ks=p.split('.');const last=ks.pop();ks.reduce((o,k)=>o[k],S)[last]=v};
 const fid=p=>'f-'+p.replace(/\./g,'-');
-const inp=(p,o={})=>`<input id="${fid(p)}" data-p="${p}"${o.gram?' data-gram="1"':''} ${o.text?'':'type="number" step="any" min="0" inputmode="decimal"'} value="${esc(get(p))}" placeholder="${o.ph||''}" aria-label="${o.al||''}">`;
+const inp=(p,o={})=>`<input id="${fid(p)}" data-p="${p}"${o.gram?' data-gram="1"':''} ${o.text?'':'type="number" step="any" min="0" inputmode="decimal"'} value="${esc(get(p))}" placeholder="${esc(o.ph||'')}" aria-label="${esc(o.al||'')}">`;
 const lab=(cls,txt,html)=>`<label class="${cls}"><span>${txt}</span>${html}</label>`;
-const delBtn=p=>`<button class="del d" data-del="${p}" aria-label="Удалить">×</button>`;
+const delBtn=p=>`<button class="del d" data-del="${p}" aria-label="${esc(L.del)}">×</button>`;
 
 /* ---------- generic binding ---------- */
 document.addEventListener('input',e=>{
@@ -404,7 +417,7 @@ document.addEventListener('input',e=>{
 document.addEventListener('click',e=>{
   const d=e.target.closest('[data-del]');if(d){const ks=d.dataset.del.split('.');const i=+ks.pop();get(ks.join('.')).splice(i,1);save();render();return}
   const a=e.target.closest('[data-add]');if(a){const p=a.dataset.add;const arr=get(p);
-    arr.push(p==='cost.ings'?{n:'',p:'',w:'',u:''}:p==='cost.extras'?{n:'',p:''}:p==='g.parts'?{n:'Новая часть',pct:0,shrink:0,open:true,ings:[{n:'',g:''}]}:{n:'',g:''});
+    arr.push(p==='cost.ings'?{n:'',p:'',w:'',u:''}:p==='cost.extras'?{n:'',p:''}:p==='g.parts'?{n:L.new_part,pct:0,shrink:0,open:true,ings:[{n:'',g:''}]}:{n:'',g:''});
     save();render();const f=$(fid(p+'.'+(arr.length-1)+'.n'));f?.focus();f?.select?.()}
 });
 document.addEventListener('toggle',e=>{const p=e.target.dataset?.part;if(p!=null){S.g.parts[p].open=e.target.open;save()}},true);
@@ -416,42 +429,42 @@ document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>showTab(b.datas
 $('currency').value=S.cur;$('currency').onchange=e=>{S.cur=e.target.value;save();calc()};
 
 /* ---------- shapes ---------- */
-const SHAPES={round:'○ Круг',square:'□ Квадрат',rect:'▭ Прямоуг.'};
+const SHAPES={round:L.shape_round,square:L.shape_square,rect:L.shape_rect};
 const area=o=>o.shape==='round'?Math.PI*num(o.d)**2/4:o.shape==='square'?num(o.a)**2:num(o.a)*num(o.b);
 const perim=o=>o.shape==='round'?Math.PI*num(o.d):o.shape==='square'?4*num(o.a):2*(num(o.a)+num(o.b));
 const shapeLabel=o=>o.shape==='round'?`Ø ${fmt(num(o.d))}`:o.shape==='square'?`${fmt(num(o.a))}×${fmt(num(o.a))}`:`${fmt(num(o.a))}×${fmt(num(o.b))}`;
 function shapeFields(key,withN){
   const o=get(key);const f=(k,l)=>`<label class="f">${l}${inp(key+'.'+k)}</label>`;
-  return (o.shape==='round'?f('d','Диаметр, см'):o.shape==='square'?f('a','Сторона, см'):f('a','Длина, см')+f('b','Ширина, см'))+f('h','Высота, см')+(withN?f('n','Количество форм, шт'):'');
+  return (o.shape==='round'?f('d',L.f_diam):o.shape==='square'?f('a',L.f_side):f('a',L.f_len)+f('b',L.f_width))+f('h',L.f_height)+(withN?f('n',L.f_nforms):'');
 }
 
 /* ---------- render ---------- */
 function render(){
   // cost
   $('cost-ings').innerHTML=S.cost.ings.map((r,i)=>{const b=`cost.ings.${i}`;return `<div class="r cost">
-    <div class="n">${inp(b+'.n',{text:1,ph:'Например, мука',al:'Ингредиент'})}</div>
-    ${lab('p','Цена уп.',inp(b+'.p',{al:'Цена упаковки'}))}${lab('w','Уп., г',inp(b+'.w',{al:'Вес упаковки, г',gram:1}))}${lab('u','В рецепте, г',inp(b+'.u',{al:'Граммов в рецепте',gram:1}))}
+    <div class="n">${inp(b+'.n',{text:1,ph:L.ph_ing,al:L.col_ing})}</div>
+    ${lab('p',L.lab_pack_price,inp(b+'.p',{al:L.al_pack_price}))}${lab('w',L.lab_pack_g,inp(b+'.w',{al:L.al_pack_g,gram:1}))}${lab('u',L.col_in_recipe_g,inp(b+'.u',{al:L.al_in_recipe_g,gram:1}))}
     <div class="o" id="o-${b}"></div>${delBtn(b)}</div>`}).join('');
   $('cost-extras').innerHTML=S.cost.extras.map((r,i)=>{const b=`cost.extras.${i}`;return `<div class="r ext">
-    <div class="n">${inp(b+'.n',{text:1,ph:'Например, топпер',al:'Позиция'})}</div><div class="p">${inp(b+'.p',{al:'Сумма'})}</div>${delBtn(b)}</div>`}).join('');
+    <div class="n">${inp(b+'.n',{text:1,ph:L.ph_extra,al:L.al_item})}</div><div class="p">${inp(b+'.p',{al:L.al_sum})}</div>${delBtn(b)}</div>`}).join('');
   $('cost-example').hidden=!S.cost.example;
   $('markup-chips').innerHTML=[20,25,30,35,40,50].map(v=>`<button data-mk="${v}">${v}%</button>`).join('');
   // guests
-  $('portion-chips').innerHTML=[100,150,200,250].map(v=>`<button data-pt="${v}">${v} г</button>`).join('');
+  $('portion-chips').innerHTML=[100,150,200,250].map(v=>`<button data-pt="${v}">${v} ${L.g}</button>`).join('');
   $('g-parts').innerHTML=S.g.parts.map((pt,i)=>{const b=`g.parts.${i}`;return `<details class="part" data-part="${i}" ${pt.open?'open':''}>
-    <summary><div><h3 id="o-${b}-title">${esc(pt.n)}</h3><div style="margin-top:4px"><span class="pill" id="o-${b}-pct"></span><span class="note" style="display:inline">Нужно <b id="o-${b}-need"></b></span></div></div></summary>
+    <summary><div><h3 id="o-${b}-title">${esc(pt.n)}</h3><div style="margin-top:4px"><span class="pill" id="o-${b}-pct"></span><span class="note" style="display:inline">${L.need} <b id="o-${b}-need"></b></span></div></div></summary>
     <div class="pbody">
       <div class="fields">
-        <label class="f">Название${inp(b+'.n',{text:1})}</label>
-        <label class="f">Доля в торте, %${inp(b+'.pct')}</label>
-        <label class="f">Усушка при выпечке, %${inp(b+'.shrink')}</label>
+        <label class="f">${L.f_part_name}${inp(b+'.n',{text:1})}</label>
+        <label class="f">${L.f_part_pct}${inp(b+'.pct')}</label>
+        <label class="f">${L.f_shrink}${inp(b+'.shrink')}</label>
       </div>
-      <div class="r rec hd"><span>Ингредиент</span><span>В рецепте, г</span><span style="text-align:right">На торт, г</span><span></span></div>
+      <div class="r rec hd"><span>${L.col_ing}</span><span>${L.col_in_recipe_g}</span><span style="text-align:right">${L.col_per_cake}</span><span></span></div>
       <div class="rows">${pt.ings.map((r,j)=>{const c=`${b}.ings.${j}`;return `<div class="r rec">
-        <div class="n">${inp(c+'.n',{text:1,ph:'Например, мука',al:'Ингредиент'})}</div>${lab('g','В рецепте, г',inp(c+'.g',{al:'Граммов в рецепте',gram:1}))}<div class="o" id="o-${c}"></div>${delBtn(c)}</div>`}).join('')}</div>
-      <button class="add" data-add="${b}.ings">+ Ингредиент</button>
+        <div class="n">${inp(c+'.n',{text:1,ph:L.ph_ing,al:L.col_ing})}</div>${lab('g',L.col_in_recipe_g,inp(c+'.g',{al:L.al_in_recipe_g,gram:1}))}<div class="o" id="o-${c}"></div>${delBtn(c)}</div>`}).join('')}</div>
+      <button class="add" data-add="${b}.ings">${L.add_ing}</button>
       <div class="res" id="o-${b}-res"></div>
-      <div class="actions"><button class="btn" data-del="${b}">Удалить часть</button></div>
+      <div class="actions"><button class="btn" data-del="${b}">${L.del_part}</button></div>
     </div></details>`}).join('');
   $('g-example').hidden=!S.g.example;
   // recalc
@@ -459,10 +472,10 @@ function render(){
   $('rc-form').hidden=$('rc-form-actions').hidden=S.rc.mode!=='form';$('rc-portions').hidden=S.rc.mode!=='portions';$('rc-k').hidden=S.rc.mode!=='k';
   $('rc-from').innerHTML=shapeFields('rc.from',true);$('rc-to').innerHTML=shapeFields('rc.to',true);
   $('rc-ings').innerHTML=S.rc.ings.map((r,i)=>{const b=`rc.ings.${i}`;return `<div class="r rec">
-    <div class="n">${inp(b+'.n',{text:1,ph:'Название',al:'Ингредиент'})}</div>${lab('g','Было, г',inp(b+'.g',{al:'Граммов было',gram:1}))}<div class="o" id="o-${b}"></div>${delBtn(b)}</div>`}).join('');
+    <div class="n">${inp(b+'.n',{text:1,ph:L.ph_name,al:L.col_ing})}</div>${lab('g',L.col_was,inp(b+'.g',{al:L.al_was_g,gram:1}))}<div class="o" id="o-${b}"></div>${delBtn(b)}</div>`}).join('');
   // cover
   $('cv-dims').innerHTML=shapeFields('cv',false);
-  $('cv-preset').innerHTML=[['Крем-чиз',0.7],['Ганаш',0.75],['Масляный крем',0.6],['«Голый» торт',0.25]].map(([l,v])=>`<button data-cvr="${v}">${l}</button>`).join('');
+  $('cv-preset').innerHTML=[[L.cv_cream_cheese,0.7],[L.cv_ganache,0.75],[L.cv_butter,0.6],[L.cv_naked,0.25]].map(([l,v])=>`<button data-cvr="${v}">${esc(l)}</button>`).join('');
   document.querySelectorAll('[data-shape]').forEach(seg=>{const o=get(seg.dataset.shape);
     seg.innerHTML=Object.entries(SHAPES).map(([k,l])=>`<button data-sh="${k}" aria-pressed="${o.shape===k}">${l}</button>`).join('')});
   // static bound fields
@@ -486,8 +499,8 @@ $('clear-cost').onclick=()=>{
   Object.assign(S.cost,{example:false,hours:'',weight:'',portions:'',ings:[{n:'',p:'',w:'',u:''}],extras:[]});save();render();
 };
 async function copyText(txt,msgEl,taEl){
-  try{await navigator.clipboard.writeText(txt);msgEl.textContent='Скопировано';msgEl.hidden=false;taEl.hidden=true}
-  catch(e){taEl.value=txt;taEl.hidden=false;taEl.select();msgEl.textContent='Выделите и скопируйте текст ниже';msgEl.hidden=false}
+  try{await navigator.clipboard.writeText(txt);msgEl.textContent=L.copied;msgEl.hidden=false;taEl.hidden=true}
+  catch(e){taEl.value=txt;taEl.hidden=false;taEl.select();msgEl.textContent=L.copy_manual;msgEl.hidden=false}
 }
 
 /* ---------- calc ---------- */
@@ -497,14 +510,14 @@ function calcCost(){
   c.ings.forEach((r,i)=>{const w=num(r.w),v=w>0?num(r.p)/w*num(r.u):0;ing+=v;g+=num(r.u);const o=$(`o-cost.ings.${i}`);if(o)o.textContent=money(v)});
   const ex=c.extras.reduce((s,r)=>s+num(r.p),0),over=ing*num(c.over)/100,labor=num(c.hours)*num(c.rate);
   const cost=ing+over+ex+labor,price=cost*(1+num(c.markup)/100),w=num(c.weight)||g,por=num(c.portions);
-  $('f-cost-weight').placeholder=g?`авто: ${fmt(g,0)}`:'авто';
+  $('f-cost-weight').placeholder=g?`${L.auto}: ${fmt(g,0)}`:L.auto;
   $('o-c-ings').textContent=money(ing);$('o-c-over').textContent=money(over);$('o-c-extras').textContent=money(ex);$('o-c-labor').textContent=money(labor);
   $('o-c-cost').textContent=money(cost);$('o-c-price').textContent=money(price);$('o-c-profit').textContent=money(price-cost);
-  $('o-c-cap').textContent=w?`за торт весом ${grams(w)}`:'';
+  $('o-c-cap').textContent=w?T(L.for_cake,{w:grams(w)}):'';
   $('o-c-kg').textContent=w?money(price/w*1000):'—';$('o-c-portion').textContent=por?money(price/por):'—';
   $('o-rate-help').textContent=num(c.wantHours)?money(num(c.wantIncome)/num(c.wantHours)):'—';
   document.querySelectorAll('[data-mk]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.mk===num(c.markup)));
-  MB.cost={l:'Цена клиенту',v:money(price),s:`прибыль ${money(price-cost)}`};
+  MB.cost={l:L.s_price,v:money(price),s:T(L.profit_x,{v:money(price-cost)})};
 }
 function calcGuests(){
   const G=S.g,W=num(G.guests)*num(G.portion);let pctSum=0,rows='',tiles='';
@@ -512,20 +525,20 @@ function calcGuests(){
     const b=`g.parts.${i}`,need=W*num(pt.pct)/100,sh=Math.min(num(pt.shrink),95)/100,raw=need/(1-sh);
     const sum=pt.ings.reduce((s,r)=>s+num(r.g),0),k=sum?raw/sum:0;pctSum+=num(pt.pct);
     pt.ings.forEach((r,j)=>{const o=$(`o-${b}.ings.${j}`);if(o)o.textContent=num(r.g)?'≈ '+fmt(num(r.g)*k,1):'—'});
-    const t=$(`o-${b}-title`);if(t)t.textContent=pt.n||'Без названия';
+    const t=$(`o-${b}-title`);if(t)t.textContent=pt.n||L.untitled;
     $(`o-${b}-pct`)&&($(`o-${b}-pct`).textContent=fmt(num(pt.pct))+'%');$(`o-${b}-need`)&&($(`o-${b}-need`).textContent=grams(need));
     const res=$(`o-${b}-res`);
-    if(res)res.innerHTML=!sum?'<span class="note">Добавьте ингредиенты исходного рецепта — пересчитаем каждое количество под нужный вес.</span>':
-      sh>0?`<div>В исходном рецепте: <b>${fmt(sum)} г</b> теста → примерно <b>${fmt(sum*(1-sh))} г</b> после выпечки.</div><div>До выпечки нужно около <b>${fmt(raw)} г</b> теста, чтобы получить примерно <b>${fmt(need)} г</b> готового.</div><div>Коэффициент рецепта: <b>×${fmt(k,2)}</b></div>`
-      :`<div>В исходном рецепте: <b>${fmt(sum)} г</b>. Нужно <b>${fmt(need)} г</b>.</div><div>Коэффициент рецепта: <b>×${fmt(k,2)}</b></div>`;
+    if(res)res.innerHTML=!sum?`<span class="note">${L.res_empty}</span>`:
+      sh>0?`<div>${T(L.res_dough,{sum:gr(sum),after:gr(sum*(1-sh))})}</div><div>${T(L.res_before,{raw:gr(raw),need:gr(need)})}</div><div>${L.res_k} <b>×${fmt(k,2)}</b></div>`
+      :`<div>${T(L.res_plain,{sum:gr(sum),need:gr(need)})}</div><div>${L.res_k} <b>×${fmt(k,2)}</b></div>`;
     rows+=`<div class="row"><span>${esc(pt.n)} · ${fmt(num(pt.pct))}%</span><b>${grams(need)}</b></div>`;
     tiles+=`<div class="ptile"><div class="t">${esc(pt.n)}</div><div class="v">${fmt(num(pt.pct))}%</div><div class="t">${grams(need)}</div></div>`;
   });
   $('g-tiles').innerHTML=tiles;$('o-g-rows').innerHTML=rows;
-  const pw=$('pct-warn');pw.hidden=Math.abs(pctSum-100)<0.01;pw.textContent=`Сумма долей ${fmt(pctSum)}%, а должно быть 100%`;
-  $('o-g-weight').textContent=grams(W);$('o-g-cap').textContent=`${fmt(num(G.guests),0)} × ${fmt(num(G.portion),0)} г = ${fmt(W,0)} г`;
+  const pw=$('pct-warn');pw.hidden=Math.abs(pctSum-100)<0.01;pw.textContent=T(L.pct_warn,{sum:fmt(pctSum)});
+  $('o-g-weight').textContent=grams(W);$('o-g-cap').textContent=`${fmt(num(G.guests),0)} × ${fmt(num(G.portion),0)} ${L.g} = ${fmt(W,0)} ${L.g}`;
   document.querySelectorAll('[data-pt]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.pt===num(G.portion)));
-  MB.guests={l:'Нужно торта',v:grams(W),s:`${fmt(num(G.guests),0)} гостей × ${fmt(num(G.portion),0)} г`};
+  MB.guests={l:L.need_h,v:grams(W),s:T(L.guests_x,{n:fmt(num(G.guests),0),p:fmt(num(G.portion),0)+' '+L.g})};
 }
 function rcK(){const r=S.rc;
   if(r.mode==='form'){const v1=area(r.from)*num(r.from.h)*(num(r.from.n)||1),v2=area(r.to)*num(r.to.h)*(num(r.to.n)||1);return v1?v2/v1:0}
@@ -534,20 +547,22 @@ function calcRc(){
   const r=S.rc,k=rcK();let s1=0,s2=0;
   r.ings.forEach((x,i)=>{const g=num(x.g),n=g*k;s1+=g;s2+=n;const o=$(`o-rc.ings.${i}`);if(o)o.textContent=g?'≈ '+fmt(n,1):'—'});
   $('o-rc-k').textContent='× '+fmt(k,3);$('o-rc-s1').textContent=grams(s1);$('o-rc-s2').textContent=grams(s2);
-  $('rc-explain').textContent=r.mode==='form'?`${shapeLabel(r.from)} см → ${shapeLabel(r.to)} см. Площадь ${fmt(area(r.from),0)} → ${fmt(area(r.to),0)} см². Коэффициент — отношение объёмов с учётом высоты и числа форм. Большую форму пекут дольше и на 10–15 °C ниже.`
-    :r.mode==='portions'?'Коэффициент = нужно порций ÷ порций в рецепте.':'Все граммовки умножаются на это число.';
-  MB.recalc={l:'Коэффициент',v:'× '+fmt(k,3),s:grams(s2)};
+  $('rc-explain').textContent=r.mode==='form'
+    ?T(L.rc_form,{from:shapeLabel(r.from)+' '+L.cm,to:shapeLabel(r.to)+' '+L.cm,a1:fmt(area(r.from),0)+' '+L.cm2,a2:fmt(area(r.to),0)+' '+L.cm2})
+    :r.mode==='portions'?L.rc_portions:L.rc_k_note;
+  MB.recalc={l:L.k_h,v:'× '+fmt(k,3),s:grams(s2)};
 }
 function calcCover(){
   const c=S.cv,h=num(c.h),top=area(c),side=perim(c)*h,rate=num(c.rate),res=1+num(c.res)/100;
   const tg=top*rate*res,sg=side*rate*res,total=tg+sg;
-  $('o-cv').textContent='≈ '+fmt(total,0)+' г';$('o-cv-cap').textContent=`торт ${shapeLabel(c)} × ${fmt(h)} см`;
-  $('o-cv-top').textContent=grams(tg);$('o-cv-side').textContent=grams(sg);$('o-cv-area').textContent=fmt(top+side,0)+' см²';
+  $('o-cv').textContent='≈ '+fmt(total,0)+' '+L.g;$('o-cv-cap').textContent=T(L.cv_cap,{shape:shapeLabel(c),h:fmt(h)+' '+L.cm});
+  $('o-cv-top').textContent=grams(tg);$('o-cv-side').textContent=grams(sg);$('o-cv-area').textContent=fmt(top+side,0)+' '+L.cm2;
+  const resPart=res!==1?' × '+fmt(res,2):'';
   $('o-cv-formula').textContent=c.shape==='round'
-    ?`Расчёт: π × ${fmt(num(c.d))} × (${fmt(h)} + ${fmt(num(c.d))} ÷ 4) × ${fmt(rate,2)}${res!==1?' × '+fmt(res,2):''} ≈ ${fmt(total,0)} г`
-    :`Расчёт: (верх ${fmt(top,0)} + бока ${fmt(side,0)} см²) × ${fmt(rate,2)}${res!==1?' × '+fmt(res,2):''} ≈ ${fmt(total,0)} г`;
+    ?`${L.calc_label}: π × ${fmt(num(c.d))} × (${fmt(h)} + ${fmt(num(c.d))} ÷ 4) × ${fmt(rate,2)}${resPart} ≈ ${fmt(total,0)} ${L.g}`
+    :`${L.calc_label}: (${L.top_w} ${fmt(top,0)} + ${L.side_w} ${fmt(side,0)} ${L.cm2}) × ${fmt(rate,2)}${resPart} ≈ ${fmt(total,0)} ${L.g}`;
   document.querySelectorAll('[data-cvr]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.cvr===rate));
-  MB.cover={l:'Ориентир на покрытие',v:'≈ '+fmt(total,0)+' г',s:`${shapeLabel(c)} × ${fmt(h)} см`};
+  MB.cover={l:L.cv_est,v:'≈ '+fmt(total,0)+' '+L.g,s:`${shapeLabel(c)} × ${fmt(h)} ${L.cm}`};
 }
 /* Валидация граммовых полей (data-gram): пусто — ок (поле ещё не заполнено),
    иначе число должно быть в диапазоне 0,1–100 000 г. Подсветка поля + подсказка
@@ -566,9 +581,9 @@ function validateGrams(){
 function calc(){calcCost();calcGuests();calcRc();calcCover();validateGrams();const m=MB[S.tab]||MB.cost;$('mb-l').textContent=m.l;$('mb-v').textContent=m.v;$('mb-s').textContent=m.s}
 $('g-copy').onclick=()=>{
   const W=num(S.g.guests)*num(S.g.portion);
-  const txt=[`Торт ${grams(W)} (${fmt(num(S.g.guests),0)} гостей × ${fmt(num(S.g.portion),0)} г)`].concat(S.g.parts.map(pt=>{
+  const txt=[T(L.copy_head,{w:grams(W),n:fmt(num(S.g.guests),0),p:fmt(num(S.g.portion),0)+' '+L.g})].concat(S.g.parts.map(pt=>{
     const need=W*num(pt.pct)/100,raw=need/(1-Math.min(num(pt.shrink),95)/100),sum=pt.ings.reduce((s,r)=>s+num(r.g),0),k=sum?raw/sum:0;
-    return `\n${pt.n} — ${grams(need)}\n`+pt.ings.filter(r=>r.n||r.g).map(r=>`  ${r.n||'—'}: ${fmt(num(r.g)*k,1)} г`).join('\n')})).join('\n');
+    return `\n${pt.n} — ${grams(need)}\n`+pt.ings.filter(r=>r.n||r.g).map(r=>`  ${r.n||'—'}: ${fmt(num(r.g)*k,1)} ${L.g}`).join('\n')})).join('\n');
   copyText(txt,$('g-copied'),$('g-text'));
 };
 render();showTab(S.tab);

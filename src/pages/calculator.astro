@@ -1,25 +1,6 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import SiteHeader from '../components/SiteHeader.astro';
-import SiteFooter from '../components/SiteFooter.astro';
-import Calculator from '../components/Calculator.astro';
-
-// Лид-магнит: бесплатный кондитерский калькулятор на /calculator.
-// Пока одна русская версия (перевод на uk/pl — отдельным шагом).
-// hreflang ограничен uk, чтобы альтернаты указывали на реальный /calculator/,
-// а не на несуществующие /ru/calculator/ и т.п.
-const lang = 'ru' as const;
+// Лид-магнит: бесплатный кондитерский калькулятор. Корень — украинская версия
+// (как везде на сайте: uk без префикса), остальные — /{lang}/calculator/.
+import CalculatorPage from '../components/CalculatorPage.astro';
 ---
-
-<Layout
-  title="Калькулятор себестоимости торта — цена, вес на гостей, пересчёт | TROUBLEBABA"
-  description="Бесплатный кондитерский калькулятор: себестоимость и цена торта, вес на количество гостей, пересчёт рецепта под другую форму и расход крема на покрытие. Данные сохраняются в браузере."
-  lang={lang}
-  path="calculator"
-  pageType="content"
-  hreflangLangs={['uk']}
->
-  <SiteHeader lang={lang} />
-  <Calculator />
-  <SiteFooter lang={lang} />
-</Layout>
+<CalculatorPage lang="uk" />

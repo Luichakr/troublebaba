@@ -1,0 +1,13 @@
+---
+import CalculatorPage from '../../components/CalculatorPage.astro';
+
+type Lang = 'ru' | 'pl' | 'en' | 'es' | 'de' | 'fr' | 'it' | 'pt';
+
+export function getStaticPaths() {
+  const langs: Lang[] = ['ru', 'pl', 'en', 'es', 'de', 'fr', 'it', 'pt'];
+  return langs.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Lang };
+---
+<CalculatorPage lang={lang} />

@@ -1,0 +1,20 @@
+---
+// Страница калькулятора: /calculator/ (uk) и /{lang}/calculator/ (остальные 8).
+// Обе страницы отдают сюда только язык; мета и строки — из src/i18n/calculator.js.
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from './SiteHeader.astro';
+import SiteFooter from './SiteFooter.astro';
+import Calculator from './Calculator.astro';
+import { CALC } from '../i18n/calculator.js';
+
+type Lang = 'uk' | 'ru' | 'pl' | 'en' | 'es' | 'de' | 'fr' | 'it' | 'pt';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = CALC[lang];
+const path = lang === 'uk' ? 'calculator' : `${lang}/calculator`;
+---
+<Layout title={c.meta_title} description={c.meta_desc} lang={lang} path={path} pageType="content">
+  <SiteHeader lang={lang} />
+  <Calculator lang={lang} />
+  <SiteFooter lang={lang} />
+</Layout>
