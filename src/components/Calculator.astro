@@ -225,9 +225,9 @@
 
 <style is:global>
 #pastry-calc{
-  --bg:#F5EFE8; --surface:#FDFAF6; --ink:#1A1A1A; --muted:#857567; --line:#E3D7C6;
-  --accent:#8B7355; --accent-ink:#6E5C43; --accent-soft:#EFE6DA;
-  --alt:#6E5C43; --alt-soft:#E7DBCB; --warn:#B26B00;
+  --bg:var(--color-cream); --surface:var(--color-warm-white); --ink:var(--color-espresso); --muted:#857567; --line:#E3D7C6;
+  --accent:var(--color-mocha); --accent-ink:var(--color-mocha-dark); --accent-soft:var(--color-surface);
+  --alt:var(--color-mocha-dark); --alt-soft:#E7DBCB; --warn:#B26B00;
   --display:"Playfair Display", serif;
   --body:"Manrope", sans-serif;
   display:block;color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
@@ -346,7 +346,7 @@
 @media (max-width:860px){
   #pastry-calc{padding-bottom:110px}
   .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;justify-content:space-between;align-items:center;gap:12px;
-    background:#8B7355;color:#fff;font-family:"Manrope",sans-serif;padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));
+    background:var(--color-mocha);color:#fff;font-family:"Manrope",sans-serif;padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));
     padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
   .mbar .l{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
   .mbar .v{font-family:"Manrope",sans-serif;font-weight:700;letter-spacing:-0.015em;font-size:1.5rem;line-height:1.1;font-variant-numeric:tabular-nums lining-nums}

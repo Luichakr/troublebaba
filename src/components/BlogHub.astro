@@ -39,7 +39,7 @@ const socialPills = [
 ] as const;
 ---
 <SiteHeader lang={lang} />
-<main class="min-h-[100dvh] pt-[68px] lg:pt-[72px]" style="background:#F5EFE8;">
+<main class="min-h-[100dvh] pt-[68px] lg:pt-[72px]" style="background:var(--color-cream);">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-16 py-12 lg:py-20">
 
     <a href={homeUrl} class="inline-flex items-center gap-2 font-outfit text-mocha-dark hover:text-mocha-dark transition-colors text-sm mb-10">
@@ -129,7 +129,7 @@ const socialPills = [
                 : raw;
               const inner = thumb
                 ? '<img src="' + esc(thumb) + '" alt="' + esc(s.title) + '" width="200" height="356" loading="lazy" decoding="async" referrerpolicy="no-referrer" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display=\'none\'"/>'
-                : '<span class="absolute inset-0 flex items-center justify-center" style="background:linear-gradient(135deg,#C8B8A2,#8B7355);"></span>';
+                : '<span class="absolute inset-0 flex items-center justify-center" style="background:linear-gradient(135deg,var(--color-taupe),var(--color-mocha));"></span>';
               return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer"' +
                 ' class="relative block rounded-md overflow-hidden bg-espresso/5 hover:-translate-y-0.5 transition-transform duration-300"' +
                 ' style="aspect-ratio:9/16;" title="' + esc(s.title) + '">' +

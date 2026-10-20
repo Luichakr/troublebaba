@@ -14,7 +14,7 @@ const tr = (t as any)[lang];
 const langPrefix = lang === 'uk' ? '' : '/' + lang;
 ---
 
-<section class="min-h-[100dvh] py-14 lg:py-20" style="background:#F5EFE8;" data-shorts-archive>
+<section class="min-h-[100dvh] py-14 lg:py-20" style="background:var(--color-cream);" data-shorts-archive>
   <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
 
     <!-- Breadcrumb -->
@@ -88,7 +88,7 @@ const langPrefix = lang === 'uk' ? '' : '/' + lang;
             : (s.thumbnail || '');
           var imgOrFallback = thumb
             ? '<img src="' + escape(thumb) + '" alt="' + escape(s.title) + '" width="360" height="640" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"/>'
-            : '<span class="absolute inset-0 flex items-center justify-center" style="background:linear-gradient(135deg,#C8B8A2,#8B7355);"><span class="font-cabinet text-warm-white/90 text-sm px-4 text-center">' + escape(s.title || platform) + '</span></span>';
+            : '<span class="absolute inset-0 flex items-center justify-center" style="background:linear-gradient(135deg,var(--color-taupe),var(--color-mocha));"><span class="font-cabinet text-warm-white/90 text-sm px-4 text-center">' + escape(s.title || platform) + '</span></span>';
           return '<a href="' + escape(s.url) + '" target="_blank" rel="noopener noreferrer"' +
             ' data-analytics="shorts_thumb_click" data-platform="' + escape(platform) + '" data-location="shorts_archive"' +
             ' class="group block rounded-xl overflow-hidden relative bg-espresso/5 hover:-translate-y-1 transition-transform duration-300"' +

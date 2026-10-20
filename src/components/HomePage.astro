@@ -611,7 +611,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
                   <path d="M9 8 Q9 3 14 3 L26 3 Q31 3 31 8 L31 42 Q31 52 21 52 Q11 52 11 42 L11 16 Q11 11 16 11 L24 11 Q29 11 29 16 L29 38 Q29 44 23 44 Q17 44 17 38 L17 20"
                     stroke="#fff" stroke-width="0.6" stroke-linecap="round" fill="none" opacity="0.5"/>
                 </svg>
-                <div class="bg-[#EFE6DA] rounded-[10px] px-6 py-5 min-w-[200px]" style="background:linear-gradient(160deg,#F5EFE8 0%,#EFE6DA 100%);">
+                <div class="bg-[#EFE6DA] rounded-[10px] px-6 py-5 min-w-[200px]" style="background:linear-gradient(160deg,var(--color-cream) 0%,var(--color-surface) 100%);">
                   <p class="font-signature text-espresso mb-3" style="font-size:2rem;">{tr.author_name} <span style="font-size:1.3rem;">♡</span></p>
                   <div class="h-px bg-mocha/25 mb-3"></div>
                   <p class="font-outfit text-[11px] font-bold uppercase tracking-[0.15em] text-espresso/65 mb-1">{tr.author_tag_role}</p>
@@ -1088,7 +1088,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
        blog. Merged into a single editorial block: one lead article plus a 2×2
        grid, matching the reference layout.) ── -->
   {hubLead && (
-  <section id="blog-hub" class="relative py-16 lg:py-24 overflow-hidden" style="background:#F5EFE8;" aria-labelledby="blog-hub-title">
+  <section id="blog-hub" class="relative py-16 lg:py-24 overflow-hidden" style="background:var(--color-cream);" aria-labelledby="blog-hub-title">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-16">
 
       <!-- Heading -->
@@ -1108,7 +1108,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
                  class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
           </div>
           <div class="p-6 lg:p-8 flex flex-col justify-center">
-            <span class="inline-flex items-center gap-1.5 self-start rounded-full px-3 py-1.5 mb-4 font-outfit text-[10.5px] font-bold uppercase tracking-[0.12em] text-mocha-dark" style="background:#F5EFE8;">
+            <span class="inline-flex items-center gap-1.5 self-start rounded-full px-3 py-1.5 mb-4 font-outfit text-[10.5px] font-bold uppercase tracking-[0.12em] text-mocha-dark" style="background:var(--color-cream);">
               <Icon name="ph:star-fill" aria-hidden="true" class="w-[11px] h-[11px]" />
               {tr.hub_popular}
             </span>
@@ -1495,7 +1495,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
 
             <a href={isUk ? "/#price" : "/" + lang + "/#price"} data-checkout-trigger="1" data-buy-source="price"
               class="flex items-center justify-center gap-2 w-full text-warm-white font-outfit font-semibold text-base py-[17px] rounded-2xl transition-colors btn-pulse mb-3"
-              style="background:#6E5C43;box-shadow:0 8px 24px rgba(139,115,85,0.35);">
+              style="background:var(--color-mocha-dark);box-shadow:0 8px 24px rgba(139,115,85,0.35);">
               <span data-geo-price="price-cta">{tr.price_cta}</span>
             </a>
 
@@ -1576,7 +1576,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
 
 
   <!-- ── FAQ ── -->
-  <section id="faq" class="py-24 lg:py-32" style="background:#F5EFE8;">
+  <section id="faq" class="py-24 lg:py-32" style="background:var(--color-cream);">
     <div class="max-w-[1440px] mx-auto px-6 lg:px-16">
 
       <div class="reveal mb-10 max-w-2xl">
@@ -1612,7 +1612,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
                   </button>
                 </h3>
                 <div class="faq-content" id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`}>
-                  <div class="mx-7 mb-4 px-5 py-4 rounded-2xl" style="background:#EFE6DA;">
+                  <div class="mx-7 mb-4 px-5 py-4 rounded-2xl" style="background:var(--color-surface);">
                     <p class="font-outfit text-espresso/65 text-[0.9rem] leading-relaxed whitespace-pre-line">{faq.a}</p>
                   </div>
                 </div>
@@ -1665,7 +1665,7 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
             </div>
 
             <div class="relative flex-1 min-h-[240px] overflow-hidden">
-              <div class="absolute inset-x-0 top-0 h-16 z-10 pointer-events-none" style="background:linear-gradient(180deg,#FDFAF6 0%,rgba(253,250,246,0.85) 30%,rgba(253,250,246,0) 100%);"></div>
+              <div class="absolute inset-x-0 top-0 h-16 z-10 pointer-events-none" style="background:linear-gradient(180deg,var(--color-warm-white) 0%,rgba(253,250,246,0.85) 30%,rgba(253,250,246,0) 100%);"></div>
               <div class="img-skeleton absolute inset-0 w-full h-full">
                 <div class="absolute inset-0 flex flex-col items-center justify-center gap-1.5 pointer-events-none">
                   <Icon name="ph:camera" class="w-[28px] h-[28px]" />
@@ -1698,10 +1698,10 @@ const REVIEWS_INITIAL = 9; // shown before "show more"
   </section>
 
   <!-- ── FINAL CTA ── -->
-  <section class="py-12 lg:py-20" style="background:#F5EFE8;">
+  <section class="py-12 lg:py-20" style="background:var(--color-cream);">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-16">
       <div class="reveal rounded-[1.5rem] lg:rounded-[2rem] overflow-hidden"
-        style="background:linear-gradient(120deg, #2e2219 0%, #241a13 40%, #1A1A1A 100%); box-shadow:0 32px 80px rgba(26,26,26,0.28);">
+        style="background:linear-gradient(120deg, #2e2219 0%, #241a13 40%, var(--color-espresso) 100%); box-shadow:0 32px 80px rgba(26,26,26,0.28);">
         <div class="grid lg:grid-cols-[42%_minmax(0,1fr)] items-center">
 
           <div class="relative overflow-hidden min-h-[380px] lg:min-h-[560px] h-full">
