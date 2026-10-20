@@ -70,11 +70,11 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
     </nav>
     <div class="flex items-center gap-3 flex-shrink-0">
       <div class="relative hidden sm:block" id="lang-dropdown-wrap">
-        <button id="lang-dropdown-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Choose language" class="min-h-[44px] flex items-center gap-1.5 font-outfit font-semibold text-[13px] tracking-[0.12em] uppercase text-espresso/70 hover:text-espresso transition-colors px-4 py-2.5 rounded-full border border-taupe/40 hover:border-taupe/60">
+        <button id="lang-dropdown-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label={tr.a11y_choose_language} class="min-h-[44px] flex items-center gap-1.5 font-outfit font-semibold text-[13px] tracking-[0.12em] uppercase text-espresso/70 hover:text-espresso transition-colors px-4 py-2.5 rounded-full border border-taupe/40 hover:border-taupe/60">
           <span id="lang-label">{currentLangLabel}</span>
           <Icon name="ph:caret-down" id="lang-chevron" class="transition-transform duration-200 w-[11px] h-[7px]" />
         </button>
-        <div id="lang-menu" role="listbox" aria-label="Languages" class="hidden absolute right-0 top-full mt-2 bg-warm-white border border-taupe/25 rounded-2xl shadow-xl overflow-hidden min-w-[150px] z-50" style="box-shadow:0 12px 40px rgba(139,115,85,0.18);">
+        <div id="lang-menu" role="listbox" aria-label={tr.a11y_languages} class="hidden absolute right-0 top-full mt-2 bg-warm-white border border-taupe/25 rounded-2xl shadow-xl overflow-hidden min-w-[150px] z-50" style="box-shadow:0 12px 40px rgba(139,115,85,0.18);">
           {LANGS.map(x => (
             <a href={langUrl(x.c)} role="option" aria-label={x.full} aria-current={x.c === lang ? 'page' : undefined} class={`lang-btn w-full flex items-center justify-between px-4 py-3 font-outfit text-sm transition-colors ${x.c === lang ? 'bg-surface text-espresso' : 'text-espresso/70 hover:bg-surface hover:text-espresso'}`}>
               <span class="font-medium">{x.full}</span>
@@ -87,12 +87,12 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
          class="min-h-[44px] flex items-center gap-1.5 bg-mocha text-warm-white font-outfit font-semibold text-[11.5px] lg:text-[13px] px-3 lg:px-5 py-2 lg:py-2.5 rounded-full hover:bg-mocha-dark transition-colors whitespace-nowrap">
         <span data-geo-price="nav">{tr.nav_buy}</span>
       </a>
-      <button id="mobile-menu-btn" type="button" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden w-11 h-11 rounded-full flex items-center justify-center text-espresso hover:bg-taupe/15 transition-colors flex-shrink-0" aria-label="Menu">
+      <button id="mobile-menu-btn" type="button" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden w-11 h-11 rounded-full flex items-center justify-center text-espresso hover:bg-taupe/15 transition-colors flex-shrink-0" aria-label={tr.a11y_menu}>
         <Icon name="ph:list" class="w-[18px] h-[13px]" />
       </button>
     </div>
   </div>
-  <div id="mobile-menu" role="menu" aria-label="Main menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-warm-white border-b border-taupe/20" style="box-shadow:0 12px 32px rgba(139,115,85,0.15);">
+  <div id="mobile-menu" role="menu" aria-label={tr.a11y_menu_main} class="hidden md:hidden absolute top-full left-0 right-0 bg-warm-white border-b border-taupe/20" style="box-shadow:0 12px 32px rgba(139,115,85,0.15);">
     <div class="px-6 py-4 flex flex-col gap-1">
       <a href={anchor('recipes')} class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 transition-colors mobile-menu-link">{tr.nav_recipes}</a>
       <a href={anchor('about')}   class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 transition-colors mobile-menu-link">{tr.nav_author}</a>

@@ -58,13 +58,22 @@ export const meta = {
 
 // Re-export site config so existing imports keep working.
 // Single source of truth is src/config/site.js — edit constants there.
-export { SITE, BONUS_TOTAL, BONUS_REMAINING, LOCALES, canonicalFor } from '../config/site.js';
+export { SITE, LOCALES, canonicalFor } from '../config/site.js';
 import { SITE } from '../config/site.js';
 export const SITE_URL = SITE.url;
 
 export const t = {
   uk: {
     bestseller: 'Бестселер',
+    // a11y labels
+    a11y_choose_language: 'Вибрати мову',
+    a11y_languages: 'Мови',
+    a11y_menu: 'Меню',
+    a11y_menu_main: 'Головне меню',
+    a11y_breadcrumb: 'Навігація',
+    preview_close: 'Закрити',
+    preview_prev: 'Попереднє',
+    preview_next: 'Наступне',
     // Nav
     nav_recipes:  'Рецепти',
     nav_author:   'Про автора',
@@ -519,6 +528,15 @@ testi_more:  'Показати всі відгуки',
 
   ru: {
     bestseller: 'Бестселлер',
+    // a11y labels
+    a11y_choose_language: 'Выбрать язык',
+    a11y_languages: 'Языки',
+    a11y_menu: 'Меню',
+    a11y_menu_main: 'Главное меню',
+    a11y_breadcrumb: 'Навигация',
+    preview_close: 'Закрыть',
+    preview_prev: 'Предыдущее',
+    preview_next: 'Следующее',
     nav_recipes:  'Рецепты',
     nav_author:   'Об авторе',
     nav_price:    'Цена',
@@ -933,6 +951,15 @@ testi_more:  'Показать все отзывы',
 
   pl: {
     bestseller: 'Bestseller',
+    // a11y labels
+    a11y_choose_language: 'Wybierz język',
+    a11y_languages: 'Języki',
+    a11y_menu: 'Menu',
+    a11y_menu_main: 'Menu główne',
+    a11y_breadcrumb: 'Nawigacja',
+    preview_close: 'Zamknij',
+    preview_prev: 'Poprzednie',
+    preview_next: 'Następne',
     nav_recipes:  'Przepisy',
     nav_author:   'O autorce',
     nav_price:    'Cena',
@@ -1350,6 +1377,15 @@ testi_more:  'Pokaż wszystkie opinie',
 
   en: {
     bestseller: 'Bestseller',
+    // a11y labels
+    a11y_choose_language: 'Choose language',
+    a11y_languages: 'Languages',
+    a11y_menu: 'Menu',
+    a11y_menu_main: 'Main menu',
+    a11y_breadcrumb: 'Breadcrumb',
+    preview_close: 'Close',
+    preview_prev: 'Previous',
+    preview_next: 'Next',
     nav_recipes:  'Recipes',
     nav_author:   'About',
     nav_price:    'Price',
@@ -1764,7 +1800,16 @@ testi_more:  'Show all reviews',
     notify_cta_short:   'Remind me',
   },
   es: {
-    bestseller: 'M�s vendido',
+    bestseller: 'Más vendido',
+    // a11y labels
+    a11y_choose_language: 'Elegir idioma',
+    a11y_languages: 'Idiomas',
+    a11y_menu: 'Menú',
+    a11y_menu_main: 'Menú principal',
+    a11y_breadcrumb: 'Navegación',
+    preview_close: 'Cerrar',
+    preview_prev: 'Anterior',
+    preview_next: 'Siguiente',
     nav_recipes:  'Recetas',
     nav_author:   'Sobre mí',
     nav_price:    'Precio',
@@ -2180,6 +2225,15 @@ testi_more:  'Ver todas las opiniones',
   },
   de: {
     bestseller: 'Bestseller',
+    // a11y labels
+    a11y_choose_language: 'Sprache wählen',
+    a11y_languages: 'Sprachen',
+    a11y_menu: 'Menü',
+    a11y_menu_main: 'Hauptmenü',
+    a11y_breadcrumb: 'Brotkrümel',
+    preview_close: 'Schließen',
+    preview_prev: 'Zurück',
+    preview_next: 'Weiter',
     nav_recipes:  'Rezepte',
     nav_author:   'Über mich',
     nav_price:    'Preis',
@@ -2595,6 +2649,15 @@ testi_more:  'Alle Bewertungen anzeigen',
   },
   fr: {
     bestseller: 'Best-seller',
+    // a11y labels
+    a11y_choose_language: 'Choisir la langue',
+    a11y_languages: 'Langues',
+    a11y_menu: 'Menu',
+    a11y_menu_main: 'Menu principal',
+    a11y_breadcrumb: 'Fil d’Ariane',
+    preview_close: 'Fermer',
+    preview_prev: 'Précédent',
+    preview_next: 'Suivant',
     nav_recipes:  'Recettes',
     nav_author:   'À propos',
     nav_price:    'Prix',
@@ -3009,7 +3072,16 @@ testi_more:  'Voir tous les avis',
     notify_cta_short:   'Me rappeler',
   },
   it: {
-    bestseller: 'Pi� venduto',
+    bestseller: 'Più venduto',
+    // a11y labels
+    a11y_choose_language: 'Scegli lingua',
+    a11y_languages: 'Lingue',
+    a11y_menu: 'Menu',
+    a11y_menu_main: 'Menu principale',
+    a11y_breadcrumb: 'Navigazione',
+    preview_close: 'Chiudi',
+    preview_prev: 'Precedente',
+    preview_next: 'Successivo',
     nav_recipes:  'Ricette',
     nav_author:   'Chi sono',
     nav_price:    'Prezzo',
@@ -3425,6 +3497,15 @@ testi_more:  'Mostra tutte le recensioni',
   },
   pt: {
     bestseller: 'Mais vendido',
+    // a11y labels
+    a11y_choose_language: 'Escolher idioma',
+    a11y_languages: 'Idiomas',
+    a11y_menu: 'Menu',
+    a11y_menu_main: 'Menu principal',
+    a11y_breadcrumb: 'Navegação',
+    preview_close: 'Fechar',
+    preview_prev: 'Anterior',
+    preview_next: 'Próximo',
     nav_recipes:  'Receitas',
     nav_author:   'Sobre',
     nav_price:    'Preço',

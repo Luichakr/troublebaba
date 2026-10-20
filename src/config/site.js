@@ -213,15 +213,6 @@ export const SITE = {
   gaId: 'G-6JQ23T5RWN',
 };
 
-// === Bonus counter ===
-// BONUS_TOTAL is the launch-bonus slots (first-N promo). The counter is now
-// LIVE: the client fetches /api/bonus/count on load and animates from TOTAL
-// down to (TOTAL − sold). BONUS_REMAINING below is the SSR/no-JS fallback
-// only — real value comes from the endpoint. Server side lives in
-// functions/api/bonus/count.ts (keep TOTAL there in sync).
-export const BONUS_TOTAL     = 50;
-export const BONUS_REMAINING = 50;
-
 // Locale → BCP 47 + OG locale mapping
 export const LOCALES = {
   uk: { html: 'uk',    og: 'uk_UA' },
