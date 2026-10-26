@@ -28,6 +28,9 @@ faq:
 
 Domowa cukiernia ustala cenę «700 hrywien, tak jak sąsiadka», traci pieniądze na każdym torcie i nie rozumie dlaczego. Przyczyna niemal zawsze jest jedna: koszt własny policzony niepełnie. Poniżej z czego się on naprawdę składa, przykład kalkulacji według pozycji, wzór na cenę dla klienta i dwa przeoczenia, które zabijają marżę na starcie.
 
+
+> 🧮 Koszt wygodniej policzyć w [kalkulatorze](/pl/calculator/): wpisujesz swoje ceny produktów, on dodaje pracę, opakowanie i koszty ogólne.
+
 ## Z czego składa się koszt własny tortu bento
 
 Pięć pozycji. Jeśli policzone są tylko pierwsze dwie — cena będzie błędna.

@@ -12,6 +12,9 @@ excerpt: "O custo de um bento cake não é só farinha e creme. Vamos contar a l
 
 A confeiteira caseira coloca o preço "igual ao da vizinha". Perde dinheiro em cada bolo e não entende por quê. Vamos ver do que o custo de produção realmente se compõe. Os valores abaixo estão em hryvnias, UAH (mercado ucraniano) — o que importa é a estrutura do cálculo, que vale para qualquer moeda.
 
+
+> 🧮 O custo fica mais fácil na [calculadora](/pt/calculator/): coloca os preços dos teus ingredientes e ela soma trabalho, embalagem e custos indiretos.
+
 ## O que entra no custo
 
 **Ingredientes.** É para onde todo mundo olha primeiro. Cerca de 100 a 180 UAH por um bento cake médio de 4 a 6 porções, dependendo do sabor — Oreo sai mais barato, pistache com framboesa custa 2 a 2,5 vezes mais.

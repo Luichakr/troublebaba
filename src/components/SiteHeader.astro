@@ -40,6 +40,7 @@ const langUrl  = (l) => {
   return subPath ? base + subPath + '/' : base;
 };
 const blogHref = isUk ? '/blog/' : `/${lang}/blog/`;
+const calcHref = isUk ? '/calculator/' : `/${lang}/calculator/`;
 const anchor   = (id: string) => (isUk ? '/' : `/${lang}/`) + '#' + id;
 
 const LANGS: { c: Lang; l: string; full: string }[] = [
@@ -61,10 +62,11 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
         language switcher stays on the same page — which made the logo on
         /blog/ link to /blog/, i.e. itself. */}
     <a href={lang === 'uk' ? '/' : `/${lang}/`} class="min-h-[44px] font-cabinet text-espresso flex-shrink-0 text-[1.1rem] lg:text-[1.55rem]" style="letter-spacing:0.01em;">TROUBLEBABA</a>
-    <nav class="hidden md:flex items-center gap-10 font-outfit text-[13px] font-semibold tracking-[0.16em] uppercase text-espresso/65">
+    <nav class="hidden md:flex items-center gap-6 lg:gap-9 font-outfit text-[13px] font-semibold tracking-[0.14em] uppercase text-espresso/65">
       <a href={anchor('recipes')} class="hover:text-espresso transition-colors">{tr.nav_recipes}</a>
       <a href={anchor('about')}   class="hover:text-espresso transition-colors">{tr.nav_author}</a>
       <a href={blogHref}          class="hover:text-espresso transition-colors">{tr.nav_blog}</a>
+      <a href={calcHref}          class="hover:text-espresso transition-colors">{tr.nav_calculator}</a>
       <a href={anchor('price')}   class="hover:text-espresso transition-colors">{tr.nav_price}</a>
       <a href={anchor('faq')}     class="hover:text-espresso transition-colors">FAQ</a>
     </nav>
@@ -97,6 +99,7 @@ const currentLangLabel = LANGS.find(x => x.c === lang)?.l ?? 'UKR';
       <a href={anchor('recipes')} class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 transition-colors mobile-menu-link">{tr.nav_recipes}</a>
       <a href={anchor('about')}   class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 transition-colors mobile-menu-link">{tr.nav_author}</a>
       <a href={blogHref}   class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 transition-colors mobile-menu-link">{tr.nav_blog}</a>
+      <a href={calcHref}   class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 transition-colors mobile-menu-link">{tr.nav_calculator}</a>
       <a href={anchor('price')}   class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 transition-colors mobile-menu-link">{tr.nav_price}</a>
       <a href={anchor('faq')}     class="font-outfit font-semibold text-[13px] tracking-[0.14em] uppercase text-espresso/70 hover:text-espresso py-3 border-b border-taupe/10 last:border-b-0 transition-colors mobile-menu-link">FAQ</a>
       <div class="pt-3 mt-2 flex gap-2">

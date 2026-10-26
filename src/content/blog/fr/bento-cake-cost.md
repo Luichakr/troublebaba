@@ -12,6 +12,9 @@ excerpt: "Le coût de revient d'un bento cake, ce n'est pas seulement la farine 
 
 Une pâtissière à domicile fixe son prix « à 300 ₴, comme la voisine » (marché ukrainien). Elle perd de l'argent sur chaque gâteau et ne comprend pas pourquoi. Voyons de quoi se compose réellement le coût de revient.
 
+
+> 🧮 Le coût de revient se calcule plus facilement dans le [calculateur](/fr/calculator/) : saisissez vos prix d'ingrédients, il ajoute le travail, l'emballage et les frais généraux.
+
 ## Ce qui entre dans le coût de revient
 
 **Les ingrédients.** C'est le premier poste que tout le monde regarde. Environ 100-180 ₴ (marché ukrainien) pour un bento cake moyen de 4-6 parts, selon le parfum — l'Oreo revient moins cher, le pistache-framboise coûte 2 à 2,5 fois plus.

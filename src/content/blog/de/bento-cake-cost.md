@@ -12,6 +12,9 @@ excerpt: "Die Selbstkosten einer Bento-Torte sind nicht nur Mehl und Creme. Wir 
 
 Die Heimkonditorin setzt den Preis auf „300 ₴, wie die Nachbarin" (ukrainischer Markt). Sie verliert Geld an jeder Torte und versteht nicht, warum. Schauen wir uns an, woraus sich die Selbstkosten wirklich zusammensetzen.
 
+
+> 🧮 Die Kosten rechnen sich bequemer im [Rechner](/de/calculator/): Zutatenpreise eingeben — er addiert Arbeit, Verpackung und Gemeinkosten.
+
 ## Was in die Selbstkosten gehört
 
 **Zutaten.** Darauf schaut jeder zuerst. Rund 100–180 ₴ für eine mittlere Bento-Torte mit 4–6 Portionen, je nach Geschmacksrichtung – Oreo ist günstiger, Pistazie-Himbeere 2–2,5-mal teurer.

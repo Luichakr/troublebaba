@@ -12,6 +12,9 @@ excerpt: "Il costo di una bento cake non è solo farina e crema. Facciamo l'elen
 
 La pasticcera casalinga mette il prezzo «300 hrn, come la vicina». Perde soldi su ogni torta e non capisce perché. Vediamo da cosa è composto davvero il costo di produzione. Gli esempi sono in hryvnia (mercato ucraino), ma la logica vale con qualsiasi valuta.
 
+
+> 🧮 Il costo si calcola più comodamente nel [calcolatore](/it/calculator/): inserisci i prezzi dei tuoi ingredienti e aggiunge lavoro, confezione e spese generali.
+
 ## Cosa entra nel costo di produzione
 
 **Ingredienti.** È la prima cosa che tutti guardano. Circa 100-180 hrn per una bento cake media da 4-6 porzioni, a seconda del gusto — Oreo costa meno, pistacchio-lampone 2-2,5 volte di più.

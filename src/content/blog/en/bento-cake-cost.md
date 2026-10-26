@@ -25,6 +25,9 @@ Here's the full breakdown, with a worked example.
 
 *Prices below are in euros at mid-2026 European supermarket levels. For US or UK figures, the structure holds — swap in your local ingredient prices and keep the same multipliers.*
 
+
+> 🧮 Easier to work the cost out in our [calculator](/en/calculator/): plug in your ingredient prices — it adds labor, packaging and overhead.
+
 ## What makes up the cost of a bento cake
 
 **1. Ingredients.** The first thing people look at. For an average 12 cm bento, this is roughly **€3 to €6**, and the spread is huge because of the flavour: chocolate and cookie-based ones (Oreo, Snickers) sit at the low end, nut and fruit ones (Pistachio-Raspberry, Raffaello, Ferrero Rocher) at 2–2.5× the low end. Count strictly by the recipe's gram list, not "about a pack of cream cheese."

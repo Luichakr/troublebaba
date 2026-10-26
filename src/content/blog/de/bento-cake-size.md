@@ -13,6 +13,9 @@ excerpt: "Welcher Durchmesser als Bento gilt, für wie viele Personen er reicht 
 
 Die Bento-Torte war als Dessert für ein bis zwei Personen gedacht, das in eine Box passt und direkt daraus gegessen wird. Daher die Größe: Alles Größere funktioniert nicht mehr als Bento, auch wenn es ähnlich aussieht.
 
+
+> 🧮 Schneller im [Rechner](/de/calculator/): Portionsgröße und Gästezahl eingeben — er teilt das Rezept nach Elementen auf.
+
 ## Welcher Durchmesser gilt als Bento
 
 Der Arbeitsbereich liegt bei **10 und 12 Zentimetern**. Zehn sind für eine Person gedacht, zwölf für zwei – und zwölf werden am häufigsten bestellt.

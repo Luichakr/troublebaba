@@ -13,6 +13,9 @@ excerpt: "Quale diametro si considera bento, per quante persone basta e dove pas
 
 La bento cake è nata come dessert per una o due persone, che sta in una scatola e si mangia direttamente da lì. Da qui la misura: tutto ciò che è più grande smette di funzionare come bento, anche se l'aspetto è simile.
 
+
+> 🧮 Più veloce nel [calcolatore](/it/calculator/): inserisci la porzione e il numero di invitati, suddividerà la ricetta per parti.
+
 ## Quale diametro si considera bento
 
 L'intervallo di lavoro è **10 e 12 centimetri**. Dieci sono per una persona, dodici per due, ed è proprio il dodici quello che si ordina più spesso.

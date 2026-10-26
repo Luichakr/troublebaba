@@ -13,6 +13,9 @@ excerpt: "Jaka średnica uchodzi za bento, na ile osób wystarczy i gdzie przebi
 
 Tort bento pomyślano jako deser dla jednej–dwóch osób, który mieści się w pudełku i który je się prosto z niego. Stąd rozmiar: wszystko większe przestaje działać jak bento, nawet jeśli wygląda podobnie.
 
+
+> 🧮 Szybciej policzyć w [kalkulatorze](/pl/calculator/): podaj wielkość porcji i liczbę gości — rozłoży przepis na części.
+
 ## Jaka średnica uchodzi za bento
 
 Zakres roboczy to **10 i 12 centymetrów**. Dziesięć jest na jedną osobę, dwanaście na dwie — i to właśnie dwanaście zamawia się najczęściej.

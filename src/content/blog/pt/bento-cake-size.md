@@ -13,6 +13,9 @@ excerpt: "Que diâmetro conta como bento, para quantas pessoas serve e onde fica
 
 O bento cake foi pensado como uma sobremesa para uma ou duas pessoas, que cabe numa caixa e se come diretamente dela. Daí o tamanho: tudo o que for maior deixa de funcionar como bento, mesmo que se pareça.
 
+
+> 🧮 Mais rápido na [calculadora](/pt/calculator/): informe o tamanho da porção e o número de convidados — ela divide a receita por partes.
+
 ## Que diâmetro conta como bento
 
 A faixa de trabalho é de **10 e 12 centímetros**. Dez são para uma pessoa, doze para duas — e são justamente os doze os mais encomendados.

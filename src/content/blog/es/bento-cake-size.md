@@ -13,6 +13,9 @@ excerpt: "Qué diámetro se considera bento, para cuántas personas alcanza y d�
 
 El bento cake se concibió como un postre para una o dos personas que cabe en una caja y se come directamente de ella. De ahí el tamaño: todo lo que sea mayor deja de funcionar como bento, aunque lo parezca.
 
+
+> 🧮 Más rápido con nuestra [calculadora](/es/calculator/): indica el tamaño de la porción y el número de invitados, y reparte la receta por partes.
+
 ## Qué diámetro se considera bento
 
 El rango de trabajo es de **10 y 12 centímetros**. Diez son para una persona, doce para dos, y son precisamente los doce los que más se piden.

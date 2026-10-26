@@ -13,6 +13,9 @@ excerpt: "Which diameter counts as bento, how many people it serves, and where t
 
 The bento cake was conceived as a dessert for one or two people that fits in a box and gets eaten straight out of it. Hence the size: anything bigger stops working as a bento, even if it looks similar.
 
+
+> 🧮 Faster to figure out in our [calculator](/en/calculator/): set the serving size and guest count — it breaks the recipe into parts.
+
 ## Which diameter counts as bento
 
 The working range is **10 and 12 centimetres**. Ten is for one person, twelve for two — and twelve is what gets ordered most often.

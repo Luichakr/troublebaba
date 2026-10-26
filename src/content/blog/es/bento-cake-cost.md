@@ -12,6 +12,9 @@ excerpt: "El coste de un bento cake no es solo harina y crema. Repasamos la list
 
 La repostera casera pone el precio «a 300 ₴, como la vecina» (mercado ucraniano). Pierde dinero con cada tarta y no entiende por qué. Veamos de qué se compone realmente el coste.
 
+
+> 🧮 El coste es más cómodo con nuestra [calculadora](/es/calculator/): introduces los precios de tus ingredientes y suma trabajo, embalaje y gastos generales.
+
 ## Qué entra en el coste
 
 **Ingredientes.** Es lo primero que se mira. Aproximadamente 100-180 ₴ por un bento cake medio de 4-6 raciones, según el sabor: el de Oreo es más barato, el de pistacho-frambuesa cuesta 2-2,5 veces más.
