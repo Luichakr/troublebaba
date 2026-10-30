@@ -38,3 +38,8 @@
   # CSP — self + GA4 + Paddle + Lemon Squeezy + Turnstile.
   # LS is the active Merchant of Record; Paddle sandbox stays until KYC lands.
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://cdn.paddle.com https://sandbox-cdn.paddle.com https://challenges.cloudflare.com https://assets.lemonsqueezy.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.lemonsqueezy.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.paddle.com https://challenges.cloudflare.com https://*.lemonsqueezy.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://*.paddle.com https://challenges.cloudflare.com https://*.lemonsqueezy.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://*.lemonsqueezy.com https://*.paddle.com; object-src 'none'
+
+# Media kit for brand outreach — not for search
+/partners/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: public, max-age=300

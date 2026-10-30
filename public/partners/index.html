@@ -1,0 +1,703 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer"><style>.deck:has(:target) .slide:not(:target){display:none}</style><script>try{if(innerWidth<700&&!/[?&]pc\b/.test(location.search))location.replace("/partners/phone/"+location.hash)}catch(e){}</script></head><body><title>TROUBLEBABA Медиакит</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Golos+Text:wght@400;500;600&display=swap">
+<style>
+/* Layout: deck of 16:9 slides, every slide on one 12-column grid with a fixed top bar; all sizes in cqw so a slide scales as one object. */
+:root{
+  --paper:#F4F1EC; --card:#FFFFFF; --line:#D9D2C7; --ink:#17140F; --cocoa:#2B1E15; --mute:#6E6459;
+  --accent:#D1711F; --slot:#A79C8E; --slot-bg:rgba(167,156,142,.07);
+  --display:'Unbounded','Arial Black',sans-serif; --text:'Golos Text','Helvetica Neue',Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#CFC8BE;color:var(--ink);font-family:var(--text);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px}
+::selection{background:rgba(209,113,31,.25)}
+.deck{display:flex;flex-direction:column;gap:24px;max-width:1440px;margin:0 auto}
+.slide{width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;background:var(--paper);position:relative;overflow:hidden;border-radius:4px;box-shadow:0 1px 0 rgba(0,0,0,.08),0 12px 36px rgba(43,30,21,.12)}
+.slide.dark{background:var(--cocoa);color:#F4F1EC}
+.in{position:absolute;inset:0;padding:3.2cqw 4.2cqw 3.6cqw;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:auto minmax(0,1fr);column-gap:1.6cqw;row-gap:2.4cqw}
+.bar{grid-column:1/-1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:1.6cqw;font-size:.82cqw;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--line);padding-bottom:1.1cqw}
+.dark .bar{color:rgba(244,241,236,.6);border-color:rgba(244,241,236,.18)}
+.bar .l{grid-column:1/5}.bar .c{grid-column:5/11}.bar .r{grid-column:11/13;text-align:right;font-variant-numeric:tabular-nums}
+.body{grid-column:1/-1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:1.6cqw;row-gap:1.6cqw;min-height:0}
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:700;letter-spacing:-.01em;line-height:1.05;text-wrap:balance}
+h1{font-size:5.4cqw}
+h2{font-size:3.1cqw}
+h3{font-size:1.25cqw;font-weight:500;line-height:1.2}
+p{margin:0}
+.lead{font-size:1.35cqw;line-height:1.45;max-width:34ch}
+.t{font-size:1.08cqw;line-height:1.5}
+.s{font-size:.92cqw;line-height:1.45;color:var(--mute)}
+.dark .s{color:rgba(244,241,236,.62)}
+.lab{font-size:.78cqw;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.num{font-family:var(--display);font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1}
+.hr{border:0;border-top:1px solid var(--line);margin:0}
+.dark .hr{border-color:rgba(244,241,236,.18)}
+.img{overflow:hidden;border-radius:1cqw;background:#D9D2C7}
+.img img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* slot = place for a screenshot / logo / number the owner fills in */
+.slot{position:relative;border:.14cqw dashed var(--slot);background:var(--slot-bg);border-radius:.9cqw;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.5cqw;padding:1.2cqw;color:var(--mute);min-height:0}
+.slot .k{position:absolute;top:.7cqw;left:.9cqw;font-size:.66cqw;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.slot .w{font-size:.92cqw;font-weight:500;color:var(--ink);line-height:1.35;max-width:22ch}
+.slot .h{font-size:.78cqw;line-height:1.4;max-width:26ch}
+.slot .plus{width:2cqw;height:2cqw;border-radius:50%;border:.12cqw solid var(--slot);display:grid;place-items:center;font-size:1.3cqw;line-height:1;color:var(--slot);font-family:var(--text)}
+.dark .slot{border-color:rgba(244,241,236,.35);background:rgba(244,241,236,.05);color:rgba(244,241,236,.6)}
+.dark .slot .w{color:#F4F1EC}
+.phone{aspect-ratio:589/1200;max-width:100%;border:.22cqw solid var(--ink);border-radius:2.2cqw;padding:.55cqw;background:var(--card);display:flex;min-height:0}
+.phone .slot{flex:1;border-radius:1.6cqw}
+.phone .notch{display:none}
+.wide{aspect-ratio:16/10;max-width:100%;border:.22cqw solid var(--ink);border-radius:1cqw;padding:.55cqw;background:var(--card);display:flex}
+.wide .slot{flex:1}
+.phone img{flex:1;width:100%;min-width:0;height:100%;border-radius:1.6cqw;object-fit:cover;object-position:50% 0;display:block}
+.bars .tr.f{border:0;background:rgba(23,20,15,.08)}
+.bars .tr.f i{display:block;height:100%;background:var(--accent);border-radius:.3cqw}
+.fig{display:flex;flex-direction:column;gap:.5cqw;min-height:0}
+.src{font-size:.78cqw;line-height:1.4;color:var(--mute)}
+.ng{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.9cqw 1.4cqw;align-items:end}
+.ng .num{font-size:1.9cqw}
+
+/* cover */
+.cover-copy{grid-column:1/8;display:flex;flex-direction:column;justify-content:space-between;min-height:0}
+.cover-img{grid-column:8/13}
+.handles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6cqw 2cqw;font-size:1.02cqw}
+.handles b{display:block;font-weight:600}
+.handles span{color:var(--mute)}
+
+/* numbers */
+.n4{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:1.6cqw;border-top:1px solid var(--ink);padding-top:1.4cqw}
+.n4 > div{border-right:1px solid var(--line);padding-right:1.6cqw}
+.n4 > div:last-child{border-right:0}
+.n4 .num{font-size:4.6cqw}
+.n4 .pl{font-size:1.1cqw;font-weight:600;margin-top:.9cqw}
+.n4 .sub{font-size:.9cqw;color:var(--mute);margin-top:.2cqw}
+.n3{grid-column:1/-1;display:grid;grid-template-columns:3fr 3fr 3fr 3fr;column-gap:1.6cqw;align-items:stretch}
+.tot{display:flex;flex-direction:column;justify-content:flex-start;gap:.5cqw;border-top:1px solid var(--line);padding-top:1.1cqw}
+.stk{grid-column:1/-1;align-self:end;display:flex;flex-direction:column;gap:.9cqw}
+.stk .sb{display:flex;height:3.2cqw;border-radius:.4cqw;overflow:hidden;gap:.2cqw}
+.stk .sb i{display:block;height:100%}
+.stk .lg{display:flex;gap:2.4cqw;font-size:.95cqw}
+.stk .lg b{font-weight:600}
+.stk .lg span{color:var(--mute)}
+.tot .num{font-size:3cqw}
+
+/* analytics */
+.ph2{grid-column:1/7;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:1.6cqw;min-height:0}
+.demo{grid-column:7/13;display:flex;flex-direction:column;gap:1.3cqw;min-height:0}
+.bars{display:grid;grid-template-columns:7cqw minmax(0,1fr) 4cqw;align-items:center;row-gap:.55cqw;column-gap:1cqw;font-size:.95cqw}
+.bars .tr{height:1.15cqw;background:var(--card);border:1px dashed var(--slot);border-radius:.3cqw}
+.bars .v{text-align:right;color:var(--mute);font-variant-numeric:tabular-nums}
+.kv{display:grid;grid-template-columns:minmax(0,1fr) auto;row-gap:.45cqw;font-size:.95cqw;border-top:1px solid var(--line);padding-top:.8cqw}
+.kv span:nth-child(2n){text-align:right;color:var(--mute);font-variant-numeric:tabular-nums}
+
+/* three columns */
+.c3{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:1.6cqw}
+.c3 > div{border-top:1px solid var(--ink);padding-top:1.1cqw;display:flex;flex-direction:column;gap:.7cqw}
+.c3 ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.35cqw;font-size:1cqw}
+.c3 li{padding-left:1.1cqw;position:relative}
+.c3 li::before{content:"";position:absolute;left:0;top:.62em;width:.6cqw;height:1px;background:var(--accent)}
+
+/* content grid */
+.vg{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1.2cqw;min-height:0}
+.lists{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:1.6cqw}
+.lists>div:first-child{grid-column:1/8}.lists>div:last-child{grid-column:8/13}
+.lst{display:grid;grid-template-columns:minmax(0,1fr) 3.6cqw 4.6cqw 3.6cqw 3.6cqw;column-gap:.8cqw;font-size:.88cqw;padding:.5cqw 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.lst.t4{grid-template-columns:minmax(0,1fr) 5.2cqw 3.2cqw}
+.lst span:nth-child(n+2){text-align:right}
+.lst span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lst.h{font-size:.66cqw;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--ink);margin-top:.7cqw}
+.v{display:flex;flex-direction:column;gap:.5cqw;min-height:0}
+.v .img{aspect-ratio:3/4;flex:1;min-height:0}
+.v .img img{object-position:50% 50%;transform:scale(1.35)}
+.v .cap{font-size:.86cqw;line-height:1.3;font-weight:500;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.v .vw{font-size:.8cqw;color:var(--mute);font-variant-numeric:tabular-nums}
+.v .vw b{color:var(--accent);font-weight:600}
+
+/* table */
+table{grid-column:1/-1;border-collapse:collapse;width:100%;font-size:1.02cqw;align-self:start}
+th{text-align:left;font-size:.78cqw;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);padding:0 1cqw .7cqw 0;border-bottom:1px solid var(--ink)}
+td{padding:1.15cqw 1cqw 1.15cqw 0;border-bottom:1px solid var(--line);vertical-align:top}
+td.f{font-family:var(--display);font-weight:500;font-size:1.15cqw;line-height:1.2;width:20%}
+td.f small{display:block;font-family:var(--text);font-weight:400;font-size:.88cqw;color:var(--mute);margin-top:.35cqw}
+td.w{width:42%}
+td.d{width:14%;white-space:nowrap;font-variant-numeric:tabular-nums}
+td.p{width:24%}
+.price{display:inline-flex;align-items:baseline;gap:.5cqw;font-family:var(--display);font-weight:500;font-size:1.2cqw;white-space:nowrap}
+.price .blank{display:inline-block;min-width:5cqw;border-bottom:.14cqw dashed var(--slot);height:1.2cqw;vertical-align:baseline}
+.price small{font-family:var(--text);font-size:.85cqw;color:var(--mute);font-weight:400}
+
+/* packages */
+.pk{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:1.6cqw;min-height:0}
+.pk > div{background:var(--card);border:1px solid var(--line);border-radius:1cqw;padding:1.8cqw;display:flex;flex-direction:column;gap:1cqw;min-height:0}
+.pk > div.hi{background:var(--cocoa);color:#F4F1EC;border-color:var(--cocoa)}
+.pk h3{font-size:1.6cqw;font-weight:700}
+.pk ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.45cqw;font-size:1cqw;flex:1}
+.pk li{padding-left:1.2cqw;position:relative}
+.pk li::before{content:"";position:absolute;left:0;top:.66em;width:.6cqw;height:1px;background:var(--accent)}
+.pk .pr{border-top:1px solid var(--line);padding-top:1cqw;display:flex;justify-content:space-between;align-items:baseline;gap:1cqw}
+.hi .pr{border-color:rgba(244,241,236,.2)}
+.hi .s{color:rgba(244,241,236,.62)}
+
+/* process */
+.steps{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:1.6cqw;align-self:start}
+.steps > div{border-top:.22cqw solid var(--ink);padding-top:1.1cqw;display:flex;flex-direction:column;gap:.6cqw}
+.steps .d{font-family:var(--display);font-weight:700;font-size:1.9cqw;letter-spacing:-.02em}
+.steps .d small{font-family:var(--text);font-weight:500;font-size:.8cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);display:block;margin-bottom:.4cqw}
+.steps h3{font-size:1.3cqw;font-weight:700}
+
+/* logos & quotes */
+.logos{grid-column:1/-1;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));column-gap:1.2cqw}
+.logos .slot{aspect-ratio:3/2}
+.quotes{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:1.6cqw;min-height:0}
+.quotes .slot{align-items:flex-start;text-align:left;padding:1.6cqw;justify-content:flex-start}
+.quotes .q{font-family:var(--display);font-weight:500;font-size:1.3cqw;line-height:1.35;color:var(--mute)}
+
+/* rules */
+.r4{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:1.6cqw}
+.r4 > div{border-top:1px solid rgba(244,241,236,.35);padding-top:1.1cqw;display:flex;flex-direction:column;gap:.7cqw}
+.r4 ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.4cqw;font-size:1cqw}
+.r4 li{padding-left:1.1cqw;position:relative}
+.r4 li::before{content:"";position:absolute;left:0;top:.64em;width:.6cqw;height:1px;background:var(--accent)}
+
+/* contact */
+.ct{grid-column:1/8;display:flex;flex-direction:column;justify-content:space-between;min-height:0}
+.ct .mail{font-family:var(--display);font-weight:700;font-size:3cqw;letter-spacing:-.02em;word-break:break-all;color:var(--ink);text-decoration:none}
+.ct .rows{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:2cqw;row-gap:.5cqw;font-size:1.05cqw}
+.ct .rows span:nth-child(odd){color:var(--mute)}
+.qr{grid-column:8/10;align-self:end}
+.qr .slot{aspect-ratio:1}
+.ct-img{grid-column:10/13}
+
+
+/* breathing: sparse slides get larger type and spread */
+#s02 .body{row-gap:3.4cqw}
+#s02 .n4{padding-top:2.4cqw;padding-bottom:2.2cqw}
+#s02 .n4 .num{font-size:5.6cqw}
+#s02 .n4 .pl{font-size:1.4cqw;margin-top:1.2cqw}
+#s02 .n4 .sub{font-size:1.05cqw}
+#s02 .tot{padding-top:1.8cqw;gap:.9cqw}
+#s02 .tot .num{font-size:3.6cqw}
+#s02 .tot .lab{font-size:.88cqw}
+#s02 .tot .s{font-size:1.02cqw}
+#s02 .stk{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:1.6cqw;row-gap:1cqw;align-self:end}
+#s02 .stk > div{display:flex;flex-direction:column;gap:1cqw}
+#s02 .stk .sb{height:5cqw}
+#s02 .stk .lg{font-size:1.1cqw;flex-wrap:wrap;gap:.6cqw 1.8cqw}
+#s05 h2{font-size:3.6cqw}
+#s05 .c3 .num{font-size:6cqw}
+#s05 .c3 > div{gap:1cqw}
+#s05 .c3 h3{font-size:1.75cqw}
+#s05 .c3 .t{font-size:1.3cqw}
+#s05 .c3 ul{font-size:1.2cqw;gap:.7cqw}
+#s05 .body > div:last-child .t{font-size:1.22cqw}
+#s07 th{font-size:.88cqw;padding-bottom:1cqw}
+#s07 td{padding:1.55cqw 1.2cqw 1.55cqw 0;font-size:1.28cqw}
+#s07 td.f{font-size:1.6cqw}
+#s07 td.f small{font-size:1cqw;margin-top:.5cqw}
+#s07 .price{font-size:1.6cqw}
+#s07 .price small{font-size:1cqw}
+#s08 .pk > div{padding:2.4cqw;gap:1.4cqw}
+#s08 .pk h3{font-size:2.5cqw}
+#s08 .pk .lab{font-size:.92cqw}
+#s08 .pk ul{font-size:1.32cqw;gap:.9cqw;flex:none}
+#s08 .pk li{padding-left:1.5cqw}
+#s08 .pk .fit{margin-top:auto;border-top:1px solid var(--line);padding-top:1.2cqw;font-size:1.1cqw;line-height:1.45;color:var(--mute)}
+#s08 .pk .hi .fit{border-color:rgba(244,241,236,.2);color:rgba(244,241,236,.62)}
+#s08 .pk .pr{margin-top:0}
+#s08 .price{font-size:1.5cqw}
+#s09 h2{font-size:3.6cqw}
+#s09 .steps{align-self:center}
+#s09 .steps .d{font-size:3.2cqw}
+#s09 .steps .d small{font-size:.9cqw}
+#s09 .steps h3{font-size:1.85cqw}
+#s09 .steps .t{font-size:1.28cqw}
+#s09 .body > div:last-child .t{font-size:1.2cqw}
+#s09 .body > div:last-child .lab{font-size:.88cqw}
+#s10 .logos .slot{aspect-ratio:4/3}
+#s10 .quotes .q{font-size:1.5cqw}
+#s11 h2{font-size:3.6cqw}
+#s12 .ct h2{font-size:3.8cqw}
+#s12 .ct .mail{font-size:3.6cqw}
+#s12 .ct .rows{font-size:1.25cqw;row-gap:.8cqw}
+#s12 .ct .s{font-size:1.1cqw}
+#s11 .r4{align-self:center}
+#s11 .r4 h3{font-size:1.85cqw}
+#s11 .r4 ul{font-size:1.28cqw;gap:.8cqw}
+#s11 .r4 .t{font-size:1.28cqw}
+#s11 .body > div:last-child .t{font-size:1.2cqw}
+#s11 .body > div:last-child .lab{font-size:.88cqw}
+
+
+.pay{font-family:var(--display);font-weight:500;font-size:1.25cqw;line-height:1.25}
+.qr img{display:block;width:100%;aspect-ratio:1;background:#fff;padding:.9cqw;border-radius:.9cqw;border:1px solid var(--line)}
+.ap{grid-column:1/10;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:1.6cqw;min-height:0}
+.apt{grid-column:10/13;display:flex;flex-direction:column;gap:1.2cqw;min-height:0}
+.apt h3{font-size:1.55cqw;font-weight:700}
+.apt .t{font-size:1.1cqw}
+.apt ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.5cqw;font-size:1cqw}
+.apt li{padding-left:1.1cqw;position:relative}
+.apt li::before{content:"";position:absolute;left:0;top:.62em;width:.6cqw;height:1px;background:var(--accent)}
+.apt .hr{margin:.2cqw 0}
+.edits{grid-column:1/6;min-height:0}
+.edits img{display:block;height:100%;width:auto;max-width:100%;border:1px solid var(--line);border-radius:1cqw;background:#fff;object-fit:contain}
+.edn{grid-column:7/13;display:flex;flex-direction:column;gap:1.8cqw;min-height:0}
+.edn .g6{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.8cqw 1.4cqw}
+.edn .num{font-size:2.6cqw}
+.edn .pl{font-size:.95cqw;color:var(--mute);margin-top:.5cqw}
+
+
+.pgs{display:grid;grid-template-columns:auto auto auto minmax(0,1fr);column-gap:1.8cqw;min-height:0;align-items:start}
+.pg{display:flex;flex-direction:column;gap:.7cqw;min-height:0}
+.pg .phone{height:38.6cqw;width:auto}
+.pgr{display:flex;flex-direction:column;gap:1.2cqw;min-height:0;align-self:start}
+.pgi{display:flex;flex-direction:row;gap:1.6cqw;align-items:flex-start}
+.pgi .cap{display:flex;flex-direction:column;gap:.6cqw;min-width:0;padding-top:.3cqw}
+.pgi .cap .t{font-size:1.1cqw;color:var(--mute)}
+.pgi .cap b{display:block;font-family:var(--display);font-size:1.5cqw;font-weight:700;color:var(--ink);line-height:1.15}
+.pgi .yt,.pgi .web{border:.22cqw solid var(--ink);border-radius:1cqw;overflow:hidden;background:#0f0f0f;width:24.5cqw;flex:none}
+.pgi .web{background:#fff}
+.pgi img{display:block;width:100%;height:auto}
+.pg .src b,.pgi .src b{color:var(--ink);font-weight:600}
+
+
+.cl{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:1.6cqw;min-height:0}
+.cc{background:var(--card);border:1px solid var(--line);border-radius:1cqw;padding:1.4cqw;display:flex;flex-direction:column;gap:1.1cqw;min-height:0}
+.cc .lg{height:8.5cqw;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line);padding-bottom:1.1cqw}
+.cc .lg img{max-height:100%;max-width:70%;display:block}
+.cc .md{flex:1;min-height:0;border-radius:.7cqw;overflow:hidden;background:#EFEAE2;display:flex;align-items:center;justify-content:center}
+.cc .md img{display:block;width:100%;height:100%;object-fit:cover}
+.cc .md img.pk{width:auto;height:92%;object-fit:contain}
+.cc h3{font-size:1.4cqw;font-weight:700}
+.cc .t{font-size:.96cqw;color:var(--mute);line-height:1.45}
+.cc .slot{flex:1}
+
+
+.bw{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-auto-rows:minmax(0,1fr);gap:1.2cqw;min-height:0}
+.bt{background:var(--card);border:1px solid var(--line);border-radius:.9cqw;padding:1.1cqw 1cqw;display:flex;flex-direction:column;gap:.7cqw;min-height:0}
+.bt .l{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+.bt .l img{max-width:82%;max-height:100%;display:block}
+.bt .l img.sl{max-width:96%;transform:scale(1.5)}
+.bt .l img.sm{max-height:68%}
+.bt .l img.pk{max-width:none;height:100%;width:auto}
+.bt .l .tx{font-family:var(--display);font-weight:700;font-size:1.5cqw;letter-spacing:-.01em}
+.bt.note{background:transparent;border-style:dashed;justify-content:center}
+.bt .nt{font-size:.84cqw;line-height:1.45;color:var(--mute)}
+.bt .c{font-size:.84cqw;line-height:1.3;color:var(--mute);text-align:center;border-top:1px solid var(--line);padding-top:.6cqw}
+
+@media (prefers-reduced-motion:no-preference){.slide{transition:box-shadow .3s}}
+</style>
+
+<div class="deck">
+
+<!-- 01 cover -->
+<section class="slide" id="s01">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Медиакит для брендов · октябрь 2026</span><span class="r">01 / 13</span></div>
+    <div class="body">
+      <div class="cover-copy">
+        <div>
+          <p class="lab">Евгения · @troublebaba</p>
+          <h1 style="margin-top:1.2cqw">Видео-рецепты, которые сохраняют</h1>
+          <p class="lead" style="margin-top:1.6cqw">Десерты, выпечка, хлеб и ужины на каждый день. Пеку на продажу с 2014 года. В Reels на 312 тыс. просмотров — 13 тыс. сохранений. Подписчиков около 196 000 на четырёх площадках.</p>
+        </div>
+        <div class="handles">
+          <div><b>Instagram</b><span>@troublebaba · 71,6K</span></div>
+          <div><b>TikTok</b><span>@troublebaba · 91,3K</span></div>
+          <div><b>YouTube</b><span>@troublebaba · 25K</span></div>
+          <div><b>Сайт</b><span>troublebaba.com</span></div>
+        </div>
+      </div>
+      <div class="cover-img img"><img src="/partners/assets/author.webp" alt="Евгения на кухне с шоколадным тортом" style="object-position:50% 25%"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 numbers -->
+<section class="slide" id="s02">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Аудитория в цифрах</span><span class="r">02 / 13</span></div>
+    <div class="body" style="grid-template-rows:auto auto minmax(0,1fr)">
+      <div class="n4">
+        <div><div class="num">71,6K</div><div class="pl">Instagram</div><div class="sub">642 публикации</div></div>
+        <div><div class="num">91,3K</div><div class="pl">TikTok</div><div class="sub">2,3 млн лайков суммарно</div></div>
+        <div><div class="num">25K</div><div class="pl">YouTube</div><div class="sub">280 тыс. просмотров за 28 дней</div></div>
+        <div><div class="num">8K</div><div class="pl">Facebook</div><div class="sub">дубли ключевых выходов</div></div>
+      </div>
+      <div class="n3">
+        <div class="tot"><p class="lab">Подписчиков суммарно</p><div class="num">≈196K</div><p class="s">Instagram и TikTok — на 29.10.2026 из аналитики; YouTube и Facebook — публичные цифры.</p></div>
+        <div class="tot"><p class="lab">Instagram · 30 дней</p><div class="num">184 824</div><p class="s">зрителя. 534 553 просмотра, из них Reels — 420 тыс. Период 29.09–29.10.2026.</p></div>
+        <div class="tot"><p class="lab">Instagram · 90 дней</p><div class="num">1,05 млн</div><p class="s">зрителей, 3,4 млн просмотров. Просмотров от неподписчиков — 1,67 млн (+123% к прошлому периоду).</p></div>
+        <div class="tot"><p class="lab">Вовлечённость Reels</p><div class="num">≈8,1%</div><p class="s">Лайки, комментарии, репосты, отправки и сохранения ÷ просмотры. 5 Reels за 30 дней: 312 тыс. просмотров, 13 тыс. сохранений.</p></div>
+      </div>
+      <div class="stk">
+        <div>
+          <p class="lab">Из чего 534 553 просмотра Instagram за 30 дней</p>
+          <div class="sb"><i style="flex:420;background:var(--accent)"></i><i style="flex:106;background:var(--cocoa)"></i><i style="flex:7.9;background:var(--slot)"></i></div>
+          <div class="lg"><div><b>Reels 420 тыс.</b> <span>79%</span></div><div><b>Истории 106 тыс.</b> <span>20%</span></div><div><b>Публикации 7,9 тыс.</b> <span>1,5%</span></div></div>
+        </div>
+        <div>
+          <p class="lab">Откуда приходят просмотры TikTok, 28 дней</p>
+          <div class="sb"><i style="flex:76.8;background:var(--accent)"></i><i style="flex:17.2;background:var(--cocoa)"></i><i style="flex:5.9;background:var(--slot)"></i></div>
+          <div class="lg"><div><b>Поиск</b> <span>76,8%</span></div><div><b>Лента «Для вас»</b> <span>17,2%</span></div><div><b>Профиль</b> <span>5,9%</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 pages -->
+<section class="slide" id="s02b">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Как выглядят мои страницы</span><span class="r">03 / 13</span></div>
+    <div class="body" style="grid-template-rows:minmax(0,1fr) auto">
+      <div class="pgs" style="grid-column:1/-1">
+        <div class="pg"><div class="phone"><img src="/partners/assets/stats/profile-ig.jpg" alt="Профиль Instagram @troublebaba"></div><p class="src"><b>Instagram</b> · 71,6 тыс., 643 публикации</p></div>
+        <div class="pg"><div class="phone"><img src="/partners/assets/stats/profile-tt.jpg" alt="Профиль TikTok @troublebaba"></div><p class="src"><b>TikTok</b> · 91,3 тыс., 2,3 млн лайков</p></div>
+        <div class="pg"><div class="phone" style="aspect-ratio:700/1299"><img src="/partners/assets/stats/profile-yt.jpg" alt="Канал YouTube Troublebaba" style="object-position:50% 0"></div><p class="src"><b>YouTube</b> · 24,7 тыс., 292 видео</p></div>
+        <div class="pgr">
+          <div class="pgi" style="flex-direction:column"><div class="web"><img src="/partners/assets/stats/site-home.jpg" alt="Сайт troublebaba.com"></div><div class="cap"><b>Сайт troublebaba.com</b><p class="t">Продаю собственный PDF-сборник бенто-тортов. Сайт на 9 языках.</p></div></div>
+        </div>
+      </div>
+      <p class="src" style="grid-column:1/-1;border-top:1px solid var(--line);padding-top:.9cqw">Закреплённые ролики TikTok набрали 8,2 млн, 4,9 млн и 5,4 млн просмотров за всё время. Скрины сняты с телефона и не обработаны, кроме обрезки строки состояния.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 instagram analytics -->
+<section class="slide" id="s03">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Instagram · аналитика за 30 дней</span><span class="r">04 / 13</span></div>
+    <div class="body">
+      <div class="ph2">
+        <div class="phone"><img src="/partners/assets/stats/ig-reach-30d.jpg" alt="Instagram, Ваша панель: просмотры, зрители и просмотры по типу контента за 30 дней"></div>
+        <div class="phone"><img src="/partners/assets/stats/ig-audience-30d.jpg" alt="Instagram, Аудитория: подписчики, пол и возраст за 30 дней"></div>
+      </div>
+      <div class="demo">
+        <div><p class="lab">Возраст</p>
+          <div class="bars" style="margin-top:.8cqw">
+            <span>18–24</span><div class="tr f"><i style="width:2.9%"></i></div><span class="v">2,9%</span>
+            <span>25–34</span><div class="tr f"><i style="width:23.5%"></i></div><span class="v">23,5%</span>
+            <span>35–44</span><div class="tr f"><i style="width:36.6%"></i></div><span class="v">36,6%</span>
+            <span>45–54</span><div class="tr f"><i style="width:22.7%"></i></div><span class="v">22,7%</span>
+            <span>55+</span><div class="tr f"><i style="width:14.2%"></i></div><span class="v">14,2%</span>
+          </div>
+        </div>
+        <div><p class="lab">Пол</p>
+          <div class="bars" style="margin-top:.8cqw">
+            <span>Женщины</span><div class="tr f"><i style="width:92.1%"></i></div><span class="v">92,1%</span>
+            <span>Мужчины</span><div class="tr f"><i style="width:7.9%"></i></div><span class="v">7,9%</span>
+          </div>
+        </div>
+        <div><p class="lab">Страны</p>
+          <div class="kv" style="margin-top:.8cqw">
+            <span>Россия</span><span>34,8%</span>
+            <span>Украина</span><span>18,5%</span>
+            <span>Казахстан</span><span>7,9%</span>
+            <span>Беларусь</span><span>4,7%</span>
+            <span>Германия</span><span>3,9%</span>
+          </div>
+        </div>
+        <div><p class="lab">Язык аудитории</p>
+          <div class="kv" style="margin-top:.8cqw">
+            <span>Русский</span><span>63,1%</span>
+            <span>Украинский</span><span>19,6%</span>
+            <span>Английский</span><span>2,3%</span>
+          </div>
+        </div>
+        <p class="src">Instagram, «Ваша панель». Подписчики 71 642, период 30 дней по 29.10.2026. 55+ — сумма 55–64 (10,4%) и 65+ (3,8%). Скрины без обработки, кроме обрезки строки состояния.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 tiktok + youtube -->
+<section class="slide" id="s04">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">TikTok и YouTube · аналитика</span><span class="r">05 / 13</span></div>
+    <div class="body">
+      <div style="grid-column:1/4"><div class="phone"><img src="/partners/assets/stats/tt-overview-60d.jpg" alt="TikTok Studio, Обзор за 60 дней: 1,4 млн просмотров"></div></div>
+      <div style="grid-column:4/7"><div class="phone"><img src="/partners/assets/stats/tt-viewers-28d.jpg" alt="TikTok Studio, Зрители за 28 дней: 311K зрителей, женщины 79%"></div></div>
+      <div style="grid-column:7/13;display:flex;flex-direction:column;gap:1.4cqw;min-height:0">
+        <div class="wide" style="flex:1;min-height:0;aspect-ratio:auto"><img src="/partners/assets/stats/yt-overview-28d.jpg" alt="YouTube Studio, Обзор за 28 дней: 280,3 тыс. просмотров, +322 подписчика" style="width:100%;height:100%;object-fit:contain;object-position:50% 50%;border-radius:.6cqw;background:#0f0f0f;display:block"></div>
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:1.6cqw">
+          <div><p class="lab">TikTok · 7 дней</p><div class="num" style="font-size:2.2cqw;margin-top:.5cqw">126,7K</div><p class="src" style="margin-top:.3cqw">просмотров, 22–28 окт</p></div>
+          <div><p class="lab">TikTok · 28 дней</p><div class="num" style="font-size:2.2cqw;margin-top:.5cqw">467,8K</div><p class="src" style="margin-top:.3cqw">просмотров, 1–28 окт</p></div>
+          <div><p class="lab">TikTok · 60 дней</p><div class="num" style="font-size:2.2cqw;margin-top:.5cqw">1,4M</div><p class="src" style="margin-top:.3cqw">с роликом на 494K просмотров</p></div>
+          <div><p class="lab">Из поиска</p><div class="num" style="font-size:2.2cqw;margin-top:.5cqw">76,8%</div><p class="src" style="margin-top:.3cqw">просмотров за 28 дней, 17,2% — лента</p></div>
+        </div>
+        <p class="src">Слева — TikTok Studio; справа сверху — YouTube Studio за 28 дней (2–29 окт.): 280 260 просмотров, +322 подписчика. TikTok Studio, зрители за 28 дней: женщины 79%; страны — Беларусь 23,3%, Украина 21,6%, Россия 16,8%, Казахстан 11,8%, Германия 3,5%. 60 дней включают пик 17 сентября — один ролик на 494K просмотров; обычный уровень показывают 7 и 28 дней.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 who watches -->
+<section class="slide" id="s05">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Кто смотрит</span><span class="r">06 / 13</span></div>
+    <div class="body" style="grid-template-rows:auto minmax(0,1fr) auto">
+      <h2 style="grid-column:1/11">Женщины 35–44, которые сохраняют рецепты из&nbsp;роликов</h2>
+      <div class="c3">
+        <div><div class="num" style="font-size:4.2cqw">92%</div><h3>Кто смотрит</h3><p class="t">92% женщины. Возраст: 35–44 — 36,6%, 25–34 — 23,5%, 45–54 — 22,7%.</p><ul><li>35–44 — самая большая группа</li><li>45 и старше — ещё 36,9%</li><li>моложе 25 лет — всего 3%</li></ul></div>
+        <div><div class="num" style="font-size:4.2cqw">69%</div><h3>Что делают с роликом</h3><p class="t">Сохраняют и отправляют. В Reels за 30 дней сохранения и отправки — 69% всех действий.</p><ul><li>сохранений 13 тыс. на 312 тыс. просмотров</li><li>отправок друзьям 4,3 тыс.</li><li>лайков 7,6 тыс.</li></ul></div>
+        <div><div class="num" style="font-size:4.2cqw">77%</div><h3>Как находят</h3><p class="t">В TikTok 76,8% просмотров за 28 дней приходит из поиска, 17,2% — из ленты «Для вас».</p><ul><li>ролики 2021–2025 до сих пор набирают 45–60K</li><li>рецепт живёт месяцы, а не сутки</li><li>в поиске находят по названию блюда</li></ul></div>
+      </div>
+      <div style="grid-column:1/-1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:1.6cqw;border-top:1px solid var(--line);padding-top:1.2cqw">
+        <div style="grid-column:1/5"><p class="lab">Языки</p><p class="t" style="margin-top:.4cqw">Русский 63,1%, украинский 19,6%, английский 2,3% (Instagram, 30 дней). В кадре говорю по-русски или по-украински.</p></div>
+        <div style="grid-column:5/9"><p class="lab">Где снимаю</p><p class="t" style="margin-top:.4cqw">Живу и снимаю в Польше: продукты, магазины и доставка — польские. Страны аудитории — на слайде 04.</p></div>
+        <div style="grid-column:9/13"><p class="lab">Кому подходит</p><p class="t" style="margin-top:.4cqw">Продукты, мука, шоколад, сливки, кухонная техника, формы, упаковка, доставка продуктов. Продукт должен работать в рецепте.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 content -->
+<section class="slide" id="s06">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Контент · что набирает</span><span class="r">07 / 13</span></div>
+    <div class="body" style="grid-template-rows:auto minmax(0,1fr) auto">
+      <div class="lists" style="grid-column:1/-1">
+        <div>
+          <p class="lab">Instagram · лучшие ролики за 180 дней</p>
+          <div class="lst h"><span>Ролик</span><span>Дата</span><span>Просм.</span><span>Лайки</span><span>Отправ.</span></div>
+          <div class="lst"><span>Медовик без раскатки коржей</span><span>14.09</span><span>1,4 млн</span><span>25 тыс.</span><span>15 тыс.</span></div>
+          <div class="lst"><span>Норвежский торт Verdens be…</span><span>07.07</span><span>1,1 млн</span><span>13 тыс.</span><span>6,5 тыс.</span></div>
+          <div class="lst"><span>Рецепт @troublebaba Вафель…</span><span>24.07</span><span>537 тыс.</span><span>411</span><span>124</span></div>
+          <div class="lst"><span>Картофель в сливочно-сырн…</span><span>31.07</span><span>440 тыс.</span><span>500</span><span>290</span></div>
+          <div class="lst"><span>Секрет той самой вкусной О…</span><span>24.06</span><span>298 тыс.</span><span>349</span><span>235</span></div>
+          <div class="lst"><span>Лимонный тирамису</span><span>04.09</span><span>162 тыс.</span><span>5,5 тыс.</span><span>2 тыс.</span></div>
+        </div>
+        <div>
+          <p class="lab">TikTok · лучшие ролики за 60 дней</p>
+          <div class="lst h t4"><span>Ролик</span><span>Дата</span><span>Просм.</span></div>
+          <div class="lst t4"><span>Медовик-рулет</span><span>17.09.2026</span><span>494K</span></div>
+          <div class="lst t4"><span>Творожные ПП ватрушки</span><span>02.04.2025</span><span>61K</span></div>
+          <div class="lst t4"><span>Лучшая пицца</span><span>31.05.2021</span><span>56K</span></div>
+          <div class="lst t4"><span>Лимонный тирамису</span><span>22.09.2026</span><span>56K</span></div>
+          <div class="lst t4"><span>Нежная курочка</span><span>14.09.2022</span><span>45K</span></div>
+          <div class="lst t4"><span>Влажный шоколадный пирог</span><span>28.03.2025</span><span>45K</span></div>
+          <p class="src" style="margin-top:.7cqw">Закреплённые в профиле: 8,2 млн, 4,9 млн, 5,4 млн просмотров за всё время.</p>
+        </div>
+      </div>
+      <div class="vg">
+        <div class="v"><div class="img"><img src="/partners/assets/yt/m6jKIFFaeSE.jpg" alt=""></div><span class="cap">Норвежский торт Verdens beste</span><span class="vw"><b>92 657</b> просмотров · 07.07</span></div>
+        <div class="v"><div class="img"><img src="/partners/assets/yt/cjqMz4-zwq8.jpg" alt=""></div><span class="cap">Закусочный пирог с камамбером и грушей</span><span class="vw"><b>86 525</b> просмотров · 18.07</span></div>
+        <div class="v"><div class="img"><img src="/partners/assets/yt/mayasExnNSo.jpg" alt=""></div><span class="cap">Сырно-чесночные булочки</span><span class="vw"><b>23 957</b> просмотров · 06.10</span></div>
+        <div class="v"><div class="img"><img src="/partners/assets/yt/A2L00dU4KnM.jpg" alt=""></div><span class="cap">«Вкуснее, чем в ресторане»</span><span class="vw"><b>22 699</b> просмотров · 01.10</span></div>
+        <div class="v"><div class="img"><img src="/partners/assets/yt/t5ggwBKZcL4.jpg" alt=""></div><span class="cap">Люля-кебаб из лаваша</span><span class="vw"><b>18 560</b> просмотров · 09.07</span></div>
+      </div>
+      <p class="src" style="grid-column:1/-1;border-top:1px solid var(--line);padding-top:.9cqw">Внизу — пять самых просматриваемых из 15 последних роликов YouTube (открытые данные канала: всего 325 952 просмотра, 23.06–22.10.2026). Цифры Instagram: «Ваша панель», 180 дней; TikTok Studio, 60 дней по 28.10.2026. Названия обрезаны так же, как в интерфейсе.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 07 formats -->
+<section class="slide" id="s07">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Форматы и цены</span><span class="r">08 / 13</span></div>
+    <div class="body" style="grid-template-rows:auto auto minmax(0,1fr)">
+      <h2 style="grid-column:1/9">Четыре формата, одна съёмка</h2>
+      <table>
+        <thead><tr><th>Формат</th><th>Что входит</th><th>Срок</th><th>Оплата</th></tr></thead>
+        <tbody>
+          <tr><td class="f">Интеграция в ролик<small>YouTube · 20–40 сек внутри рецепта</small></td><td class="w">Продукт участвует в готовке. Упоминание голосом и в описании, ссылка на бренд. Ролик остаётся на канале.</td><td class="d">10 дней</td><td class="p"><span class="pay">Деньги или бартер</span></td></tr>
+          <tr><td class="f">Reels + TikTok<small>один вертикальный ролик, две площадки</small></td><td class="w">Сюжет под вертикаль, выход в один день в Instagram и TikTok. Отметка бренда, хэштеги, ссылка в сторис в день выхода.</td><td class="d">7 дней</td><td class="p"><span class="pay">Деньги или бартер</span></td></tr>
+          <tr><td class="f">Серия сторис<small>Instagram · 3–5 сторис за день</small></td><td class="w">Распаковка, первое впечатление, использование. Стикер-ссылка или промокод. Сохраняю в хайлайт на 30 дней.</td><td class="d">3 дня</td><td class="p"><span class="pay">Деньги или бартер</span></td></tr>
+          <tr><td class="f">Пост в блоге<small>troublebaba.com · статья с SEO</small></td><td class="w">Текст по теме бренда в разделе блога, ссылка с сайта, который индексируется в Google на 9 языках.</td><td class="d">14 дней</td><td class="p"><span class="pay">Деньги или бартер</span></td></tr>
+        </tbody>
+      </table>
+      <p class="src" style="grid-column:1/-1;align-self:end;font-size:1.05cqw">Цену называю после брифа. Беру деньгами или техникой, ножами и оборудованием, которые помогают готовить. Ингредиенты в оплату не беру. Условия — на слайдах 10 и 12.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 08 packages -->
+<section class="slide" id="s08">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Пакеты</span><span class="r">09 / 13</span></div>
+    <div class="body" style="grid-template-rows:auto minmax(0,1fr)">
+      <p class="s" style="grid-column:1/9">Три готовых набора. Цену называю после брифа; беру деньгами или техникой, ножами и оборудованием.</p>
+      <div class="pk">
+        <div><p class="lab">Проба</p><h3>Один выход</h3><ul><li>Reels + TikTok</li><li>1 сторис-анонс в день выхода</li><li>отчёт на 7-й день</li></ul><p class="fit">Чтобы проверить, как ваш продукт ляжет в рецепт и что скажет аудитория.</p><div class="pr"><span class="pay">Деньги или бартер</span><span class="s">1 неделя</span></div></div>
+        <div class="hi"><p class="lab">Запуск</p><h3>Полный цикл</h3><ul><li>интеграция в YouTube-ролик</li><li>Reels + TikTok с той же съёмки</li><li>серия из 3–5 сторис</li><li>отчёт на 7-й день по всем площадкам</li></ul><p class="fit">Чтобы запустить продукт сразу на трёх площадках с одной съёмки.</p><div class="pr"><span class="pay">Деньги или бартер</span><span class="s">2 недели</span></div></div>
+        <div><p class="lab">Сезон</p><h3>Три месяца</h3><ul><li>2 интеграции в YouTube</li><li>3 Reels + TikTok</li><li>сторис каждые две недели</li><li>упоминание в блоге</li><li>эксклюзив в категории на срок пакета</li></ul><p class="fit">Чтобы продукт был в кадре весь сезон, а не одним роликом.</p><div class="pr"><span class="pay">Деньги или бартер</span><span class="s">3 месяца</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 process -->
+<section class="slide" id="s09">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Как проходит работа</span><span class="r">10 / 13</span></div>
+    <div class="body" style="grid-template-rows:auto auto minmax(0,1fr)">
+      <h2 style="grid-column:1/9">От письма до отчёта — четыре шага</h2>
+      <div class="steps">
+        <div><div class="d"><small>День</small>0–2</div><h3>Бриф</h3><p class="t">Вы пишете, что за продукт и что важно. Я отвечаю, в какой рецепт он ляжет, и называю цену.</p></div>
+        <div><div class="d"><small>День</small>2–7</div><h3>Продукт у меня</h3><p class="t">Доставка по Польше до 5 дней. Готовлю с продуктом. Если не подходит — говорю сразу и возвращаю предоплату.</p></div>
+        <div><div class="d"><small>День</small>7–9</div><h3>Черновик</h3><p class="t">Ролик на согласование за два дня до выхода. Одна правка по фактам о продукте входит в цену.</p></div>
+        <div><div class="d"><small>День</small>10 + 7</div><h3>Выход и отчёт</h3><p class="t">Публикация в оговорённый день. Через неделю — скриншоты охвата и реакций из аналитики.</p></div>
+      </div>
+      <div style="grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:1.6cqw;align-self:end;border-top:1px solid var(--line);padding-top:1.1cqw">
+        <div><p class="lab">Предоплата</p><p class="t" style="margin-top:.3cqw">50% после согласования брифа, 50% после публикации.</p></div>
+        <div><p class="lab">Текст бренда</p><p class="t" style="margin-top:.3cqw">Публикую, если совпадает с моим мнением о продукте. Иначе переписываю и показываю до выхода.</p></div>
+        <div><p class="lab">Договор</p><p class="t" style="margin-top:.3cqw">Работаю по договору или инвойсу. Реквизиты — по запросу.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 brands & quotes -->
+<section class="slide" id="s10">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">С кем работала</span><span class="r">11 / 13</span></div>
+    <div class="body">
+      <div class="bw">
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/kenwood.svg" alt="Kenwood"></div><p class="c">кухонная техника</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/bosch.svg" alt="Bosch"></div><p class="c">бытовая техника</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/braun.svg" alt="Braun"></div><p class="c">бытовая техника</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/lg.svg" alt="LG"></div><p class="c">холодильники, пылесосы, микроволновки</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/xiaomi.svg" alt="Xiaomi" class="sm"></div><p class="c">пылесосы, умный дом</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/bobsnail.svg" alt="Bob Snail"></div><p class="c">фруктовые снеки</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/monobank.svg" alt="monobank"></div><p class="c">украинский банк</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/allo.svg" alt="Алло"></div><p class="c">магазин техники</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/comfy.svg" alt="Comfy"></div><p class="c">магазин техники</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/citrus.svg" alt="Цитрус"></div><p class="c">гаджеты и аксессуары</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/auchan.svg" alt="Ашан"></div><p class="c">сеть гипермаркетов</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/silpo.svg" alt="Сільпо"></div><p class="c">сеть супермаркетов</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/crocs.svg" alt="Crocs"></div><p class="c">обувь</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/byd.svg" alt="BYD"></div><p class="c">электромобили</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/ecofactor.svg" alt="ECOFACTOR"></div><p class="c">сеть зарядных станций</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/nomotors.png" alt="NoMotors" class="sm"></div><p class="c">автомобильный трек: блюда, техкарты, разработка ресторана</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/miele.svg" alt="Miele" class="sm"></div><p class="c">кухни</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/goodwine.svg" alt="GoodWine"></div><p class="c">киевский магазин вина и напитков</p></div>
+        <div class="bt"><div class="l"><img src="/partners/assets/logos/cointreau.png" alt="Cointreau"></div><p class="c">апельсиновый ликёр</p></div>
+        <div class="bt note"><p class="nt">Публикации по этим проектам были временными и сняты после окончания кампаний, поэтому здесь их нет. Логотипы принадлежат их владельцам и показаны для иллюстрации сотрудничества.</p></div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 rules -->
+<section class="slide dark" id="s11">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Условия</span><span class="r">12 / 13</span></div>
+    <div class="body" style="grid-template-rows:auto minmax(0,1fr)">
+      <h2 style="grid-column:1/10">Чего не делаю и на что даю права</h2>
+      <div class="r4">
+        <div><h3>Не рекламирую</h3><ul><li>казино</li><li>аптеки и аптечные товары</li><li>ингредиенты в оплату (мука, фрукты, масло) не беру: беру деньги, технику, ножи, оборудование</li></ul></div>
+        <div><h3>Маркировка</h3><p class="t">Каждый рекламный выход помечен как реклама по правилам площадки и закона. На результат это не влияет — проверено.</p></div>
+        <div><h3>Права на материал</h3><p class="t">Бренд использует готовое видео в своих соцсетях и на сайте 6 месяцев с указанием автора. Платное продвижение с моего аккаунта, наружка, ТВ — отдельно.</p></div>
+        <div><h3>Эксклюзив</h3><p class="t">30 дней после выхода не рекламирую прямого конкурента в той же категории. Дольше — в пакете «Сезон» или по договору.</p></div>
+      </div>
+      <div style="grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:1.6cqw;align-self:end;border-top:1px solid rgba(244,241,236,.18);padding-top:1.1cqw">
+        <div><p class="lab">Язык выхода</p><p class="t" style="margin-top:.3cqw">Русский или украинский в кадре, субтитры по запросу. Польские вставки — если продукт для польского рынка.</p></div>
+        <div><p class="lab">Срок предложения</p><p class="t" style="margin-top:.3cqw">Цены и слоты в этом медиаките действуют 60 дней с даты на обложке.</p></div>
+        <div><p class="lab">Отчётность</p><p class="t" style="margin-top:.3cqw">Скриншоты из аналитики площадок на 7-й день после каждого выхода. Без сервисов-посредников.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 contact -->
+<section class="slide" id="s12">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Контакт</span><span class="r">13 / 13</span></div>
+    <div class="body">
+      <div class="ct">
+        <div>
+          <h2>Напишите, что у вас за продукт — отвечу, куда он ляжет</h2>
+          <p class="mail" style="margin-top:2cqw">hello@troublebaba.com</p>
+          <p class="s" style="margin-top:.6cqw">Отвечаю в течение двух рабочих дней.</p>
+        </div>
+        <div class="rows">
+          <span>Instagram</span><span>@troublebaba — директ работает, но почта надёжнее</span>
+          <span>Сайт</span><span>troublebaba.com</span>
+          <span>Подпись</span><span>TROUBLEBABA</span>
+        </div>
+      </div>
+      <div class="qr"><img src="/partners/assets/qr.svg" alt="QR-код: troublebaba.com"></div>
+      <div class="ct-img img"><img src="/partners/assets/bonus-author-2.webp" alt="Евгения за съёмкой на кухне"></div>
+    </div>
+  </div>
+</section>
+
+<!-- appendix 1 -->
+<section class="slide" id="a01">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Приложение · Instagram</span><span class="r">Прил. 1 / 5</span></div>
+    <div class="body">
+      <div class="ap"><div class="phone"><img src="/partners/assets/stats/ig-home-90d.jpg" alt="Instagram, Сводка за 90 дней"></div><div class="phone"><img src="/partners/assets/stats/ig-countries.jpg" alt="Instagram: возраст и страны"></div><div class="phone"><img src="/partners/assets/stats/ig-lang-activity.jpg" alt="Instagram: языки и часы активности"></div></div>
+      <div class="apt"><p class="lab">Instagram · «Ваша панель»</p><h3>Скрины как есть</h3><p class="t">Без обработки, кроме обрезки строки состояния с временем и зарядом.</p><hr class="hr"><ul><li>слева: сводка за 90 дней (1 авг – 29 окт): 3 398 104 просмотра, подписчики 71 641, +5 623</li><li>в центре: возраст и страны подписчиков</li><li>справа: языки и самые активные часы (GMT+1)</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- appendix 2 -->
+<section class="slide" id="a02">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Приложение · Instagram, ролики</span><span class="r">Прил. 2 / 5</span></div>
+    <div class="body">
+      <div class="ap"><div class="phone"><img src="/partners/assets/stats/ig-top-views.jpg" alt="Instagram: лучшие ролики по просмотрам"></div><div class="phone"><img src="/partners/assets/stats/ig-top-subs.jpg" alt="Instagram: лучшие ролики по подпискам"></div><div class="phone"><img src="/partners/assets/stats/ig-top-shares.jpg" alt="Instagram: лучшие ролики по отправкам"></div></div>
+      <div class="apt"><p class="lab">Instagram · 180 дней</p><h3>Лучшие ролики</h3><p class="t">Один и тот же список, три сортировки: по просмотрам, по подпискам, по отправкам.</p><hr class="hr"><ul><li>«Медовик» (14.09): 1,4 млн просмотров, 3,3 тыс. подписок, 15 тыс. отправок</li><li>«Норвежский торт» (07.07): 1,1 млн просмотров, 6,5 тыс. отправок</li><li>по подпискам лидируют те же ролики: «Медовик» 3,3 тыс., «Норвежский торт» 1,6 тыс., тирамису 1,5 тыс.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- appendix 3 -->
+<section class="slide" id="a03">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Приложение · Reels, Edits</span><span class="r">Прил. 3 / 5</span></div>
+    <div class="body">
+      <div class="edits"><img src="/partners/assets/stats/ig-edits-30d.jpg" alt="Карточка статистики Instagram Edits за 30 дней"></div>
+      <div class="edn">
+        <div><p class="lab">Instagram Edits · 29 сентября – 29 октября 2026</p><h3 style="margin-top:.6cqw;font-size:1.7cqw">Reels за 30 дней: 5 роликов</h3></div>
+        <div class="g6">
+          <div><div class="num">312 тыс.</div><div class="pl">просмотров Reels</div></div>
+          <div><div class="num">184 тыс.</div><div class="pl">зрителей</div></div>
+          <div><div class="num">13 тыс.</div><div class="pl">сохранений</div></div>
+          <div><div class="num">4,3 тыс.</div><div class="pl">отправок</div></div>
+          <div><div class="num">7,6 тыс.</div><div class="pl">лайков</div></div>
+          <div><div class="num">130</div><div class="pl">комментариев</div></div>
+        </div>
+        <p class="s" style="font-size:.98cqw">Экспорт из Instagram Edits. Считает только Reels, опубликованные в этот период. Панель «Ваша панель» считает все просмотры за период, включая старые ролики, поэтому у неё 420 тыс. просмотров Reels, а не 312 тыс.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- appendix 4 -->
+<section class="slide" id="a04">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Приложение · TikTok</span><span class="r">Прил. 4 / 5</span></div>
+    <div class="body">
+      <div class="ap"><div class="phone"><img src="/partners/assets/stats/tt-age-28d.jpg" alt="TikTok: возраст зрителей за 28 дней"></div><div class="phone"><img src="/partners/assets/stats/tt-countries-28d.jpg" alt="TikTok: страны зрителей за 28 дней"></div><div class="phone"><img src="/partners/assets/stats/tt-followers.jpg" alt="TikTok: подписчики"></div></div>
+      <div class="apt"><p class="lab">TikTok Studio · «Аналитика»</p><h3>Зрители и подписчики</h3><p class="t">Данные за 28 дней (1–28 октября) и общее число подписчиков.</p><hr class="hr"><ul><li>слева: возраст зрителей — 25–34 лет 28,5%, 35–44 — 22,6%</li><li>в центре: страны зрителей за 28 дней</li><li>справа: 91 294 подписчика, пол подписчиков 35% / 65%</li></ul></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- appendix 5 -->
+<section class="slide" id="a05">
+  <div class="in">
+    <div class="bar"><span class="l">TROUBLEBABA</span><span class="c">Приложение · YouTube</span><span class="r">Прил. 5 / 5</span></div>
+    <div class="body" style="grid-template-rows:auto minmax(0,1fr)">
+      <div style="grid-column:1/7;display:flex;flex-direction:column;gap:.8cqw"><div class="wide" style="aspect-ratio:582/396"><img src="/partners/assets/stats/yt-overview-28d.jpg" alt="YouTube Studio, Обзор за 28 дней" style="width:100%;height:100%;object-fit:cover;border-radius:.6cqw;display:block"></div><p class="src">YouTube Studio, обзор канала, 2–29 октября 2026.</p></div>
+      <div style="grid-column:7/13;display:flex;flex-direction:column;gap:.8cqw"><div class="wide" style="aspect-ratio:804/464"><img src="/partners/assets/stats/yt-audience-28d.jpg" alt="YouTube Studio: возраст, пол и регионы" style="width:100%;height:100%;object-fit:cover;border-radius:.6cqw;display:block"></div><p class="src">YouTube Studio, вкладка «Аудитория»: пол, возраст, регионы за 28 дней.</p></div>
+      <div style="grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:1.6cqw;align-self:end;border-top:1px solid var(--ink);padding-top:1.2cqw">
+        <div><div class="num" style="font-size:3cqw">280 тыс.</div><p class="s" style="margin-top:.5cqw">просмотров за 28 дней, +322 подписчика, всего подписчиков 24 738</p></div>
+        <div><div class="num" style="font-size:3cqw">79,4%</div><p class="s" style="margin-top:.5cqw">женщины; 25–34 лет 24,5%, 35–44 — 23,3%, 45–54 — 17,2%</p></div>
+        <div><div class="num" style="font-size:3cqw">27,6%</div><p class="s" style="margin-top:.5cqw">Россия; Украина 12,4%, Казахстан 11,4%, Германия 6,3%</p></div>
+        <div><div class="num" style="font-size:3cqw">93,3%</div><p class="s" style="margin-top:.5cqw">времени просмотра — с телефона; новые зрители 78,3%</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+</div>
+</body></html>
